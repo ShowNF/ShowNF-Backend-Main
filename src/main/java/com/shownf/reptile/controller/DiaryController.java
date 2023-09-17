@@ -4,6 +4,7 @@ import com.shownf.reptile.Model.DTO.RequestDiaryDTO;
 import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
 import com.shownf.reptile.Model.DTO.ResponseDiarysDTO;
 import com.shownf.reptile.service.DiaryService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,19 +25,25 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
+
     // 다이어리 조회
+    @ApiOperation(value = "다이어리 조회", notes = "다이어리 아이디로 다이어리 한 개를 조회한다.")
     @GetMapping("diary/{diaryId}")
     public RequestDiaryDTO getDiary(@PathVariable Long diaryId){
         return diaryService.getDiary(diaryId);
     }
 
+
     // 다이어리 월별로 조회
+    @ApiOperation(value = "다이어리 월별로 조회", notes = "년도와 월을 입력하면 월에 존재하는 다이어리를 조회한다.")
     @GetMapping("diary/date/{date}")
     public List<ResponseDiarysDTO> getDiarys(@PathVariable String date){
         return diaryService.getDiarys(date);
     }
 
+
     // 다이어리 저장
+    @ApiOperation(value = "다이어리 저장", notes = "다이어리 작성시 저장")
     @PostMapping("diary")
     public ResponseEntity<Map<String, Object>> saveDiary(@RequestBody RequestDiarySaveDTO requestDiarySaveDTO){
         Long diaryId = diaryService.saveDiary(requestDiarySaveDTO);
