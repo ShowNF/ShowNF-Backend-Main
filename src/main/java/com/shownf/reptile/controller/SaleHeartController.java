@@ -3,6 +3,7 @@ package com.shownf.reptile.controller;
 import com.shownf.reptile.Model.DTO.RequestSaleHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestSaleHeartSaveDTO;
 import com.shownf.reptile.service.SaleHeartService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,9 @@ public class SaleHeartController {
         this.saleHeartService = saleHeartService;
     }
 
+
     // 분양글 좋아요 저장
+    @ApiOperation(value = "분양글 좋아요 저장", notes = "분양글에 좋아요를 누를시 저장한다.")
     @PostMapping("saleHeart")
     public ResponseEntity<Map<String, Object>> saveSaleHeart(@RequestBody RequestSaleHeartSaveDTO RequestSaleHeartSaveDTO){
         Long saleHeartId = saleHeartService.saveSaleHeart(RequestSaleHeartSaveDTO);
@@ -39,6 +42,7 @@ public class SaleHeartController {
     }
 
     // 분양글 좋아요 삭제
+    @ApiOperation(value = "분양글 좋아요 삭제", notes = "분양글에 좋아요를 누를시 삭제한다.")
     @DeleteMapping("saleHeart")
     public ResponseEntity<Map<String, Object>> deleteSaleHeart(@RequestBody RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO){
         Long saleHeartId = saleHeartService.deleteSaleHeart(requestSaleHeartDeleteDTO);
