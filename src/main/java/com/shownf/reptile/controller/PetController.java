@@ -3,6 +3,7 @@ package com.shownf.reptile.controller;
 import com.shownf.reptile.Model.DTO.RequestPetDTO;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
 import com.shownf.reptile.service.PetService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,19 +27,25 @@ public class PetController {
         this.petService = petService;
     }
 
+
     // 마이펫 조회
+    @ApiOperation(value = "마이펫 조회", notes = "마이펫 아이디로 마이펫찾기")
     @GetMapping("pet/{petId}")
     public RequestPetDTO getPet(@PathVariable Long petId){
         return petService.getPet(petId);
     }
 
+
     // 마이펫 전체 조회
+    @ApiOperation(value = "마이펫 전체 조회", notes = "유저 아이디로 찾은 마이펫 12개씩 페이징 조회")
     @GetMapping("pet/user/{userId}")
     public Page<RequestPetDTO> getHotPosts(@PathVariable String userId, @PageableDefault(size=12, sort="uploadTime", direction = Sort.Direction.ASC) Pageable pageable){
         return petService.getPets(userId, pageable);
     }
 
+
     // 마이펫 저장
+    @ApiOperation(value = "마이펫 저장", notes = "마이펫 작성시 저장")
     @PostMapping("pet")
     public ResponseEntity<Map<String, Object>> savePet(@RequestBody RequestPetSaveDTO requestPetSaveDTO){
         Long petId = petService.savePet(requestPetSaveDTO);
