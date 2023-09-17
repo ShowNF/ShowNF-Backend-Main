@@ -4,6 +4,7 @@ import com.shownf.reptile.Model.DTO.RequestCommentDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestCommentSaveDTO;
 import com.shownf.reptile.Model.DTO.RequestCommentsDTO;
 import com.shownf.reptile.service.CommentService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,13 +25,17 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+
     // 댓글 전체 조회
+    @ApiOperation(value = "댓글 전체 조회", notes = "게시판 아이디에 해당하는 댓글을 찾는다.")
     @GetMapping("comment/post/{postId}")
     public List<RequestCommentsDTO> getComments(@PathVariable Long postId){
         return commentService.getComments(postId);
     }
 
+
     // 댓글 저장
+    @ApiOperation(value = "댓글 저장", notes = "댓글 작성시 저장한다.")
     @PostMapping("comment")
     public ResponseEntity<Map<String, Object>> saveComment(@RequestBody RequestCommentSaveDTO requestCommentSaveDTO){
         Long commentId = commentService.saveComment(requestCommentSaveDTO);
@@ -46,7 +51,9 @@ public class CommentController {
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
 
+
     // 댓글 삭제
+    @ApiOperation(value = "댓글 삭제", notes = "댓글 삭제시 삭제한다.")
     @DeleteMapping("comment")
     public ResponseEntity<Map<String, Object>> deleteComment(@RequestBody RequestCommentDeleteDTO requestCommentDeleteDTO){
         Long commentId = commentService.deleteComment(requestCommentDeleteDTO);
