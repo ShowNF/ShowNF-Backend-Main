@@ -3,6 +3,7 @@ package com.shownf.reptile.controller;
 import com.shownf.reptile.Model.DTO.RequestImageDTO;
 import com.shownf.reptile.Model.DTO.ResponseImagesDTO;
 import com.shownf.reptile.service.ImageService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,19 +26,25 @@ public class ImageController {
         this.imageService = imageService;
     }
 
+
     // 스와이프 이미지 조회
+    @ApiOperation(value = "이미지 전체 조회", notes = "스와이프에서 사용하는 이미지 5개씩 페이징 조회")
     @GetMapping("image")
     public Page<RequestImageDTO> getImages(@PageableDefault(size=5, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
         return imageService.getImages(pageable);
     }
 
+
     // 유저가 좋아요한 이미지 조회
+    @ApiOperation(value = "유저가 좋아요한 이미지 조회", notes = "유저 아이디를 입력받아 해당되는 이미지 조회")
     @GetMapping("image/user/{userId}")
     public List<ResponseImagesDTO> getUserImageHearts(@PathVariable String userId){
         return imageService.getUserImageHearts(userId);
     }
 
+
     // 이미지 저장
+    @ApiOperation(value = "이미지 저장", notes = "파일을 하나씩 받을때마다 저장")
     @PostMapping("image")
     public String saveImage(@RequestParam("file")MultipartFile file) throws IOException {
         return imageService.saveImage(file);
