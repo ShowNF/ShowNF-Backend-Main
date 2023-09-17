@@ -1,4 +1,10 @@
 # ShowNF-backend
 # ShowNF
 
-ShowNF 메인 백엔드입니다
+ShowNF 메인 백엔드입니다.
+
+
+## 기술스택
+
+
+## 스웨거
