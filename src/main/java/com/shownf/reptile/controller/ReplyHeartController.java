@@ -3,6 +3,7 @@ package com.shownf.reptile.controller;
 import com.shownf.reptile.Model.DTO.RequestReplyHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestReplyHeartSaveDTO;
 import com.shownf.reptile.service.ReplyHeartService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,9 @@ public class ReplyHeartController {
         this.replyHeartService = replyHeartService;
     }
 
+
     // 대댓글 좋아요 저장
+    @ApiOperation(value = "대댓글 좋아요 저장", notes = "대댓글에 좋아요를 누를시 저장한다.")
     @PostMapping("replyHeart")
     public ResponseEntity<Map<String, Object>> saveReplyHeart(@RequestBody RequestReplyHeartSaveDTO requestReplyHeartSaveDTO){
         Long replyHeartId = replyHeartService.saveReplyHeart(requestReplyHeartSaveDTO);
@@ -38,7 +41,9 @@ public class ReplyHeartController {
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
 
+
     // 대댓글 좋아요 삭제
+    @ApiOperation(value = "대댓글 좋아요 삭제", notes = "대댓글에 좋아요를 누를시 삭제한다.")
     @DeleteMapping("replyHeart")
     public ResponseEntity<Map<String, Object>> deleteReplyHeart(@RequestBody RequestReplyHeartDeleteDTO requestReplyHeartDeleteDTO){
         Long replyHeartId = replyHeartService.deleteReplyHeart(requestReplyHeartDeleteDTO);
