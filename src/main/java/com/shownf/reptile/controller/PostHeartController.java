@@ -3,6 +3,7 @@ package com.shownf.reptile.controller;
 import com.shownf.reptile.Model.DTO.RequestPostHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestPostHeartSaveDTO;
 import com.shownf.reptile.service.PostHeartService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,9 @@ public class PostHeartController {
         this.postHeartService = postHeartService;
     }
 
+
     // 게시물 좋아요 추가
+    @ApiOperation(value = "게시물 좋아요 저장", notes = "게시물에 좋아요를 누를시 저장한다.")
     @PostMapping("postHeart")
     public ResponseEntity<Map<String, Object>> savePostHeart(@RequestBody RequestPostHeartSaveDTO requestPostHeartDTO){
         Long postHeartId = postHeartService.savePostHeart(requestPostHeartDTO);
@@ -38,7 +41,9 @@ public class PostHeartController {
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
 
+
     // 게시물 좋아요 삭제
+    @ApiOperation(value = "게시물 좋아요 삭제", notes = "게시물에 좋아요를 누를시 삭제한다.")
     @DeleteMapping("postHeart")
     public ResponseEntity<Map<String, Object>> deletePostHeart(@RequestBody RequestPostHeartDeleteDTO requestPostHeartDeleteDTO){
         Long postHeartId = postHeartService.deletePostHeart(requestPostHeartDeleteDTO);
