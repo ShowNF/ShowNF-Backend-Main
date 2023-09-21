@@ -1,16 +1,16 @@
 package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestChatRoomSaveDTO;
+import com.shownf.reptile.Model.DTO.ResponseChatRoomDTO;
 import com.shownf.reptile.service.ChatRoomService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,6 +22,12 @@ public class ChatRoomController {
     @Autowired
     public ChatRoomController(ChatRoomService chatRoomService) {
         this.chatRoomService = chatRoomService;
+    }
+
+    // 판매자 채팅방 전체 조회
+    @GetMapping("chatRoom/seller/{userId}")
+    public List<ResponseChatRoomDTO> getSellerChatRooms(@PathVariable String userId){
+        return chatRoomService.getSellerChatRooms(userId);
     }
 
     // 채팅방 저장
