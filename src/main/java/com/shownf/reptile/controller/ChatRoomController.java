@@ -2,6 +2,7 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestChatRoomSaveDTO;
 import com.shownf.reptile.Model.DTO.ResponseChatRoomDTO;
+import com.shownf.reptile.Model.entity.ChatDAO;
 import com.shownf.reptile.service.ChatRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,25 @@ public class ChatRoomController {
     public ChatRoomController(ChatRoomService chatRoomService) {
         this.chatRoomService = chatRoomService;
     }
+
+    @PostMapping("/chat-event")
+    public ResponseEntity<String> handleChatEvent(@RequestBody ChatDAO chat) {
+
+        String senderId = chat.getSenderId();
+        String senderName = chat.getSenderName();
+        String content = chat.getContent();
+        long timestamp = chat.getTimestamp();
+
+
+        System.out.println("Received Chat Message:");
+        System.out.println("Sender ID: " + senderId);
+        System.out.println("Sender Name: " + senderName);
+        System.out.println("Content: " + content);
+        System.out.println("Timestamp: " + timestamp);
+
+        return ResponseEntity.ok("Chat event received successfully!");
+    }
+
 
     // 판매자 채팅방 전체 조회
     @GetMapping("chat-room/seller/{userId}")
