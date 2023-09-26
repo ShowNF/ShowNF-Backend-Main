@@ -2,7 +2,7 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestChatRoomSaveDTO;
 import com.shownf.reptile.Model.DTO.ResponseChatRoomDTO;
-import com.shownf.reptile.Model.entity.ChatDAO;
+import com.shownf.reptile.Model.DTO.ResponseChatDTO;
 import com.shownf.reptile.service.ChatRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,10 @@ public class ChatRoomController {
     }
 
     @PostMapping("/chat-event")
-    public ResponseEntity<String> handleChatEvent(@RequestBody ChatDAO chat) {
+    public ResponseEntity<String> handleChatEvent(@RequestBody ResponseChatDTO chat) {
 
+        String chatId = chat.getChatId();
+        String contentId = chat.getContentId();
         String senderId = chat.getSenderId();
         String senderName = chat.getSenderName();
         String content = chat.getContent();
@@ -34,6 +36,8 @@ public class ChatRoomController {
 
 
         System.out.println("Received Chat Message:");
+        System.out.println("Chat ID: " + chatId);
+        System.out.println("Content ID: " + contentId);
         System.out.println("Sender ID: " + senderId);
         System.out.println("Sender Name: " + senderName);
         System.out.println("Content: " + content);
