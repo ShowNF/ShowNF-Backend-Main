@@ -21,7 +21,6 @@ public class CreateDiarysDTOBean {
 
             responseDiarysDTO.setDiaryId(diaryDAO.getDiaryId());
             responseDiarysDTO.setPetId(diaryDAO.getPetId());
-            responseDiarysDTO.setUserId(diaryDAO.getUserId());
             responseDiarysDTO.setDate(diaryDAO.getDate());
 
             responseDiarysDTOs.add(responseDiarysDTO);
