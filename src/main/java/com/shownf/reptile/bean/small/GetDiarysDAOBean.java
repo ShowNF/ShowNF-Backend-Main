@@ -5,6 +5,7 @@ import com.shownf.reptile.repository.DiaryRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -17,8 +18,15 @@ public class GetDiarysDAOBean {
         this.diaryRepositoryJPA = diaryRepositoryJPA;
     }
 
-    // 월별로 다이어리 조회
-    public List<DiaryDAO> exec(String month){
-        return diaryRepositoryJPA.findByMonth(month);
+    // 펫아이디로 월별 다이어리 조회
+    public List<DiaryDAO> exec(Long petId, String yearMonth){
+        List<DiaryDAO> diaryDAOs = diaryRepositoryJPA.findByPetId(petId);
+        List<DiaryDAO> newDiaryDAOs = new ArrayList<>();
+
+        for(DiaryDAO diaryDAO : diaryDAOs){
+            if (diaryDAO.getMonth().equals(yearMonth))
+                newDiaryDAOs.add(diaryDAO);
+        }
+        return newDiaryDAOs;
     }
 }
