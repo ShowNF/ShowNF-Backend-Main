@@ -6,6 +6,5 @@ import lombok.Data;
 public class ResponseDiarysDTO {
     Long diaryId;
     Long petId;
-    String userId;
     String date;
 }
