@@ -18,7 +18,6 @@ public class DiaryDAO {
     @Id
     Long diaryId;
     Long petId;
-    String userId;
     String food;
     Integer foodCounter;
     String size;

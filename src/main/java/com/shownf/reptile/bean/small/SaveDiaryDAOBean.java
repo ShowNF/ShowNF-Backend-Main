@@ -29,9 +29,6 @@ public class SaveDiaryDAOBean {
         // 마이펫 아이디
         Long petId = requestDiarySaveDTO.getPetId();
 
-        // 유저 아이디
-        String userId = requestDiarySaveDTO.getUserId();
-
         // 먹이
         String food = requestDiarySaveDTO.getFood();
 
@@ -59,6 +56,6 @@ public class SaveDiaryDAOBean {
         if (words[1].length() < 2) month = words[0] + "0" + words[1];
         else month = words[0] + words[1];
 
-        exec(new DiaryDAO(diaryId, petId, userId, food, foodCounter, size, weight, memo, uploadTime, date, month));
+        exec(new DiaryDAO(diaryId, petId, food, foodCounter, size, weight, memo, uploadTime, date, month));
     }
 }
