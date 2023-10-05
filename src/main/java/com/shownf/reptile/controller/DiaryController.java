@@ -36,9 +36,9 @@ public class DiaryController {
 
     // 다이어리 월별로 조회
     @ApiOperation(value = "다이어리 월별로 조회", notes = "년도와 월을 입력하면 월에 존재하는 다이어리를 조회한다.")
-    @GetMapping("diary/date/{date}")
-    public List<ResponseDiarysDTO> getDiarys(@PathVariable String date){
-        return diaryService.getDiarys(date);
+    @GetMapping("diary/pet/{petId}/date/{year}/{month}")
+    public List<ResponseDiarysDTO> getDiarys(@PathVariable Long petId, @PathVariable String year, @PathVariable String month){
+        return diaryService.getDiarys(petId, year, month);
     }
 
 

@@ -8,6 +8,7 @@ import com.shownf.reptile.bean.GetDiarysBean;
 import com.shownf.reptile.bean.SaveDiaryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class DiaryService {
     }
 
     // 다이어리 월별로 조회
-    public List<ResponseDiarysDTO> getDiarys(String date){
-        return getDiarysBean.exec(date);
+    public List<ResponseDiarysDTO> getDiarys(Long petId, String year, String month){
+        return getDiarysBean.exec(petId, year, month);
     }
 
     // 다이어리 저장

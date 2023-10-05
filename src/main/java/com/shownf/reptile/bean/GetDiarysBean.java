@@ -22,15 +22,17 @@ public class GetDiarysBean {
     }
 
     // 다이어리 월별로 조회
-    public List<ResponseDiarysDTO> exec(String date){
+    public List<ResponseDiarysDTO> exec(Long petId, String year, String month){
 
-        // date 월로 바꾸기
-        String month = date.replaceAll(" ", "").substring(0,6);
+        // year, month 합치기
+        String yearMonth;
+        if (month.length() < 2) yearMonth = year + "0" + month;
+        else yearMonth = year + month;
 
-        // 월로 다이어리 객체 찾기
-        List<DiaryDAO> diaryDAOs = getDiarysDAOBean.exec(month);
+        // 펫아이디와 월로 다이어리 객체 찾기
+        List<DiaryDAO> diaryDAOs = getDiarysDAOBean.exec(petId, yearMonth);
 
-        // DAO 객체 DTO로 반환
+        // DAO 객체 DTO 로 반환
         return createDiarysDTOBean.exec(diaryDAOs);
     }
 }
