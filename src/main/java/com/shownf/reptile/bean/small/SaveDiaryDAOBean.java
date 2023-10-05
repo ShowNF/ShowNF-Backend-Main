@@ -54,7 +54,10 @@ public class SaveDiaryDAOBean {
         String date = requestDiarySaveDTO.getDate();
 
         // 년, 월
-        String month = date.replaceAll(" ", "").substring(0, 6);
+        String month;
+        String[] words = date.split(" ");
+        if (words[1].length() < 2) month = words[0] + "0" + words[1];
+        else month = words[0] + words[1];
 
         exec(new DiaryDAO(diaryId, petId, userId, food, foodCounter, size, weight, memo, uploadTime, date, month));
     }
