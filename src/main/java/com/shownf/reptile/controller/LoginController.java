@@ -2,10 +2,12 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,14 +39,18 @@ public class LoginController {
     public ResponseEntity<Map<String, Object>> socialLogin(@RequestParam String code, @PathVariable String registrationId) {
         String check = loginService.socialLogin(code, registrationId);
 
-        // HTTP 상태 변환
+        // HTTP 상태 반환
         HttpStatus httpStatus = (check != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
 
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("message", (check != null) ? "Save Success" : "Save Fail");
-        requestMap.put("check", check);
+        requestMap.put("message", (check != null) ? "Login Success" : "Login Fail");
+        requestMap.put("id", check);
 
-        return ResponseEntity.status(httpStatus).body(requestMap);
+        // 헤더 추가 및 Redirect:
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("http://shownf.s3-website.ap-northeast-2.amazonaws.com/"));
+
+        return ResponseEntity.status(httpStatus).headers(headers).body(requestMap);
     }
 }
