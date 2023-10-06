@@ -40,7 +40,7 @@ public class LoginController {
         String check = loginService.socialLogin(code, registrationId);
 
         // HTTP 상태 반환
-        HttpStatus httpStatus = (check != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus httpStatus = (check != null) ? HttpStatus.PERMANENT_REDIRECT : HttpStatus.INTERNAL_SERVER_ERROR;
 
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
