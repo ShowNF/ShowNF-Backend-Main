@@ -15,8 +15,21 @@ public class LoginController {
         this.loginService = loginService;
     }
 
+    /*//구글
     @GetMapping("/login/oauth2/code/{registrationId}")
     public void googleLogin(@RequestParam String code, @PathVariable String registrationId) {
+        loginService.socialLogin(code, registrationId);
+    }
+
+    //카카오
+    @GetMapping("/login/oauth2/kakao")
+    public void kakaoCalllback(@RequestParam String code) {
+        System.out.println("code : " + code);
+        loginService.getKakaoAccessToken(code);
+    }*/
+
+    @GetMapping("/login/oauth2/{registrationId}")
+    public void socialLogin(@RequestParam String code, @PathVariable String registrationId) {
         loginService.socialLogin(code, registrationId);
     }
 }

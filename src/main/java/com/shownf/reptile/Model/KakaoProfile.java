@@ -1,4 +1,4 @@
-package com.riding.todoback.model.DTO;
+package com.shownf.reptile.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
