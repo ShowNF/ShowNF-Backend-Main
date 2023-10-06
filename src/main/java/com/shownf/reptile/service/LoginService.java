@@ -24,12 +24,14 @@ public class LoginService {
     public LoginService(Environment env) {
         this.env = env;
     }
-    public void socialLogin(String code, String registrationId) {
+    public String  socialLogin(String code, String registrationId) {
         if ("google".equals(registrationId)) {
             loginGoogle(code, registrationId);
         } else if ("kakao".equals(registrationId)) {
             loginKakao(code);
         }
+
+        return registrationId;
     }
 
 
