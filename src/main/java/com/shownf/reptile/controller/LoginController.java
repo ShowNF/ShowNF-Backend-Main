@@ -29,7 +29,8 @@ public class LoginController {
     }*/
 
     @GetMapping("/login/oauth2/{registrationId}")
-    public void socialLogin(@RequestParam String code, @PathVariable String registrationId) {
+    public String socialLogin(@RequestParam String code, @PathVariable String registrationId) {
         loginService.socialLogin(code, registrationId);
+        return "ok";
     }
 }
