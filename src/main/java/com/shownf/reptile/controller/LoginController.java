@@ -54,12 +54,13 @@ public class LoginController {
 
             return ResponseEntity.status(httpStatus).headers(headers).body(requestMap);
         } catch (Exception e) {
-            // 예외가 발생한 경우 처리
+            // 예외가 발생한 경우 로깅
             e.printStackTrace(); // 에러 내용 로깅
 
             // 에러 응답 반환
             Map<String, Object> errorMap = new HashMap<>();
             errorMap.put("message", "Internal Server Error");
+            errorMap.put("detail", e.getMessage()); // 예외 메시지를 추가로 반환
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMap);
         }
     }
