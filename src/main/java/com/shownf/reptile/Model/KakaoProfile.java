@@ -23,6 +23,7 @@ public class KakaoProfile {
         @Data
         public static class Profile {
             public String nickname;
+            public String profile_image_url;
         }
     }
 }

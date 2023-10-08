@@ -6,9 +6,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shownf.reptile.Model.KakaoProfile;
 import com.shownf.reptile.Model.OAuthToken;
+import com.shownf.reptile.bean.SaveGoogleUserBean;
+import com.shownf.reptile.bean.SaveKakaoUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -18,8 +19,15 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class LoginService {
-    private final Environment env;
     private final RestTemplate restTemplate = new RestTemplate();
+    SaveGoogleUserBean saveGoogleUserBean;
+    SaveKakaoUserBean saveKakaoUserBean;
+
+    @Autowired
+    public LoginService(SaveGoogleUserBean saveGoogleUserBean, SaveKakaoUserBean saveKakaoUserBean) {
+        this.saveGoogleUserBean = saveGoogleUserBean;
+        this.saveKakaoUserBean = saveKakaoUserBean;
+    }
 
     @Value("${GOOGLE_CLIENT_ID}")
     String google_clientId;
@@ -48,52 +56,38 @@ public class LoginService {
     @Value("${KAKAO_PROFILE_URL}")
     String kakao_profile_url;
 
-    @Autowired
-    public LoginService(Environment env) {
-        this.env = env;
-    }
-    public String  socialLogin(String code, String registrationId) {
+    public String socialLogin(String code, String registrationId) {
         if ("google".equals(registrationId)) {
-            loginGoogle(code, registrationId);
+            return loginGoogle(code, registrationId);
         } else if ("kakao".equals(registrationId)) {
-            loginKakao(code);
+            return loginKakao(code);
         }
 
-        return registrationId;
+        return null;
     }
 
 
-    private void loginGoogle(String code, String registrationId) {
+    private String loginGoogle(String code, String registrationId) {
         String accessToken = getGoogleAccessToken(code, registrationId);
         JsonNode userResourceNode = getGoogleUserResource(accessToken, registrationId);
-        System.out.println("userResourceNode = " + userResourceNode);
 
-        String id = userResourceNode.get("id").asText();
-        String email = userResourceNode.get("email").asText();
-        String nickname = userResourceNode.get("name").asText();
-        System.out.println("id = " + id);
-        System.out.println("email = " + email);
-        System.out.println("nickname = " + nickname);
+        saveGoogleUserBean.exec(accessToken, userResourceNode);
+
+        return accessToken;
     }
 
-
-    private void loginKakao(String code) {
+    private String loginKakao(String code) {
         OAuthToken oAuthToken = getKakaoAccessToken(code);
-        System.out.println("oAuthToken = " + oAuthToken);
-        System.out.println("oAuthToken.getAccess_token() = " + oAuthToken.getAccess_token());
 
         KakaoProfile kakaoProfile = getKakaoProfile(oAuthToken.getAccess_token());
-        System.out.println(kakaoProfile);
-        System.out.println(kakaoProfile.getId());
-        System.out.println(kakaoProfile.kakao_account.getEmail());
+
+        saveKakaoUserBean.exec(oAuthToken.getAccess_token(), kakaoProfile);
+
+        return oAuthToken.getAccess_token();
     }
 
 
     private String getGoogleAccessToken(String authorizationCode, String registrationId) {
-        /*String clientId = env.getProperty("oauth2." + registrationId + ".client-id");
-        String clientSecret = env.getProperty("oauth2." + registrationId + ".client-secret");
-        String redirectUri = env.getProperty("oauth2." + registrationId + ".redirect-uri");
-        String tokenUri = env.getProperty("oauth2." + registrationId + ".token-uri");*/
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("code", authorizationCode);
@@ -114,7 +108,6 @@ public class LoginService {
 
 
     private JsonNode getGoogleUserResource(String accessToken, String registrationId) {
-        /*String resourceUri = env.getProperty("oauth2."+registrationId+".resource-uri");*/
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
@@ -124,9 +117,6 @@ public class LoginService {
 
 
     public OAuthToken getKakaoAccessToken(String code) {
-        /*String client_id = env.getProperty("kakao.client-id");
-        String redirect_uri = env.getProperty("kakao.redirect-uri");
-        String token_url = env.getProperty("kakao.token-url");*/
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
@@ -159,8 +149,6 @@ public class LoginService {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        /*String profile_url = env.getProperty("kakao.profile-url");*/
 
         HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
 

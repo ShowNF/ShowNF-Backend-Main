@@ -1,5 +1,6 @@
 package com.shownf.reptile.controller;
 
+import com.shownf.reptile.service.JwtService;
 import com.shownf.reptile.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,52 +17,39 @@ import java.util.Map;
 public class LoginController {
 
     LoginService loginService;
+    JwtService jwtService;
 
     @Autowired
-    public LoginController(LoginService loginService) {
+    public LoginController(LoginService loginService, JwtService jwtService) {
         this.loginService = loginService;
+        this.jwtService = jwtService;
     }
-
-    /*//구글
-    @GetMapping("/login/oauth2/code/{registrationId}")
-    public void googleLogin(@RequestParam String code, @PathVariable String registrationId) {
-        loginService.socialLogin(code, registrationId);
-    }
-
-    //카카오
-    @GetMapping("/login/oauth2/kakao")
-    public void kakaoCalllback(@RequestParam String code) {
-        System.out.println("code : " + code);
-        loginService.getKakaoAccessToken(code);
-    }*/
 
     @GetMapping("/login/oauth2/{registrationId}")
     public ResponseEntity<Map<String, Object>> socialLogin(@RequestParam String code, @PathVariable String registrationId) {
         try {
-            String check = loginService.socialLogin(code, registrationId);
+            String access_token = loginService.socialLogin(code, registrationId);
 
             // HTTP 상태 반환
-            HttpStatus httpStatus = (check != null) ? HttpStatus.PERMANENT_REDIRECT : HttpStatus.INTERNAL_SERVER_ERROR;
+            HttpStatus httpStatus = (access_token != null) ? HttpStatus.PERMANENT_REDIRECT : HttpStatus.INTERNAL_SERVER_ERROR;
 
-            // 메시지와 id 값 json 데이터로 반환
-            Map<String, Object> requestMap = new HashMap<>();
-            requestMap.put("message", (check != null) ? "Login Success" : "Login Fail");
-            requestMap.put("id", check);
+            String redirectUrl = "http://shownf.s3-website.ap-northeast-2.amazonaws.com?access_token=" + access_token;
 
             // 헤더 추가 및 Redirect:
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(URI.create("http://shownf.s3-website.ap-northeast-2.amazonaws.com/"));
+            headers.setLocation(URI.create(redirectUrl));
 
-            return ResponseEntity.status(httpStatus).headers(headers).body(requestMap);
+            return ResponseEntity.status(httpStatus).headers(headers).body(new HashMap<>());
+
         } catch (Exception e) {
-            // 예외가 발생한 경우 로깅
-            e.printStackTrace(); // 에러 내용 로깅
+        // 예외가 발생한 경우 로깅
+        e.printStackTrace(); // 에러 내용 로깅
 
-            // 에러 응답 반환
-            Map<String, Object> errorMap = new HashMap<>();
-            errorMap.put("message", "Internal Server Error");
-            errorMap.put("detail", e.getMessage()); // 예외 메시지를 추가로 반환
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMap);
+        // 에러 응답 반환
+        Map<String, Object> errorMap = new HashMap<>();
+        errorMap.put("message", "Internal Server Error");
+        errorMap.put("detail", e.getMessage()); // 예외 메시지를 추가로 반환
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMap);
         }
     }
 }
