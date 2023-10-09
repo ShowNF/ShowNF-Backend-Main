@@ -1,6 +1,5 @@
 package com.shownf.reptile.controller;
 
-import com.shownf.reptile.service.JwtService;
 import com.shownf.reptile.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,12 +16,10 @@ import java.util.Map;
 public class LoginController {
 
     LoginService loginService;
-    JwtService jwtService;
 
     @Autowired
-    public LoginController(LoginService loginService, JwtService jwtService) {
+    public LoginController(LoginService loginService) {
         this.loginService = loginService;
-        this.jwtService = jwtService;
     }
 
     @GetMapping("/login/oauth2/{registrationId}")
