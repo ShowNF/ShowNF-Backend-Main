@@ -5,7 +5,10 @@ import com.shownf.reptile.Model.entity.KakaoUserDAO;
 import com.shownf.reptile.repository.GoogleUserRepositoryJPA;
 import com.shownf.reptile.repository.KakaoUserRepositoryJPA;
 import lombok.NoArgsConstructor;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -17,8 +20,8 @@ import java.io.IOException;
 
 @Component
 @NoArgsConstructor
-public class CustomFilterBean /*extends GenericFilterBean */{
-    /*KakaoUserRepositoryJPA kakaoUserRepositoryJPA;
+public class CustomFilterBean extends GenericFilterBean {
+    KakaoUserRepositoryJPA kakaoUserRepositoryJPA;
     GoogleUserRepositoryJPA googleUserRepositoryJPA;
 
     @Autowired
@@ -34,7 +37,15 @@ public class CustomFilterBean /*extends GenericFilterBean */{
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String userToken = httpRequest.getHeader("access-token"); // "Your-Header-Name"을 실제 헤더 이름으로 변경하세요.
 
-        if (httpRequest.getRequestURI().substring(0, 13).equals("/login/oauth2")){
+        String requestURI = httpRequest.getRequestURI().toString();
+        String substring;
+        if (requestURI.length() >= 13) {
+            substring = requestURI.substring(0, 13);
+        } else {
+            substring = "////////////////";
+        }
+        
+        if (substring.substring(0, 13).equals("/login/oauth2")){
             chain.doFilter(request, response);
         }
         else {
@@ -63,5 +74,5 @@ public class CustomFilterBean /*extends GenericFilterBean */{
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }
         }
-    }*/
+    }
 }
