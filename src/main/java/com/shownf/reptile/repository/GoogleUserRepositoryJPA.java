@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GoogleUserRepositoryJPA extends JpaRepository<GoogleUserDAO, Long> {
     GoogleUserDAO findByGoogleId(String googleId);
+    GoogleUserDAO findByAccessToken(String accessToken);
 }

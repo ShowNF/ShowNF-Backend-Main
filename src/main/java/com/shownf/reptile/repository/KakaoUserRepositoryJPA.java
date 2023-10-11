@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface KakaoUserRepositoryJPA extends JpaRepository<KakaoUserDAO, Long> {
     KakaoUserDAO findByKakaoId(String kakaoId);
+
+    KakaoUserDAO findByAccessToken(String accessToken);
 }
