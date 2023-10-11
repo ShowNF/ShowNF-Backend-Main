@@ -62,16 +62,24 @@ public class CustomFilterBean extends GenericFilterBean {
                 //logger.info("사용자 정의 인가 필터: 토큰이 유효합니다. API 호출 허용");
 
                 SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
-                        null, null, AuthorityUtils.createAuthorityList("ROLE_ADMIN")));
+                        null, null, AuthorityUtils.createAuthorityList("ROLE_USER")));
 
                 chain.doFilter(request, response);
             } else {
                 //logger.info("사용자 정의 인가 필터: 토큰이 유효하지 않습니다. API 호출 거부");
                 // 여기서 필요에 따라 응답을 수정하거나 에러 처리를 할 수 있습니다.
+/*
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
 
                 // 예: 401 Unauthorized
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+*/
+
+//                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
+//                        null, null, AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS")));
+//                chain.doFilter(request, response);
+
+                chain.doFilter(request, response);
             }
         }
     }
