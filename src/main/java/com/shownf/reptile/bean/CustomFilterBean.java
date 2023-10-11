@@ -1,4 +1,3 @@
-/*
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.entity.GoogleUserDAO;
@@ -6,10 +5,7 @@ import com.shownf.reptile.Model.entity.KakaoUserDAO;
 import com.shownf.reptile.repository.GoogleUserRepositoryJPA;
 import com.shownf.reptile.repository.KakaoUserRepositoryJPA;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -21,8 +17,8 @@ import java.io.IOException;
 
 @Component
 @NoArgsConstructor
-public class CustomFilterBean extends GenericFilterBean {
-    KakaoUserRepositoryJPA kakaoUserRepositoryJPA;
+public class CustomFilterBean /*extends GenericFilterBean */{
+    /*KakaoUserRepositoryJPA kakaoUserRepositoryJPA;
     GoogleUserRepositoryJPA googleUserRepositoryJPA;
 
     @Autowired
@@ -67,5 +63,5 @@ public class CustomFilterBean extends GenericFilterBean {
                 httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }
         }
-    }
-}*/
+    }*/
+}

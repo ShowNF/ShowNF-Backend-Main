@@ -1,18 +1,12 @@
-/*
 package com.shownf.reptile.config;
 
-import com.shownf.reptile.bean.CustomFilterBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+/*@EnableWebSecurity*/
+public class SecurityConfig{
+/*
 
     @Autowired private CustomFilterBean customFilterBean;
 
@@ -30,5 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
         //http.addFilterBefore(customFilterBean, BasicAuthenticationFilter.class);
     }
+*/
 
-}*/
+}
