@@ -36,7 +36,7 @@ public class SaveKakaoUserBean {
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByKakaoId(id);
 
         if(kakaoUserDAO == null){
-            kakaoUserRepositoryJPA.save(new KakaoUserDAO(accessToken, id, localDateTime));
+            kakaoUserRepositoryJPA.save(new KakaoUserDAO(id, "Bearer " + accessToken, localDateTime));
             userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture));
         } else {
             kakaoUserDAO.setAccessToken(accessToken);

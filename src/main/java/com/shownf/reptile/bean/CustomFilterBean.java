@@ -1,5 +1,6 @@
-package com.shownf.reptile.config;
+package com.shownf.reptile.bean;
 
+import com.shownf.reptile.Model.entity.GoogleUserDAO;
 import com.shownf.reptile.Model.entity.KakaoUserDAO;
 import com.shownf.reptile.repository.GoogleUserRepositoryJPA;
 import com.shownf.reptile.repository.KakaoUserRepositoryJPA;
@@ -35,12 +36,16 @@ public class CustomFilterBean extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String userToken = httpRequest.getHeader("access-token"); // "Your-Header-Name"을 실제 헤더 이름으로 변경하세요.
-        System.out.println("userToken = " + userToken);
 
 
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
-        String savedToken = kakaoUserDAO.getAccessToken();
-        System.out.println("savedToken = " + savedToken);
+        GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
+
+        String savedToken;
+
+        if (kakaoUserDAO != null) savedToken = kakaoUserDAO.getAccessToken();
+        else if (googleUserDAO != null) savedToken = googleUserDAO.getAccessToken();
+        else savedToken = null;
 
         if (userToken != null && userToken.equals(savedToken)) {
             logger.info("사용자 정의 인가 필터: 토큰이 유효합니다. API 호출 허용");
