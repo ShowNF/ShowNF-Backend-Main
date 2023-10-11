@@ -38,9 +38,6 @@ dependencies {
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2' // swagger
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2' //swagger
 	implementation 'com.google.code.gson:gson:2.8.7' // kakao login
-	implementation 'org.springframework.boot:spring-boot-starter-security' // 스프링 시큐리티
-	implementation 'org.slf4j:slf4j-api:1.7.32'
-	implementation 'ch.qos.logback:logback-classic:1.2.6'
 }
 
 tasks.named('test') {
