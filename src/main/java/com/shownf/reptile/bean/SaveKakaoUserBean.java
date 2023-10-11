@@ -26,23 +26,32 @@ public class SaveKakaoUserBean {
     }
 
     public void exec(String accessToken, KakaoProfile kakaoProfile){
+
+        // 카카오 고유 아이디
         String id = kakaoProfile.getId().toString();
+
+        // 유저 이름
         String name = kakaoProfile.kakao_account.profile.getNickname();
+
+        // 프로필 사진
         String picture = kakaoProfile.kakao_account.profile.getProfile_image_url();
 
+        // 토큰 반환시간
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.plusHours(12);
 
+        // 아이디로 카카오 유저 찾기
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByKakaoId(id);
 
+        // 아이디가 이미 존재하는지에 따라 로그인 및 회원가입
         if(kakaoUserDAO == null){
-            kakaoUserRepositoryJPA.save(new KakaoUserDAO(id, "Bearer " + accessToken, localDateTime));
+            kakaoUserRepositoryJPA.save(new KakaoUserDAO(id, accessToken, localDateTime));
             userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture));
         } else {
             kakaoUserDAO.setAccessToken(accessToken);
             kakaoUserDAO.setExpirationTime(localDateTime);
-
             kakaoUserRepositoryJPA.save(kakaoUserDAO);
+
             UserDAO userDAO = userRepositoryJPA.findByUserId(id);
             userDAO.setName(name);
             userDAO.setImage(picture);
