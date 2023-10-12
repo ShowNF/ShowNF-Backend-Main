@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
-@CrossOrigin("*")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired private CustomFilterBean customFilterBean;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors();
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
