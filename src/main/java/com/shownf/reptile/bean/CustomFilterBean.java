@@ -28,7 +28,7 @@ public class CustomFilterBean extends GenericFilterBean {
     public CustomFilterBean(KakaoUserRepositoryJPA kakaoUserRepositoryJPA, GoogleUserRepositoryJPA googleUserRepositoryJPA) {
         this.kakaoUserRepositoryJPA = kakaoUserRepositoryJPA;
         this.googleUserRepositoryJPA = googleUserRepositoryJPA;
-   }
+    }
 
 
     // 사용자 정의 인가 필터을 구현합니다.
@@ -37,50 +37,45 @@ public class CustomFilterBean extends GenericFilterBean {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String userToken = httpRequest.getHeader("access-token"); // "Your-Header-Name"을 실제 헤더 이름으로 변경하세요.
 
-        String requestURI = httpRequest.getRequestURI().toString();
-        String substring;
-        if (requestURI.length() >= 13) {
-            substring = requestURI.substring(0, 13);
-        } else {
-            substring = "////////////////";
-        }
-        
-        if (substring.substring(0, 13).equals("/login/oauth2")){
+
+        KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
+        GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
+
+        String savedToken;
+
+        System.out.println("userToken = " + userToken);
+        System.out.println("kakaoUserDAO = " + kakaoUserDAO);
+        System.out.println("googleUserDAO = " + googleUserDAO);
+
+        if (kakaoUserDAO != null) savedToken = kakaoUserDAO.getAccessToken();
+        else if (googleUserDAO != null) savedToken = googleUserDAO.getAccessToken();
+        else savedToken = null;
+        System.out.println("savedToken = " + savedToken);
+
+        if (userToken != null && userToken.equals(savedToken)) {
+            //logger.info("사용자 정의 인가 필터: 토큰이 유효합니다. API 호출 허용");
+
+            System.out.println("savedToken = " + savedToken);
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
+                    null, null, AuthorityUtils.createAuthorityList("ROLE_USER")));
+
             chain.doFilter(request, response);
-        }
-        else {
-            KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
-            GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
-
-            String savedToken;
-
-            if (kakaoUserDAO != null) savedToken = kakaoUserDAO.getAccessToken();
-            else if (googleUserDAO != null) savedToken = googleUserDAO.getAccessToken();
-            else savedToken = null;
-
-            if (userToken != null && userToken.equals(savedToken)) {
-                //logger.info("사용자 정의 인가 필터: 토큰이 유효합니다. API 호출 허용");
-
-                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
-                        null, null, AuthorityUtils.createAuthorityList("ROLE_USER")));
-
-                chain.doFilter(request, response);
-            } else {
-                //logger.info("사용자 정의 인가 필터: 토큰이 유효하지 않습니다. API 호출 거부");
-                // 여기서 필요에 따라 응답을 수정하거나 에러 처리를 할 수 있습니다.
+        } else {
+            //logger.info("사용자 정의 인가 필터: 토큰이 유효하지 않습니다. API 호출 거부");
+            // 여기서 필요에 따라 응답을 수정하거나 에러 처리를 할 수 있습니다.
 /*
-                HttpServletResponse httpResponse = (HttpServletResponse) response;
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-                // 예: 401 Unauthorized
-                httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            // 예: 401 Unauthorized
+            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 */
 
 //                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
 //                        null, null, AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS")));
 //                chain.doFilter(request, response);
 
-                chain.doFilter(request, response);
-            }
+            chain.doFilter(request, response);
+
         }
     }
 }
