@@ -43,19 +43,13 @@ public class CustomFilterBean extends GenericFilterBean {
 
         String savedToken;
 
-        System.out.println("userToken = " + userToken);
-        System.out.println("kakaoUserDAO = " + kakaoUserDAO);
-        System.out.println("googleUserDAO = " + googleUserDAO);
-
         if (kakaoUserDAO != null) savedToken = kakaoUserDAO.getAccessToken();
         else if (googleUserDAO != null) savedToken = googleUserDAO.getAccessToken();
         else savedToken = null;
-        System.out.println("savedToken = " + savedToken);
 
         if (userToken != null && userToken.equals(savedToken)) {
             //logger.info("사용자 정의 인가 필터: 토큰이 유효합니다. API 호출 허용");
 
-            System.out.println("savedToken = " + savedToken);
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
                     null, null, AuthorityUtils.createAuthorityList("ROLE_USER")));
 
