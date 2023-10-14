@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login/oauth2/**", "/", "/chat-event").permitAll() // 로그인, health 체크
+                .antMatchers("/login/oauth2/**", "/", "/chat-event", "/connect/**").permitAll() // 로그인, health 체크
                 .antMatchers("/swagger-ui.html","swagger/**","/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll() // 스웨거
                 .antMatchers(HttpMethod.GET, "/image", "/comment/**", "/post/**", "/reply/**", "/sale/**").permitAll() // 스와이프
                 .antMatchers("/**").hasRole("USER")
