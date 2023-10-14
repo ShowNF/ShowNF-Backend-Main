@@ -25,29 +25,6 @@ public class ChatRoomController {
         this.chatRoomService = chatRoomService;
     }
 
-   /* @PostMapping("/chat-event")*/
-    /*public ResponseEntity<String> handleChatEvent(@RequestBody ResponseChatDTO chat) {
-
-        String chatId = chat.getChatId();
-        String contentId = chat.getContentId();
-        String senderId = chat.getSenderId();
-        String senderName = chat.getSenderName();
-        String content = chat.getContent();
-        long timestamp = chat.getTimestamp();
-
-
-        System.out.println("Received Chat Message:");
-        System.out.println("Chat ID: " + chatId);
-        System.out.println("Content ID: " + contentId);
-        System.out.println("Sender ID: " + senderId);
-        System.out.println("Sender Name: " + senderName);
-        System.out.println("Content: " + content);
-        System.out.println("Timestamp: " + timestamp);
-
-        return ResponseEntity.ok("Chat event received successfully!");
-    }*/
-
-
     // 판매자 채팅방 전체 조회
     @ApiOperation(value = "판매자 채팅방 조회", notes = "판매하는 글의 채팅방을 조회한다.")
     @GetMapping("chat-room/seller/{userId}")

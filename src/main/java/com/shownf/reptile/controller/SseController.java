@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -36,16 +37,10 @@ public class SseController {
     }
 
     @PostMapping("/chat-event")
-    public ResponseEntity<ResponseChatDTO> handleChatEvent(@RequestBody ResponseChatDTO chat) {
+    public ResponseEntity<Map<String, Object>> handleChatEvent(@RequestBody ResponseChatDTO chat) {
 
-        /*String chatId = chat.getChatId();
-        String contentId = chat.getContentId();
-        String senderId = chat.getSenderId();
-        String senderName = chat.getSenderName();
-        String content = chat.getContent();
-        long timestamp = chat.getTimestamp();*/
+        Map<String, Object> map = sseEmittersBean.receiveChat(chat);
 
-
-        return ResponseEntity.ok(chat);
+        return ResponseEntity.ok(map);
     }
 }
