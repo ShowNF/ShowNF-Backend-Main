@@ -10,44 +10,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 @Slf4j
 public class SseEmittersBean {
 
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
-    private static final AtomicLong counter = new AtomicLong();
 
     public SseEmitter add(SseEmitter emitter) {
-        this.emitters.add(emitter);
-        log.info("new emitter added: {}", emitter);
+        final SseEmitter finalEmitter = new SseEmitter(60000L);
+        this.emitters.add(finalEmitter);
+        log.info("new emitter added: {}", finalEmitter);
         log.info("emitter list size: {}", emitters.size());
-        emitter.onCompletion(() -> {
+        finalEmitter.onCompletion(() -> {
             log.info("onCompletion callback");
-            this.emitters.remove(emitter);    // 만료되면 리스트에서 삭제
+            this.emitters.remove(finalEmitter);
         });
-        emitter.onTimeout(() -> {
+        finalEmitter.onTimeout(() -> {
             log.info("onTimeout callback");
-            emitter.complete();
+            finalEmitter.complete();
         });
 
-        return emitter;
-    }
-
-    public long count() {
-        long count = counter.incrementAndGet();
-        emitters.forEach(emitter -> {
-            try {
-                emitter.send(SseEmitter.event()
-                        .name("chat")
-                        .data(count));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        });
-        return count;
+        return finalEmitter;
     }
 
     public Map<String, Object> receiveChat(ResponseChatDTO chat) {
