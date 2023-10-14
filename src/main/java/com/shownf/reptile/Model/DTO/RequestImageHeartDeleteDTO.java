@@ -6,5 +6,5 @@ import lombok.Data;
 public class RequestImageHeartDeleteDTO {
     Long imageHeartId;
     Long imageId;
-    String userId;
+    Long userId;
 }
