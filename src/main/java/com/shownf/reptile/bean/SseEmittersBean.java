@@ -7,23 +7,22 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @Slf4j
 public class SseEmittersBean {
 
-    private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    private final Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
 
-    public SseEmitter add(SseEmitter emitter, int chatRoomId) {
-        this.emitters.add(chatRoomId, emitter);
+    public SseEmitter add(SseEmitter emitter, String chatRoomId) {
+        this.emitters.put(chatRoomId, emitter);
         log.info("new emitter added: {}", emitter);
         log.info("emitter list size: {}", emitters.size());
         emitter.onCompletion(() -> {
             log.info("onCompletion callback");
-            this.emitters.remove(emitter);    // 만료되면 리스트에서 삭제
+            this.emitters.remove(chatRoomId);    // 만료되면 리스트에서 삭제
         });
         emitter.onTimeout(() -> {
             log.info("onTimeout callback");
@@ -36,7 +35,7 @@ public class SseEmittersBean {
     public Map<String, Object> receiveChat(ResponseChatDTO chat) {
         Map<String, Object> map = new HashMap<>();
         map.put(chat.getContentId(), chat);
-        emitters.forEach(emitter -> {
+        emitters.forEach((chatRoomId, emitter) -> {
             try {
                 emitter.send(SseEmitter.event()
                         .name("chat")
@@ -44,7 +43,6 @@ public class SseEmittersBean {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         });
         return map;
     }
