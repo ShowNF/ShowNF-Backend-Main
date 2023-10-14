@@ -18,7 +18,7 @@ public class GetImageHeartsDAOBean {
     }
 
     // 유저 아이디로 좋아요 객체 찾기
-    public List<ImageHeartDAO> exec(String userId){
+    public List<ImageHeartDAO> exec(Long userId){
         return imageHeartRepositoryJPA.findByUserId(userId);
     }
 }

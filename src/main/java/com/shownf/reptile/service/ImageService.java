@@ -34,7 +34,7 @@ public class ImageService {
     }
 
     // 유저가 좋아요한 이미지 조회
-    public List<ResponseImagesDTO> getUserImageHearts(String userId){
+    public List<ResponseImagesDTO> getUserImageHearts(Long userId){
         return getUserImageHeartsBean.exec(userId);
     }
 

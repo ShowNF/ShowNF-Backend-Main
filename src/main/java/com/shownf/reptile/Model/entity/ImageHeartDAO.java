@@ -18,6 +18,6 @@ public class ImageHeartDAO {
     @Id
     Long imageHeartId;
     Long imageId;
-    String userId;
+    Long userId;
     LocalDateTime uploadTime;
 }

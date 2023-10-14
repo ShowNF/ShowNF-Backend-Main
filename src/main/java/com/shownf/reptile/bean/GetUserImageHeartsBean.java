@@ -29,7 +29,7 @@ public class GetUserImageHeartsBean {
     }
 
     // 유저가 좋아요한 이미지 조회
-    public List<ResponseImagesDTO> exec(String userId){
+    public List<ResponseImagesDTO> exec(Long userId){
 
         // 유저 아이디를 통해 이미지 좋아요 객체 찾기
         List<ImageHeartDAO> imageHeartDAOs = getImageHeartsDAOBean.exec(userId);

@@ -16,7 +16,7 @@ public class CreateImageHeartDAOBean {
         Long imageId = requestImageHeartSaveDTO.getImageId();
 
         // 유저 아이디
-        String userId = requestImageHeartSaveDTO.getUserId();
+        Long userId = requestImageHeartSaveDTO.getUserId();
 
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();

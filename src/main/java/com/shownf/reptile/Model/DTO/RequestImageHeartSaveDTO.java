@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class RequestImageHeartSaveDTO {
     Long imageId;
-    String userId;
+    Long userId;
 }

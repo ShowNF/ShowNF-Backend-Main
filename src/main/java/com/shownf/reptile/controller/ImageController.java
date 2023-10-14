@@ -38,7 +38,7 @@ public class ImageController {
     // 유저가 좋아요한 이미지 조회
     @ApiOperation(value = "유저가 좋아요한 이미지 조회", notes = "유저 아이디를 입력받아 해당되는 이미지 조회")
     @GetMapping("image/user/{userId}")
-    public List<ResponseImagesDTO> getUserImageHearts(@PathVariable String userId){
+    public List<ResponseImagesDTO> getUserImageHearts(@PathVariable Long userId){
         return imageService.getUserImageHearts(userId);
     }
 
