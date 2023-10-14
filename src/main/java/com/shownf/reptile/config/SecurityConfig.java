@@ -3,6 +3,7 @@ package com.shownf.reptile.config;
 import com.shownf.reptile.bean.CustomFilterBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,7 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login/oauth2/**", "/", "/swagger-ui.html","swagger/**","/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
+                .antMatchers("/login/oauth2/**", "/").permitAll() // 로그인, health 체크
+                .antMatchers("/swagger-ui.html","swagger/**","/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll() // 스웨거
+                .antMatchers(HttpMethod.GET, "/image").permitAll() // 스와이프
                 .antMatchers("/**").hasRole("USER")
                 .anyRequest().authenticated();
         http.addFilterBefore(customFilterBean, BasicAuthenticationFilter.class);
