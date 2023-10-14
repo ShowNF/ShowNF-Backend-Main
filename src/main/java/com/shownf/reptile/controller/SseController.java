@@ -22,10 +22,10 @@ public class SseController {
         this.sseEmittersBean = sseEmittersBean;
     }
 
-    @GetMapping(value = "/connect/chat-room/{chatRoomId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<SseEmitter> connect(@PathVariable String chatRoomId) {
-        final SseEmitter emitter = new SseEmitter(60000L);
-        sseEmittersBean.add(emitter, chatRoomId);
+    @GetMapping(value = "/connect/chat-room/{chatRoomId}/user/{userId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<SseEmitter> connect(@PathVariable String chatRoomId,@PathVariable String userId) {
+        final SseEmitter emitter = new SseEmitter(180000L);
+        sseEmittersBean.add(emitter, chatRoomId, userId);
         try {
             emitter.send(SseEmitter.event()
                     .name("connect")
