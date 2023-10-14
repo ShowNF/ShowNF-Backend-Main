@@ -25,8 +25,8 @@ public class ChatRoomController {
         this.chatRoomService = chatRoomService;
     }
 
-    @PostMapping("/chat-event")
-    public ResponseEntity<String> handleChatEvent(@RequestBody ResponseChatDTO chat) {
+   /* @PostMapping("/chat-event")*/
+    /*public ResponseEntity<String> handleChatEvent(@RequestBody ResponseChatDTO chat) {
 
         String chatId = chat.getChatId();
         String contentId = chat.getContentId();
@@ -45,7 +45,7 @@ public class ChatRoomController {
         System.out.println("Timestamp: " + timestamp);
 
         return ResponseEntity.ok("Chat event received successfully!");
-    }
+    }*/
 
 
     // 판매자 채팅방 전체 조회
