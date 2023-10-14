@@ -18,13 +18,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors();
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login/oauth2/**", "/", "/swagger-ui.html#/**").permitAll()
+                .antMatchers("/login/oauth2/**", "/", "/swagger-ui.html","swagger/**","/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll()
                 .antMatchers("/**").hasRole("USER")
                 .anyRequest().authenticated();
         http.addFilterBefore(customFilterBean, BasicAuthenticationFilter.class);
