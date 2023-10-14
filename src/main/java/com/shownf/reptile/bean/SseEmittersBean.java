@@ -10,17 +10,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 @Slf4j
 public class SseEmittersBean {
 
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
-    private static final AtomicLong counter = new AtomicLong();
 
-    public SseEmitter add(SseEmitter emitter) {
-        this.emitters.add(emitter);
+    public SseEmitter add(SseEmitter emitter, int chatRoomId) {
+        this.emitters.add(chatRoomId, emitter);
         log.info("new emitter added: {}", emitter);
         log.info("emitter list size: {}", emitters.size());
         emitter.onCompletion(() -> {
