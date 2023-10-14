@@ -18,6 +18,6 @@ public class CommentHeartDAO {
     @Id
     Long commentHeartId;
     Long commentId;
-    String userId;
+    Long userId;
     LocalDateTime uploadTime;
 }

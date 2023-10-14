@@ -16,7 +16,7 @@ public class CreateCommentHeartDAOBean {
         Long commentId = requestCommentHeartSaveDTO.getCommentId();
 
         // 유저 아이디
-        String userId = requestCommentHeartSaveDTO.getUserId();
+        Long userId = requestCommentHeartSaveDTO.getUserId();
 
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();

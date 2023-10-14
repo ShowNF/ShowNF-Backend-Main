@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class RequestCommentHeartSaveDTO {
     Long commentId;
-    String userId;
+    Long userId;
 }
