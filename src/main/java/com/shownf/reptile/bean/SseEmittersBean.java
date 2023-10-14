@@ -35,7 +35,11 @@ public class SseEmittersBean {
     public Map<String, Object> receiveChat(ResponseChatDTO chat) {
         Map<String, Object> map = new HashMap<>();
         map.put(chat.getContentId(), chat);
-        emitters.forEach((chatRoomId, emitter) -> {
+
+        // chatRoomId를 이용하여 해당 채팅방에만 데이터 전송
+        String chatRoomId = chat.getChatId();
+        SseEmitter emitter = emitters.get(chatRoomId);
+        if (emitter != null) {
             try {
                 emitter.send(SseEmitter.event()
                         .name("chat")
@@ -43,7 +47,7 @@ public class SseEmittersBean {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        });
+        }
         return map;
     }
 
