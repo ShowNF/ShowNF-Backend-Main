@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 public class RequestPostDTO {
     long postId;
-    String userId;
+    Long userId;
     String title;
     String content;
     String category;

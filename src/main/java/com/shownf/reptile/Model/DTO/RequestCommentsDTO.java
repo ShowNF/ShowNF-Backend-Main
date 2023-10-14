@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class RequestCommentsDTO {
     Long commentId;
     Long postId;
-    String userId;
+    Long userId;
     String content;
     LocalDateTime uploadTime;
     Integer heartCount;

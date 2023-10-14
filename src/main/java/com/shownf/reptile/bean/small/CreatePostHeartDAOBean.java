@@ -16,7 +16,7 @@ public class CreatePostHeartDAOBean {
         Long postId = requestPostHeartSaveDTO.getPostId();
 
         // 유저 아이디
-        String userId = requestPostHeartSaveDTO.getUserId();
+        Long userId = requestPostHeartSaveDTO.getUserId();
 
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();
