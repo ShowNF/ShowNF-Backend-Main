@@ -16,7 +16,7 @@ public class CreateCommentDAOBean {
         Long postId = requestCommentSaveDTO.getPostId();
 
         // 유저 아이디
-        String userId = requestCommentSaveDTO.getUserId();
+        Long userId = requestCommentSaveDTO.getUserId();
 
         // 내용
         String content = requestCommentSaveDTO.getContent();

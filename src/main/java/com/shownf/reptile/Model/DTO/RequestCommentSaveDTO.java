@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class RequestCommentSaveDTO {
     Long postId;
-    String userId;
+    Long userId;
     String content;
 }

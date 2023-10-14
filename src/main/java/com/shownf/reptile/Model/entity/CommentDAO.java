@@ -18,7 +18,7 @@ public class CommentDAO {
     @Id
     Long commentId;
     Long postId;
-    String userId;
+    Long userId;
     String content;
     LocalDateTime uploadTime;
     Integer heartCount;

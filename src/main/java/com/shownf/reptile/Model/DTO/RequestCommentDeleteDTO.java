@@ -6,5 +6,5 @@ import lombok.Data;
 public class RequestCommentDeleteDTO {
     Long commentId;
     Long postId;
-    String userId;
+    Long userId;
 }

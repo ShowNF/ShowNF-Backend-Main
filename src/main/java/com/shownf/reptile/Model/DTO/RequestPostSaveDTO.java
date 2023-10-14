@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Data
 public class RequestPostSaveDTO {
-    String userId;
+    Long userId;
     String title;
     private List<Map<String, String>> content;
     String category;

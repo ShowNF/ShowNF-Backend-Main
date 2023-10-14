@@ -30,7 +30,7 @@ public class SavePostDAOBean {
     public void exec(long postId, RequestPostSaveDTO requestPostSaveDTO){
 
         // 유저 아이디
-        String userId = requestPostSaveDTO.getUserId();
+        Long userId = requestPostSaveDTO.getUserId();
 
         // 제목
         String title = requestPostSaveDTO.getTitle();

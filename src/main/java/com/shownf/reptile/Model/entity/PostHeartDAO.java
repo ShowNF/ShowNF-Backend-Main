@@ -18,6 +18,6 @@ public class PostHeartDAO {
     @Id
     Long postHeartId;
     Long postId;
-    String userId;
+    Long userId;
     LocalDateTime uploadTime;
 }
