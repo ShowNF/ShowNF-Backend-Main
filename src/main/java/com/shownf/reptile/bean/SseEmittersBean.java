@@ -10,28 +10,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Component
 @Slf4j
 public class SseEmittersBean {
 
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    private static final AtomicLong counter = new AtomicLong();
 
     public SseEmitter add(SseEmitter emitter) {
-        final SseEmitter finalEmitter = new SseEmitter(60000L);
-        this.emitters.add(finalEmitter);
-        log.info("new emitter added: {}", finalEmitter);
+        this.emitters.add(emitter);
+        log.info("new emitter added: {}", emitter);
         log.info("emitter list size: {}", emitters.size());
-        finalEmitter.onCompletion(() -> {
+        emitter.onCompletion(() -> {
             log.info("onCompletion callback");
-            this.emitters.remove(finalEmitter);
+            this.emitters.remove(emitter);    // 만료되면 리스트에서 삭제
         });
-        finalEmitter.onTimeout(() -> {
+        emitter.onTimeout(() -> {
             log.info("onTimeout callback");
-            finalEmitter.complete();
+            emitter.complete();
         });
 
-        return finalEmitter;
+        return emitter;
     }
 
     public Map<String, Object> receiveChat(ResponseChatDTO chat) {

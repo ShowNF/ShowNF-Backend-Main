@@ -24,7 +24,7 @@ public class SseController {
 
     @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<SseEmitter> connect() {
-        SseEmitter emitter = new SseEmitter();
+        final SseEmitter emitter = new SseEmitter(60000L);
         sseEmittersBean.add(emitter);
         try {
             emitter.send(SseEmitter.event()
