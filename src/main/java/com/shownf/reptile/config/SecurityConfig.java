@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login/oauth2/**", "/").permitAll()
+                .antMatchers("/login/oauth2/**", "/", "/swagger-ui.html#/**").permitAll()
                 .antMatchers("/**").hasRole("USER")
                 .anyRequest().authenticated();
         http.addFilterBefore(customFilterBean, BasicAuthenticationFilter.class);

@@ -29,7 +29,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     private static final String SERVICE_NAME = "ShowNF Project";
     private static final String API_VERSION = "V1";
     private static final String API_DESCRIPTION = "ShowNF Backend API";
-    private static final String API_URL = "http://13.125.225.95:8080/";
+    private static final String API_URL = "http://3.37.87.196:8080/";
 
     @Bean
     public Docket api() {
