@@ -16,7 +16,7 @@ public class CreateReplyDAOBean {
         Long commentId = requestReplySaveDTO.getCommentId();
 
         // 유저 아이디
-        String userId = requestReplySaveDTO.getUserId();
+        Long userId = requestReplySaveDTO.getUserId();
 
         // 내용
         String content = requestReplySaveDTO.getContent();

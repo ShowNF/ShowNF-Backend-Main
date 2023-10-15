@@ -18,7 +18,7 @@ public class ReplyDAO {
     @Id
     Long replyId;
     Long commentId;
-    String userId;
+    Long userId;
     String content;
     LocalDateTime uploadTime;
     Integer heartCount;
