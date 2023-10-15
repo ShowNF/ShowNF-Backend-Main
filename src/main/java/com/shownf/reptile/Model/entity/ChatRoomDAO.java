@@ -18,7 +18,7 @@ public class ChatRoomDAO {
     @Id
     Long uniqueId;
     String chatRoomId;
-    String sellerId;
-    String buyerId;
+    Long sellerId;
+    Long buyerId;
     LocalDateTime uploadTime;
 }

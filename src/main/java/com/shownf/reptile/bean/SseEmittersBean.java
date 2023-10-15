@@ -26,7 +26,7 @@ public class SseEmittersBean {
         this.chatRoomRepositoryJPA = chatRoomRepositoryJPA;
     }
 
-    public SseEmitter add(SseEmitter emitter, String chatRoomId, String userId) {
+    public SseEmitter add(SseEmitter emitter, String chatRoomId, Long userId) {
 
         // 채팅방 + 유저아이디 해시
         int key = (chatRoomId + userId).hashCode();

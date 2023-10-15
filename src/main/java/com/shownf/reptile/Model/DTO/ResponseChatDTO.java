@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class ResponseChatDTO {
     private String chatId;
     private String contentId;
-    private String senderId;
+    private Long senderId;
     private String senderName;
     private String content;
     private long timestamp;

@@ -23,7 +23,7 @@ public class SseController {
     }
 
     @GetMapping(value = "/connect/chat-room/{chatRoomId}/user/{userId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<SseEmitter> connect(@PathVariable String chatRoomId,@PathVariable String userId) {
+    public ResponseEntity<SseEmitter> connect(@PathVariable String chatRoomId, @PathVariable Long userId) {
         final SseEmitter emitter = new SseEmitter(180000L);
         sseEmittersBean.add(emitter, chatRoomId, userId);
         try {
