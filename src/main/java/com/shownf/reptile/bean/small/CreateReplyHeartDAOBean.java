@@ -16,7 +16,7 @@ public class CreateReplyHeartDAOBean {
         Long replyId = requestReplyHeartSaveDTO.getReplyId();
 
         // 유저 아이디
-        String userId = requestReplyHeartSaveDTO.getUserId();
+        Long userId = requestReplyHeartSaveDTO.getUserId();
 
         // 시간
         LocalDateTime uploadTime = LocalDateTime.now();

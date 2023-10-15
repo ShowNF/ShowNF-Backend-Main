@@ -18,6 +18,6 @@ public class ReplyHeartDAO {
     @Id
     Long replyHeartId;
     Long replyId;
-    String userId;
+    Long userId;
     LocalDateTime uploadTime;
 }
