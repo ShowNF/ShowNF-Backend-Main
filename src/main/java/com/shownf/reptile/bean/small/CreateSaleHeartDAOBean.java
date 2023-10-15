@@ -16,7 +16,7 @@ public class CreateSaleHeartDAOBean {
         Long saleId = requestSaleHeartSaveDTO.getSaleId();
 
         // 유저 아이디
-        String userId = requestSaleHeartSaveDTO.getUserId();
+        Long userId = requestSaleHeartSaveDTO.getUserId();
 
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();

@@ -6,5 +6,5 @@ import lombok.Data;
 public class RequestSaleHeartDeleteDTO {
     Long saleHeartId;
     Long saleId;
-    String userId;
+    Long userId;
 }

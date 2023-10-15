@@ -15,6 +15,6 @@ public class SaleHeartDAO {
     @Id
     Long saleHeartId;
     Long saleId;
-    String userId;
+    Long userId;
     LocalDateTime uploadTime;
 }

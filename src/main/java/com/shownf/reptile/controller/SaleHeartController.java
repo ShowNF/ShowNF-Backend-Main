@@ -27,8 +27,8 @@ public class SaleHeartController {
     // 분양글 좋아요 저장
     @ApiOperation(value = "분양글 좋아요 저장", notes = "분양글에 좋아요를 누를시 저장한다.")
     @PostMapping("saleHeart")
-    public ResponseEntity<Map<String, Object>> saveSaleHeart(@RequestBody RequestSaleHeartSaveDTO RequestSaleHeartSaveDTO){
-        Long saleHeartId = saleHeartService.saveSaleHeart(RequestSaleHeartSaveDTO);
+    public ResponseEntity<Map<String, Object>> saveSaleHeart(@RequestBody RequestSaleHeartSaveDTO requestSaleHeartSaveDTO){
+        Long saleHeartId = saleHeartService.saveSaleHeart(requestSaleHeartSaveDTO);
 
         // HTTP 상태 변환
         HttpStatus httpStatus = (saleHeartId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
