@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 public class KakaoUserDAO {
     @Id
-    String kakaoId;
+    Long kakaoId;
     String accessToken;
     LocalDateTime expirationTime;
 }
