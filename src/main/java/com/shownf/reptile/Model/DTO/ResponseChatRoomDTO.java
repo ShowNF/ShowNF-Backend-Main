@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class ResponseChatRoomDTO {
     Long uniqueId;
     String chatRoomId;
-    String sellerId;
-    String buyerId;
+    Long sellerId;
+    Long buyerId;
     LocalDateTime uploadTime;
 }

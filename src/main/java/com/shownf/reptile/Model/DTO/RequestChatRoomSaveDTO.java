@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class RequestChatRoomSaveDTO {
     String chatRoomId;
-    String sellerId;
-    String buyerId;
+    Long sellerId;
+    Long buyerId;
 }

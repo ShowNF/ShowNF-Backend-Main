@@ -28,7 +28,7 @@ public class SaveGoogleUserBean {
     public void exec(String accessToken, JsonNode userResourceNode){
 
         // 구글 고유 아이디
-        String id = userResourceNode.get("id").asText();
+        Long id = userResourceNode.get("id").longValue();
 
         // 이름
         String name = userResourceNode.get("name").asText();

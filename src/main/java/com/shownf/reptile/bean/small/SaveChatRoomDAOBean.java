@@ -29,10 +29,10 @@ public class SaveChatRoomDAOBean {
         String chatRoomId = requestChatRoomSaveDTO.getChatRoomId();
 
         // 파는사람 아이디
-        String sellerId = requestChatRoomSaveDTO.getSellerId();
+        Long sellerId = requestChatRoomSaveDTO.getSellerId();
 
         // 사는사람 아이디
-        String buyerId = requestChatRoomSaveDTO.getBuyerId();
+        Long buyerId = requestChatRoomSaveDTO.getBuyerId();
 
         // 시간
         LocalDateTime uploadTime = LocalDateTime.now();
