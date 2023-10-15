@@ -58,7 +58,7 @@ public class PostController {
     // 유저가 좋아요한 게시물 조회
     @ApiOperation(value = "유저가 좋아요한 게시물 조회", notes = "유저 아이드를 입력받아 해당하는 게시물 5개씩 조회")
     @GetMapping("post/user/{userId}")
-    public List<ResponsePostsDTO> getUserPostHearts(@PathVariable String userId){
+    public List<ResponsePostsDTO> getUserPostHearts(@PathVariable Long userId){
         return postService.getUserPostHearts(userId);
     }
 

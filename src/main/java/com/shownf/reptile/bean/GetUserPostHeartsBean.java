@@ -29,7 +29,7 @@ public class GetUserPostHeartsBean {
     }
 
     // 유저가 좋아요한 게시물 조회
-    public List<ResponsePostsDTO> exec(String userId){
+    public List<ResponsePostsDTO> exec(Long userId){
 
         // 유저 아이디를 통해 게시물 좋아요 객체 찾기
         List<PostHeartDAO> postHeartDAOs = getPostHeartsDAOBean.exec(userId);
