@@ -30,7 +30,7 @@ public class PetService {
     }
 
     // 마이펫 전체 조회
-    public Page<RequestPetDTO> getPets(String userId, Pageable pageable){
+    public Page<RequestPetDTO> getPets(Long userId, Pageable pageable){
         return getPetsBean.exec(userId, pageable);
     }
 

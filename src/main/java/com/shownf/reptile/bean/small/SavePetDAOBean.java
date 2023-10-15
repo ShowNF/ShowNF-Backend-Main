@@ -29,7 +29,7 @@ public class SavePetDAOBean {
     public void exec(Long petId, RequestPetSaveDTO requestPetSaveDTO){
 
         // 유저 아이디
-        String userId = requestPetSaveDTO.getUserId();
+        Long userId = requestPetSaveDTO.getUserId();
 
         // 이미지 Url
         ObjectMapper objectMapper = new ObjectMapper();

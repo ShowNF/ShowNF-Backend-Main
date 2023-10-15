@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Data
 public class RequestPetSaveDTO {
-    String userId;
+    Long userId;
     private List<Map<String, String>> imageUrl;
     String name;
     String firstSpecies;

@@ -18,7 +18,7 @@ public class GetPetsDAOBean {
     }
 
     // 유저 아이디로 마이펫 전체 찾기
-    public Page<PetDAO> exec(String userId, Pageable pageable){
+    public Page<PetDAO> exec(Long userId, Pageable pageable){
         return petRepositoryJPA.findByUserId(userId, pageable);
     }
 }

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PetRepositoryJPA extends JpaRepository<PetDAO, Long> {
 
-    Page<PetDAO> findByUserId(String userId, Pageable pageable);
+    Page<PetDAO> findByUserId(Long userId, Pageable pageable);
 }

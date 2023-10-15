@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class PetDAO {
     @Id
     Long petId;
-    String userId;
+    Long userId;
     String imageUrl;
     String name;
     String firstSpecies;

@@ -22,7 +22,7 @@ public class GetPetsBean {
     }
 
     // 마이펫 Page 형태로 전체 조회
-    public Page<RequestPetDTO> exec(String userId, Pageable pageable){
+    public Page<RequestPetDTO> exec(Long userId, Pageable pageable){
 
         // 유저 아이디로 마이펫 전체 찾기
         Page<PetDAO> petDAOs = getPetsDAOBean.exec(userId, pageable);

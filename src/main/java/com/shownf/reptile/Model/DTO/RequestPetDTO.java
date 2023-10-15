@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 public class RequestPetDTO {
     Long petId;
-    String userId;
+    Long userId;
     String imageUrl;
     String name;
     String firstSpecies;
