@@ -20,7 +20,7 @@ public class SaleDAO {
     @Id
     Long saleId;
     Long petId;
-    String userId;
+    Long userId;
     String imageUrl;
     String individual;
     String firstSpecies;

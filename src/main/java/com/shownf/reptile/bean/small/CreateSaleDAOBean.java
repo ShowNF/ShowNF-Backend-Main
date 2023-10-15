@@ -20,7 +20,7 @@ public class CreateSaleDAOBean {
         Long petId = requestSaleSaveDTO.getPetId();
 
         // 유저 아이디
-        String userId = requestSaleSaveDTO.getUserId();
+        Long userId = requestSaleSaveDTO.getUserId();
 
         // 이미지 Url
         ObjectMapper objectMapper = new ObjectMapper();

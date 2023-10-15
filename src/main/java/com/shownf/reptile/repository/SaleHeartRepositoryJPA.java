@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SaleHeartRepositoryJPA extends JpaRepository<SaleHeartDAO, Long> {
-    List<SaleHeartDAO> findByUserId(String userId);
+    List<SaleHeartDAO> findByUserId(Long userId);
 }

@@ -18,7 +18,7 @@ public class GetSaleHeartsDAOBean {
     }
 
     // 좋아요 아이디로 좋아요 객체 찾기
-    public List<SaleHeartDAO> exec(String userId){
+    public List<SaleHeartDAO> exec(Long userId){
         return saleHeartRepositoryJPA.findByUserId(userId);
     }
 }

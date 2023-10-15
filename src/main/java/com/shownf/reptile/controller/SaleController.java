@@ -47,7 +47,7 @@ public class SaleController {
     // 유저가 좋아요한 분양글 조회
     @ApiOperation(value = "내가 좋아요한 분양글 조회", notes = "유저 아이디로 좋아요 누른 분양글 조회")
     @GetMapping("sale/user/{userId}")
-    public List<ResponseSaleDTO> getUserSaleHearts(@PathVariable String userId){
+    public List<ResponseSaleDTO> getUserSaleHearts(@PathVariable Long userId){
         return saleService.getUserSaleHearts(userId);
     }
 

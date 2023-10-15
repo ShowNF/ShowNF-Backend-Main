@@ -29,7 +29,7 @@ public class GetUserSaleHeartsBean {
     }
 
     // 유저가 좋아요한 분양글 조회
-    public List<ResponseSaleDTO> exec(String userId){
+    public List<ResponseSaleDTO> exec(Long userId){
 
         // 유저 아이디를 통해 분양글 좋아요 객체 찾기
         List<SaleHeartDAO> saleHeartDAOs = getSaleHeartsDAOBean.exec(userId);

@@ -6,7 +6,7 @@ import lombok.Data;
 public class ResponseSaleDTO {
     Long saleId;
     Long petId;
-    String userId;
+    Long userId;
     String imageUrl;
     String individual;
     String firstSpecies;

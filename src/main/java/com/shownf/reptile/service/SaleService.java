@@ -40,7 +40,7 @@ public class SaleService {
     }
 
     // 유저가 좋아요한 분양글 조회
-    public List<ResponseSaleDTO> getUserSaleHearts(String userId){
+    public List<ResponseSaleDTO> getUserSaleHearts(Long userId){
         return getUserSaleHeartsBean.exec(userId);
     }
 
