@@ -4,7 +4,7 @@ import com.shownf.reptile.Model.entity.KakaoUserDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface KakaoUserRepositoryJPA extends JpaRepository<KakaoUserDAO, Long> {
-    KakaoUserDAO findByKakaoId(Long kakaoId);
+    KakaoUserDAO findByKakaoId(String kakaoId);
 
     KakaoUserDAO findByAccessToken(String accessToken);
 }

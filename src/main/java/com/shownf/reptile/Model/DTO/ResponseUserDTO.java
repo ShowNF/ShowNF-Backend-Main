@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ResponseUserDTO {
     Long handleId;
-    Long userId;
+    String userId;
     String name;
     String image;
 }

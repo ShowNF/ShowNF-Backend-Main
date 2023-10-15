@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class UserDAO {
     @Id
     Long handleId;
-    Long userId;
+    String userId;
     String name;
     String image;
 }

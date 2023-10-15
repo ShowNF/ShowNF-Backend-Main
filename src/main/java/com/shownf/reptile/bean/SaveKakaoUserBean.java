@@ -28,7 +28,7 @@ public class SaveKakaoUserBean {
     public void exec(String accessToken, KakaoProfile kakaoProfile){
 
         // 카카오 고유 아이디
-        Long id = kakaoProfile.getId();
+        String id = kakaoProfile.getId().toString();
 
         // 유저 이름
         String name = kakaoProfile.kakao_account.profile.getNickname();

@@ -25,7 +25,7 @@ public class GetUserIdBean {
     public Long exec(String token){
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(token);
         GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(token);
-        Long userId;
+        String userId;
 
         if (kakaoUserDAO != null)
             userId = kakaoUserDAO.getKakaoId();

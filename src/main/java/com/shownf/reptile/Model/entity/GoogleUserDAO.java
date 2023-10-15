@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 public class GoogleUserDAO {
     @Id
-    Long googleId;
+    String googleId;
     String accessToken;
     LocalDateTime expirationTime;
 }
