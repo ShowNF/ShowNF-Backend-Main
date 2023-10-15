@@ -22,7 +22,7 @@ public class GetUserBean {
         ResponseUserDTO responseUserDTO = new ResponseUserDTO();
 
         responseUserDTO.setHandleId(userDAO.getHandleId());
-        responseUserDTO.setName(userDAO.getUserId());
+        responseUserDTO.setName(userDAO.getName());
         responseUserDTO.setImage(userDAO.getImage());
         responseUserDTO.setUserId(userDAO.getUserId());
 
