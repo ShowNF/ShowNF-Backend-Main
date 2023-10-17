@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class RequestDiaryDTO {
     Long diaryId;
+    String imageUrl;
     Long petId;
     String food;
     Integer foodCounter;
