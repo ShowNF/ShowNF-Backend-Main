@@ -14,6 +14,7 @@ public class CreateDiaryDTOBean {
         // DTO 객체에 다이어리 정보 넘기기
         requestDiaryDTO.setDiaryId(diaryDAO.getDiaryId());
         requestDiaryDTO.setPetId(diaryDAO.getPetId());
+        requestDiaryDTO.setImageUrl(diaryDAO.getImageUrl());
         requestDiaryDTO.setFood(diaryDAO.getFood());
         requestDiaryDTO.setFoodCounter(diaryDAO.getFoodCounter());
         requestDiaryDTO.setSize(diaryDAO.getSize());
