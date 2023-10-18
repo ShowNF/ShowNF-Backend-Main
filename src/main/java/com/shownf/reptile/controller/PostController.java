@@ -42,7 +42,7 @@ public class PostController {
     // 핫 게시물 조회
     @ApiOperation(value = "인기게시물 조회", notes = "좋아요를 많이 받은 순으로 게시물 5개씩 페이징 조회")
     @GetMapping("post/hot")
-    public Page<RequestPostDTO> getHotPosts(@PageableDefault(size=5, sort="heartCount", direction = Sort.Direction.DESC) Pageable pageable){
+    public Page<RequestPostDTO> getHotPosts(@PageableDefault(size=15, sort="heartCount", direction = Sort.Direction.DESC) Pageable pageable){
         return postService.getHotPosts(pageable);
     }
 
