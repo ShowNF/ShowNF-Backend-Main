@@ -1,5 +1,6 @@
 package com.shownf.reptile.Model.entity;
 
+import com.shownf.reptile.Model.Enum.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,6 @@ public class PetDAO {
     String secondSpecies;
     String birthday;
     Double weight;
+    Gender gender;
     LocalDateTime uploadTime;
 }

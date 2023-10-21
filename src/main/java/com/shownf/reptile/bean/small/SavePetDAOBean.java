@@ -2,6 +2,7 @@ package com.shownf.reptile.bean.small;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
+import com.shownf.reptile.Model.Enum.Gender;
 import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.repository.PetRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,13 @@ public class SavePetDAOBean {
         // 몸무게
         Double weight = requestPetSaveDTO.getWeight();
 
+        // 성별
+        Gender gender = Gender.valueOf(requestPetSaveDTO.getGender());
+
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();
 
-        exec(new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, uploadTime));
+        exec(new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime));
 
     }
 }

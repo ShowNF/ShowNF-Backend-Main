@@ -1,5 +1,6 @@
 package com.shownf.reptile.Model.DTO;
 
+import com.shownf.reptile.Model.Enum.Gender;
 import lombok.Data;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public class RequestPetSaveDTO {
     String secondSpecies;
     String birthday;
     Double weight;
+    String gender;
 }

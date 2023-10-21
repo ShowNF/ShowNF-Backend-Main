@@ -1,5 +1,6 @@
 package com.shownf.reptile.Model.DTO;
 
+import com.shownf.reptile.Model.Enum.Gender;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,5 +15,6 @@ public class RequestPetDTO {
     String secondSpecies;
     String birthday;
     Double weight;
+    String gender;
     LocalDateTime uploadTime;
 }
