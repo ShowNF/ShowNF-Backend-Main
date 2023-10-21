@@ -30,6 +30,7 @@ public class CreatePetsDTOBean {
             requestPetDTO.setSecondSpecies(petDAO.getSecondSpecies());
             requestPetDTO.setBirthday(petDAO.getBirthday());
             requestPetDTO.setWeight(petDAO.getWeight());
+            requestPetDTO.setGender(petDAO.getGender().name());
             requestPetDTO.setUploadTime(petDAO.getUploadTime());
 
             requestPetDTOs.add(requestPetDTO);
