@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Component
 public class SaveDiaryDAOBean {
@@ -60,5 +61,44 @@ public class SaveDiaryDAOBean {
         else month = words[0] + words[1];
 
         exec(new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, date, month));
+    }
+
+    public void exec(RequestDiarySaveDTO requestDiarySaveDTO){
+
+        DiaryDAO diaryDAO = diaryRepositoryJPA.findById(requestDiarySaveDTO.getDiaryId()).get();
+
+        // 마이펫 이미지
+        diaryDAO.setImageUrl(requestDiarySaveDTO.getImageUrl());
+
+        // 먹이
+        diaryDAO.setFood(requestDiarySaveDTO.getFood());
+
+        // 먹이 수
+        diaryDAO.setFoodCounter(requestDiarySaveDTO.getFoodCounter());
+
+        // 먹이 크기
+        diaryDAO.setSize(requestDiarySaveDTO.getSize());
+
+        // 몸무게
+        diaryDAO.setWeight(requestDiarySaveDTO.getWeight());
+
+        // 메모
+        diaryDAO.setMemo(requestDiarySaveDTO.getMemo());
+
+        // 업로드 시간
+        diaryDAO.setUploadTime(LocalDateTime.now());
+
+        // 날짜
+        String date = requestDiarySaveDTO.getDate();
+        diaryDAO.setDate(date);
+
+        // 년, 월
+        String month;
+        String[] words = date.split(" ");
+        if (words[1].length() < 2) month = words[0] + "0" + words[1];
+        else month = words[0] + words[1];
+        diaryDAO.setMonth(month);
+
+        exec(diaryDAO);
     }
 }

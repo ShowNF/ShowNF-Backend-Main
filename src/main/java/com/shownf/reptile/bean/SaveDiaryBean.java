@@ -21,6 +21,11 @@ public class SaveDiaryBean {
     // 다이어리 저장
     public Long exec(RequestDiarySaveDTO requestDiarySaveDTO){
 
+        if (requestDiarySaveDTO.getDiaryId() != null){
+            saveDiaryDAOBean.exec(requestDiarySaveDTO);
+            return requestDiarySaveDTO.getDiaryId();
+        }
+
         // diaryId 생성
         Long diaryId = createUniqueIdBean.exec();
 
