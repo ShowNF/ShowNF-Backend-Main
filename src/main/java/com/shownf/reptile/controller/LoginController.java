@@ -30,7 +30,7 @@ public class LoginController {
             // HTTP 상태 반환
             HttpStatus httpStatus = (access_token != null) ? HttpStatus.PERMANENT_REDIRECT : HttpStatus.INTERNAL_SERVER_ERROR;
 
-            String redirectUrl = "http://shownf.s3-website.ap-northeast-2.amazonaws.com/#/login?token=" + access_token;
+            String redirectUrl = "http://www.grass-party.com/#/login?token=" + access_token;
 
             // 헤더 추가 및 Redirect:
             HttpHeaders headers = new HttpHeaders();
