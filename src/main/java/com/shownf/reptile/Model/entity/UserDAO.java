@@ -19,4 +19,6 @@ public class UserDAO {
     String userId;
     String name;
     String image;
+    String siteImage;
+    String siteName;
 }
