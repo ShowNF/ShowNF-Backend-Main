@@ -1,6 +1,5 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.RequestUserSiteNameUpdateDTO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;

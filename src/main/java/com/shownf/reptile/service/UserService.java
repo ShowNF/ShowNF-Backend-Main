@@ -1,8 +1,7 @@
 package com.shownf.reptile.service;
 
-import com.shownf.reptile.Model.DTO.RequestUserSiteNameUpdateDTO;
+import com.shownf.reptile.Model.DTO.RequestSiteUserUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseUserDTO;
-import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.GetUserBean;
 import com.shownf.reptile.bean.GetUserIdBean;
 import com.shownf.reptile.bean.UpdateUserSiteNameBean;
@@ -34,7 +33,7 @@ public class UserService {
     }
 
     // 유저 사이트 닉네임 변경
-    public Long updateUserSiteName(RequestUserSiteNameUpdateDTO requestUserSiteNameUpdateDTO){
-        return updateUserSiteNameBean.exec(requestUserSiteNameUpdateDTO);
+    public Long updateUserSiteName(RequestSiteUserUpdateDTO requestSiteUserUpdateDTO){
+        return updateUserSiteNameBean.exec(requestSiteUserUpdateDTO);
     }
 }

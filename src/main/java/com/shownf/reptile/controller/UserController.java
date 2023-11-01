@@ -1,6 +1,6 @@
 package com.shownf.reptile.controller;
 
-import com.shownf.reptile.Model.DTO.RequestUserSiteNameUpdateDTO;
+import com.shownf.reptile.Model.DTO.RequestSiteUserUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseUserDTO;
 import com.shownf.reptile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +34,10 @@ public class UserController {
         return userService.getUser(handleId);
     }
 
-    // 유저 닉네임 변경
+    // 유저 프로필 변경
     @PutMapping("user")
-    public ResponseEntity<Map<String, Object>> modifyUserSiteName(@RequestBody RequestUserSiteNameUpdateDTO requestUserSiteNameUpdateDTO){
-        Long handleId = userService.updateUserSiteName(requestUserSiteNameUpdateDTO);
+    public ResponseEntity<Map<String, Object>> updateSiteUser(@RequestBody RequestSiteUserUpdateDTO requestSiteUserUpdateDTO){
+        Long handleId = userService.updateUserSiteName(requestSiteUserUpdateDTO);
 
         // HTTP 상태 반환
         HttpStatus httpStatus = (handleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
@@ -49,4 +49,5 @@ public class UserController {
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
+
 }
