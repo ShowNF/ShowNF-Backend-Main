@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.shownf.reptile.Model.entity.GoogleUserDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.CreateUniqueIdBean;
+import com.shownf.reptile.bean.small.CreateUniqueNicknameBean;
 import com.shownf.reptile.repository.GoogleUserRepositoryJPA;
 import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,14 @@ public class SaveGoogleUserBean {
     GoogleUserRepositoryJPA googleUserRepositoryJPA;
     UserRepositoryJPA userRepositoryJPA;
     CreateUniqueIdBean createUniqueIdBean;
+    CreateUniqueNicknameBean createUniqueNicknameBean;
 
     @Autowired
-    public SaveGoogleUserBean(GoogleUserRepositoryJPA googleUserRepositoryJPA, UserRepositoryJPA userRepositoryJPA, CreateUniqueIdBean createUniqueIdBean) {
+    public SaveGoogleUserBean(GoogleUserRepositoryJPA googleUserRepositoryJPA, UserRepositoryJPA userRepositoryJPA, CreateUniqueIdBean createUniqueIdBean, CreateUniqueNicknameBean createUniqueNicknameBean) {
         this.googleUserRepositoryJPA = googleUserRepositoryJPA;
         this.userRepositoryJPA = userRepositoryJPA;
         this.createUniqueIdBean = createUniqueIdBean;
+        this.createUniqueNicknameBean = createUniqueNicknameBean;
     }
 
     public void exec(String accessToken, JsonNode userResourceNode){
@@ -46,7 +49,7 @@ public class SaveGoogleUserBean {
         // 아이디가 이미 존재하는지에 따라 로그인 및 회원가입
         if(googleUserDAO == null){
             googleUserRepositoryJPA.save(new GoogleUserDAO(id, accessToken, localDateTime));
-            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture));
+            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture, "default",createUniqueNicknameBean.exec()));
         } else {
             googleUserDAO.setAccessToken(accessToken);
             googleUserDAO.setExpirationTime(localDateTime);

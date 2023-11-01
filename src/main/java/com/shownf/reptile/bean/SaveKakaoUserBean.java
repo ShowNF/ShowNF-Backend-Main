@@ -4,6 +4,7 @@ import com.shownf.reptile.Model.KakaoProfile;
 import com.shownf.reptile.Model.entity.KakaoUserDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.CreateUniqueIdBean;
+import com.shownf.reptile.bean.small.CreateUniqueNicknameBean;
 import com.shownf.reptile.repository.KakaoUserRepositoryJPA;
 import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,14 @@ public class SaveKakaoUserBean {
     KakaoUserRepositoryJPA kakaoUserRepositoryJPA;
     UserRepositoryJPA userRepositoryJPA;
     CreateUniqueIdBean createUniqueIdBean;
+    CreateUniqueNicknameBean createUniqueNicknameBean;
 
     @Autowired
-    public SaveKakaoUserBean(KakaoUserRepositoryJPA kakaoUserRepositoryJPA, UserRepositoryJPA userRepositoryJPA, CreateUniqueIdBean createUniqueIdBean) {
+    public SaveKakaoUserBean(KakaoUserRepositoryJPA kakaoUserRepositoryJPA, UserRepositoryJPA userRepositoryJPA, CreateUniqueIdBean createUniqueIdBean, CreateUniqueNicknameBean createUniqueNicknameBean) {
         this.kakaoUserRepositoryJPA = kakaoUserRepositoryJPA;
         this.userRepositoryJPA = userRepositoryJPA;
         this.createUniqueIdBean = createUniqueIdBean;
+        this.createUniqueNicknameBean = createUniqueNicknameBean;
     }
 
     public void exec(String accessToken, KakaoProfile kakaoProfile){
@@ -46,7 +49,7 @@ public class SaveKakaoUserBean {
         // 아이디가 이미 존재하는지에 따라 로그인 및 회원가입
         if(kakaoUserDAO == null){
             kakaoUserRepositoryJPA.save(new KakaoUserDAO(id, accessToken, localDateTime));
-            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture));
+            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture, "default", createUniqueNicknameBean.exec()));
         } else {
             kakaoUserDAO.setAccessToken(accessToken);
             kakaoUserDAO.setExpirationTime(localDateTime);

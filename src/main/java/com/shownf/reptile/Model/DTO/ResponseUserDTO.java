@@ -8,4 +8,6 @@ public class ResponseUserDTO {
     String userId;
     String name;
     String image;
+    String siteImage;
+    String siteName;
 }

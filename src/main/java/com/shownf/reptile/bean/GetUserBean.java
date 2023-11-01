@@ -25,6 +25,8 @@ public class GetUserBean {
         responseUserDTO.setName(userDAO.getName());
         responseUserDTO.setImage(userDAO.getImage());
         responseUserDTO.setUserId(userDAO.getUserId());
+        responseUserDTO.setSiteImage(userDAO.getSiteImage());
+        responseUserDTO.setSiteName(userDAO.getSiteName());
 
         return responseUserDTO;
     }
