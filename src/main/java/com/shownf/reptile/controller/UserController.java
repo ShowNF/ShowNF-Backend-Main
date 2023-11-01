@@ -1,12 +1,15 @@
 package com.shownf.reptile.controller;
 
+import com.shownf.reptile.Model.DTO.RequestUserSiteNameUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseUserDTO;
 import com.shownf.reptile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -29,5 +32,21 @@ public class UserController {
     @GetMapping("user/{handleId}")
     public ResponseUserDTO getUser(@PathVariable Long handleId){
         return userService.getUser(handleId);
+    }
+
+    // 유저 닉네임 변경
+    @PutMapping("user")
+    public ResponseEntity<Map<String, Object>> modifyUserSiteName(@RequestBody RequestUserSiteNameUpdateDTO requestUserSiteNameUpdateDTO){
+        Long handleId = userService.updateUserSiteName(requestUserSiteNameUpdateDTO);
+
+        // HTTP 상태 반환
+        HttpStatus httpStatus = (handleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (handleId != null) ? "Update Success" : "Update Fail");
+        requestMap.put("handleId", handleId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
     }
 }
