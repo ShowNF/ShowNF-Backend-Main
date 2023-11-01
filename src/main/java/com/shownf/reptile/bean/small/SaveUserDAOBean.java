@@ -1,6 +1,6 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.RequestUserSiteNameUpdateDTO;
+import com.shownf.reptile.Model.DTO.RequestSiteUserUpdateDTO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,16 @@ public class SaveUserDAOBean {
     }
 
     // 유저 사이트 이름 수정
-    public void exec(UserDAO userDAO, RequestUserSiteNameUpdateDTO requestUserSiteNameUpdateDTO){
-        userDAO.setSiteName(requestUserSiteNameUpdateDTO.getSiteName());
+    public void exec(UserDAO userDAO, RequestSiteUserUpdateDTO requestSiteUserUpdateDTO){
+
+        // 이미지 변경 시
+        if (requestSiteUserUpdateDTO.getSiteImage() != null)
+            userDAO.setSiteImage(requestSiteUserUpdateDTO.getSiteImage());
+
+        // 이름 변경 시
+        if (requestSiteUserUpdateDTO.getSiteName() != null)
+            userDAO.setSiteName(requestSiteUserUpdateDTO.getSiteName());
+
         exec(userDAO);
     }
 
