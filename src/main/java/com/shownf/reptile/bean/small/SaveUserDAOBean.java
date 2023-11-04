@@ -6,6 +6,8 @@ import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class SaveUserDAOBean {
 
@@ -25,12 +27,16 @@ public class SaveUserDAOBean {
     public void exec(UserDAO userDAO, RequestSiteUserUpdateDTO requestSiteUserUpdateDTO){
 
         // 이미지 변경 시
-        if (requestSiteUserUpdateDTO.getSiteImage() != null)
+        if (requestSiteUserUpdateDTO.getSiteImage() != null){
             userDAO.setSiteImage(requestSiteUserUpdateDTO.getSiteImage());
+            userDAO.setUploadTime(LocalDateTime.now());
+        }
 
         // 이름 변경 시
-        if (requestSiteUserUpdateDTO.getSiteName() != null)
+        if (requestSiteUserUpdateDTO.getSiteName() != null){
             userDAO.setSiteName(requestSiteUserUpdateDTO.getSiteName());
+            userDAO.setUploadTime(LocalDateTime.now());
+        }
 
         exec(userDAO);
     }

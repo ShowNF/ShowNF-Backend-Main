@@ -43,13 +43,16 @@ public class SaveKakaoUserBean {
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.plusHours(12);
 
+        // 업로드 시간
+        LocalDateTime uploadTime = LocalDateTime.now();
+
         // 아이디로 카카오 유저 찾기
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByKakaoId(id);
 
         // 아이디가 이미 존재하는지에 따라 로그인 및 회원가입
         if(kakaoUserDAO == null){
             kakaoUserRepositoryJPA.save(new KakaoUserDAO(id, accessToken, localDateTime));
-            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture, "default", createUniqueNicknameBean.exec()));
+            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture, "default", createUniqueNicknameBean.exec(), uploadTime));
         } else {
             kakaoUserDAO.setAccessToken(accessToken);
             kakaoUserDAO.setExpirationTime(localDateTime);

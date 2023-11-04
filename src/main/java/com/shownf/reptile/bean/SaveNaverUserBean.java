@@ -43,13 +43,16 @@ public class SaveNaverUserBean {
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.plusHours(1);
 
+        // 업로드 시간
+        LocalDateTime uploadTime = LocalDateTime.now();
+
         // 아이디로 네이버 유저 객체 찾기
         NaverUserDAO naverUserDAO = naverUserRepositoryJPA.findByNaverId(id);
 
         // 아이디가 이미 존재하는지에 따라 로그인 및 회원가입
         if(naverUserDAO == null){
             naverUserRepositoryJPA.save(new NaverUserDAO(id, accessToken, localDateTime));
-            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture, "default",createUniqueNicknameBean.exec()));
+            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture, "default",createUniqueNicknameBean.exec(), uploadTime));
         } else {
             naverUserDAO.setAccessToken(accessToken);
             naverUserDAO.setExpirationTime(localDateTime);

@@ -2,6 +2,8 @@ package com.shownf.reptile.Model.DTO;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ResponseUserDTO {
     Long handleId;
@@ -10,4 +12,5 @@ public class ResponseUserDTO {
     String image;
     String siteImage;
     String siteName;
+    LocalDateTime uploadTime;
 }
