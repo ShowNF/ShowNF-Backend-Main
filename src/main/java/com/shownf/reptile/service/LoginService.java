@@ -8,6 +8,7 @@ import com.shownf.reptile.Model.KakaoProfile;
 import com.shownf.reptile.Model.OAuthToken;
 import com.shownf.reptile.bean.SaveGoogleUserBean;
 import com.shownf.reptile.bean.SaveKakaoUserBean;
+import com.shownf.reptile.bean.SaveNaverUserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -22,11 +23,13 @@ public class LoginService {
     private final RestTemplate restTemplate = new RestTemplate();
     SaveGoogleUserBean saveGoogleUserBean;
     SaveKakaoUserBean saveKakaoUserBean;
+    SaveNaverUserBean saveNaverUserBean;
 
     @Autowired
-    public LoginService(SaveGoogleUserBean saveGoogleUserBean, SaveKakaoUserBean saveKakaoUserBean) {
+    public LoginService(SaveGoogleUserBean saveGoogleUserBean, SaveKakaoUserBean saveKakaoUserBean, SaveNaverUserBean saveNaverUserBean) {
         this.saveGoogleUserBean = saveGoogleUserBean;
         this.saveKakaoUserBean = saveKakaoUserBean;
+        this.saveNaverUserBean = saveNaverUserBean;
     }
 
     @Value("${GOOGLE_CLIENT_ID}")
@@ -56,12 +59,31 @@ public class LoginService {
     @Value("${KAKAO_PROFILE_URL}")
     String kakao_profile_url;
 
+    @Value("${NAVER_CLIENT_ID}")
+    String naver_client_id;
+
+    @Value("${NAVER_CLIENT_SECRET}")
+    String naver_client_secret;
+
+    @Value("${NAVER_REDIRECT_URI}")
+    String naver_redirect_uri;
+
+    @Value("${NAVER_AUTHORIZATION_URI}")
+    String naver_authorization_uri;
+
+    @Value("${NAVER_TOKEN_URI}")
+    String naver_token_uri;
+
+    @Value("${NAVER_USER_INFO_URI}")
+    String naver_user_info_uri;
+
     public String socialLogin(String code, String registrationId) {
         if ("google".equals(registrationId)) {
             return loginGoogle(code, registrationId);
         } else if ("kakao".equals(registrationId)) {
             return loginKakao(code);
-        }
+        } else if ("naver".equals(registrationId))
+            loginNaver(code);
 
         return null;
     }
@@ -84,6 +106,15 @@ public class LoginService {
         saveKakaoUserBean.exec(oAuthToken.getAccess_token(), kakaoProfile);
 
         return oAuthToken.getAccess_token();
+    }
+
+    private String loginNaver(String code) {
+        String accessToken = getNaverAccessToken(code);
+        JsonNode userResourceNode = getNaverUserResource(accessToken);
+
+        saveNaverUserBean.exec(accessToken, userResourceNode);
+
+        return accessToken;
     }
 
 
@@ -171,5 +202,32 @@ public class LoginService {
         }
 
         return kakaoProfile;
+    }
+
+    private String getNaverAccessToken(String authorizationCode) {
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("code", authorizationCode);
+        params.add("client_id", naver_client_id);
+        params.add("client_secret", naver_client_secret);
+        //params.add("redirect_uri", naver_redirect_uri);
+        params.add("grant_type", "authorization_code");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        HttpEntity entity = new HttpEntity(params, headers);
+
+        ResponseEntity<JsonNode> responseNode = restTemplate.exchange(naver_token_uri, HttpMethod.POST, entity, JsonNode.class);
+        JsonNode accessTokenNode = responseNode.getBody();
+        return accessTokenNode.get("access_token").asText();
+    }
+
+    private JsonNode getNaverUserResource(String accessToken) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + accessToken);
+        HttpEntity entity = new HttpEntity(headers);
+        return restTemplate.exchange(naver_user_info_uri, HttpMethod.GET, entity, JsonNode.class).getBody();
     }
 }
