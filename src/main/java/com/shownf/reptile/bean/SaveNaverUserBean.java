@@ -1,2 +1,64 @@
-package com.shownf.reptile.bean;public class SaveNaverUserBean {
+package com.shownf.reptile.bean;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.shownf.reptile.Model.entity.NaverUserDAO;
+import com.shownf.reptile.Model.entity.UserDAO;
+import com.shownf.reptile.bean.small.CreateUniqueIdBean;
+import com.shownf.reptile.bean.small.CreateUniqueNicknameBean;
+import com.shownf.reptile.repository.NaverUserRepositoryJPA;
+import com.shownf.reptile.repository.UserRepositoryJPA;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+
+@Component
+public class SaveNaverUserBean {
+
+    NaverUserRepositoryJPA naverUserRepositoryJPA;
+    UserRepositoryJPA userRepositoryJPA;
+    CreateUniqueIdBean createUniqueIdBean;
+    CreateUniqueNicknameBean createUniqueNicknameBean;
+
+    @Autowired
+    public SaveNaverUserBean(NaverUserRepositoryJPA naverUserRepositoryJPA, UserRepositoryJPA userRepositoryJPA, CreateUniqueIdBean createUniqueIdBean, CreateUniqueNicknameBean createUniqueNicknameBean) {
+        this.naverUserRepositoryJPA = naverUserRepositoryJPA;
+        this.userRepositoryJPA = userRepositoryJPA;
+        this.createUniqueIdBean = createUniqueIdBean;
+        this.createUniqueNicknameBean = createUniqueNicknameBean;
+    }
+
+    public void exec(String accessToken, JsonNode userResourceNode){
+
+        // 네이버 고유 아이디
+        String id = userResourceNode.get("response").get("id").asText();
+
+        // 이름
+        String name = userResourceNode.get("response").get("name").asText();
+
+        // 프로필 사진
+        String picture = userResourceNode.get("response").get("profile_image").asText();
+
+        // 토큰 만료시간
+        LocalDateTime localDateTime = LocalDateTime.now();
+        localDateTime.plusHours(1);
+
+        // 아이디로 네이버 유저 객체 찾기
+        NaverUserDAO naverUserDAO = naverUserRepositoryJPA.findByNaverId(id);
+
+        // 아이디가 이미 존재하는지에 따라 로그인 및 회원가입
+        if(naverUserDAO == null){
+            naverUserRepositoryJPA.save(new NaverUserDAO(id, accessToken, localDateTime));
+            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture, "default",createUniqueNicknameBean.exec()));
+        } else {
+            naverUserDAO.setAccessToken(accessToken);
+            naverUserDAO.setExpirationTime(localDateTime);
+            naverUserRepositoryJPA.save(naverUserDAO);
+
+            UserDAO userDAO = userRepositoryJPA.findByUserId(id);
+            userDAO.setName(name);
+            userDAO.setImage(picture);
+            userRepositoryJPA.save(userDAO);
+        }
+    }
 }
