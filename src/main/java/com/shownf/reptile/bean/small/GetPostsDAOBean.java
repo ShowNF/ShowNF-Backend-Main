@@ -35,4 +35,9 @@ public class GetPostsDAOBean {
 
         return postDAOs;
     }
+
+    // 유저 아이디로 게시물 전체 찾기
+    public Page<PostDAO> exec(Long userId, Pageable pageable){
+        return postRepositoryJPA.findByUserId(userId, pageable);
+    }
 }
