@@ -16,15 +16,15 @@ public class GetUserBean {
         this.userRepositoryJPA = userRepositoryJPA;
     }
 
-    public ResponseUserDTO exec(Long handleId){
-        UserDAO userDAO = userRepositoryJPA.findById(handleId).get();
+    public ResponseUserDTO exec(Long userId){
+        UserDAO userDAO = userRepositoryJPA.findById(userId).get();
 
         ResponseUserDTO responseUserDTO = new ResponseUserDTO();
 
-        responseUserDTO.setHandleId(userDAO.getHandleId());
+        responseUserDTO.setHandleId(userDAO.getUserId());
         responseUserDTO.setName(userDAO.getName());
         responseUserDTO.setImage(userDAO.getImage());
-        responseUserDTO.setUserId(userDAO.getUserId());
+        responseUserDTO.setUserId(userDAO.getOauthId());
         responseUserDTO.setSiteImage(userDAO.getSiteImage());
         responseUserDTO.setSiteName(userDAO.getSiteName());
 

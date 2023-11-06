@@ -27,7 +27,7 @@ public class UpdateUserSiteNameBean {
     public Long exec(RequestSiteUserUpdateDTO requestSiteUserUpdateDTO, HttpServletRequest request){
 
         // 핸들 아이디로 객체 찾기
-        UserDAO userDAO = getUserDAOBean.exec(requestSiteUserUpdateDTO.getHandleId());
+        UserDAO userDAO = getUserDAOBean.exec(requestSiteUserUpdateDTO.getUserId());
 
         // 토큰 확인
         if(!checkUserAccessTokenDAOBean.exec(userDAO, request))
@@ -36,6 +36,6 @@ public class UpdateUserSiteNameBean {
         // 유저 수정 후 저장
         saveUserDAOBean.exec(userDAO, requestSiteUserUpdateDTO);
 
-        return userDAO.getHandleId();
+        return userDAO.getUserId();
     }
 }

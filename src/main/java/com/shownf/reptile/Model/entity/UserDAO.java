@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @Setter
 public class UserDAO {
     @Id
-    Long handleId;
-    String userId;
+    Long userId;
+    String oauthId;
     String name;
     String image;
     String siteImage;

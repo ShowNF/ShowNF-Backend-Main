@@ -23,16 +23,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    // 토큰으로 유저 handleId 찾기
+    // 토큰으로 유저 아이디 찾기
     @GetMapping("user/token/{token}")
     public Long getUserId(@PathVariable String token){
         return userService.getUserId(token);
     }
 
     // handle 아이디로 유저 객체 찾기
-    @GetMapping("user/{handleId}")
-    public ResponseUserDTO getUser(@PathVariable Long handleId){
-        return userService.getUser(handleId);
+    @GetMapping("user/{userId}")
+    public ResponseUserDTO getUser(@PathVariable Long userId){
+        return userService.getUser(userId);
     }
 
     // 유저 프로필 변경

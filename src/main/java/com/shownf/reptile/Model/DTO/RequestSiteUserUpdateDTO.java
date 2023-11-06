@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class RequestSiteUserUpdateDTO {
-    Long handleId;
+    Long userId;
     String siteImage;
     String siteName;
 }

@@ -30,8 +30,8 @@ public class UserService {
     }
 
     // 토큰으로 유저 아이디 찾기
-    public ResponseUserDTO getUser(Long handleId){
-        return getUserBean.exec(handleId);
+    public ResponseUserDTO getUser(Long userId){
+        return getUserBean.exec(userId);
     }
 
     // 유저 사이트 닉네임 변경

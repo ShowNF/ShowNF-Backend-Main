@@ -16,7 +16,7 @@ public class GetUserDAOBean {
     }
 
     // 핸들아이디로 유저 객체 찾기
-    public UserDAO exec(Long handleId){
-        return userRepositoryJPA.findById(handleId).get();
+    public UserDAO exec(Long userId){
+        return userRepositoryJPA.findById(userId).get();
     }
 }
