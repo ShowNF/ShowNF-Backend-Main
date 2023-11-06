@@ -8,6 +8,8 @@ import com.shownf.reptile.bean.UpdateUserSiteNameBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public class UserService {
 
@@ -33,7 +35,7 @@ public class UserService {
     }
 
     // 유저 사이트 닉네임 변경
-    public Long updateUserSiteName(RequestSiteUserUpdateDTO requestSiteUserUpdateDTO){
-        return updateUserSiteNameBean.exec(requestSiteUserUpdateDTO);
+    public Long updateUserSiteName(RequestSiteUserUpdateDTO requestSiteUserUpdateDTO, HttpServletRequest request){
+        return updateUserSiteNameBean.exec(requestSiteUserUpdateDTO, request);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +37,8 @@ public class UserController {
 
     // 유저 프로필 변경
     @PutMapping("user")
-    public ResponseEntity<Map<String, Object>> updateSiteUser(@RequestBody RequestSiteUserUpdateDTO requestSiteUserUpdateDTO){
-        Long handleId = userService.updateUserSiteName(requestSiteUserUpdateDTO);
+    public ResponseEntity<Map<String, Object>> updateSiteUser(@RequestBody RequestSiteUserUpdateDTO requestSiteUserUpdateDTO, HttpServletRequest request){
+        Long handleId = userService.updateUserSiteName(requestSiteUserUpdateDTO, request);
 
         // HTTP 상태 반환
         HttpStatus httpStatus = (handleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
