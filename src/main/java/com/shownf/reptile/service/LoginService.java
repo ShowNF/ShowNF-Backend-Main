@@ -83,7 +83,7 @@ public class LoginService {
         } else if ("kakao".equals(registrationId)) {
             return loginKakao(code);
         } else if ("naver".equals(registrationId))
-            loginNaver(code);
+            return loginNaver(code);
 
         return null;
     }
