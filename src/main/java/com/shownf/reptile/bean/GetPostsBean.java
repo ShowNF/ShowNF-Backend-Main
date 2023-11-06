@@ -21,7 +21,7 @@ public class GetPostsBean {
         this.createPostsDTOBean = createPostsDTOBean;
     }
 
-    // 게시물 Page 형태로 전체 조회
+    // 핫 게시물 Page 형태로 전체 조회
     public Page<RequestPostDTO> exec(Pageable pageable){
 
         // 게시물 전체 찾기
@@ -30,4 +30,15 @@ public class GetPostsBean {
         // DAO 객체 DTO 반환
         return createPostsDTOBean.exec(pageable, postDAOs);
     }
+
+    // 마이페이지 유저 게시물 Page 형태로 전체 조회
+    public Page<RequestPostDTO> exec(Long userId, Pageable pageable){
+
+        // 유저 아이디로 게시물 전체 찾기
+        Page<PostDAO> postDAOs = getPostsDAOBean.exec(userId, pageable);
+
+        // DAO 객체 DTO 반환
+        return createPostsDTOBean.exec(userId, pageable, postDAOs);
+    }
+
 }

@@ -39,6 +39,14 @@ public class PostController {
     }
 
 
+    // 마이페이지 게시물 전체 조회
+    @ApiOperation(value = "마이페이지 게시물 전체 조회", notes = "유저 아이디로 게시물 전체 조회")
+    @GetMapping("post/mypage/user/{userId}")
+    public Page<RequestPostDTO> getPosts(@PathVariable Long userId, @PageableDefault(size=15, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
+        return postService.getPosts(userId, pageable);
+    }
+
+
     // 핫 게시물 조회
     @ApiOperation(value = "인기게시물 조회", notes = "좋아요를 많이 받은 순으로 게시물 5개씩 페이징 조회")
     @GetMapping("post/hot")

@@ -15,15 +15,15 @@ import java.util.List;
 public class PostService {
 
     GetPostBean getPostBean;
-    GetPostsBean getHotPostsBean;
+    GetPostsBean getPostsBean;
     GetCategoryPostsBean categoryPostsBean;
     GetUserPostHeartsBean getUserPostHeartsBean;
     SavePostBean savePostBean;
 
     @Autowired
-    public PostService(GetPostBean getPostBean, GetPostsBean getHotPostsBean, GetCategoryPostsBean categoryPostsBean, GetUserPostHeartsBean getUserPostHeartsBean, SavePostBean savePostBean) {
+    public PostService(GetPostBean getPostBean, GetPostsBean getPostsBean, GetCategoryPostsBean categoryPostsBean, GetUserPostHeartsBean getUserPostHeartsBean, SavePostBean savePostBean) {
         this.getPostBean = getPostBean;
-        this.getHotPostsBean = getHotPostsBean;
+        this.getPostsBean = getPostsBean;
         this.categoryPostsBean = categoryPostsBean;
         this.getUserPostHeartsBean = getUserPostHeartsBean;
         this.savePostBean = savePostBean;
@@ -34,9 +34,14 @@ public class PostService {
         return getPostBean.exec(postId);
     }
 
+    // 마이페이지 유저 게시물 전체 조회
+    public Page<RequestPostDTO> getPosts(Long userId, Pageable pageable){
+        return getPostsBean.exec(userId, pageable);
+    }
+
     // 핫 게시물 조회
     public Page<RequestPostDTO> getHotPosts(Pageable pageable){
-        return getHotPostsBean.exec(pageable);
+        return getPostsBean.exec(pageable);
     }
 
     // 카테고리별 게시물 조회
