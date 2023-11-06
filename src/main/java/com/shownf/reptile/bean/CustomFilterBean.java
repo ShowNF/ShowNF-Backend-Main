@@ -2,8 +2,10 @@ package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.entity.GoogleUserDAO;
 import com.shownf.reptile.Model.entity.KakaoUserDAO;
+import com.shownf.reptile.Model.entity.NaverUserDAO;
 import com.shownf.reptile.repository.GoogleUserRepositoryJPA;
 import com.shownf.reptile.repository.KakaoUserRepositoryJPA;
+import com.shownf.reptile.repository.NaverUserRepositoryJPA;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,11 +25,13 @@ import java.io.IOException;
 public class CustomFilterBean extends GenericFilterBean {
     KakaoUserRepositoryJPA kakaoUserRepositoryJPA;
     GoogleUserRepositoryJPA googleUserRepositoryJPA;
+    NaverUserRepositoryJPA naverUserRepositoryJPA;
 
     @Autowired
-    public CustomFilterBean(KakaoUserRepositoryJPA kakaoUserRepositoryJPA, GoogleUserRepositoryJPA googleUserRepositoryJPA) {
+    public CustomFilterBean(KakaoUserRepositoryJPA kakaoUserRepositoryJPA, GoogleUserRepositoryJPA googleUserRepositoryJPA, NaverUserRepositoryJPA naverUserRepositoryJPA) {
         this.kakaoUserRepositoryJPA = kakaoUserRepositoryJPA;
         this.googleUserRepositoryJPA = googleUserRepositoryJPA;
+        this.naverUserRepositoryJPA = naverUserRepositoryJPA;
     }
 
 
@@ -40,11 +44,13 @@ public class CustomFilterBean extends GenericFilterBean {
 
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
         GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
+        NaverUserDAO naverUserDAO = naverUserRepositoryJPA.findByAccessToken(userToken);
 
         String savedToken;
 
         if (kakaoUserDAO != null) savedToken = kakaoUserDAO.getAccessToken();
         else if (googleUserDAO != null) savedToken = googleUserDAO.getAccessToken();
+        else if (naverUserDAO != null) savedToken = naverUserDAO.getAccessToken();
         else savedToken = null;
 
         if (userToken != null && userToken.equals(savedToken)) {
