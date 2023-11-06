@@ -10,5 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PostRepositoryJPA extends JpaRepository<PostDAO, Long> {
     Page<PostDAO> findAll(Pageable pageable);
 
+    Page<PostDAO> findByUserId(Long userId, Pageable pageable);
+
     Page<PostDAO> findByCategory(Category category, Pageable pageable);
 }
