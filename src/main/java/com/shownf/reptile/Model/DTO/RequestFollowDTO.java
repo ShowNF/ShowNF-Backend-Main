@@ -1,2 +1,9 @@
-package com.shownf.reptile.Model.DTO;public class RequestFollowDTO {
+package com.shownf.reptile.Model.DTO;
+
+import lombok.Data;
+
+@Data
+public class RequestFollowDTO {
+    Long userId;
+    Long followUserId;
 }
