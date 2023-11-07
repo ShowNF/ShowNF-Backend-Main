@@ -1,6 +1,7 @@
 package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestFollowDTO;
+import com.shownf.reptile.Model.DTO.RequestImageHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestSiteUserUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseUserDTO;
 import com.shownf.reptile.service.UserService;
@@ -52,7 +53,7 @@ public class UserController {
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
 
-    // 팔로우 기능
+    // 팔로우 추가 기능
     @PostMapping("user/follow")
     public ResponseEntity<Map<String, Object>> followUser(@RequestBody RequestFollowDTO requestFollowDTO){
         Long followId = userService.followUser(requestFollowDTO);
@@ -69,6 +70,20 @@ public class UserController {
     }
 
     // 팔로우 취소 기능
+    @DeleteMapping("user/follow")
+    public ResponseEntity<Map<String, Object>> deleteFollowUser(@RequestBody RequestFollowDTO requestFollowDTO){
+        Long followId = userService.deleteFollowUser(requestFollowDTO);
+
+        // HTTP 상태 반환
+        HttpStatus httpStatus = (followId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (followId != null) ? "Delete Success" : "Delete Fail");
+        requestMap.put("followId", followId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
 
     // 내 팔로우 리스트 조회
 
