@@ -21,4 +21,9 @@ public class GetFollowsDAOBean {
     public List<FollowDAO> exec(Long userId){
         return followRepositoryJPA.findByUserId(userId);
     }
+
+    // 유저아이디로 팔로잉 전체 찾기
+    public List<FollowDAO> exec(Long userId, String check){
+        return followRepositoryJPA.findByFollowUserId(userId);
+    }
 }

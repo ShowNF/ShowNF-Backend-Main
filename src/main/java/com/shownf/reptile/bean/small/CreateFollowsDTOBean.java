@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.ResponseFollowDTO;
+import com.shownf.reptile.Model.DTO.ResponseFollowerDTO;
+import com.shownf.reptile.Model.DTO.ResponseFollowingDTO;
 import com.shownf.reptile.Model.entity.FollowDAO;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +12,12 @@ import java.util.List;
 public class CreateFollowsDTOBean {
 
     // 팔로우 DTO 변환
-    public List<ResponseFollowDTO> exec(List<FollowDAO> followDAOs){
+    public List<ResponseFollowerDTO> exec(List<FollowDAO> followDAOs){
 
-        List<ResponseFollowDTO> responseFollowDTOs = new ArrayList<>();
+        List<ResponseFollowerDTO> responseFollowDTOs = new ArrayList<>();
 
         for (FollowDAO followDAO : followDAOs){
-            ResponseFollowDTO responseFollowDTO = new ResponseFollowDTO();
+            ResponseFollowerDTO responseFollowDTO = new ResponseFollowerDTO();
 
             responseFollowDTO.setFollowId(followDAO.getFollowId());
             responseFollowDTO.setFollowUserId(followDAO.getFollowUserId());
@@ -24,5 +25,21 @@ public class CreateFollowsDTOBean {
         }
 
         return responseFollowDTOs;
+    }
+
+    // 팔로잉 DTO 변환
+    public List<ResponseFollowingDTO> exec(List<FollowDAO> followDAOs, String check){
+
+        List<ResponseFollowingDTO> responseFollowingDTOS = new ArrayList<>();
+
+        for (FollowDAO followDAO : followDAOs){
+            ResponseFollowingDTO responseFollowingDTO = new ResponseFollowingDTO();
+
+            responseFollowingDTO.setFollowId(followDAO.getFollowId());
+            responseFollowingDTO.setUserId(followDAO.getUserId());
+            responseFollowingDTOS.add(responseFollowingDTO);
+        }
+
+        return responseFollowingDTOS;
     }
 }
