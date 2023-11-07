@@ -1,9 +1,6 @@
 package com.shownf.reptile.controller;
 
-import com.shownf.reptile.Model.DTO.RequestFollowDTO;
-import com.shownf.reptile.Model.DTO.RequestSiteUserUpdateDTO;
-import com.shownf.reptile.Model.DTO.ResponseFollowDTO;
-import com.shownf.reptile.Model.DTO.ResponseUserDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,8 +37,14 @@ public class UserController {
 
     // 내 팔로우 리스트 조회
     @GetMapping("user/followers/{userId}")
-    public List<ResponseFollowDTO> getFollowersUser(@PathVariable Long userId){
+    public List<ResponseFollowerDTO> getFollowersUser(@PathVariable Long userId){
         return userService.getFollowersUser(userId);
+    }
+
+    // 내 팔로잉 리스트 조회
+    @GetMapping("user/followings/{userId}")
+    public List<ResponseFollowingDTO> getFollowingsUser(@PathVariable Long userId){
+        return userService.getFollowingsUser(userId);
     }
 
     // 유저 프로필 변경
@@ -91,8 +94,5 @@ public class UserController {
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
-
-
-    // 내 팔로잉 리스트 조회
 
 }

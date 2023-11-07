@@ -1,9 +1,6 @@
 package com.shownf.reptile.service;
 
-import com.shownf.reptile.Model.DTO.RequestFollowDTO;
-import com.shownf.reptile.Model.DTO.RequestSiteUserUpdateDTO;
-import com.shownf.reptile.Model.DTO.ResponseFollowDTO;
-import com.shownf.reptile.Model.DTO.ResponseUserDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,15 +17,17 @@ public class UserService {
     SaveFollowBean saveFollowBean;
     DeleteFollowBean deleteFollowBean;
     GetFollowersBean getFollowersBean;
+    GetFollowingsBean getFollowingsBean;
 
     @Autowired
-    public UserService(GetUserIdBean getUserIdBean, GetUserBean getUserBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean) {
+    public UserService(GetUserIdBean getUserIdBean, GetUserBean getUserBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean) {
         this.getUserIdBean = getUserIdBean;
         this.getUserBean = getUserBean;
         this.updateUserSiteNameBean = updateUserSiteNameBean;
         this.saveFollowBean = saveFollowBean;
         this.deleteFollowBean = deleteFollowBean;
         this.getFollowersBean = getFollowersBean;
+        this.getFollowingsBean = getFollowingsBean;
     }
 
     // 토큰으로 유저 아이디 찾기
@@ -57,7 +56,12 @@ public class UserService {
     }
 
     // 유저 팔로워 전체 조회
-    public List<ResponseFollowDTO> getFollowersUser(Long userId){
+    public List<ResponseFollowerDTO> getFollowersUser(Long userId){
         return getFollowersBean.exec(userId);
+    }
+
+    // 유저 팔로잉 전체 조회
+    public List<ResponseFollowingDTO> getFollowingsUser(Long userId) {
+        return getFollowingsBean.exec(userId);
     }
 }

@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
-import com.shownf.reptile.Model.DTO.ResponseFollowDTO;
+import com.shownf.reptile.Model.DTO.ResponseFollowerDTO;
+import com.shownf.reptile.Model.DTO.ResponseFollowingDTO;
 import com.shownf.reptile.Model.entity.FollowDAO;
 import com.shownf.reptile.bean.small.CreateFollowsDTOBean;
 import com.shownf.reptile.bean.small.GetFollowsDAOBean;
@@ -22,7 +23,7 @@ public class GetFollowersBean {
     }
 
     // 유저 팔로워 전체 조회
-    public List<ResponseFollowDTO> exec(Long userId){
+    public List<ResponseFollowerDTO> exec(Long userId){
 
         // 유저 아이디로 팔로우 전체 찾기
         List<FollowDAO> followDAOs = getFollowsDAOBean.exec(userId);
