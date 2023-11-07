@@ -1,7 +1,6 @@
 package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestFollowDTO;
-import com.shownf.reptile.Model.DTO.RequestImageHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestSiteUserUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseUserDTO;
 import com.shownf.reptile.service.UserService;

@@ -27,6 +27,8 @@ public class GetUserBean {
         responseUserDTO.setUserId(userDAO.getOauthId());
         responseUserDTO.setSiteImage(userDAO.getSiteImage());
         responseUserDTO.setSiteName(userDAO.getSiteName());
+        responseUserDTO.setFollowerCount(userDAO.getFollowerCount());
+        responseUserDTO.setFollowingCount(userDAO.getFollowingCount());
 
         return responseUserDTO;
     }

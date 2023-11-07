@@ -13,4 +13,6 @@ public class ResponseUserDTO {
     String siteImage;
     String siteName;
     LocalDateTime uploadTime;
+    Integer followerCount;
+    Integer followingCount;
 }
