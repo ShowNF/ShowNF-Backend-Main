@@ -1,5 +1,6 @@
 package com.shownf.reptile.controller;
 
+import com.shownf.reptile.Model.DTO.RequestFollowDTO;
 import com.shownf.reptile.Model.DTO.RequestSiteUserUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseUserDTO;
 import com.shownf.reptile.service.UserService;
@@ -38,17 +39,39 @@ public class UserController {
     // 유저 프로필 변경
     @PutMapping("user")
     public ResponseEntity<Map<String, Object>> updateSiteUser(@RequestBody RequestSiteUserUpdateDTO requestSiteUserUpdateDTO, HttpServletRequest request){
-        Long handleId = userService.updateUserSiteName(requestSiteUserUpdateDTO, request);
+        Long userId = userService.updateUserSiteName(requestSiteUserUpdateDTO, request);
 
         // HTTP 상태 반환
-        HttpStatus httpStatus = (handleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus httpStatus = (userId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
 
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("message", (handleId != null) ? "Update Success" : "Update Fail");
-        requestMap.put("handleId", handleId);
+        requestMap.put("message", (userId != null) ? "Update Success" : "Update Fail");
+        requestMap.put("userId", userId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
+
+    // 팔로우 기능
+    @PostMapping("user/follow")
+    public ResponseEntity<Map<String, Object>> followUser(@RequestBody RequestFollowDTO requestFollowDTO){
+        Long followId = userService.followUser(requestFollowDTO);
+
+        // HTTP 상태 반환
+        HttpStatus httpStatus = (followId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (followId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("followId", followId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 팔로우 취소 기능
+
+    // 내 팔로우 리스트 조회
+
+    // 내 팔로잉 리스트 조회
 
 }
