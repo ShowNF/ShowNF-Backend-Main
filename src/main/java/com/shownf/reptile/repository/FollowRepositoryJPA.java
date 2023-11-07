@@ -9,4 +9,6 @@ public interface FollowRepositoryJPA extends JpaRepository<FollowDAO, Long> {
     FollowDAO findByUserIdAndFollowUserId(Long userId, Long followUserId);
 
     List<FollowDAO> findByUserId(Long userId);
+
+    List<FollowDAO> findByFollowUserId(Long userId);
 }
