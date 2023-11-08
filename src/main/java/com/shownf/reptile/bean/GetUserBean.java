@@ -30,6 +30,7 @@ public class GetUserBean {
         responseUserDTO.setFollowerCount(userDAO.getFollowerCount());
         responseUserDTO.setFollowingCount(userDAO.getFollowingCount());
         responseUserDTO.setPostCount(userDAO.getPostCount());
+        responseUserDTO.setHeartCount(userDAO.getHeartCount());
 
         return responseUserDTO;
     }

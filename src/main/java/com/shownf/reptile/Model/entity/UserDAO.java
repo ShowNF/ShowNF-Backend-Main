@@ -27,4 +27,5 @@ public class UserDAO {
     Integer followerCount;
     Integer followingCount;
     Integer postCount;
+    Integer heartCount;
 }
