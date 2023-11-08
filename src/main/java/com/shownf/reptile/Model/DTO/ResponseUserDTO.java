@@ -15,4 +15,5 @@ public class ResponseUserDTO {
     LocalDateTime uploadTime;
     Integer followerCount;
     Integer followingCount;
+    Integer postCount;
 }

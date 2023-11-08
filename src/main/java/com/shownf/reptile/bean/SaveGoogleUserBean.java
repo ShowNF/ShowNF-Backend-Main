@@ -52,7 +52,9 @@ public class SaveGoogleUserBean {
         // 아이디가 이미 존재하는지에 따라 로그인 및 회원가입
         if(googleUserDAO == null){
             googleUserRepositoryJPA.save(new GoogleUserDAO(id, accessToken, localDateTime));
-            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture, "https://reptile-image.s3.ap-northeast-2.amazonaws.com/images/bab06268-da39-4b7d-a138-fa12b0ded4e0-basic-image.png",createUniqueNicknameBean.exec(), uploadTime, 0, 0));
+            userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture,
+                    "https://reptile-image.s3.ap-northeast-2.amazonaws.com/images/bab06268-da39-4b7d-a138-fa12b0ded4e0-basic-image.png",
+                    createUniqueNicknameBean.exec(), uploadTime, 0, 0, 0));
         } else {
             googleUserDAO.setAccessToken(accessToken);
             googleUserDAO.setExpirationTime(localDateTime);

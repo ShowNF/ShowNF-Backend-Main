@@ -26,4 +26,5 @@ public class UserDAO {
     LocalDateTime uploadTime;
     Integer followerCount;
     Integer followingCount;
+    Integer postCount;
 }
