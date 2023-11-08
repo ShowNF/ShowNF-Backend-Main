@@ -11,12 +11,14 @@ public class SavePostBean {
     CreateUniqueIdBean createUniqueIdBean;
     SavePostContentsDAOBean savePostContentsDAOBean;
     SavePostDAOBean savePostDAOBean;
+    UpdateUserPostCountDAOBean updateUserPostCountDAOBean;
 
     @Autowired
-    public SavePostBean(CreateUniqueIdBean createUniqueIdBean, SavePostContentsDAOBean savePostContentsDAOBean, SavePostDAOBean savePostDAOBean) {
+    public SavePostBean(CreateUniqueIdBean createUniqueIdBean, SavePostContentsDAOBean savePostContentsDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserPostCountDAOBean updateUserPostCountDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.savePostContentsDAOBean = savePostContentsDAOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.updateUserPostCountDAOBean = updateUserPostCountDAOBean;
     }
 
     public Long exec(RequestPostSaveDTO requestPostSaveDTO){
@@ -28,6 +30,9 @@ public class SavePostBean {
 
         // 게시물 저장
         savePostDAOBean.exec(postId, requestPostSaveDTO);
+
+        // 게시물 저장 시 유저 게시물 수 증가
+        updateUserPostCountDAOBean.exec(requestPostSaveDTO);
 
         // 게시물 postId 반환
         return postId;
