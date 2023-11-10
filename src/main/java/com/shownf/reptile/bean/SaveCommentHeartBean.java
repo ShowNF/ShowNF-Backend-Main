@@ -15,14 +15,16 @@ public class SaveCommentHeartBean {
     SaveCommentHeartDAOBean saveCommentHeartDAOBean;
     UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
+    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public SaveCommentHeartBean(CreateUniqueIdBean createUniqueIdBean, CreateCommentHeartDAOBean createCommentHeartDAOBean, SaveCommentHeartDAOBean saveCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, SaveCommentDAOBean saveCommentDAOBean) {
+    public SaveCommentHeartBean(CreateUniqueIdBean createUniqueIdBean, CreateCommentHeartDAOBean createCommentHeartDAOBean, SaveCommentHeartDAOBean saveCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createCommentHeartDAOBean = createCommentHeartDAOBean;
         this.saveCommentHeartDAOBean = saveCommentHeartDAOBean;
         this.updateCommentHeartCountDAOBean = updateCommentHeartCountDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
+        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
     }
 
     // 댓글 좋아요 저장
@@ -42,6 +44,9 @@ public class SaveCommentHeartBean {
 
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
+
+        // 유저 좋아요 갯수 추가
+        updateUserHeartCountDAOBean.exec(requestCommentHeartSaveDTO);
 
         // commentHeartId 반환
         return commentHeartId;
