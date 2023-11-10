@@ -15,16 +15,19 @@ public class SavePostHeartBean {
     SavePostHeartDAOBean savePostHeartDAOBean;
     UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean;
     SavePostDAOBean savePostDAOBean;
+    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public SavePostHeartBean(CreateUniqueIdBean createUniqueIdBean, CreatePostHeartDAOBean createPostHeartDAOBean, SavePostHeartDAOBean savePostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, SavePostDAOBean savePostDAOBean) {
+    public SavePostHeartBean(CreateUniqueIdBean createUniqueIdBean, CreatePostHeartDAOBean createPostHeartDAOBean, SavePostHeartDAOBean savePostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createPostHeartDAOBean = createPostHeartDAOBean;
         this.savePostHeartDAOBean = savePostHeartDAOBean;
         this.updatePostHeartCountDAOBean = updatePostHeartCountDAOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
     }
 
+    // 게시물 좋아요 저장
     public Long exec(RequestPostHeartSaveDTO requestPostHeartSaveDTO){
 
         // postHeartId 생성
@@ -41,6 +44,9 @@ public class SavePostHeartBean {
 
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
+
+        // 유저 좋아요 갯수 추가
+        updateUserHeartCountDAOBean.exec(requestPostHeartSaveDTO);
 
         // postHeartId 반환
         return postHeartId;
