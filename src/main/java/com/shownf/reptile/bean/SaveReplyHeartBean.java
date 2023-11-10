@@ -15,14 +15,16 @@ public class SaveReplyHeartBean {
     SaveReplyHeartDAOBean saveReplyHeartDAOBean;
     UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean;
     SaveReplyDAOBean saveReplyDAOBean;
+    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public SaveReplyHeartBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyHeartDAOBean createReplyHeartDAOBean, SaveReplyHeartDAOBean saveReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, SaveReplyDAOBean saveReplyDAOBean) {
+    public SaveReplyHeartBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyHeartDAOBean createReplyHeartDAOBean, SaveReplyHeartDAOBean saveReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, SaveReplyDAOBean saveReplyDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createReplyHeartDAOBean = createReplyHeartDAOBean;
         this.saveReplyHeartDAOBean = saveReplyHeartDAOBean;
         this.updateReplyHeartCountDAOBean = updateReplyHeartCountDAOBean;
         this.saveReplyDAOBean = saveReplyDAOBean;
+        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
     }
 
     // 대댓글 좋아요 저장
@@ -42,6 +44,10 @@ public class SaveReplyHeartBean {
 
         // 대댓글 저장
         saveReplyDAOBean.exec(replyDAO);
+
+        // 유저 좋아요 갯수 추가
+        updateUserHeartCountDAOBean.exec(requestReplyHeartSaveDTO);
+
 
         // replyHeartId 반환
         return replyHeartId;
