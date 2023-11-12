@@ -51,7 +51,12 @@ public class SavePetDAOBean {
         String secondSpecies = requestPetSaveDTO.getSecondSpecies();
 
         // 생일
-        String birthday = requestPetSaveDTO.getBirthday();
+        String date = requestPetSaveDTO.getBirthday();
+        String birthday;
+        String[] words = date.split(" ");
+        if (words[1].length() < 2) words[1] = "0" + words[1];
+        if (words[2].length() < 2) words[2] = "0" + words[2];
+        birthday = words[0] + words[1] + words[2];
 
         // 몸무게
         Double weight = requestPetSaveDTO.getWeight();
