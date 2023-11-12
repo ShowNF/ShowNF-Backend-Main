@@ -46,9 +46,6 @@ public class DeleteCommentBean {
         if (!checkUserIdPostDAOBean.exec(commentDAO, requestCommentDeleteDTO))
             return null;
 
-        // 댓글 삭제
-        deleteCommentDAOBean.exec(commentDAO);
-
         // 게시물 댓글 갯수 감소
         PostDAO postDAO = updatePostCommentCountDAOBean.exec(commentId, commentDAO);
 
@@ -57,6 +54,9 @@ public class DeleteCommentBean {
 
         // 댓글 삭제시 유저 댓글수 감소
         updateUserCommentCountDAOBean.exec(requestCommentDeleteDTO);
+
+        // 댓글 삭제
+        deleteCommentDAOBean.exec(commentDAO);
 
         // commentId 반환
         return  commentId;

@@ -38,14 +38,6 @@ public class SaveCommentBean {
         // DTO 객체 DAO 변환
         CommentDAO commentDAO = createCommentDAOBean.exec(commentId, requestCommentSaveDTO);
 
-        System.out.println("commentDAO.getCommentId() = " + commentDAO.getCommentId());
-        System.out.println("commentDAO.getUserId() = " + commentDAO.getUserId());
-        System.out.println("commentDAO.getHeartCount() = " + commentDAO.getHeartCount());
-        System.out.println("commentDAO.getContent() = " + commentDAO.getContent());
-        System.out.println("commentDAO.getPostId() = " + commentDAO.getPostId());
-        System.out.println("commentDAO.getReplyCount() = " + commentDAO.getReplyCount());
-        System.out.println("commentDAO.getUploadTime() = " + commentDAO.getUploadTime());
-
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
 

@@ -20,7 +20,7 @@ public class UpdateUserCommentCountDAOBean {
     UserRepositoryJPA userRepositoryJPA;
 
     @Autowired
-    public UpdateUserCommentCountDAOBean(UserRepositoryJPA userRepositoryJPA, PostRepositoryJPA postRepositoryJPA, CommentRepositoryJPA commentRepositoryJPA) {
+    public UpdateUserCommentCountDAOBean(PostRepositoryJPA postRepositoryJPA, CommentRepositoryJPA commentRepositoryJPA, UserRepositoryJPA userRepositoryJPA) {
         this.postRepositoryJPA = postRepositoryJPA;
         this.commentRepositoryJPA = commentRepositoryJPA;
         this.userRepositoryJPA = userRepositoryJPA;
@@ -52,7 +52,11 @@ public class UpdateUserCommentCountDAOBean {
         UserDAO userDAO = userRepositoryJPA.findById(userId).get();
 
         // 유저 commentCount 감소
-        userDAO.setCommentCount(userDAO.getCommentCount() - 1);
+        CommentDAO commentDAO = commentRepositoryJPA.findById(requestCommentDeleteDTO.getCommentId()).get();
+        if (commentDAO.getReplyCount() == 0)
+            userDAO.setCommentCount(userDAO.getCommentCount() - 1);
+        else
+            userDAO.setCommentCount(userDAO.getCommentCount() - 1 - commentDAO.getReplyCount());
 
         // 유저 저장
         userRepositoryJPA.save(userDAO);
