@@ -19,9 +19,10 @@ public class DeleteReplyBean {
     SaveCommentDAOBean saveCommentDAOBean;
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
     SavePostDAOBean savePostDAOBean;
+    UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean;
 
     @Autowired
-    public DeleteReplyBean(GetReplyDAOBean getReplyDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, DeleteReplyDAOBean deleteReplyDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SavePostDAOBean savePostDAOBean) {
+    public DeleteReplyBean(GetReplyDAOBean getReplyDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, DeleteReplyDAOBean deleteReplyDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean) {
         this.getReplyDAOBean = getReplyDAOBean;
         this.checkCommentIdCommentDAOBean = checkCommentIdCommentDAOBean;
         this.checkUserIdCommentDAOBean = checkUserIdCommentDAOBean;
@@ -30,6 +31,7 @@ public class DeleteReplyBean {
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.updateUserCommentCountDAOBean = updateUserCommentCountDAOBean;
     }
 
     // 대댓글 삭제
@@ -63,6 +65,9 @@ public class DeleteReplyBean {
 
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
+
+        // 대댓글 삭제시 유저 댓글수 감소
+        updateUserCommentCountDAOBean.exec(requestReplyDeleteDTO);
 
         // replyId 반환
         return replyId;
