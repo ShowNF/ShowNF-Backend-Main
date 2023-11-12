@@ -16,15 +16,17 @@ public class DeleteCommentHeartBean {
     DeleteCommentHeartDAOBean deleteCommentHeartDAOBean;
     UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
+    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public DeleteCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, DeleteCommentHeartDAOBean deleteCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, SaveCommentDAOBean saveCommentDAOBean) {
+    public DeleteCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, DeleteCommentHeartDAOBean deleteCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
         this.getCommentHeartDAOBean = getCommentHeartDAOBean;
         this.checkCommentIdCommentDAOBean = checkCommentIdCommentDAOBean;
         this.checkUserIdCommentDAOBean = checkUserIdCommentDAOBean;
         this.deleteCommentHeartDAOBean = deleteCommentHeartDAOBean;
         this.updateCommentHeartCountDAOBean = updateCommentHeartCountDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
+        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
     }
 
     public Long exec(RequestCommentHeartDeleteDTO requestCommentHeartDeleteDTO){
@@ -51,6 +53,9 @@ public class DeleteCommentHeartBean {
 
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
+
+        // 댓글 좋아요 삭제 시 유저 좋아요수 감소
+        updateUserHeartCountDAOBean.exec(requestCommentHeartDeleteDTO);
 
         // commentHeartId 반환
         return commentHeartId;
