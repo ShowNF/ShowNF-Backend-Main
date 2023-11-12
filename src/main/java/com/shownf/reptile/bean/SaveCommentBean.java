@@ -15,14 +15,16 @@ public class SaveCommentBean {
     SaveCommentDAOBean saveCommentDAOBean;
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
     SavePostDAOBean savePostDAOBean;
+    UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean;
 
     @Autowired
-    public SaveCommentBean(CreateUniqueIdBean createUniqueIdBean, CreateCommentDAOBean createCommentDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SavePostDAOBean savePostDAOBean) {
+    public SaveCommentBean(CreateUniqueIdBean createUniqueIdBean, CreateCommentDAOBean createCommentDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createCommentDAOBean = createCommentDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.updateUserCommentCountDAOBean = updateUserCommentCountDAOBean;
     }
 
     // 댓글 저장
@@ -36,6 +38,14 @@ public class SaveCommentBean {
         // DTO 객체 DAO 변환
         CommentDAO commentDAO = createCommentDAOBean.exec(commentId, requestCommentSaveDTO);
 
+        System.out.println("commentDAO.getCommentId() = " + commentDAO.getCommentId());
+        System.out.println("commentDAO.getUserId() = " + commentDAO.getUserId());
+        System.out.println("commentDAO.getHeartCount() = " + commentDAO.getHeartCount());
+        System.out.println("commentDAO.getContent() = " + commentDAO.getContent());
+        System.out.println("commentDAO.getPostId() = " + commentDAO.getPostId());
+        System.out.println("commentDAO.getReplyCount() = " + commentDAO.getReplyCount());
+        System.out.println("commentDAO.getUploadTime() = " + commentDAO.getUploadTime());
+
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
 
@@ -44,6 +54,9 @@ public class SaveCommentBean {
 
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
+
+        // 댓글 추가시 유저 댓글 수 증가
+        updateUserCommentCountDAOBean.exec(requestCommentSaveDTO);
 
         // 댓글 cId 반환
         return commentId;
