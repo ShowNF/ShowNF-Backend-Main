@@ -18,9 +18,10 @@ public class SaveReplyBean {
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
     SavePostDAOBean savePostDAOBean;
+    UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean;
 
     @Autowired
-    public SaveReplyBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyDAOBean createReplyDAOBean, SaveReplyDAOBean saveReplyDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean) {
+    public SaveReplyBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyDAOBean createReplyDAOBean, SaveReplyDAOBean saveReplyDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createReplyDAOBean = createReplyDAOBean;
         this.saveReplyDAOBean = saveReplyDAOBean;
@@ -28,6 +29,7 @@ public class SaveReplyBean {
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.updateUserCommentCountDAOBean = updateUserCommentCountDAOBean;
     }
 
     // 대댓글 저장
@@ -53,6 +55,9 @@ public class SaveReplyBean {
 
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
+
+        // 대댓글 저장시 유저 댓글수 증가
+        updateUserCommentCountDAOBean.exec(requestReplySaveDTO);
 
         // 대댓글 replyId 반환
         return replyId;
