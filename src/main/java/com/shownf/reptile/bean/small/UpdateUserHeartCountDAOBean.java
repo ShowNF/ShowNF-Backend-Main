@@ -80,4 +80,17 @@ public class UpdateUserHeartCountDAOBean {
         // 유저 저장
         userRepositoryJPA.save(userDAO);
     }
+
+    // 대댓글 좋아요 삭제시 유저 heartCount 감소
+    public void exec(RequestReplyHeartDeleteDTO requestReplyHeartDeleteDTO){
+
+        // 유저 아이디로 유저 찾기
+        UserDAO userDAO = userRepositoryJPA.findById(requestReplyHeartDeleteDTO.getUserId()).get();
+
+        // 유저 heartCount 증가
+        userDAO.setHeartCount(userDAO.getHeartCount() - 1);
+
+        // 유저 저장
+        userRepositoryJPA.save(userDAO);
+    }
 }
