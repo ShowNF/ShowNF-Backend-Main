@@ -36,5 +36,19 @@ public class UpdateUserCommentCountDAOBean {
         userRepositoryJPA.save(userDAO);
     }
 
-    
+    // 댓글 삭제시 유저 댓글 수 김소
+    public void exec(RequestCommentDeleteDTO requestCommentDeleteDTO){
+
+        // 댓글 삭제된 게시물 유저 아이디 찾기
+        Long userId = postRepositoryJPA.findById(requestCommentDeleteDTO.getPostId()).get().getUserId();
+
+        // 유저 아이디로 유저 찾기
+        UserDAO userDAO = userRepositoryJPA.findById(userId).get();
+
+        // 유저 commentCount 감소
+        userDAO.setCommentCount(userDAO.getCommentCount() - 1);
+
+        // 유저 저장
+        userRepositoryJPA.save(userDAO);
+    }
 }

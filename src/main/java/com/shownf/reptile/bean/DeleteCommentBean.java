@@ -16,15 +16,17 @@ public class DeleteCommentBean {
     DeleteCommentDAOBean deleteCommentDAOBean;
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
     SavePostDAOBean savePostDAOBean;
+    UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean;
 
     @Autowired
-    public DeleteCommentBean(GetCommentDAOBean getCommentDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, DeleteCommentDAOBean deleteCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SavePostDAOBean savePostDAOBean) {
+    public DeleteCommentBean(GetCommentDAOBean getCommentDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, DeleteCommentDAOBean deleteCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean) {
         this.getCommentDAOBean = getCommentDAOBean;
         this.checkPostIdPostDAOBean = checkPostIdPostDAOBean;
         this.checkUserIdPostDAOBean = checkUserIdPostDAOBean;
         this.deleteCommentDAOBean = deleteCommentDAOBean;
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.updateUserCommentCountDAOBean = updateUserCommentCountDAOBean;
     }
 
     // 댓글 삭제
@@ -52,6 +54,9 @@ public class DeleteCommentBean {
 
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
+
+        // 댓글 삭제시 유저 댓글수 감소
+        updateUserCommentCountDAOBean.exec(requestCommentDeleteDTO);
 
         // commentId 반환
         return  commentId;
