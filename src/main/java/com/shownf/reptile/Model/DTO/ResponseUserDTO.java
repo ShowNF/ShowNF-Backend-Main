@@ -17,4 +17,5 @@ public class ResponseUserDTO {
     Integer followingCount;
     Integer postCount;
     Integer heartCount;
+    Integer commentCount;
 }
