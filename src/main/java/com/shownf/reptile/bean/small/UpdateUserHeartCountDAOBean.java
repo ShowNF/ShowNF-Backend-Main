@@ -1,9 +1,6 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.RequestCommentHeartDeleteDTO;
-import com.shownf.reptile.Model.DTO.RequestCommentHeartSaveDTO;
-import com.shownf.reptile.Model.DTO.RequestPostHeartSaveDTO;
-import com.shownf.reptile.Model.DTO.RequestReplyHeartSaveDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +60,19 @@ public class UpdateUserHeartCountDAOBean {
 
         // 유저 아이디로 유저 찾기
         UserDAO userDAO = userRepositoryJPA.findById(requestCommentHeartDeleteDTO.getUserId()).get();
+
+        // 유저 heartCount 감소
+        userDAO.setHeartCount(userDAO.getHeartCount() - 1);
+
+        // 유저 저장
+        userRepositoryJPA.save(userDAO);
+    }
+
+    // 게시물 좋아요 삭제시 유저 heartCount 감소
+    public void exec(RequestPostHeartDeleteDTO requestPostHeartDeleteDTO){
+
+        // 유저 아이디로 유저 찾기
+        UserDAO userDAO = userRepositoryJPA.findById(requestPostHeartDeleteDTO.getUserId()).get();
 
         // 유저 heartCount 감소
         userDAO.setHeartCount(userDAO.getHeartCount() - 1);

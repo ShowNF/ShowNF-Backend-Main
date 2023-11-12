@@ -16,15 +16,17 @@ public class DeletePostHeartBean {
     DeletePostHeartDAOBean deletePostHeartDAOBean;
     UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean;
     SavePostDAOBean savePostDAOBean;
+    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public DeletePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, DeletePostHeartDAOBean deletePostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, SavePostDAOBean savePostDAOBean) {
+    public DeletePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, DeletePostHeartDAOBean deletePostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
         this.getPostHeartDAOBean = getPostHeartDAOBean;
         this.checkPostIdPostDAOBean = checkPostIdPostDAOBean;
         this.checkUserIdPostDAOBean = checkUserIdPostDAOBean;
         this.deletePostHeartDAOBean = deletePostHeartDAOBean;
         this.updatePostHeartCountDAOBean = updatePostHeartCountDAOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
     }
 
     public Long exec(RequestPostHeartDeleteDTO requestPostHeartDeleteDTO){
@@ -51,6 +53,9 @@ public class DeletePostHeartBean {
 
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
+
+        // 게시물 좋아요 삭제시 유저 좋아요 수 감소
+        updateUserHeartCountDAOBean.exec(requestPostHeartDeleteDTO);
 
         // postHeartId 반환
         return postHeartId;
