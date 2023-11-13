@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login/oauth2/**", "/", "/test/**","/chat-event", "/connect/**").permitAll() // 로그인, health 체크
+                .antMatchers("/user/**/name").permitAll()// 유저 이름
                 .antMatchers("/swagger-ui.html","swagger/**","/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll() // 스웨거
                 .antMatchers(HttpMethod.GET, "/image", "/comment/**", "/post/**", "/reply/**", "/sale/**").permitAll() // 스와이프
                 .antMatchers("/**").hasRole("USER")
