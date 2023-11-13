@@ -4,6 +4,7 @@ import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,13 @@ public class UserController {
         return userService.getUser(userId);
     }
 
+    // handle 아이디로 유저 이름 반환
+    @GetMapping("user/{userId}/name")
+    public ResponseEntity<String> getUserName(@PathVariable Long userId){
+        String userName = userService.getUserName(userId);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(userName);
+    }
+
     // 내 팔로우 리스트 조회
     @GetMapping("user/followers/{userId}")
     public List<ResponseFollowerDTO> getFollowersUser(@PathVariable Long userId){
@@ -45,22 +53,6 @@ public class UserController {
     @GetMapping("user/followings/{userId}")
     public List<ResponseFollowingDTO> getFollowingsUser(@PathVariable Long userId){
         return userService.getFollowingsUser(userId);
-    }
-
-    // 유저 프로필 변경
-    @PutMapping("user")
-    public ResponseEntity<Map<String, Object>> updateSiteUser(@RequestBody RequestSiteUserUpdateDTO requestSiteUserUpdateDTO, HttpServletRequest request){
-        Long userId = userService.updateUserSiteName(requestSiteUserUpdateDTO, request);
-
-        // HTTP 상태 반환
-        HttpStatus httpStatus = (userId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
-
-        // 메시지와 id 값 json 데이터로 반환
-        Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("message", (userId != null) ? "Update Success" : "Update Fail");
-        requestMap.put("userId", userId);
-
-        return ResponseEntity.status(httpStatus).body(requestMap);
     }
 
     // 팔로우 추가 기능
@@ -75,6 +67,22 @@ public class UserController {
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (followId != null) ? "Save Success" : "Save Fail");
         requestMap.put("followId", followId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 유저 프로필 변경
+    @PutMapping("user")
+    public ResponseEntity<Map<String, Object>> updateSiteUser(@RequestBody RequestSiteUserUpdateDTO requestSiteUserUpdateDTO, HttpServletRequest request){
+        Long userId = userService.updateUserSiteName(requestSiteUserUpdateDTO, request);
+
+        // HTTP 상태 반환
+        HttpStatus httpStatus = (userId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (userId != null) ? "Update Success" : "Update Fail");
+        requestMap.put("userId", userId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
