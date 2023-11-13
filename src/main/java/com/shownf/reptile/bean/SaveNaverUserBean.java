@@ -60,7 +60,7 @@ public class SaveNaverUserBean {
             naverUserDAO.setExpirationTime(localDateTime);
             naverUserRepositoryJPA.save(naverUserDAO);
 
-            UserDAO userDAO = userRepositoryJPA.findByUserId(id);
+            UserDAO userDAO = userRepositoryJPA.findByOauthId(id);
             userDAO.setName(name);
             userDAO.setImage(picture);
             userRepositoryJPA.save(userDAO);

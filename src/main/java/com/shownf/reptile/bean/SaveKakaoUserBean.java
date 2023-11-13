@@ -60,7 +60,7 @@ public class SaveKakaoUserBean {
             kakaoUserDAO.setExpirationTime(localDateTime);
             kakaoUserRepositoryJPA.save(kakaoUserDAO);
 
-            UserDAO userDAO = userRepositoryJPA.findByUserId(id);
+            UserDAO userDAO = userRepositoryJPA.findByOauthId(id);
             userDAO.setName(name);
             userDAO.setImage(picture);
             userRepositoryJPA.save(userDAO);

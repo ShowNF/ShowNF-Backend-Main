@@ -33,7 +33,7 @@ public class GetUserIdBean {
             oauthId = googleUserDAO.getGoogleId();
         else oauthId = null;
 
-        Long userId = userRepositoryJPA.findByUserId(oauthId).getUserId();
+        Long userId = userRepositoryJPA.findByOauthId(oauthId).getUserId();
 
         return userId;
 

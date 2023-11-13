@@ -60,7 +60,7 @@ public class SaveGoogleUserBean {
             googleUserDAO.setExpirationTime(localDateTime);
             googleUserRepositoryJPA.save(googleUserDAO);
 
-            UserDAO userDAO = userRepositoryJPA.findByUserId(id);
+            UserDAO userDAO = userRepositoryJPA.findByOauthId(id);
             userDAO.setName(name);
             userDAO.setImage(picture);
             userRepositoryJPA.save(userDAO);
