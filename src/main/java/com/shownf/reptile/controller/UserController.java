@@ -43,6 +43,13 @@ public class UserController {
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(userName);
     }
 
+    // handle 아이디로 유저 이미지 반환
+    @GetMapping("user/{userId}/image")
+    public String getUserImage(@PathVariable Long userId){
+        String userImage = userService.getUserImage(userId);
+        return userImage;
+    }
+
     // 내 팔로우 리스트 조회
     @GetMapping("user/followers/{userId}")
     public List<ResponseFollowerDTO> getFollowersUser(@PathVariable Long userId){

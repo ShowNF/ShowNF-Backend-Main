@@ -14,18 +14,19 @@ public class UserService {
     GetUserIdBean getUserIdBean;
     GetUserBean getUserBean;
     GetUserNameBean getUserNameBean;
+    GetUserImageBean getUserImageBean;
     UpdateUserSiteNameBean updateUserSiteNameBean;
     SaveFollowBean saveFollowBean;
     DeleteFollowBean deleteFollowBean;
     GetFollowersBean getFollowersBean;
     GetFollowingsBean getFollowingsBean;
 
-
     @Autowired
-    public UserService(GetUserIdBean getUserIdBean, GetUserBean getUserBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean, GetUserNameBean getUserNameBean) {
+    public UserService(GetUserIdBean getUserIdBean, GetUserBean getUserBean, GetUserNameBean getUserNameBean, GetUserImageBean getUserImageBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean) {
         this.getUserIdBean = getUserIdBean;
         this.getUserBean = getUserBean;
         this.getUserNameBean = getUserNameBean;
+        this.getUserImageBean = getUserImageBean;
         this.updateUserSiteNameBean = updateUserSiteNameBean;
         this.saveFollowBean = saveFollowBean;
         this.deleteFollowBean = deleteFollowBean;
@@ -46,6 +47,11 @@ public class UserService {
     // 유저 아이디로 유저 이름 찾기
     public String getUserName(Long userId){
         return getUserNameBean.exec(userId);
+    }
+
+    // 유저 아이디로 유저 이미지 찾기
+    public String getUserImage(Long userId){
+        return getUserImageBean.exec(userId);
     }
 
     // 유저 사이트 닉네임 변경
