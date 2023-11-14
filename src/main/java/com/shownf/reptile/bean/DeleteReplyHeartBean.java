@@ -38,6 +38,10 @@ public class DeleteReplyHeartBean {
         // 아이디로 삭제할 좋아요 찾기
         ReplyHeartDAO replyHeartDAO = getReplyHeartDAOBean.exec(replyHeartId);
 
+        // 취소 중복 배제
+        if (replyHeartDAO == null)
+            return 0L;
+
         // 대댓글 좋아요 해당하는 대댓글 확인
         if (!checkReplyIdReplyDAOBean.exec(replyHeartDAO, requestReplyHeartDeleteDTO))
             return null;

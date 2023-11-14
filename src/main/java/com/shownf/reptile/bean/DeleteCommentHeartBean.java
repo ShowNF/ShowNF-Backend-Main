@@ -37,6 +37,10 @@ public class DeleteCommentHeartBean {
         // 아이디로 삭제할 좋아요 찾기
         CommentHeartDAO commentHeartDAO = getCommentHeartDAOBean.exec(commentHeartId);
 
+        // 취소 중복 배제
+        if (commentHeartDAO == null)
+            return 0L;
+
         // 댓글 좋아요 해당하는 댓글 확인
         if (!checkCommentIdCommentDAOBean.exec(commentHeartDAO, requestCommentHeartDeleteDTO))
             return null;

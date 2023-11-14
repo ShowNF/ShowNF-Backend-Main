@@ -37,6 +37,10 @@ public class DeletePostHeartBean {
         // 아이디로 삭제할 좋아요 찾기
         PostHeartDAO postHeartDAO = getPostHeartDAOBean.exec(postHeartId);
 
+        // 취소 중복 배제
+        if (postHeartDAO == null)
+            return 0L;
+
         // 좋아요 해당하는 게시물 확인
         if (!checkPostIdPostDAOBean.exec(postHeartDAO, requestPostHeartDeleteDTO))
             return null;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SaveReplyHeartBean {
 
+    GetReplyHeartDAOBean getReplyHeartDAOBean;
     CreateUniqueIdBean createUniqueIdBean;
     CreateReplyHeartDAOBean createReplyHeartDAOBean;
     SaveReplyHeartDAOBean saveReplyHeartDAOBean;
@@ -18,7 +19,8 @@ public class SaveReplyHeartBean {
     UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public SaveReplyHeartBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyHeartDAOBean createReplyHeartDAOBean, SaveReplyHeartDAOBean saveReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, SaveReplyDAOBean saveReplyDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+    public SaveReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateReplyHeartDAOBean createReplyHeartDAOBean, SaveReplyHeartDAOBean saveReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, SaveReplyDAOBean saveReplyDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+        this.getReplyHeartDAOBean = getReplyHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createReplyHeartDAOBean = createReplyHeartDAOBean;
         this.saveReplyHeartDAOBean = saveReplyHeartDAOBean;
@@ -29,6 +31,10 @@ public class SaveReplyHeartBean {
 
     // 대댓글 좋아요 저장
     public Long exec(RequestReplyHeartSaveDTO requestReplyHeartSaveDTO){
+
+        // 대댓글 좋아요 중복 배제
+        if (getReplyHeartDAOBean.exec(requestReplyHeartSaveDTO) != null)
+            return 0L;
 
         // replyHeartId 생성
         Long replyHeartId = createUniqueIdBean.exec();

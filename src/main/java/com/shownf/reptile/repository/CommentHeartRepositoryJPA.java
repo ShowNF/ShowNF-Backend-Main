@@ -4,4 +4,6 @@ import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentHeartRepositoryJPA extends JpaRepository<CommentHeartDAO, Long> {
+
+    CommentHeartDAO findByUserIdAndCommentId(Long userId, Long commentId);
 }

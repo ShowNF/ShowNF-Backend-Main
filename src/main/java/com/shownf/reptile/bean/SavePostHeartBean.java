@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SavePostHeartBean {
 
+    GetPostHeartDAOBean getPostHeartDAOBean;
     CreateUniqueIdBean createUniqueIdBean;
     CreatePostHeartDAOBean createPostHeartDAOBean;
     SavePostHeartDAOBean savePostHeartDAOBean;
@@ -18,7 +19,8 @@ public class SavePostHeartBean {
     UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public SavePostHeartBean(CreateUniqueIdBean createUniqueIdBean, CreatePostHeartDAOBean createPostHeartDAOBean, SavePostHeartDAOBean savePostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+    public SavePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreatePostHeartDAOBean createPostHeartDAOBean, SavePostHeartDAOBean savePostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+        this.getPostHeartDAOBean = getPostHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createPostHeartDAOBean = createPostHeartDAOBean;
         this.savePostHeartDAOBean = savePostHeartDAOBean;
@@ -29,6 +31,10 @@ public class SavePostHeartBean {
 
     // 게시물 좋아요 저장
     public Long exec(RequestPostHeartSaveDTO requestPostHeartSaveDTO){
+
+        // 게시물 좋아요 중복 배제
+        if (getPostHeartDAOBean.exec(requestPostHeartSaveDTO) != null)
+            return 0L;
 
         // postHeartId 생성
         Long postHeartId = createUniqueIdBean.exec();
