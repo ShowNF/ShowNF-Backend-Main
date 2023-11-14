@@ -2,7 +2,7 @@ package com.shownf.reptile.service;
 
 import com.shownf.reptile.Model.DTO.RequestReplyDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestReplySaveDTO;
-import com.shownf.reptile.Model.DTO.RequestReplysDTO;
+import com.shownf.reptile.Model.DTO.ResponseReplysDTO;
 import com.shownf.reptile.bean.DeleteReplyBean;
 import com.shownf.reptile.bean.GetReplysBean;
 import com.shownf.reptile.bean.SaveReplyBean;
@@ -26,7 +26,7 @@ public class ReplyService {
     }
 
     // 대댓글 전체 조회
-    public List<RequestReplysDTO> getReplys(Long commentId){
+    public List<ResponseReplysDTO> getReplys(Long commentId){
         return getReplysBean.exec(commentId);
     }
 

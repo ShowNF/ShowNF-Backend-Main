@@ -22,4 +22,5 @@ public class ReplyDAO {
     String content;
     LocalDateTime uploadTime;
     Integer heartCount;
+    boolean deleteCheck;
 }

@@ -2,7 +2,7 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestReplyDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestReplySaveDTO;
-import com.shownf.reptile.Model.DTO.RequestReplysDTO;
+import com.shownf.reptile.Model.DTO.ResponseReplysDTO;
 import com.shownf.reptile.service.ReplyService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class ReplyController {
     // 대댓글 전체 조회
     @ApiOperation(value = "대댓글 전체 조회", notes = "댓글아이디로 찾은 대댓글 전체 조회")
     @GetMapping("reply/comment/{commentId}")
-    public List<RequestReplysDTO> getReplys(@PathVariable Long commentId){
+    public List<ResponseReplysDTO> getReplys(@PathVariable Long commentId){
         return replyService.getReplys(commentId);
     }
 

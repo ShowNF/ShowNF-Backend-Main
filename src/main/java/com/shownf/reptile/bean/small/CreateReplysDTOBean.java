@@ -1,6 +1,6 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.RequestReplysDTO;
+import com.shownf.reptile.Model.DTO.ResponseReplysDTO;
 import com.shownf.reptile.Model.entity.ReplyDAO;
 import lombok.Builder;
 import org.springframework.stereotype.Component;
@@ -13,25 +13,25 @@ import java.util.List;
 public class CreateReplysDTOBean {
 
     // 대댓글 조회시 DTO 생성
-    public List<RequestReplysDTO> exec(List<ReplyDAO> replyDAOs){
+    public List<ResponseReplysDTO> exec(List<ReplyDAO> replyDAOs){
 
-        List<RequestReplysDTO> requestReplysDTOs = new ArrayList<>();
+        List<ResponseReplysDTO> responseReplysDTOS = new ArrayList<>();
 
         // DTO 객체 대댓글 정보 넘기기
         for (ReplyDAO replyDAO : replyDAOs){
-            RequestReplysDTO requestReplysDTO = new RequestReplysDTO();
+            ResponseReplysDTO responseReplysDTO = new ResponseReplysDTO();
 
-            requestReplysDTO.setReplyId(replyDAO.getReplyId());
-            requestReplysDTO.setCommentId(replyDAO.getCommentId());
-            requestReplysDTO.setUserId(replyDAO.getUserId());
-            requestReplysDTO.setContent(replyDAO.getContent());
-            requestReplysDTO.setUploadTime(replyDAO.getUploadTime());
-            requestReplysDTO.setHeartCount(replyDAO.getHeartCount());
+            responseReplysDTO.setReplyId(replyDAO.getReplyId());
+            responseReplysDTO.setCommentId(replyDAO.getCommentId());
+            responseReplysDTO.setUserId(replyDAO.getUserId());
+            responseReplysDTO.setContent(replyDAO.getContent());
+            responseReplysDTO.setUploadTime(replyDAO.getUploadTime());
+            responseReplysDTO.setHeartCount(replyDAO.getHeartCount());
 
-            requestReplysDTOs.add(requestReplysDTO);
+            responseReplysDTOS.add(responseReplysDTO);
         }
 
         // DTO 객체 반환
-        return requestReplysDTOs;
+        return responseReplysDTOS;
     }
 }

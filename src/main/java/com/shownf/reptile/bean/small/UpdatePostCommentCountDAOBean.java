@@ -7,6 +7,8 @@ import com.shownf.reptile.repository.PostRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class UpdatePostCommentCountDAOBean {
 
@@ -26,10 +28,28 @@ public class UpdatePostCommentCountDAOBean {
         Long postId = commentDAO.getPostId();
 
         // postId 로 게시물 찾기
-        PostDAO postDAO = postRepositoryJPA.findById(postId).get();
+        Optional<PostDAO> postDAOOptional = postRepositoryJPA.findById(postId);
+        PostDAO postDAO = postDAOOptional.orElse(null);
+        if (postDAO == null)
+            return null;
 
         // 게시물 댓글 수 1 증가
         postDAO.setCommentCount(postDAO.getCommentCount() + 1);
+
+        // 게시물 반환
+        return postDAO;
+    }
+
+    // 대댓글 삭제시 게시물 댓글 갯수 감소
+    public PostDAO exec(Long replyId, Long postId){
+
+        // postId 로 게시물 찾기
+        Optional<PostDAO> postDAOOptional = postRepositoryJPA.findById(postId);
+        PostDAO postDAO = postDAOOptional.orElse(null);
+        if (postDAO == null)
+            return null;
+
+        postDAO.setCommentCount(postDAO.getCommentCount() - 1);
 
         // 게시물 반환
         return postDAO;
@@ -42,10 +62,18 @@ public class UpdatePostCommentCountDAOBean {
         Long postId = commentDAO.getPostId();
 
         // postId 로 게시물 찾기
-        PostDAO postDAO = postRepositoryJPA.findById(postId).get();
+        Optional<PostDAO> postDAOOptional = postRepositoryJPA.findById(postId);
+        PostDAO postDAO = postDAOOptional.orElse(null);
+        if (postDAO == null)
+            return null;
 
         // 게시물 댓글 수 감소
-        Integer replyCount = commentRepositoryJPA.findById(commentId).get().getReplyCount();
+        Optional<CommentDAO> commentDAOOptional = commentRepositoryJPA.findById(commentId);
+        CommentDAO newCommentDAO = commentDAOOptional.orElse(null);
+        if (newCommentDAO == null)
+            return null;
+        Integer replyCount = newCommentDAO.getReplyCount();
+
         if (replyCount == 0)
             postDAO.setCommentCount(postDAO.getCommentCount() - 1);
         else

@@ -6,6 +6,8 @@ import com.shownf.reptile.repository.CommentRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class UpdateCommentReplyCountDAOBean {
 
@@ -23,7 +25,10 @@ public class UpdateCommentReplyCountDAOBean {
         Long commentId = replyDAO.getCommentId();
 
         // commentId 로 댓글 찾기
-        CommentDAO commentDAO = commentRepositoryJPA.findById(commentId).get();
+        Optional<CommentDAO> commentDAOOptional = commentRepositoryJPA.findById(commentId);
+        CommentDAO commentDAO = commentDAOOptional.orElse(null);
+        if (commentDAO == null)
+            return null;
 
         // 댓글 대댓글 수 1 증가
         commentDAO.setReplyCount(commentDAO.getReplyCount() + 1);
@@ -39,7 +44,10 @@ public class UpdateCommentReplyCountDAOBean {
         Long commentId = replyDAO.getCommentId();
 
         // commentId 로 댓글 찾기
-        CommentDAO commentDAO = commentRepositoryJPA.findById(commentId).get();
+        Optional<CommentDAO> commentDAOOptional = commentRepositoryJPA.findById(commentId);
+        CommentDAO commentDAO = commentDAOOptional.orElse(null);
+        if (commentDAO == null)
+            return null;
 
         // 댓글 대댓글 수 1 증가
         commentDAO.setReplyCount(commentDAO.getReplyCount() - 1);

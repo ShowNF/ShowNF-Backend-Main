@@ -5,6 +5,8 @@ import com.shownf.reptile.repository.ReplyRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class GetReplyDAOBean {
 
@@ -17,6 +19,6 @@ public class GetReplyDAOBean {
 
     // 대댓글 찾기
     public ReplyDAO exec(Long replyId){
-        return replyRepositoryJPA.findById(replyId).get();
+        return replyRepositoryJPA.findById(replyId).orElse(null);
     }
 }

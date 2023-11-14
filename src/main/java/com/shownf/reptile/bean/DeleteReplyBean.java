@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestReplyDeleteDTO;
+import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.*;
 import com.shownf.reptile.Model.entity.CommentDAO;
 import com.shownf.reptile.Model.entity.PostDAO;
@@ -14,24 +15,26 @@ public class DeleteReplyBean {
     GetReplyDAOBean getReplyDAOBean;
     CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean;
     CheckUserIdCommentDAOBean checkUserIdCommentDAOBean;
-    DeleteReplyDAOBean deleteReplyDAOBean;
     UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean;
-    SaveCommentDAOBean saveCommentDAOBean;
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
-    SavePostDAOBean savePostDAOBean;
     UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean;
+    SaveReplyDAOBean saveReplyDAOBean;
+    SaveCommentDAOBean saveCommentDAOBean;
+    SavePostDAOBean savePostDAOBean;
+    SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteReplyBean(GetReplyDAOBean getReplyDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, DeleteReplyDAOBean deleteReplyDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean) {
+    public DeleteReplyBean(GetReplyDAOBean getReplyDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getReplyDAOBean = getReplyDAOBean;
         this.checkCommentIdCommentDAOBean = checkCommentIdCommentDAOBean;
         this.checkUserIdCommentDAOBean = checkUserIdCommentDAOBean;
-        this.deleteReplyDAOBean = deleteReplyDAOBean;
         this.updateCommentReplyCountDAOBean = updateCommentReplyCountDAOBean;
-        this.saveCommentDAOBean = saveCommentDAOBean;
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
-        this.savePostDAOBean = savePostDAOBean;
         this.updateUserCommentCountDAOBean = updateUserCommentCountDAOBean;
+        this.saveReplyDAOBean = saveReplyDAOBean;
+        this.saveCommentDAOBean = saveCommentDAOBean;
+        this.savePostDAOBean = savePostDAOBean;
+        this.saveUserDAOBean = saveUserDAOBean;
     }
 
     // 대댓글 삭제
@@ -42,6 +45,11 @@ public class DeleteReplyBean {
 
         // 아이디로 삭제할 대댓글 찾기
         ReplyDAO replyDAO = getReplyDAOBean.exec(replyId);
+        if (replyDAO == null)
+            return 0L;
+
+        // 대댓글 deleteCheck 값 true 설정
+        replyDAO.setDeleteCheck(true);
 
         // 대댓글에 해당하는 댓글 확인
         if (!checkCommentIdCommentDAOBean.exec(replyDAO, requestReplyDeleteDTO))
@@ -51,23 +59,35 @@ public class DeleteReplyBean {
         if (!checkUserIdCommentDAOBean.exec(replyDAO, requestReplyDeleteDTO))
             return null;
 
-        // 대댓글 삭제
-        deleteReplyDAOBean.exec(replyDAO);
-
         // 댓글 대댓글 갯수 감소
         CommentDAO commentDAO = updateCommentReplyCountDAOBean.exec(replyId, replyDAO);
+        if (commentDAO == null)
+            return 0L;
+
+        // 게시물 댓글 감소
+        PostDAO postDAO = updatePostCommentCountDAOBean.exec(replyId, commentDAO.getPostId());
+        if (postDAO == null)
+            return 0L;
+
+        // 대댓글 삭제시 유저 댓글수 감소
+        UserDAO userDAO = updateUserCommentCountDAOBean.exec(requestReplyDeleteDTO);
+        if (userDAO == null)
+            return 0L;
+
+        // 대댓글 저장
+        saveReplyDAOBean.exec(replyDAO);
 
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
 
-        // 게시물 댓글 감소
-        PostDAO postDAO = updatePostCommentCountDAOBean.exec(replyId, commentDAO);
-
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
 
-        // 대댓글 삭제시 유저 댓글수 감소
-        updateUserCommentCountDAOBean.exec(requestReplyDeleteDTO);
+        // 유저저장
+        saveUserDAOBean.exec(userDAO);
+
+        /*// 대댓글 삭제
+        deleteReplyDAOBean.exec(replyDAO);*/
 
         // replyId 반환
         return replyId;

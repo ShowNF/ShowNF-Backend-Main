@@ -27,7 +27,10 @@ public class CreateReplyDAOBean {
         // 대댓글 좋아요 갯수
         Integer heartCount = 0;
 
+        // 삭제 여부
+        boolean deleteCheck = false;
+
         // DAO 반환
-        return new ReplyDAO(replyId, commentId, userId, content, uploadTime, heartCount);
+        return new ReplyDAO(replyId, commentId, userId, content, uploadTime, heartCount, deleteCheck);
     }
 }
