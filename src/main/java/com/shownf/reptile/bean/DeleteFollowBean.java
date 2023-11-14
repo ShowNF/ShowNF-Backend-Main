@@ -28,7 +28,9 @@ public class DeleteFollowBean {
         // 유저와 팔로우 당한 유저로 팔로우 객체 찾기
         FollowDAO followDAO = getFollowDAOBean.exec(requestFollowDTO);
 
-        System.out.println("followDAO = " + followDAO);
+        // 취소 중복 배제
+        if (followDAO == null)
+            return 0L;
 
         // 팔로우 취소
         deleteFollowDAOBean.exec(followDAO);
