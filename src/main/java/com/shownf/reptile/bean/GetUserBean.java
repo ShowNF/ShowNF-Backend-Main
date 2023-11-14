@@ -21,10 +21,10 @@ public class GetUserBean {
 
         ResponseUserDTO responseUserDTO = new ResponseUserDTO();
 
-        responseUserDTO.setHandleId(userDAO.getUserId());
+        responseUserDTO.setUserId(userDAO.getUserId());
         responseUserDTO.setName(userDAO.getName());
         responseUserDTO.setImage(userDAO.getImage());
-        responseUserDTO.setUserId(userDAO.getOauthId());
+        responseUserDTO.setOauthId(userDAO.getOauthId());
         responseUserDTO.setSiteImage(userDAO.getSiteImage());
         responseUserDTO.setSiteName(userDAO.getSiteName());
         responseUserDTO.setFollowerCount(userDAO.getFollowerCount());

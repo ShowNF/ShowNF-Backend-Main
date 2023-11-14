@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class ResponseUserDTO {
-    Long handleId;
-    String userId;
+    Long userId;
+    String oauthId;
     String name;
     String image;
     String siteImage;
