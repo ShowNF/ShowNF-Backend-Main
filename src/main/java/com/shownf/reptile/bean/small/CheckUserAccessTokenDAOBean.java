@@ -42,7 +42,7 @@ public class CheckUserAccessTokenDAOBean {
         else if (naverUserDAO != null) savedUserId = naverUserDAO.getNaverId();
         else savedUserId = null;
 
-        if (userDAO.getUserId().equals(savedUserId))
+        if (userDAO.getOauthId().equals(savedUserId))
             return true;
         return false;
     }
