@@ -18,7 +18,10 @@ public class UpdateUserHeartCountDAOBean {
     UserRepositoryJPA userRepositoryJPA;
 
     @Autowired
-    public UpdateUserHeartCountDAOBean(UserRepositoryJPA userRepositoryJPA) {
+    public UpdateUserHeartCountDAOBean(PostRepositoryJPA postRepositoryJPA, CommentRepositoryJPA commentRepositoryJPA, ReplyRepositoryJPA replyRepositoryJPA, UserRepositoryJPA userRepositoryJPA) {
+        this.postRepositoryJPA = postRepositoryJPA;
+        this.commentRepositoryJPA = commentRepositoryJPA;
+        this.replyRepositoryJPA = replyRepositoryJPA;
         this.userRepositoryJPA = userRepositoryJPA;
     }
 
