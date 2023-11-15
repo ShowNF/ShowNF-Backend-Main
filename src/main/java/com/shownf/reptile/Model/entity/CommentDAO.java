@@ -23,4 +23,5 @@ public class CommentDAO {
     LocalDateTime uploadTime;
     Integer heartCount;
     Integer replyCount;
+    boolean deleteCheck;
 }

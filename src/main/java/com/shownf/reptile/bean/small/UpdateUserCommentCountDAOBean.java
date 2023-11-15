@@ -30,62 +30,65 @@ public class UpdateUserCommentCountDAOBean {
     }
 
     // 댓글 추가시 유저 댓글 수 증가
-    public void exec(RequestCommentSaveDTO requestCommentSaveDTO){
+    public UserDAO exec(RequestCommentSaveDTO requestCommentSaveDTO){
 
         // 댓글 추가된 게시물 유저 아이디 찾기
-        Long userId = postRepositoryJPA.findById(requestCommentSaveDTO.getPostId()).get().getUserId();
+        PostDAO postDAO = postRepositoryJPA.findById(requestCommentSaveDTO.getPostId()).orElse(null);
+        if (postDAO == null) return null;
+        Long userId = postDAO.getUserId();
 
         // 유저 아이디로 유저 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).get();
+        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        if (userDAO == null) return null;
 
         // 유저 commentCount 증가
         userDAO.setCommentCount(userDAO.getCommentCount() + 1);
 
-        // 유저 저장
-        userRepositoryJPA.save(userDAO);
+        return userDAO;
     }
 
     // 댓글 삭제시 유저 댓글 수 김소
-    public void exec(RequestCommentDeleteDTO requestCommentDeleteDTO){
+    public UserDAO exec(RequestCommentDeleteDTO requestCommentDeleteDTO){
 
         // 댓글 삭제된 게시물 유저 아이디 찾기
-        Long userId = postRepositoryJPA.findById(requestCommentDeleteDTO.getPostId()).get().getUserId();
+        PostDAO postDAO = postRepositoryJPA.findById(requestCommentDeleteDTO.getPostId()).orElse(null);
+        if (postDAO == null) return null;
+        Long userId = postDAO.getUserId();
 
         // 유저 아이디로 유저 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).get();
+        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        if (userDAO == null) return null;
 
         // 유저 commentCount 감소
-        CommentDAO commentDAO = commentRepositoryJPA.findById(requestCommentDeleteDTO.getCommentId()).get();
+        userDAO.setCommentCount(userDAO.getCommentCount() - 1);
+
+        /*// 댓글 삭제시 대댓글 갯수까지 감소
+        CommentDAO commentDAO = commentRepositoryJPA.findById(requestCommentDeleteDTO.getCommentId()).orElse(null);
+        if (commentDAO == null) return null;
+
         if (commentDAO.getReplyCount() == 0)
             userDAO.setCommentCount(userDAO.getCommentCount() - 1);
         else
-            userDAO.setCommentCount(userDAO.getCommentCount() - 1 - commentDAO.getReplyCount());
+            userDAO.setCommentCount(userDAO.getCommentCount() - 1 - commentDAO.getReplyCount());*/
 
-        // 유저 저장
-        userRepositoryJPA.save(userDAO);
+        return userDAO;
     }
 
     // 대댓글 추가시 유저 댓글 수 증가
     public UserDAO exec(RequestReplySaveDTO requestReplySaveDTO){
 
         // 대댓글 추가된 댓글 찾기
-        Optional<CommentDAO> commentDAOOptional = commentRepositoryJPA.findById(requestReplySaveDTO.getCommentId());
-        CommentDAO commentDAO = commentDAOOptional.orElse(null);
-        if (commentDAO == null)
-            return null;
+        CommentDAO commentDAO = commentRepositoryJPA.findById(requestReplySaveDTO.getCommentId()).orElse(null);
+        if (commentDAO == null) return null;
 
         // 댓글 추가된 게시물 유저 아이디 찾기
-        Optional<PostDAO> postDAOOptional = postRepositoryJPA.findById(commentDAO.getPostId());
-        PostDAO postDAO = postDAOOptional.orElse(null);
-        if (postDAO == null)
-            return null;
+        PostDAO postDAO = postRepositoryJPA.findById(commentDAO.getPostId()).orElse(null);
+        if (postDAO == null) return null;
         Long userId = postDAO.getUserId();
 
         // 유저 아이디로 유저 찾기
-        Optional<UserDAO> userDAOOptional = userRepositoryJPA.findById(userId);
-        UserDAO userDAO = userDAOOptional.orElse(null);
-        if (userDAO == null)
-            return null;
+        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        if (userDAO == null) return null;
 
         // 유저 commentCount 증가
         userDAO.setCommentCount(userDAO.getCommentCount() + 1);
@@ -98,19 +101,16 @@ public class UpdateUserCommentCountDAOBean {
 
         // 대댓글 삭제된 댓글 찾기
         CommentDAO commentDAO = commentRepositoryJPA.findById(requestReplyDeleteDTO.getCommentId()).orElse(null);
-        if (commentDAO == null)
-            return null;
+        if (commentDAO == null) return null;
 
         // 댓글 추가된 게시물 유저 아이디 찾기
         PostDAO postDAO = postRepositoryJPA.findById(commentDAO.getPostId()).orElse(null);
-        if (postDAO == null)
-            return null;
+        if (postDAO == null) return null;
         Long userId = postDAO.getUserId();
 
         // 유저 아이디로 유저 찾기
         UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
-        if (userDAO == null)
-            return null;
+        if (userDAO == null) return null;
 
         // 유저 commentCount 감소
         userDAO.setCommentCount(userDAO.getCommentCount() - 1);

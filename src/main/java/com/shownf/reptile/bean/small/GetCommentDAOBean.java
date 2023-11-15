@@ -17,6 +17,6 @@ public class GetCommentDAOBean {
 
     // 아디로 삭제할 댓글 찾기
     public CommentDAO exec(Long commentId){
-        return commentRepositoryJPA.findById(commentId).get();
+        return commentRepositoryJPA.findById(commentId).orElse(null);
     }
 }

@@ -1,6 +1,6 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.RequestCommentsDTO;
+import com.shownf.reptile.Model.DTO.ResponseCommentsDTO;
 import com.shownf.reptile.Model.entity.CommentDAO;
 import org.springframework.stereotype.Component;
 
@@ -11,26 +11,26 @@ import java.util.List;
 public class CreateCommentsDTOBean {
 
     // 댓글 조회시 DTO 생성
-    public List<RequestCommentsDTO> exec(List<CommentDAO> commentDAOs){
+    public List<ResponseCommentsDTO> exec(List<CommentDAO> commentDAOs){
 
-        List<RequestCommentsDTO> requestCommentsDTOs = new ArrayList<>();
+        List<ResponseCommentsDTO> responseCommentsDTOS = new ArrayList<>();
 
         // DTO 객체에 댓글 정보 넘기기
         for (CommentDAO commentDAO: commentDAOs) {
-            RequestCommentsDTO requestCommentsDTO = new RequestCommentsDTO();
+            ResponseCommentsDTO responseCommentsDTO = new ResponseCommentsDTO();
 
-            requestCommentsDTO.setCommentId(commentDAO.getCommentId());
-            requestCommentsDTO.setPostId(commentDAO.getPostId());
-            requestCommentsDTO.setUserId(commentDAO.getUserId());
-            requestCommentsDTO.setContent(commentDAO.getContent());
-            requestCommentsDTO.setUploadTime(commentDAO.getUploadTime());
-            requestCommentsDTO.setHeartCount(commentDAO.getHeartCount());
-            requestCommentsDTO.setReplyCount(commentDAO.getReplyCount());
+            responseCommentsDTO.setCommentId(commentDAO.getCommentId());
+            responseCommentsDTO.setPostId(commentDAO.getPostId());
+            responseCommentsDTO.setUserId(commentDAO.getUserId());
+            responseCommentsDTO.setContent(commentDAO.getContent());
+            responseCommentsDTO.setUploadTime(commentDAO.getUploadTime());
+            responseCommentsDTO.setHeartCount(commentDAO.getHeartCount());
+            responseCommentsDTO.setReplyCount(commentDAO.getReplyCount());
 
-            requestCommentsDTOs.add(requestCommentsDTO);
+            responseCommentsDTOS.add(responseCommentsDTO);
         }
 
         // DTO 객체들 반환
-        return requestCommentsDTOs;
+        return responseCommentsDTOS;
     }
 }

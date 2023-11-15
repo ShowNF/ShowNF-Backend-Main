@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class RequestCommentsDTO {
+public class ResponseCommentsDTO {
     Long commentId;
     Long postId;
     Long userId;

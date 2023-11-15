@@ -17,7 +17,8 @@ public class DeleteCheckReplyDAOBean {
         // 삭제 확인
         for (ReplyDAO replyDAO : replyDAOs){
             if (replyDAO.isDeleteCheck())
-                newReplyDAOs.add(replyDAO);
+                continue;
+            newReplyDAOs.add(replyDAO);
         }
 
         return newReplyDAOs;

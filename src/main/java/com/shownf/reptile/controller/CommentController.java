@@ -2,7 +2,7 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestCommentDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestCommentSaveDTO;
-import com.shownf.reptile.Model.DTO.RequestCommentsDTO;
+import com.shownf.reptile.Model.DTO.ResponseCommentsDTO;
 import com.shownf.reptile.service.CommentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class CommentController {
     // 댓글 전체 조회
     @ApiOperation(value = "댓글 전체 조회", notes = "게시판 아이디에 해당하는 댓글을 찾는다.")
     @GetMapping("comment/post/{postId}")
-    public List<RequestCommentsDTO> getComments(@PathVariable Long postId){
+    public List<ResponseCommentsDTO> getComments(@PathVariable Long postId){
         return commentService.getComments(postId);
     }
 

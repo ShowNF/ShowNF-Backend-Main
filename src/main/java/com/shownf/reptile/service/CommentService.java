@@ -2,7 +2,7 @@ package com.shownf.reptile.service;
 
 import com.shownf.reptile.Model.DTO.RequestCommentDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestCommentSaveDTO;
-import com.shownf.reptile.Model.DTO.RequestCommentsDTO;
+import com.shownf.reptile.Model.DTO.ResponseCommentsDTO;
 import com.shownf.reptile.bean.DeleteCommentBean;
 import com.shownf.reptile.bean.GetCommentsBean;
 import com.shownf.reptile.bean.SaveCommentBean;
@@ -27,7 +27,7 @@ public class CommentService {
     }
 
     // 댓글 전체 조회
-    public List<RequestCommentsDTO> getComments(Long postId){
+    public List<ResponseCommentsDTO> getComments(Long postId){
         return getCommentsBean.exec(postId);
     }
 

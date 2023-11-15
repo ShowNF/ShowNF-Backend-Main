@@ -30,6 +30,9 @@ public class CreateCommentDAOBean {
         // 대댓글 갯수
         Integer replyCount = 0;
 
-        return  new CommentDAO(commentId, postId, userId, content, localDateTime, heartCount, replyCount);
+        // 삭제 여부
+        boolean deleteCheck = false;
+
+        return  new CommentDAO(commentId, postId, userId, content, localDateTime, heartCount, replyCount, deleteCheck);
     }
 }

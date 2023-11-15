@@ -28,8 +28,7 @@ public class UpdatePostCommentCountDAOBean {
         Long postId = commentDAO.getPostId();
 
         // postId 로 게시물 찾기
-        Optional<PostDAO> postDAOOptional = postRepositoryJPA.findById(postId);
-        PostDAO postDAO = postDAOOptional.orElse(null);
+        PostDAO postDAO = postRepositoryJPA.findById(postId).orElse(null);
         if (postDAO == null)
             return null;
 
@@ -44,8 +43,7 @@ public class UpdatePostCommentCountDAOBean {
     public PostDAO exec(Long replyId, Long postId){
 
         // postId 로 게시물 찾기
-        Optional<PostDAO> postDAOOptional = postRepositoryJPA.findById(postId);
-        PostDAO postDAO = postDAOOptional.orElse(null);
+        PostDAO postDAO = postRepositoryJPA.findById(postId).orElse(null);
         if (postDAO == null)
             return null;
 
@@ -62,14 +60,15 @@ public class UpdatePostCommentCountDAOBean {
         Long postId = commentDAO.getPostId();
 
         // postId 로 게시물 찾기
-        Optional<PostDAO> postDAOOptional = postRepositoryJPA.findById(postId);
-        PostDAO postDAO = postDAOOptional.orElse(null);
+        PostDAO postDAO = postRepositoryJPA.findById(postId).orElse(null);
         if (postDAO == null)
             return null;
 
         // 게시물 댓글 수 감소
-        Optional<CommentDAO> commentDAOOptional = commentRepositoryJPA.findById(commentId);
-        CommentDAO newCommentDAO = commentDAOOptional.orElse(null);
+        postDAO.setCommentCount(postDAO.getCommentCount() - 1);
+
+        /*// 댓글 삭제시 대댓글 갯수까지 감소
+        CommentDAO newCommentDAO = commentRepositoryJPA.findById(commentId).orElse(null);
         if (newCommentDAO == null)
             return null;
         Integer replyCount = newCommentDAO.getReplyCount();
@@ -77,7 +76,7 @@ public class UpdatePostCommentCountDAOBean {
         if (replyCount == 0)
             postDAO.setCommentCount(postDAO.getCommentCount() - 1);
         else
-            postDAO.setCommentCount(postDAO.getCommentCount() - 1 - replyCount);
+            postDAO.setCommentCount(postDAO.getCommentCount() - 1 - replyCount);*/
 
         // 게시물 반환
         return postDAO;
