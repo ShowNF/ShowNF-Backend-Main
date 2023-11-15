@@ -13,20 +13,18 @@ public class SaveCommentHeartBean {
     GetCommentHeartDAOBean getCommentHeartDAOBean;
     CreateUniqueIdBean createUniqueIdBean;
     CreateCommentHeartDAOBean createCommentHeartDAOBean;
-    SaveCommentHeartDAOBean saveCommentHeartDAOBean;
     UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean;
+    SaveCommentHeartDAOBean saveCommentHeartDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
-    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public SaveCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateCommentHeartDAOBean createCommentHeartDAOBean, SaveCommentHeartDAOBean saveCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+    public SaveCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateCommentHeartDAOBean createCommentHeartDAOBean, SaveCommentHeartDAOBean saveCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, SaveCommentDAOBean saveCommentDAOBean) {
         this.getCommentHeartDAOBean = getCommentHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createCommentHeartDAOBean = createCommentHeartDAOBean;
         this.saveCommentHeartDAOBean = saveCommentHeartDAOBean;
         this.updateCommentHeartCountDAOBean = updateCommentHeartCountDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
-        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
     }
 
     // 댓글 좋아요 저장
@@ -42,17 +40,18 @@ public class SaveCommentHeartBean {
         // DTO 객체 DAO 변환
         CommentHeartDAO commentHeartDAO = createCommentHeartDAOBean.exec(commentHeartId, requestCommentHeartSaveDTO);
 
-        // 댓글 좋아요 저장
-        saveCommentHeartDAOBean.exec(commentHeartDAO);
-
         // 댓글 좋아요 갯수 추가
         CommentDAO commentDAO = updateCommentHeartCountDAOBean.exec(commentHeartDAO);
+        if (commentDAO == null) return 0L;
+
+        // 댓글 좋아요 저장
+        saveCommentHeartDAOBean.exec(commentHeartDAO);
 
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
 
-        // 유저 좋아요 갯수 추가
-        updateUserHeartCountDAOBean.exec(requestCommentHeartSaveDTO);
+        /*// 유저 좋아요 갯수 추가
+        updateUserHeartCountDAOBean.exec(requestCommentHeartSaveDTO);*/
 
         // commentHeartId 반환
         return commentHeartId;

@@ -49,17 +49,18 @@ public class DeleteCommentHeartBean {
         if (!checkUserIdCommentDAOBean.exec(commentHeartDAO, requestCommentHeartDeleteDTO))
             return null;
 
-        // 좋아요 삭제
-        deleteCommentHeartDAOBean.exec(commentHeartDAO);
-
         // 댓글 좋아요 갯수 감소
         CommentDAO commentDAO = updateCommentHeartCountDAOBean.exec(commentHeartId, commentHeartDAO);
+        if (commentDAO == null) return null;
+
+        // 좋아요 삭제
+        deleteCommentHeartDAOBean.exec(commentHeartDAO);
 
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
 
-        // 댓글 좋아요 삭제 시 유저 좋아요수 감소
-        updateUserHeartCountDAOBean.exec(requestCommentHeartDeleteDTO);
+        /*// 댓글 좋아요 삭제 시 유저 좋아요수 감소
+        updateUserHeartCountDAOBean.exec(requestCommentHeartDeleteDTO);*/
 
         // commentHeartId 반환
         return commentHeartId;
