@@ -13,20 +13,18 @@ public class DeleteReplyHeartBean {
     GetReplyHeartDAOBean getReplyHeartDAOBean;
     CheckReplyIdReplyDAOBean checkReplyIdReplyDAOBean;
     CheckUserIdReplyDAOBean checkUserIdReplyDAOBean;
-    DeleteReplyHeartDAOBean deleteReplyHeartDAOBean;
     UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean;
+    DeleteReplyHeartDAOBean deleteReplyHeartDAOBean;
     SaveReplyDAOBean saveReplyDAOBean;
-    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public DeleteReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CheckReplyIdReplyDAOBean checkReplyIdReplyDAOBean, CheckUserIdReplyDAOBean checkUserIdReplyDAOBean, DeleteReplyHeartDAOBean deleteReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, SaveReplyDAOBean saveReplyDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+    public DeleteReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CheckReplyIdReplyDAOBean checkReplyIdReplyDAOBean, CheckUserIdReplyDAOBean checkUserIdReplyDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, DeleteReplyHeartDAOBean deleteReplyHeartDAOBean, SaveReplyDAOBean saveReplyDAOBean) {
         this.getReplyHeartDAOBean = getReplyHeartDAOBean;
         this.checkReplyIdReplyDAOBean = checkReplyIdReplyDAOBean;
         this.checkUserIdReplyDAOBean = checkUserIdReplyDAOBean;
-        this.deleteReplyHeartDAOBean = deleteReplyHeartDAOBean;
         this.updateReplyHeartCountDAOBean = updateReplyHeartCountDAOBean;
+        this.deleteReplyHeartDAOBean = deleteReplyHeartDAOBean;
         this.saveReplyDAOBean = saveReplyDAOBean;
-        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
     }
 
     // 대댓글 좋아요 삭제
@@ -50,17 +48,18 @@ public class DeleteReplyHeartBean {
         if (!checkUserIdReplyDAOBean.exec(replyHeartDAO, requestReplyHeartDeleteDTO))
             return null;
 
-        // 대댓글 삭제
-        deleteReplyHeartDAOBean.exec(replyHeartDAO);
-
         // 대댓글 좋아요 갯수 감소
         ReplyDAO replyDAO = updateReplyHeartCountDAOBean.exec(replyHeartId, replyHeartDAO);
+        if (replyDAO == null) return null;
+
+        // 대댓글 삭제
+        deleteReplyHeartDAOBean.exec(replyHeartDAO);
 
         // 대댓글 저장
         saveReplyDAOBean.exec(replyDAO);
 
-        // 대댓글 좋아요 삭제시 유저 좋아요수 감소
-        updateUserHeartCountDAOBean.exec(requestReplyHeartDeleteDTO);
+        /*// 대댓글 좋아요 삭제시 유저 좋아요수 감소
+        updateUserHeartCountDAOBean.exec(requestReplyHeartDeleteDTO);*/
 
         // replyHeartId 반환
         return replyHeartId;

@@ -23,7 +23,8 @@ public class UpdateReplyHeartCountDAOBean {
         Long replyId = replyHeartDAO.getReplyId();
 
         // replyId 로 댓글 찾기
-        ReplyDAO replyDAO = replyRepositoryJPA.findById(replyId).get();
+        ReplyDAO replyDAO = replyRepositoryJPA.findById(replyId).orElse(null);
+        if (replyDAO == null) return null;
 
         // 대댓글 좋아요 수 1 증가
         replyDAO.setHeartCount(replyDAO.getHeartCount() + 1);
@@ -39,7 +40,8 @@ public class UpdateReplyHeartCountDAOBean {
         Long replyId = replyHeartDAO.getReplyId();
 
         // replyId 로 댓글 찾기
-        ReplyDAO replyDAO = replyRepositoryJPA.findById(replyId).get();
+        ReplyDAO replyDAO = replyRepositoryJPA.findById(replyId).orElse(null);
+        if (replyDAO == null) return null;
 
         // 대댓글 좋아요 수 1 감소
         replyDAO.setHeartCount(replyDAO.getHeartCount() - 1);

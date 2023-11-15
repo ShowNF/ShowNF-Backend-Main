@@ -13,20 +13,18 @@ public class SaveReplyHeartBean {
     GetReplyHeartDAOBean getReplyHeartDAOBean;
     CreateUniqueIdBean createUniqueIdBean;
     CreateReplyHeartDAOBean createReplyHeartDAOBean;
-    SaveReplyHeartDAOBean saveReplyHeartDAOBean;
     UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean;
+    SaveReplyHeartDAOBean saveReplyHeartDAOBean;
     SaveReplyDAOBean saveReplyDAOBean;
-    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
 
     @Autowired
-    public SaveReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateReplyHeartDAOBean createReplyHeartDAOBean, SaveReplyHeartDAOBean saveReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, SaveReplyDAOBean saveReplyDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+    public SaveReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateReplyHeartDAOBean createReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, SaveReplyHeartDAOBean saveReplyHeartDAOBean, SaveReplyDAOBean saveReplyDAOBean) {
         this.getReplyHeartDAOBean = getReplyHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createReplyHeartDAOBean = createReplyHeartDAOBean;
-        this.saveReplyHeartDAOBean = saveReplyHeartDAOBean;
         this.updateReplyHeartCountDAOBean = updateReplyHeartCountDAOBean;
+        this.saveReplyHeartDAOBean = saveReplyHeartDAOBean;
         this.saveReplyDAOBean = saveReplyDAOBean;
-        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
     }
 
     // 대댓글 좋아요 저장
@@ -42,18 +40,18 @@ public class SaveReplyHeartBean {
         // DTO 객체 DAO 변환
         ReplyHeartDAO replyHeartDAO = createReplyHeartDAOBean.exec(replyHeartId, requestReplyHeartSaveDTO);
 
-        // 대댓글 좋아요 저장
-        saveReplyHeartDAOBean.exec(replyHeartDAO);
-
         // 대댓글 좋아요 갯수 추가
         ReplyDAO replyDAO = updateReplyHeartCountDAOBean.exec(replyHeartDAO);
+        if (replyDAO == null) return null;
+
+        // 대댓글 좋아요 저장
+        saveReplyHeartDAOBean.exec(replyHeartDAO);
 
         // 대댓글 저장
         saveReplyDAOBean.exec(replyDAO);
 
-        // 유저 좋아요 갯수 추가
-        updateUserHeartCountDAOBean.exec(requestReplyHeartSaveDTO);
-
+        /*// 유저 좋아요 갯수 추가
+        updateUserHeartCountDAOBean.exec(requestReplyHeartSaveDTO);*/
 
         // replyHeartId 반환
         return replyHeartId;
