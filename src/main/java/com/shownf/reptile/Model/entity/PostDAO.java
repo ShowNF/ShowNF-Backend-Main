@@ -26,4 +26,5 @@ public class PostDAO {
     Integer heartCount;
     Integer commentCount;
     Integer viewCount;
+    boolean deleteCheck;
 }

@@ -2,6 +2,7 @@ package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestPostDTO;
 import com.shownf.reptile.bean.small.CreatePostsDTOBean;
+import com.shownf.reptile.bean.small.DeleteCheckPostDAOBean;
 import com.shownf.reptile.bean.small.GetPostsDAOBean;
 import com.shownf.reptile.Model.entity.PostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,13 @@ import org.springframework.stereotype.Component;
 public class GetPostsBean {
 
     GetPostsDAOBean getPostsDAOBean;
+    DeleteCheckPostDAOBean deleteCheckPostDAOBean;
     CreatePostsDTOBean createPostsDTOBean;
 
     @Autowired
-    public GetPostsBean(GetPostsDAOBean getPostsDAOBean, CreatePostsDTOBean createPostsDTOBean) {
+    public GetPostsBean(GetPostsDAOBean getPostsDAOBean, DeleteCheckPostDAOBean deleteCheckPostDAOBean, CreatePostsDTOBean createPostsDTOBean) {
         this.getPostsDAOBean = getPostsDAOBean;
+        this.deleteCheckPostDAOBean = deleteCheckPostDAOBean;
         this.createPostsDTOBean = createPostsDTOBean;
     }
 
@@ -37,8 +40,11 @@ public class GetPostsBean {
         // 유저 아이디로 게시물 전체 찾기
         Page<PostDAO> postDAOs = getPostsDAOBean.exec(userId, pageable);
 
+        // 게시물 삭제 여부 확인
+        Page<PostDAO>  newPostDAOs = deleteCheckPostDAOBean.exec(postDAOs);
+
         // DAO 객체 DTO 반환
-        return createPostsDTOBean.exec(userId, pageable, postDAOs);
+        return createPostsDTOBean.exec(userId, pageable, newPostDAOs);
     }
 
 }

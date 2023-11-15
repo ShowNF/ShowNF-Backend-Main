@@ -16,6 +16,6 @@ public class GetPostDAOBean {
 
     // 게시물 객체 찾기
     public PostDAO exec(Long postId){
-        return postRepositoryJPA.findById(postId).get();
+        return postRepositoryJPA.findById(postId).orElse(null);
     }
 }

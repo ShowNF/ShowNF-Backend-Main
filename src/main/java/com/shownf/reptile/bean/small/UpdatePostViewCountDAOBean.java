@@ -22,7 +22,8 @@ public class UpdatePostViewCountDAOBean {
         Long postId = postDAO.getPostId();
 
         // postId 로 게시물 찾기
-        PostDAO postDAO1 = postRepositoryJPA.findById(postId).get();
+        PostDAO postDAO1 = postRepositoryJPA.findById(postId).orElse(null);
+        if (postDAO1 == null) return null;
 
         // 게시물 조회수 1 증가
         postDAO1.setViewCount(postDAO.getViewCount() + 1);

@@ -31,7 +31,7 @@ public class GetPostsDAOBean {
         List<PostDAO> postDAOs = new ArrayList<>();
 
         for (Long postId : postIds)
-            postDAOs.add(postRepositoryJPA.findById(postId).get());
+            postDAOs.add(postRepositoryJPA.findById(postId).orElse(null));
 
         return postDAOs;
     }
