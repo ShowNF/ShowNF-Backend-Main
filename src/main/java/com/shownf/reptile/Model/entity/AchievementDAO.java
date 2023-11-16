@@ -14,7 +14,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AchievementsDAO {
+public class AchievementDAO {
     @Id
     Achievement achievement;
     String achievementName;
