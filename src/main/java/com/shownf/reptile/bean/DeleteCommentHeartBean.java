@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestCommentHeartDeleteDTO;
+import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.*;
 import com.shownf.reptile.Model.entity.CommentDAO;
 import com.shownf.reptile.Model.entity.CommentHeartDAO;
@@ -13,20 +14,24 @@ public class DeleteCommentHeartBean {
     GetCommentHeartDAOBean getCommentHeartDAOBean;
     CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean;
     CheckUserIdCommentDAOBean checkUserIdCommentDAOBean;
-    DeleteCommentHeartDAOBean deleteCommentHeartDAOBean;
     UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean;
+    UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
+    UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
+    DeleteCommentHeartDAOBean deleteCommentHeartDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
-    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
+    SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, DeleteCommentHeartDAOBean deleteCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+    public DeleteCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, DeleteCommentHeartDAOBean deleteCommentHeartDAOBean, SaveCommentDAOBean saveCommentDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getCommentHeartDAOBean = getCommentHeartDAOBean;
         this.checkCommentIdCommentDAOBean = checkCommentIdCommentDAOBean;
         this.checkUserIdCommentDAOBean = checkUserIdCommentDAOBean;
-        this.deleteCommentHeartDAOBean = deleteCommentHeartDAOBean;
         this.updateCommentHeartCountDAOBean = updateCommentHeartCountDAOBean;
+        this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
+        this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
+        this.deleteCommentHeartDAOBean = deleteCommentHeartDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
-        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
+        this.saveUserDAOBean = saveUserDAOBean;
     }
 
     public Long exec(RequestCommentHeartDeleteDTO requestCommentHeartDeleteDTO){
@@ -53,11 +58,22 @@ public class DeleteCommentHeartBean {
         CommentDAO commentDAO = updateCommentHeartCountDAOBean.exec(commentHeartId, commentHeartDAO);
         if (commentDAO == null) return null;
 
+        // 좋아요 sender, receiver 감소
+        UserDAO userDAO1 = updateUserReceiveHeartDAOBean.exec(null, commentDAO);
+        if (userDAO1 == null) return 0L;
+
+        UserDAO userDAO2 = updateUserSendHeartDAOBean.exec(null, commentHeartDAO);
+        if (userDAO2 == null) return 0L;
+
         // 좋아요 삭제
         deleteCommentHeartDAOBean.exec(commentHeartDAO);
 
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
+
+        // 유저 저장
+        saveUserDAOBean.exec(userDAO1);
+        saveUserDAOBean.exec(userDAO2);
 
         /*// 댓글 좋아요 삭제 시 유저 좋아요수 감소
         updateUserHeartCountDAOBean.exec(requestCommentHeartDeleteDTO);*/
