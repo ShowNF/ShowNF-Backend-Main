@@ -25,7 +25,7 @@ public class SaveDiaryDAOBean {
     }
 
     // 다이어리 저장시 DAO 생성
-    public void exec(Long diaryId, RequestDiarySaveDTO requestDiarySaveDTO){
+    public DiaryDAO exec(Long diaryId, RequestDiarySaveDTO requestDiarySaveDTO){
 
         // 마이펫 아이디
         Long petId = requestDiarySaveDTO.getPetId();
@@ -60,10 +60,11 @@ public class SaveDiaryDAOBean {
         if (words[1].length() < 2) month = words[0] + "0" + words[1];
         else month = words[0] + words[1];
 
-        exec(new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, date, month));
+        return new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, date, month);
     }
 
-    public void exec(RequestDiarySaveDTO requestDiarySaveDTO){
+    // 다이어리 수정시 저장
+    public DiaryDAO exec(RequestDiarySaveDTO requestDiarySaveDTO){
 
         DiaryDAO diaryDAO = diaryRepositoryJPA.findById(requestDiarySaveDTO.getDiaryId()).get();
 
@@ -99,6 +100,6 @@ public class SaveDiaryDAOBean {
         else month = words[0] + words[1];
         diaryDAO.setMonth(month);
 
-        exec(diaryDAO);
+        return diaryDAO;
     }
 }

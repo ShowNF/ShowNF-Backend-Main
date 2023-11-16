@@ -17,6 +17,6 @@ public class GetPetDAOBean {
 
     // 마이펫 찾기
     public PetDAO exec(Long petId){
-        return petRepositoryJPA.findById(petId).get();
+        return petRepositoryJPA.findById(petId).orElse(null);
     }
 }

@@ -1,9 +1,10 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
-import com.shownf.reptile.bean.small.CreateUniqueIdBean;
-import com.shownf.reptile.bean.small.SaveDiaryDAOBean;
-import com.shownf.reptile.bean.small.UpdatePetWeightDAOBean;
+import com.shownf.reptile.Model.entity.DiaryDAO;
+import com.shownf.reptile.Model.entity.PetDAO;
+import com.shownf.reptile.Model.entity.UserDAO;
+import com.shownf.reptile.bean.small.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,14 +12,20 @@ import org.springframework.stereotype.Component;
 public class SaveDiaryBean {
 
     CreateUniqueIdBean createUniqueIdBean;
+    UpdatePetDAOBean updatePetDAOBean;
+    UpdateUserDiaryCountDAOBean updateUserDiaryCountDAOBean;
     SaveDiaryDAOBean saveDiaryDAOBean;
-    UpdatePetWeightDAOBean updatePetWeightDAOBean;
+    SavePetDAOBean savePetDAOBean;
+    SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public SaveDiaryBean(CreateUniqueIdBean createUniqueIdBean, SaveDiaryDAOBean saveDiaryDAOBean, UpdatePetWeightDAOBean updatePetWeightDAOBean) {
+    public SaveDiaryBean(CreateUniqueIdBean createUniqueIdBean, UpdatePetDAOBean updatePetDAOBean, UpdateUserDiaryCountDAOBean updateUserDiaryCountDAOBean, SaveDiaryDAOBean saveDiaryDAOBean, SavePetDAOBean savePetDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
+        this.updatePetDAOBean = updatePetDAOBean;
+        this.updateUserDiaryCountDAOBean = updateUserDiaryCountDAOBean;
         this.saveDiaryDAOBean = saveDiaryDAOBean;
-        this.updatePetWeightDAOBean = updatePetWeightDAOBean;
+        this.savePetDAOBean = savePetDAOBean;
+        this.saveUserDAOBean = saveUserDAOBean;
     }
 
     // 다이어리 저장
@@ -26,10 +33,18 @@ public class SaveDiaryBean {
 
         // 다이어리 수정시 저장
         if (requestDiarySaveDTO.getDiaryId() != null){
-            saveDiaryDAOBean.exec(requestDiarySaveDTO);
+
+            // 다이어리 수정
+            DiaryDAO diaryDAO = saveDiaryDAOBean.exec(requestDiarySaveDTO);
 
             // 다이어리 저장시 펫 몸무게 업데이트
-            updatePetWeightDAOBean.exec(requestDiarySaveDTO);
+            PetDAO petDAO = updatePetDAOBean.exec(null, diaryDAO);
+
+            // 다이어리 저장
+            saveDiaryDAOBean.exec(diaryDAO);
+
+            // 펫 저장
+            savePetDAOBean.exec(petDAO);
 
             return requestDiarySaveDTO.getDiaryId();
         }
@@ -38,10 +53,25 @@ public class SaveDiaryBean {
         Long diaryId = createUniqueIdBean.exec();
 
         // 다이어리 저장
-        saveDiaryDAOBean.exec(diaryId, requestDiarySaveDTO);
+        DiaryDAO diaryDAO = saveDiaryDAOBean.exec(diaryId, requestDiarySaveDTO);
 
-        // 다이어리 저장시 펫 몸무게 업데이트
-        updatePetWeightDAOBean.exec(requestDiarySaveDTO);
+        // 다이어리 저장시 다이어리 갯수, 펫 몸무게 업데이트
+        PetDAO petDAO = updatePetDAOBean.exec(diaryDAO);
+        if (petDAO == null) return 0L;
+
+        // 유저 다이어리 갯수 추가
+        UserDAO userDAO = updateUserDiaryCountDAOBean.exec(petDAO);
+        if (userDAO == null) return 0L;
+
+        // 다이어리 저장
+        saveDiaryDAOBean.exec(diaryDAO);
+
+        // 펫 저장
+        savePetDAOBean.exec(petDAO);
+
+        // 유저 저장
+        saveUserDAOBean.exec(userDAO);
+
 
         // 다이어리 diaryId 반환
         return diaryId;
