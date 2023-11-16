@@ -32,6 +32,10 @@ public class GetUserBean {
         responseUserDTO.setPostCount(userDAO.getPostCount());
         responseUserDTO.setHeartCount(userDAO.getHeartCount());
         responseUserDTO.setCommentCount(userDAO.getCommentCount());
+        responseUserDTO.setPetCount(userDAO.getPetCount());
+        responseUserDTO.setDiaryCount(userDAO.getDiaryCount());
+        responseUserDTO.setSendHeartCount(userDAO.getSendHeartCount());
+        responseUserDTO.setReceiveHeartCount(userDAO.getReceiveHeartCount());
 
         return responseUserDTO;
     }

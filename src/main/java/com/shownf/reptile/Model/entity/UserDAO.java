@@ -29,4 +29,8 @@ public class UserDAO {
     Integer postCount;
     Integer heartCount;
     Integer commentCount;
+    Integer petCount;
+    Integer diaryCount;
+    Integer sendHeartCount;
+    Integer receiveHeartCount;
 }

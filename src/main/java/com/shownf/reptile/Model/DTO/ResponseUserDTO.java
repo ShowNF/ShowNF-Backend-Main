@@ -18,4 +18,8 @@ public class ResponseUserDTO {
     Integer postCount;
     Integer heartCount;
     Integer commentCount;
+    Integer petCount;
+    Integer diaryCount;
+    Integer sendHeartCount;
+    Integer receiveHeartCount;
 }
