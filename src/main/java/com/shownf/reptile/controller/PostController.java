@@ -1,6 +1,7 @@
 package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestPostDTO;
+import com.shownf.reptile.Model.DTO.RequestPostDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestPostSaveDTO;
 import com.shownf.reptile.Model.DTO.ResponsePostsDTO;
 import com.shownf.reptile.service.PostService;
@@ -83,6 +84,23 @@ public class PostController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (postId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("postId", postId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 게시물 삭제
+    @ApiOperation(value = "게시물 삭제", notes = "게시물 삭제시 삭제")
+    @DeleteMapping("post")
+    public ResponseEntity<Map<String, Object>> deletePost(@RequestBody RequestPostDeleteDTO requestPostDeleteDTO){
+        Long postId = postService.deletePostDAO(requestPostDeleteDTO);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (postId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (postId != null) ? "Delete Success" : "Delete Fail");
         requestMap.put("postId", postId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);

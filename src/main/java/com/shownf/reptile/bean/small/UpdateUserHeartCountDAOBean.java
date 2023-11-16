@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.*;
+import com.shownf.reptile.Model.entity.PostDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.repository.CommentRepositoryJPA;
 import com.shownf.reptile.repository.PostRepositoryJPA;
@@ -44,7 +45,6 @@ public class UpdateUserHeartCountDAOBean {
     // 게시물 좋아요 삭제시 유저 heartCount 감소
     public void exec(RequestPostHeartDeleteDTO requestPostHeartDeleteDTO){
 
-        // 게시물 삭제할 경우 나중에 추가해야댐
 
         // 좋아요 누른 게시물 찾기
         Long userId = postRepositoryJPA.findById(requestPostHeartDeleteDTO.getPostId()).get().getUserId();
@@ -59,7 +59,8 @@ public class UpdateUserHeartCountDAOBean {
         userRepositoryJPA.save(userDAO);
     }
 
-    // 댓글 좋아요 추가시 유저 heartCount 증가
+
+    /*// 댓글 좋아요 추가시 유저 heartCount 증가
     public void exec(RequestCommentHeartSaveDTO requestCommentHeartSaveDTO){
 
         // 좋아요 누른 게시물 찾기
@@ -121,5 +122,5 @@ public class UpdateUserHeartCountDAOBean {
 
         // 유저 저장
         userRepositoryJPA.save(userDAO);
-    }
+    }*/
 }

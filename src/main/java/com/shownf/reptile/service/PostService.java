@@ -1,6 +1,7 @@
 package com.shownf.reptile.service;
 
 import com.shownf.reptile.Model.DTO.RequestPostDTO;
+import com.shownf.reptile.Model.DTO.RequestPostDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestPostSaveDTO;
 import com.shownf.reptile.Model.DTO.ResponsePostsDTO;
 import com.shownf.reptile.bean.*;
@@ -19,14 +20,16 @@ public class PostService {
     GetCategoryPostsBean categoryPostsBean;
     GetUserPostHeartsBean getUserPostHeartsBean;
     SavePostBean savePostBean;
+    DeletePostBean deletePostBean;
 
     @Autowired
-    public PostService(GetPostBean getPostBean, GetPostsBean getPostsBean, GetCategoryPostsBean categoryPostsBean, GetUserPostHeartsBean getUserPostHeartsBean, SavePostBean savePostBean) {
+    public PostService(GetPostBean getPostBean, GetPostsBean getPostsBean, GetCategoryPostsBean categoryPostsBean, GetUserPostHeartsBean getUserPostHeartsBean, SavePostBean savePostBean, DeletePostBean deletePostBean) {
         this.getPostBean = getPostBean;
         this.getPostsBean = getPostsBean;
         this.categoryPostsBean = categoryPostsBean;
         this.getUserPostHeartsBean = getUserPostHeartsBean;
         this.savePostBean = savePostBean;
+        this.deletePostBean = deletePostBean;
     }
 
     // 게시물 조회
@@ -62,5 +65,6 @@ public class PostService {
     // 게시물 수정
 
     // 게시물 삭제
+    public Long deletePostDAO(RequestPostDeleteDTO requestPostDeleteDTO){ return deletePostBean.exec(requestPostDeleteDTO); }
 
 }
