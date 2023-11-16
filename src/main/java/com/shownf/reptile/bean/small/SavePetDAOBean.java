@@ -27,7 +27,7 @@ public class SavePetDAOBean {
     }
 
     // 마이펫 저장시 DAO 생성
-    public void exec(Long petId, RequestPetSaveDTO requestPetSaveDTO){
+    public PetDAO exec(Long petId, RequestPetSaveDTO requestPetSaveDTO){
 
         // 유저 아이디
         Long userId = requestPetSaveDTO.getUserId();
@@ -67,7 +67,7 @@ public class SavePetDAOBean {
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();
 
-        exec(new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime));
+        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime);
 
     }
 }
