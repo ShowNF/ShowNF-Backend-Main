@@ -20,7 +20,7 @@ public class CreateFollowsDTOBean {
             ResponseFollowerDTO responseFollowDTO = new ResponseFollowerDTO();
 
             responseFollowDTO.setFollowId(followDAO.getFollowId());
-            responseFollowDTO.setFollowUserId(followDAO.getFollowUserId());
+            responseFollowDTO.setUserId(followDAO.getFollowUserId());
             responseFollowDTOs.add(responseFollowDTO);
         }
 
@@ -36,7 +36,7 @@ public class CreateFollowsDTOBean {
             ResponseFollowingDTO responseFollowingDTO = new ResponseFollowingDTO();
 
             responseFollowingDTO.setFollowId(followDAO.getFollowId());
-            responseFollowingDTO.setUserId(followDAO.getUserId());
+            responseFollowingDTO.setFollowUserId(followDAO.getFollowUserId());
             responseFollowingDTOS.add(responseFollowingDTO);
         }
 

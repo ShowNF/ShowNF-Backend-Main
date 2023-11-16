@@ -59,6 +59,9 @@ public class SavePostDAOBean {
         // 조회수
         Integer viewCount = 0;
 
-        exec(new PostDAO(postId, userId, title, content, category, localDateTime, heartCount, commentCount, viewCount));
+        // 삭제 여부
+        boolean deleteCheck = false;
+
+        exec(new PostDAO(postId, userId, title, content, category, localDateTime, heartCount, commentCount, viewCount, deleteCheck));
     }
 }

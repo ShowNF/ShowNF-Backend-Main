@@ -37,7 +37,10 @@ public class CreatePostDAOBean {
         // 조회수
         Integer viewCount = 0;
 
+        // 삭제 여부
+        boolean deleteCheck = false;
+
         // DTO 반환
-        return new PostDAO(postId, userId, title, content, category, localDateTime, heartCount, commentCount, viewCount);
+        return new PostDAO(postId, userId, title, content, category, localDateTime, heartCount, commentCount, viewCount, deleteCheck);
     }
 }

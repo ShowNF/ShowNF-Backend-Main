@@ -53,18 +53,18 @@ public class CommentController {
 
 
     // 댓글 삭제
-    @ApiOperation(value = "댓글 삭제", notes = "댓글 삭제시 삭제한다.")
-    @DeleteMapping("comment")
+    @ApiOperation(value = "게시물 삭제", notes = "게시물 삭제시 삭제한다.")
+    @DeleteMapping("post")
     public ResponseEntity<Map<String, Object>> deleteComment(@RequestBody RequestCommentDeleteDTO requestCommentDeleteDTO){
-        Long commentId = commentService.deleteComment(requestCommentDeleteDTO);
+        Long postId = commentService.deleteComment(requestCommentDeleteDTO);
 
         // HTTP 상태 반환
-        HttpStatus httpStatus = (commentId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus httpStatus = (postId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
 
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("message", (commentId != null) ? "Delete Success" : "Delete Fail");
-        requestMap.put("commentId", commentId);
+        requestMap.put("message", (postId != null) ? "Delete Success" : "Delete Fail");
+        requestMap.put("postId", postId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }

@@ -2,8 +2,9 @@ package com.shownf.reptile.Model.DTO;
 
 import lombok.Data;
 
+
 @Data
-public class ResponseFollowerDTO {
-    Long followId;
+public class RequestPostDeleteDTO {
+    long postId;
     Long userId;
 }

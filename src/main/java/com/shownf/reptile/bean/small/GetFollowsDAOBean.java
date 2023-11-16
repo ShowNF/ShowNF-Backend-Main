@@ -19,11 +19,11 @@ public class GetFollowsDAOBean {
 
     // 유저아이디로 팔로우 전체 찾기
     public List<FollowDAO> exec(Long userId){
-        return followRepositoryJPA.findByUserId(userId);
+        return followRepositoryJPA.findByFollowUserId(userId);
     }
 
     // 유저아이디로 팔로잉 전체 찾기
     public List<FollowDAO> exec(Long userId, String check){
-        return followRepositoryJPA.findByFollowUserId(userId);
+        return followRepositoryJPA.findByUserId(userId);
     }
 }

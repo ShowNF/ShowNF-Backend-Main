@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class ResponseFollowingDTO {
     Long followId;
-    Long userId;
+    Long followUserId;
 }

@@ -63,7 +63,7 @@ public class DeleteCommentBean {
 
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
-        
+
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
 
