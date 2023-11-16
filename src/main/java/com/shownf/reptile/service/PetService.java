@@ -1,6 +1,6 @@
 package com.shownf.reptile.service;
 
-import com.shownf.reptile.Model.DTO.RequestPetDTO;
+import com.shownf.reptile.Model.DTO.ResponsePetDTO;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
 import com.shownf.reptile.bean.GetPetBean;
 import com.shownf.reptile.bean.GetPetsBean;
@@ -25,12 +25,12 @@ public class PetService {
     }
 
     // 마이펫 조회
-    public RequestPetDTO getPet(Long petId){
+    public ResponsePetDTO getPet(Long petId){
         return getPetBean.exec(petId);
     }
 
     // 마이펫 전체 조회
-    public Page<RequestPetDTO> getPets(Long userId, Pageable pageable){
+    public Page<ResponsePetDTO> getPets(Long userId, Pageable pageable){
         return getPetsBean.exec(userId, pageable);
     }
 

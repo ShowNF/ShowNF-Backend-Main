@@ -1,6 +1,6 @@
 package com.shownf.reptile.controller;
 
-import com.shownf.reptile.Model.DTO.RequestPetDTO;
+import com.shownf.reptile.Model.DTO.ResponsePetDTO;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
 import com.shownf.reptile.service.PetService;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +31,7 @@ public class PetController {
     // 마이펫 조회
     @ApiOperation(value = "마이펫 조회", notes = "마이펫 아이디로 마이펫찾기")
     @GetMapping("pet/{petId}")
-    public RequestPetDTO getPet(@PathVariable Long petId){
+    public ResponsePetDTO getPet(@PathVariable Long petId){
         return petService.getPet(petId);
     }
 
@@ -39,7 +39,7 @@ public class PetController {
     // 마이펫 전체 조회
     @ApiOperation(value = "마이펫 전체 조회", notes = "유저 아이디로 찾은 마이펫 12개씩 페이징 조회")
     @GetMapping("pet/user/{userId}")
-    public Page<RequestPetDTO> getHotPosts(@PathVariable Long userId, @PageableDefault(size=12, sort="uploadTime", direction = Sort.Direction.ASC) Pageable pageable){
+    public Page<ResponsePetDTO> getHotPosts(@PathVariable Long userId, @PageableDefault(size=12, sort="uploadTime", direction = Sort.Direction.ASC) Pageable pageable){
         return petService.getPets(userId, pageable);
     }
 

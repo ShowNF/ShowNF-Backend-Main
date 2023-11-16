@@ -1,6 +1,6 @@
 package com.shownf.reptile.bean;
 
-import com.shownf.reptile.Model.DTO.RequestPetDTO;
+import com.shownf.reptile.Model.DTO.ResponsePetDTO;
 import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.bean.small.CreatePetsDTOBean;
 import com.shownf.reptile.bean.small.GetPetsDAOBean;
@@ -22,7 +22,7 @@ public class GetPetsBean {
     }
 
     // 마이펫 Page 형태로 전체 조회
-    public Page<RequestPetDTO> exec(Long userId, Pageable pageable){
+    public Page<ResponsePetDTO> exec(Long userId, Pageable pageable){
 
         // 유저 아이디로 마이펫 전체 찾기
         Page<PetDAO> petDAOs = getPetsDAOBean.exec(userId, pageable);

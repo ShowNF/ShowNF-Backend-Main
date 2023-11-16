@@ -1,6 +1,6 @@
 package com.shownf.reptile.bean;
 
-import com.shownf.reptile.Model.DTO.RequestPetDTO;
+import com.shownf.reptile.Model.DTO.ResponsePetDTO;
 import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.bean.small.CreatePetDTOBean;
 import com.shownf.reptile.bean.small.GetPetDAOBean;
@@ -20,7 +20,7 @@ public class GetPetBean {
     }
 
     // 마이펫 조회
-    public RequestPetDTO exec(Long petId){
+    public ResponsePetDTO exec(Long petId){
 
         // petId 로 마이펫 찾기
         PetDAO petDAO = getPetDAOBean.exec(petId);
