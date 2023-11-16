@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestPostHeartDeleteDTO;
+import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.*;
 import com.shownf.reptile.Model.entity.PostDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
@@ -13,20 +14,26 @@ public class DeletePostHeartBean {
     GetPostHeartDAOBean getPostHeartDAOBean;
     CheckPostIdPostDAOBean checkPostIdPostDAOBean;
     CheckUserIdPostDAOBean checkUserIdPostDAOBean;
-    DeletePostHeartDAOBean deletePostHeartDAOBean;
     UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean;
-    SavePostDAOBean savePostDAOBean;
     UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
+    UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
+    UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
+    DeletePostHeartDAOBean deletePostHeartDAOBean;
+    SavePostDAOBean savePostDAOBean;
+    SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeletePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, DeletePostHeartDAOBean deletePostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean) {
+    public DeletePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, DeletePostHeartDAOBean deletePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getPostHeartDAOBean = getPostHeartDAOBean;
         this.checkPostIdPostDAOBean = checkPostIdPostDAOBean;
         this.checkUserIdPostDAOBean = checkUserIdPostDAOBean;
-        this.deletePostHeartDAOBean = deletePostHeartDAOBean;
         this.updatePostHeartCountDAOBean = updatePostHeartCountDAOBean;
-        this.savePostDAOBean = savePostDAOBean;
         this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
+        this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
+        this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
+        this.deletePostHeartDAOBean = deletePostHeartDAOBean;
+        this.savePostDAOBean = savePostDAOBean;
+        this.saveUserDAOBean = saveUserDAOBean;
     }
 
     public Long exec(RequestPostHeartDeleteDTO requestPostHeartDeleteDTO){
@@ -49,17 +56,31 @@ public class DeletePostHeartBean {
         if (!checkUserIdPostDAOBean.exec(postHeartDAO, requestPostHeartDeleteDTO))
             return null;
 
+        // 게시물 좋아요 갯수 감소
+        PostDAO postDAO = updatePostHeartCountDAOBean.exec(null, postHeartDAO);
+        if (postDAO == null) return 0L;
+
+        // 게시물 좋아요 삭제시 유저 좋아요 수 감소
+        UserDAO userDAO = updateUserHeartCountDAOBean.exec(null, postDAO);
+        if (userDAO == null) return 0L;
+
+        // 좋아요 sender, receiver 추가
+        UserDAO userDAO1 = updateUserReceiveHeartDAOBean.exec(null, postDAO);
+        if (userDAO1 == null) return 0L;
+
+        UserDAO userDAO2 = updateUserSendHeartDAOBean.exec(null, postHeartDAO);
+        if (userDAO2 == null) return 0L;
+
         // 좋아요 삭제
         deletePostHeartDAOBean.exec(postHeartDAO);
-
-        // 게시물 좋아요 갯수 감소
-        PostDAO postDAO = updatePostHeartCountDAOBean.exec(postHeartId, postHeartDAO);
 
         // 게시물 저장
         savePostDAOBean.exec(postDAO);
 
-        // 게시물 좋아요 삭제시 유저 좋아요 수 감소
-        updateUserHeartCountDAOBean.exec(requestPostHeartDeleteDTO);
+        // 유저 저장
+        saveUserDAOBean.exec(userDAO);
+        saveUserDAOBean.exec(userDAO1);
+        saveUserDAOBean.exec(userDAO2);
 
         // postHeartId 반환
         return postHeartId;

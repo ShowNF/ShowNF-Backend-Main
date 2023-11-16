@@ -27,36 +27,35 @@ public class UpdateUserHeartCountDAOBean {
     }
 
     // 게시물 좋아요 추가시 유저 heartCount 증가
-    public void exec(RequestPostHeartSaveDTO requestPostHeartSaveDTO){
+    public UserDAO exec(PostDAO postDAO){
 
-        // 좋아요 누른 게시물 찾기
-        Long userId = postRepositoryJPA.findById(requestPostHeartSaveDTO.getPostId()).get().getUserId();
+        // 유저 아이디
+        Long userId = postDAO.getUserId();
 
         // 유저 아이디로 유저 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).get();
+        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        if (userDAO == null) return null;
 
         // 유저 heartCount 증가
         userDAO.setHeartCount(userDAO.getHeartCount() + 1);
 
-        // 유저 저장
-        userRepositoryJPA.save(userDAO);
+        return userDAO;
     }
 
     // 게시물 좋아요 삭제시 유저 heartCount 감소
-    public void exec(RequestPostHeartDeleteDTO requestPostHeartDeleteDTO){
+    public UserDAO exec(Long check, PostDAO postDAO){
 
-
-        // 좋아요 누른 게시물 찾기
-        Long userId = postRepositoryJPA.findById(requestPostHeartDeleteDTO.getPostId()).get().getUserId();
+        // 유저 아이디
+        Long userId = postDAO.getUserId();
 
         // 유저 아이디로 유저 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).get();
+        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        if (userDAO == null) return null;
 
         // 유저 heartCount 감소
         userDAO.setHeartCount(userDAO.getHeartCount() - 1);
 
-        // 유저 저장
-        userRepositoryJPA.save(userDAO);
+        return userDAO;
     }
 
 
