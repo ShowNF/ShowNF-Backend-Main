@@ -1,6 +1,7 @@
 package com.shownf.reptile.Model.DTO;
 
 import com.shownf.reptile.Model.Enum.Achievement;
+import com.shownf.reptile.Model.Enum.Grade;
 import lombok.Data;
 
 @Data
@@ -10,4 +11,5 @@ public class ResponseAchievementDTO {
     String icon;
     String achievementExplain;
     Integer score;
+    String grade;
 }
