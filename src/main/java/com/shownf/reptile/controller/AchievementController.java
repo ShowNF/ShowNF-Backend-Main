@@ -23,11 +23,18 @@ public class AchievementController {
         this.achievementService = achievementService;
     }
 
-    // 게시물 조회
+    // 시작 안 한 업적 조회
     @ApiOperation(value = "시작 안 한 업적 조회", notes = "유저 아이디로 시작 안 한 업적 조회")
     @GetMapping("achievement/user/{userId}")
     public List<ResponseAchievementDTO> getAchievements(@PathVariable Long userId){
         return achievementService.getAchievements(userId);
+    }
+
+    // 시작한 업적 조회
+    @ApiOperation(value = "시작한 업적 조회", notes = "유저 아이디로 시작한 업적 조회")
+    @GetMapping("achievement/start/user/{userId}")
+    public List<ResponseAchievementDTO> getStartedAchievements(@PathVariable Long userId){
+        return achievementService.getStartedAchievements(userId);
     }
 
 }
