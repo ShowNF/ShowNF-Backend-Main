@@ -31,6 +31,7 @@ public class UserDAO {
     Integer commentCount;
     Integer petCount;
     Integer diaryCount;
+    Integer sendCommentCount;
     Integer sendHeartCount;
     Integer receiveHeartCount;
 }

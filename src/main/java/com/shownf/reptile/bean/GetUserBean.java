@@ -34,6 +34,7 @@ public class GetUserBean {
         responseUserDTO.setCommentCount(userDAO.getCommentCount());
         responseUserDTO.setPetCount(userDAO.getPetCount());
         responseUserDTO.setDiaryCount(userDAO.getDiaryCount());
+        responseUserDTO.setSendCommentCount(userDAO.getSendCommentCount());
         responseUserDTO.setSendHeartCount(userDAO.getSendHeartCount());
         responseUserDTO.setReceiveHeartCount(userDAO.getReceiveHeartCount());
 
