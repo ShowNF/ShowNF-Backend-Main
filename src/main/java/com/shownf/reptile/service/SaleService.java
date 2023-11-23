@@ -1,16 +1,15 @@
 package com.shownf.reptile.service;
 
+import com.shownf.reptile.Model.DTO.RequestSalePetUpdateDTO;
 import com.shownf.reptile.Model.DTO.RequestSaleSaveDTO;
 import com.shownf.reptile.Model.DTO.ResponseSaleDTO;
-import com.shownf.reptile.bean.GetSaleBean;
-import com.shownf.reptile.bean.GetSalesBean;
-import com.shownf.reptile.bean.GetUserSaleHeartsBean;
-import com.shownf.reptile.bean.SaveSaleBean;
+import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -20,13 +19,15 @@ public class SaleService {
     GetSalesBean getSalesBean;
     GetUserSaleHeartsBean getUserSaleHeartsBean;
     SaveSaleBean saveSaleBean;
+    UpdatePetUserNameBean updatePetUserNameBean;
 
     @Autowired
-    public SaleService(GetSaleBean getSaleBean, GetSalesBean getSalesBean, GetUserSaleHeartsBean getUserSaleHeartsBean, SaveSaleBean saveSaleBean) {
+    public SaleService(GetSaleBean getSaleBean, GetSalesBean getSalesBean, GetUserSaleHeartsBean getUserSaleHeartsBean, SaveSaleBean saveSaleBean, UpdatePetUserNameBean updatePetUserNameBean) {
         this.getSaleBean = getSaleBean;
         this.getSalesBean = getSalesBean;
         this.getUserSaleHeartsBean = getUserSaleHeartsBean;
         this.saveSaleBean = saveSaleBean;
+        this.updatePetUserNameBean = updatePetUserNameBean;
     }
 
     // 분양글 조회
@@ -47,5 +48,10 @@ public class SaleService {
     // 분양글 저장
     public Long saveSale(RequestSaleSaveDTO requestSaleSaveDTO){
         return saveSaleBean.exec(requestSaleSaveDTO);
+    }
+
+    // 분양시 펫 userId 변경
+    public Long updatePetUserId(RequestSalePetUpdateDTO requestSalePetUpdateDTO, HttpServletRequest request){
+        return updatePetUserNameBean.exec(requestSalePetUpdateDTO, request);
     }
 }
