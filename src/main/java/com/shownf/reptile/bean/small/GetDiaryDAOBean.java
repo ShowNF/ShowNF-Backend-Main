@@ -17,6 +17,6 @@ public class GetDiaryDAOBean {
 
     // 다이어리 찾기
     public DiaryDAO exec(Long diaryId){
-        return diaryRepositoryJPA.findById(diaryId).get();
+        return diaryRepositoryJPA.findById(diaryId).orElse(null);
     }
 }

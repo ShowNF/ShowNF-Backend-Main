@@ -14,4 +14,8 @@ public class RequestDiaryDTO {
     String memo;
     String date;
     String month;
+    boolean ecdysis;
+    boolean cleaning;
+    boolean shower;
+    boolean bowelMovement;
 }

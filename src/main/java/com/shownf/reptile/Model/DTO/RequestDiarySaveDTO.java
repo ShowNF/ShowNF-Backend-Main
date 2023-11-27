@@ -13,4 +13,8 @@ public class RequestDiarySaveDTO {
     Double weight;
     String memo;
     String date;
+    boolean ecdysis;
+    boolean cleaning;
+    boolean shower;
+    boolean bowelMovement;
 }

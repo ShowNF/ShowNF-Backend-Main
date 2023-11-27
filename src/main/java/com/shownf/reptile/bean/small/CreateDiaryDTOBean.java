@@ -22,6 +22,10 @@ public class CreateDiaryDTOBean {
         requestDiaryDTO.setMemo(diaryDAO.getMemo());
         requestDiaryDTO.setDate(diaryDAO.getDate());
         requestDiaryDTO.setMonth(diaryDAO.getMonth());
+        requestDiaryDTO.setEcdysis(diaryDAO.isEcdysis());
+        requestDiaryDTO.setCleaning(diaryDAO.isCleaning());
+        requestDiaryDTO.setShower(diaryDAO.isShower());
+        requestDiaryDTO.setBowelMovement(diaryDAO.isBowelMovement());
 
         return requestDiaryDTO;
     }

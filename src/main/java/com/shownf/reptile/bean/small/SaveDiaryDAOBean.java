@@ -60,7 +60,18 @@ public class SaveDiaryDAOBean {
         if (words[1].length() < 2) month = words[0] + "0" + words[1];
         else month = words[0] + words[1];
 
-        return new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, date, month);
+        // 탈피 여부
+        boolean ecdysis = requestDiarySaveDTO.isEcdysis();
+
+        // 청소여부
+        boolean cleaning = requestDiarySaveDTO.isCleaning();
+
+        // 샤워 여부
+        boolean shower = requestDiarySaveDTO.isShower();
+        // 배변 여부
+        boolean bowelMovement = requestDiarySaveDTO.isBowelMovement();
+
+        return new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, date, month, ecdysis, cleaning, shower, bowelMovement);
     }
 
     // 다이어리 수정시 저장
@@ -99,6 +110,18 @@ public class SaveDiaryDAOBean {
         if (words[1].length() < 2) month = words[0] + "0" + words[1];
         else month = words[0] + words[1];
         diaryDAO.setMonth(month);
+
+        // 탈피 여부
+        diaryDAO.setEcdysis(requestDiarySaveDTO.isEcdysis());
+
+        // 청소 여부
+        diaryDAO.setCleaning(requestDiarySaveDTO.isCleaning());
+
+        // 샤워 여부
+        diaryDAO.setShower(requestDiarySaveDTO.isShower());
+
+        // 배변 여부
+        diaryDAO.setBowelMovement(requestDiarySaveDTO.isBowelMovement());
 
         return diaryDAO;
     }

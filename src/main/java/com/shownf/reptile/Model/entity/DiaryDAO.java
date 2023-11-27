@@ -27,4 +27,8 @@ public class DiaryDAO {
     LocalDateTime uploadTime;
     String date;
     String month;
+    boolean ecdysis;
+    boolean cleaning;
+    boolean shower;
+    boolean bowelMovement;
 }
