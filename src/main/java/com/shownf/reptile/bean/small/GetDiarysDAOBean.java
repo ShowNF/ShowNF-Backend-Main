@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.entity.DiaryDAO;
+import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.repository.DiaryRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,21 @@ public class GetDiarysDAOBean {
             if (diaryDAO.getMonth().equals(yearMonth))
                 newDiaryDAOs.add(diaryDAO);
         }
+        return newDiaryDAOs;
+    }
+
+    // 펫 삭제시 다이어리 조회 및 deleteCheck 수정
+    public List<DiaryDAO> exec(PetDAO petDAO){
+
+        List<DiaryDAO> diaryDAOs = diaryRepositoryJPA.findByPetId(petDAO.getPetId());
+        List<DiaryDAO> newDiaryDAOs = new ArrayList<>();
+
+        for(DiaryDAO diaryDAO : diaryDAOs){
+            if (diaryDAO.isDeleteCheck()) continue;
+            diaryDAO.setDeleteCheck(true);
+            newDiaryDAOs.add(diaryDAO);
+        }
+
         return newDiaryDAOs;
     }
 }
