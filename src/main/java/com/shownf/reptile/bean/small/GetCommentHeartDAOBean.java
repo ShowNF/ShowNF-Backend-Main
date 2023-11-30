@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.DTO.RequestCommentHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestCommentHeartSaveDTO;
 import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.repository.CommentHeartRepositoryJPA;
@@ -27,5 +28,10 @@ public class GetCommentHeartDAOBean {
     // 댓글 좋아요 중복 배제를 위한 댓글 찾기
     public CommentHeartDAO exec(RequestCommentHeartSaveDTO requestCommentHeartSaveDTO){
         return commentHeartRepositoryJPA.findByUserIdAndCommentId(requestCommentHeartSaveDTO.getUserId(), requestCommentHeartSaveDTO.getCommentId());
+    }
+
+    // 댓글 좋아요 삭제를 위한 객체 찾기
+    public CommentHeartDAO exec(RequestCommentHeartDeleteDTO requestCommentHeartDeleteDTO){
+        return commentHeartRepositoryJPA.findByUserIdAndCommentId(requestCommentHeartDeleteDTO.getUserId(), requestCommentHeartDeleteDTO.getCommentId());
     }
 }

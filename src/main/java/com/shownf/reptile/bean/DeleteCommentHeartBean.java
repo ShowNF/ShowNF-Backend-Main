@@ -36,11 +36,8 @@ public class DeleteCommentHeartBean {
 
     public Long exec(RequestCommentHeartDeleteDTO requestCommentHeartDeleteDTO){
 
-        // 댓글 좋아요 아이디 찾기
-        Long commentHeartId = requestCommentHeartDeleteDTO.getCommentHeartId();
-
         // 아이디로 삭제할 좋아요 찾기
-        CommentHeartDAO commentHeartDAO = getCommentHeartDAOBean.exec(commentHeartId);
+        CommentHeartDAO commentHeartDAO = getCommentHeartDAOBean.exec(requestCommentHeartDeleteDTO);
 
         // 취소 중복 배제
         if (commentHeartDAO == null)
@@ -55,7 +52,7 @@ public class DeleteCommentHeartBean {
             return null;
 
         // 댓글 좋아요 갯수 감소
-        CommentDAO commentDAO = updateCommentHeartCountDAOBean.exec(commentHeartId, commentHeartDAO);
+        CommentDAO commentDAO = updateCommentHeartCountDAOBean.exec(commentHeartDAO.getCommentHeartId(), commentHeartDAO);
         if (commentDAO == null) return null;
 
         // 좋아요 sender, receiver 감소
@@ -79,6 +76,6 @@ public class DeleteCommentHeartBean {
         updateUserHeartCountDAOBean.exec(requestCommentHeartDeleteDTO);*/
 
         // commentHeartId 반환
-        return commentHeartId;
+        return commentHeartDAO.getCommentHeartId();
     }
 }

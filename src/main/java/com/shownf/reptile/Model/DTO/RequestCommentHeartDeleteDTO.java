@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class RequestCommentHeartDeleteDTO {
-    Long commentHeartId;
     Long commentId;
     Long userId;
 }
