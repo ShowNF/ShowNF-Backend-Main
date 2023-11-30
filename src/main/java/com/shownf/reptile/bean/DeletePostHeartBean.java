@@ -38,11 +38,8 @@ public class DeletePostHeartBean {
 
     public Long exec(RequestPostHeartDeleteDTO requestPostHeartDeleteDTO){
 
-        // 좋아요 아이디 찾기
-        Long postHeartId = requestPostHeartDeleteDTO.getPostHeartId();
-
-        // 아이디로 삭제할 좋아요 찾기
-        PostHeartDAO postHeartDAO = getPostHeartDAOBean.exec(postHeartId);
+        // 게시물 아이디와 유저 아이디로 객체 찾기
+        PostHeartDAO postHeartDAO = getPostHeartDAOBean.exec(requestPostHeartDeleteDTO);
 
         // 취소 중복 배제
         if (postHeartDAO == null)
@@ -83,6 +80,6 @@ public class DeletePostHeartBean {
         saveUserDAOBean.exec(userDAO2);
 
         // postHeartId 반환
-        return postHeartId;
+        return postHeartDAO.getPostHeartId();
     }
 }
