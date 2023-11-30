@@ -60,7 +60,10 @@ public class DeleteReplyHeartBean {
         UserDAO userDAO1 = updateUserReceiveHeartDAOBean.exec(null, replyDAO);
         if (userDAO1 == null) return 0L;
 
-        UserDAO userDAO2 = updateUserSendHeartDAOBean.exec(null, replyHeartDAO);
+        UserDAO userDAO2;
+        if (requestReplyHeartDeleteDTO.getUserId().equals(userDAO1.getUserId()))
+            userDAO2 = updateUserSendHeartDAOBean.exec(null, replyHeartDAO);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(null, userDAO1);
         if (userDAO2 == null) return 0L;
 
         // 대댓글 삭제
