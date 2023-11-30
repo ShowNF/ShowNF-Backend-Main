@@ -1,6 +1,7 @@
 package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestDiaryDTO;
+import com.shownf.reptile.Model.DTO.RequestDiaryDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
 import com.shownf.reptile.Model.DTO.ResponseDiarysDTO;
 import com.shownf.reptile.service.DiaryService;
@@ -54,6 +55,23 @@ public class DiaryController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (diaryId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("diaryId", diaryId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 다이어리 삭제
+    @ApiOperation(value = "다이어리 삭제", notes = "다이어리 삭제시 삭제")
+    @DeleteMapping("diary")
+    public ResponseEntity<Map<String, Object>> saveDiary(@RequestBody RequestDiaryDeleteDTO requestDiaryDeleteDTO){
+        Long diaryId = diaryService.deleteDiary(requestDiaryDeleteDTO);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (diaryId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (diaryId != null) ? "Delete Success" : "Delete Fail");
         requestMap.put("diaryId", diaryId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
