@@ -31,4 +31,20 @@ public class UpdateUserDiaryCountDAOBean {
 
         return userDAO;
     }
+
+    // 다이어리 삭제시 유저 다이어리 갯수 감소
+    public UserDAO exec(Long check, PetDAO petDAO){
+
+        // 유저 아이디
+        Long userId = petDAO.getUserId();
+
+        // 유저 객체 찾기
+        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        if (userDAO == null) return null;
+
+        // 유저 다이어리 갯수 감소
+        userDAO.setDiaryCount(userDAO.getDiaryCount() - 1);
+
+        return userDAO;
+    }
 }

@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.DTO.RequestDiaryDeleteDTO;
 import com.shownf.reptile.Model.entity.DiaryDAO;
 import com.shownf.reptile.Model.entity.PetDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,22 @@ public class UpdatePetDAOBean {
 
         // 펫 몸무게 세팅
         petDAO.setWeight(diaryDAO.getWeight());
+
+        return petDAO;
+    }
+
+    // 다이어리 삭제시 마이펫 다이어리 갯수 수정
+    public PetDAO exec(RequestDiaryDeleteDTO requestDiaryDeleteDTO){
+
+        // 펫 아이디
+        Long petId = requestDiaryDeleteDTO.getPetId();
+
+        // 펫아이디로 펫 찾기
+        PetDAO petDAO = getPetDAOBean.exec(petId);
+        if (petDAO == null) return null;
+
+        // 펫 다이어리 갯수 감소
+        petDAO.setDiaryCount(petDAO.getDiaryCount() - 1);
 
         return petDAO;
     }
