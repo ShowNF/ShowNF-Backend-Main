@@ -1,2 +1,9 @@
-package com.shownf.reptile.Model.DTO;public class RequestPetDeleteDTO {
+package com.shownf.reptile.Model.DTO;
+
+import lombok.Data;
+
+@Data
+public class RequestPetDeleteDTO {
+    Long petId;
+    Long userId;
 }
