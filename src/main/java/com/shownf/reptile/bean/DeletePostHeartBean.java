@@ -65,7 +65,10 @@ public class DeletePostHeartBean {
         UserDAO userDAO1 = updateUserReceiveHeartDAOBean.exec(null, postDAO);
         if (userDAO1 == null) return 0L;
 
-        UserDAO userDAO2 = updateUserSendHeartDAOBean.exec(null, postHeartDAO);
+        UserDAO userDAO2;
+        if (requestPostHeartDeleteDTO.getUserId().equals(userDAO1.getUserId()))
+            userDAO2 = updateUserSendHeartDAOBean.exec(null, postHeartDAO);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(null, postHeartDAO, userDAO1);
         if (userDAO2 == null) return 0L;
 
         // 좋아요 삭제

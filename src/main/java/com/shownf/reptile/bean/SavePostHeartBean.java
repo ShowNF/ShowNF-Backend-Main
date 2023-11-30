@@ -61,7 +61,10 @@ public class SavePostHeartBean {
         UserDAO userDAO1 = updateUserReceiveHeartDAOBean.exec(postDAO);
         if (userDAO1 == null) return 0L;
 
-        UserDAO userDAO2 = updateUserSendHeartDAOBean.exec(postHeartDAO);
+        UserDAO userDAO2;
+        if (requestPostHeartSaveDTO.getUserId().equals(userDAO1.getUserId()))
+            userDAO2 = updateUserSendHeartDAOBean.exec(postHeartDAO);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(postHeartDAO, userDAO1);
         if (userDAO2 == null) return 0L;
 
         // 좋아요 저장
