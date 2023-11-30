@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.DTO.RequestReplyHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestReplyHeartSaveDTO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
 import com.shownf.reptile.repository.ReplyHeartRepositoryJPA;
@@ -27,5 +28,10 @@ public class GetReplyHeartDAOBean {
     // 대댓글 좋아요 중복 배제를 위한 객체 찾기
     public ReplyHeartDAO exec(RequestReplyHeartSaveDTO requestReplyHeartSaveDTO){
         return replyHeartRepositoryJPA.findByUserIdAndReplyId(requestReplyHeartSaveDTO.getUserId(), requestReplyHeartSaveDTO.getReplyId());
+    }
+
+    // 대댓글 좋아요 중복 배제를 위한 객체 찾기
+    public ReplyHeartDAO exec(RequestReplyHeartDeleteDTO requestReplyHeartDeleteDTO){
+        return replyHeartRepositoryJPA.findByUserIdAndReplyId(requestReplyHeartDeleteDTO.getUserId(), requestReplyHeartDeleteDTO.getReplyId());
     }
 }
