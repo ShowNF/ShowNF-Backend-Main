@@ -1,7 +1,9 @@
 package com.shownf.reptile.service;
 
+import com.shownf.reptile.Model.DTO.RequestPetDeleteDTO;
 import com.shownf.reptile.Model.DTO.ResponsePetDTO;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
+import com.shownf.reptile.bean.DeletePetBean;
 import com.shownf.reptile.bean.GetPetBean;
 import com.shownf.reptile.bean.GetPetsBean;
 import com.shownf.reptile.bean.SavePetBean;
@@ -16,12 +18,14 @@ public class PetService {
     GetPetBean getPetBean;
     GetPetsBean getPetsBean;
     SavePetBean savePetBean;
+    DeletePetBean deletePetBean;
 
     @Autowired
-    public PetService(GetPetBean getPetBean, GetPetsBean getPetsBean, SavePetBean savePetBean) {
+    public PetService(GetPetBean getPetBean, GetPetsBean getPetsBean, SavePetBean savePetBean, DeletePetBean deletePetBean) {
         this.getPetBean = getPetBean;
         this.getPetsBean = getPetsBean;
         this.savePetBean = savePetBean;
+        this.deletePetBean = deletePetBean;
     }
 
     // 마이펫 조회
@@ -37,5 +41,10 @@ public class PetService {
     // 마이펫 저장
     public Long savePet(RequestPetSaveDTO requestPetSaveDTO){
         return savePetBean.exec(requestPetSaveDTO);
+    }
+
+    // 마이펫 삭제
+    public Long deletePet(RequestPetDeleteDTO requestPetDeleteDTO){
+        return deletePetBean.exec(requestPetDeleteDTO);
     }
 }
