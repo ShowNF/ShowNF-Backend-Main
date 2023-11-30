@@ -59,7 +59,10 @@ public class DeleteCommentHeartBean {
         UserDAO userDAO1 = updateUserReceiveHeartDAOBean.exec(null, commentDAO);
         if (userDAO1 == null) return 0L;
 
-        UserDAO userDAO2 = updateUserSendHeartDAOBean.exec(null, commentHeartDAO);
+        UserDAO userDAO2;
+        if (requestCommentHeartDeleteDTO.getUserId().equals(userDAO1.getUserId()))
+            userDAO2 = updateUserSendHeartDAOBean.exec(null, commentHeartDAO);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(null, commentHeartDAO, userDAO1);
         if (userDAO2 == null) return 0L;
 
         // 좋아요 삭제

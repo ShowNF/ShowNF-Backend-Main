@@ -63,7 +63,7 @@ public class DeleteReplyHeartBean {
         UserDAO userDAO2;
         if (requestReplyHeartDeleteDTO.getUserId().equals(userDAO1.getUserId()))
             userDAO2 = updateUserSendHeartDAOBean.exec(null, replyHeartDAO);
-        else userDAO2 = updateUserSendHeartDAOBean.exec(null, userDAO1);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(0L, userDAO1);
         if (userDAO2 == null) return 0L;
 
         // 대댓글 삭제

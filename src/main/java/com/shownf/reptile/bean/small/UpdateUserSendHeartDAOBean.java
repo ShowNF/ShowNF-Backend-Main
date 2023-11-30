@@ -66,6 +66,22 @@ public class UpdateUserSendHeartDAOBean {
         return userDAO;
     }
 
+    // 자신 댓글 좋아요시 좋아요 보낸 유저 수정
+    public UserDAO exec(CommentHeartDAO commentHeartDAO, UserDAO userDAO){
+
+        // 좋아요 보낸 유저 아이디
+        Long userId = userDAO.getUserId();
+
+        // 유저 객체 찾기
+        UserDAO userDAO1 = userRepositoryJPA.findById(userId).orElse(null);
+        if (userDAO1 == null) return null;
+
+        // 유저 sendHeart 추가
+        userDAO1.setSendHeartCount(userDAO1.getSendHeartCount() + 1);
+
+        return userDAO1;
+    }
+
     // 댓글 좋아요 삭제시 좋아요 보낸 유저 수정
     public UserDAO exec(Long check, CommentHeartDAO commentHeartDAO){
 
@@ -80,6 +96,22 @@ public class UpdateUserSendHeartDAOBean {
         userDAO.setSendHeartCount(userDAO.getSendHeartCount() - 1);
 
         return userDAO;
+    }
+
+    // 자신 댓글 좋아요 삭제시 좋아요 보낸 유저 수정
+    public UserDAO exec(Long check, CommentHeartDAO commentHeartDAO, UserDAO userDAO){
+
+        // 좋아요 보낸 유저 아이디
+        Long userId = userDAO.getUserId();
+
+        // 유저 객체 찾기
+        UserDAO userDAO1 = userRepositoryJPA.findById(userId).orElse(null);
+        if (userDAO1 == null) return null;
+
+        // 유저 sendHeart 감소
+        userDAO1.setSendHeartCount(userDAO1.getSendHeartCount() - 1);
+
+        return userDAO1;
     }
 
     // 대댓글 좋아요시 좋아요 보낸 유저 수정
@@ -98,7 +130,7 @@ public class UpdateUserSendHeartDAOBean {
         return userDAO;
     }
 
-    // 대댓글 좋아요시 좋아요 보낸 유저 수정
+    // 자신 대댓글 좋아요시 좋아요 보낸 유저 수정
     public UserDAO exec(UserDAO userDAO){
 
         // 좋아요 보낸 유저 아이디
@@ -130,7 +162,7 @@ public class UpdateUserSendHeartDAOBean {
         return userDAO;
     }
 
-    // 대댓글 좋아요 삭제시 좋아요 보낸 유저 수정
+    // 자신 대댓글 좋아요 삭제시 좋아요 보낸 유저 수정
     public UserDAO exec(Long check, UserDAO userDAO){
 
         // 좋아요 보낸 유저 아이디
