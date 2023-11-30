@@ -68,10 +68,14 @@ public class SaveDiaryDAOBean {
 
         // 샤워 여부
         boolean shower = requestDiarySaveDTO.isShower();
+
         // 배변 여부
         boolean bowelMovement = requestDiarySaveDTO.isBowelMovement();
 
-        return new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, date, month, ecdysis, cleaning, shower, bowelMovement);
+        // 소프트 딜리트
+        boolean deleteCheck = false;
+
+        return new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, date, month, ecdysis, cleaning, shower, bowelMovement, deleteCheck);
     }
 
     // 다이어리 수정시 저장

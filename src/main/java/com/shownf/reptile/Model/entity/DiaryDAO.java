@@ -31,4 +31,5 @@ public class DiaryDAO {
     boolean cleaning;
     boolean shower;
     boolean bowelMovement;
+    boolean deleteCheck;
 }
