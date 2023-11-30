@@ -20,6 +20,7 @@ public class CreatePetsDTOBean {
 
         // DTO 객체에 게시물 정보 넘기기
         for (PetDAO petDAO: petDAOs) {
+            if (!petDAO.isDeleteCheck()) continue;
             ResponsePetDTO responsePetDTO = new ResponsePetDTO();
 
             responsePetDTO.setPetId(petDAO.getPetId());

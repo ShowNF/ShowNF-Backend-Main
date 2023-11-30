@@ -28,4 +28,5 @@ public class PetDAO {
     Gender gender;
     LocalDateTime uploadTime;
     Integer diaryCount;
+    boolean deleteCheck;
 }

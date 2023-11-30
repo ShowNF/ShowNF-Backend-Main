@@ -163,7 +163,7 @@ public class UpdateUserSendHeartDAOBean {
     }
 
     // 자신 대댓글 좋아요시 좋아요 보낸 유저 수정
-    public UserDAO exec(UserDAO userDAO){
+    public UserDAO exec(ReplyHeartDAO replyHeartDAO, UserDAO userDAO){
 
         // 좋아요 보낸 유저 아이디
         Long userId = userDAO.getUserId();
@@ -195,7 +195,7 @@ public class UpdateUserSendHeartDAOBean {
     }
 
     // 자신 대댓글 좋아요 삭제시 좋아요 보낸 유저 수정
-    public UserDAO exec(Long check, UserDAO userDAO){
+    public UserDAO exec(Long check, ReplyHeartDAO replyHeartDAO, UserDAO userDAO){
 
         // 좋아요 보낸 유저 아이디
         Long userId = userDAO.getUserId();

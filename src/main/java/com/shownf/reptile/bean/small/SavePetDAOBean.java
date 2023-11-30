@@ -67,7 +67,10 @@ public class SavePetDAOBean {
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();
 
-        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, 0);
+        // 소프트 딜리트
+        boolean deleteCheck = false;
+
+        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, 0, deleteCheck);
 
     }
 }

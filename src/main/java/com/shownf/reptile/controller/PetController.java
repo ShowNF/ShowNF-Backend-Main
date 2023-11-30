@@ -60,4 +60,6 @@ public class PetController {
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
+
+    // 마이펫 삭제
 }
