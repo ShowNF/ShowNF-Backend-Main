@@ -17,7 +17,7 @@ public class CreateDiarysDTOBean {
 
         // DTO 객체에 게시물 정보 넘기기
         for (DiaryDAO diaryDAO : diaryDAOs) {
-            if (!diaryDAO.isDeleteCheck()) continue;
+            if (diaryDAO.isDeleteCheck()) continue;
             ResponseDiarysDTO responseDiarysDTO = new ResponseDiarysDTO();
 
             responseDiarysDTO.setDiaryId(diaryDAO.getDiaryId());
