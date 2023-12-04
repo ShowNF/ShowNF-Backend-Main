@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +24,12 @@ public class ReplyHeartController {
         this.replyHeartService = replyHeartService;
     }
 
+    // 좋아요 누른 대댓글 아이디 전체 조회
+    @ApiOperation(value = "대댓글 아이디 전체 조회", notes = "좋아요 누른 대댓글 아이디 전체 조회")
+    @GetMapping("replyHeart/user/{userId}")
+    public List<Long> getReplyIds(@PathVariable Long userId){
+        return replyHeartService.getReplyIds(userId);
+    }
 
     // 대댓글 좋아요 저장
     @ApiOperation(value = "대댓글 좋아요 저장", notes = "대댓글에 좋아요를 누를시 저장한다.")
