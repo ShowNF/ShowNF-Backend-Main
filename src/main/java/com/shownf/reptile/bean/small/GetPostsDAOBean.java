@@ -4,6 +4,7 @@ import com.shownf.reptile.Model.entity.PostDAO;
 import com.shownf.reptile.repository.PostRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -26,14 +27,8 @@ public class GetPostsDAOBean {
     }
 
     // 게시물 아이디로 게시물 찾기
-    public List<PostDAO> exec(List<Long> postIds){
-
-        List<PostDAO> postDAOs = new ArrayList<>();
-
-        for (Long postId : postIds)
-            postDAOs.add(postRepositoryJPA.findById(postId).orElse(null));
-
-        return postDAOs;
+    public Page<PostDAO> exec(List<Long> postIds, Pageable pageable) {
+        return postRepositoryJPA.findAllByPostIdIn(postIds, pageable);
     }
 
     // 유저 아이디로 게시물 전체 찾기

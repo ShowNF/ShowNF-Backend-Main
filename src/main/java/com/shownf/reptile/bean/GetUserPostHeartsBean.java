@@ -8,6 +8,8 @@ import com.shownf.reptile.bean.small.GetPostHeartsDAOBean;
 import com.shownf.reptile.bean.small.GetPostHeartsPostIdBean;
 import com.shownf.reptile.bean.small.GetPostsDAOBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public class GetUserPostHeartsBean {
     }
 
     // 유저가 좋아요한 게시물 조회
-    public List<ResponsePostsDTO> exec(Long userId){
+    public Page<ResponsePostsDTO> exec(Long userId, Pageable pageable){
 
         // 유저 아이디를 통해 게시물 좋아요 객체 찾기
         List<PostHeartDAO> postHeartDAOs = getPostHeartsDAOBean.exec(userId);
@@ -38,9 +40,9 @@ public class GetUserPostHeartsBean {
         List<Long> postIds = getPostHeartsPostIdBean.exec(postHeartDAOs);
 
         // 게시물 아이디로 게시물 찾기
-        List<PostDAO> postDAOs = getPostsDAOBean.exec(postIds);
+        Page<PostDAO> postDAOs = getPostsDAOBean.exec(postIds, pageable);
 
-        // DAO 객체 DTO로 반환
-        return createPostsDTOBean.exec(postDAOs);
+        // DAO 객체 DTO 로 반환
+        return createPostsDTOBean.exec(postDAOs, pageable);
     }
 }

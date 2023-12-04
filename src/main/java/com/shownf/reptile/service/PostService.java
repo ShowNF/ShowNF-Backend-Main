@@ -53,8 +53,8 @@ public class PostService {
     }
 
     // 유저가 좋아요한 게시물 조회
-    public List<ResponsePostsDTO> getUserPostHearts(Long userId){
-        return getUserPostHeartsBean.exec(userId);
+    public Page<ResponsePostsDTO> getUserPostHearts(Long userId, Pageable pageable){
+        return getUserPostHeartsBean.exec(userId, pageable);
     }
 
     // 게시물 저장

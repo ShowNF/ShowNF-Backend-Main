@@ -97,7 +97,7 @@ public class CreatePostsDTOBean {
     }
 
     // 게시물 아이디로 게시물 조회시 DTO 생성
-    public List<ResponsePostsDTO> exec(List<PostDAO> postDAOs){
+    public Page<ResponsePostsDTO> exec(Page<PostDAO> postDAOs, Pageable pageable){
 
         List<ResponsePostsDTO> responsePostsDTOs = new ArrayList<>();
 
@@ -119,6 +119,6 @@ public class CreatePostsDTOBean {
         }
 
         // DTO 반환
-        return responsePostsDTOs;
+        return new PageImpl<>(responsePostsDTOs, pageable, postDAOs.getTotalElements());
     }
 }
