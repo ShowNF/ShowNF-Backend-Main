@@ -17,7 +17,7 @@ public class DeleteCheckCommentDAOBean {
         // 삭제 확인
         for (CommentDAO commentDAO : commentDAOs){
             if (commentDAO.isDeleteCheck()) {
-                commentDAO.setContent("삭제된 내용입니다.");
+                commentDAO.setContent("삭제된 댓글입니다");
                 commentDAO.setUserId(0L);
                 commentDAO.setHeartCount(0);
                 commentDAO.setReplyCount(0);
