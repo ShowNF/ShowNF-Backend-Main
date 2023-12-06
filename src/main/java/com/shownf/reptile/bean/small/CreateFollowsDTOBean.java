@@ -20,7 +20,7 @@ public class CreateFollowsDTOBean {
             ResponseFollowerDTO responseFollowDTO = new ResponseFollowerDTO();
 
             responseFollowDTO.setFollowId(followDAO.getFollowId());
-            responseFollowDTO.setUserId(followDAO.getFollowUserId());
+            responseFollowDTO.setUserId(followDAO.getUserId());
             responseFollowDTOs.add(responseFollowDTO);
         }
 
