@@ -34,6 +34,12 @@ public class DiaryController {
         return diaryService.getDiary(diaryId);
     }
 
+    // 가장 최근 다이어리 조회
+    @ApiOperation(value = "가장 최근 다이어리 조회", notes = "펫 아이디로 가장 최근 다이어리 한 개를 조회한다.")
+    @GetMapping("diary/pet/{petId}")
+    public RequestDiaryDTO getDiaryRecent(@PathVariable Long petId){
+        return diaryService.getDiaryRecent(petId);
+    }
 
     // 다이어리 월별로 조회
     @ApiOperation(value = "다이어리 월별로 조회", notes = "년도와 월을 입력하면 월에 존재하는 다이어리를 조회한다.")

@@ -4,10 +4,7 @@ import com.shownf.reptile.Model.DTO.RequestDiaryDTO;
 import com.shownf.reptile.Model.DTO.RequestDiaryDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
 import com.shownf.reptile.Model.DTO.ResponseDiarysDTO;
-import com.shownf.reptile.bean.DeleteDiaryBean;
-import com.shownf.reptile.bean.GetDiaryBean;
-import com.shownf.reptile.bean.GetDiarysBean;
-import com.shownf.reptile.bean.SaveDiaryBean;
+import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +14,15 @@ import java.util.List;
 public class DiaryService {
 
     GetDiaryBean getDiaryBean;
+    GetDiaryRecentBean getDiaryRecentBean;
     GetDiarysBean getDiarysBean;
     SaveDiaryBean saveDiaryBean;
     DeleteDiaryBean deleteDiaryBean;
 
     @Autowired
-    public DiaryService(GetDiaryBean getDiaryBean, GetDiarysBean getDiarysBean, SaveDiaryBean saveDiaryBean, DeleteDiaryBean deleteDiaryBean) {
+    public DiaryService(GetDiaryBean getDiaryBean, GetDiaryRecentBean getDiaryRecentBean, GetDiarysBean getDiarysBean, SaveDiaryBean saveDiaryBean, DeleteDiaryBean deleteDiaryBean) {
         this.getDiaryBean = getDiaryBean;
+        this.getDiaryRecentBean = getDiaryRecentBean;
         this.getDiarysBean = getDiarysBean;
         this.saveDiaryBean = saveDiaryBean;
         this.deleteDiaryBean = deleteDiaryBean;
@@ -33,6 +32,12 @@ public class DiaryService {
     public RequestDiaryDTO getDiary(Long diaryId){
         return getDiaryBean.exec(diaryId);
     }
+
+    // 최근 다이어리 조회
+    public RequestDiaryDTO getDiaryRecent(Long petId){
+        return getDiaryRecentBean.exec(petId);
+    }
+
 
     // 다이어리 월별로 조회
     public List<ResponseDiarysDTO> getDiarys(Long petId, String year, String month){
