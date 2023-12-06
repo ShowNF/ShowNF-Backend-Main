@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DiaryRepositoryJPA extends JpaRepository<DiaryDAO, Long> {
     List<DiaryDAO> findByPetId(Long petId);
+
+    DiaryDAO findFirstByPetIdOrderByUploadTimeDesc(Long petId);
 }
