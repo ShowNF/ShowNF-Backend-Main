@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -65,6 +66,6 @@ public class PostService {
     // 게시물 수정
 
     // 게시물 삭제
-    public Long deletePostDAO(RequestPostDeleteDTO requestPostDeleteDTO){ return deletePostBean.exec(requestPostDeleteDTO); }
+    public Long deletePostDAO(RequestPostDeleteDTO requestPostDeleteDTO, HttpServletRequest request){ return deletePostBean.exec(requestPostDeleteDTO, request); }
 
 }

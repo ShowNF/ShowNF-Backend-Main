@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,8 +93,8 @@ public class PostController {
     // 게시물 삭제
     @ApiOperation(value = "게시물 삭제", notes = "게시물 삭제시 삭제")
     @DeleteMapping("post")
-    public ResponseEntity<Map<String, Object>> deletePost(@RequestBody RequestPostDeleteDTO requestPostDeleteDTO){
-        Long postId = postService.deletePostDAO(requestPostDeleteDTO);
+    public ResponseEntity<Map<String, Object>> deletePost(@RequestBody RequestPostDeleteDTO requestPostDeleteDTO, HttpServletRequest request){
+        Long postId = postService.deletePostDAO(requestPostDeleteDTO, request);
 
         // HTTP 상태 변환
         HttpStatus httpStatus = (postId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
