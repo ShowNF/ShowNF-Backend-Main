@@ -9,6 +9,7 @@ import com.shownf.reptile.bean.SaveCommentBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -39,8 +40,8 @@ public class CommentService {
     // 댓글 수정
 
     // 댓글 삭제
-    public Long deleteComment(RequestCommentDeleteDTO requestCommentDeleteDTO){
-        return deleteCommentBean.exec(requestCommentDeleteDTO);
+    public Long deleteComment(RequestCommentDeleteDTO requestCommentDeleteDTO, HttpServletRequest request){
+        return deleteCommentBean.exec(requestCommentDeleteDTO, request);
     }
 
 }

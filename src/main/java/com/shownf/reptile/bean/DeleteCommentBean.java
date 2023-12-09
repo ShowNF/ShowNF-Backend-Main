@@ -8,10 +8,13 @@ import com.shownf.reptile.Model.entity.PostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Component
 public class DeleteCommentBean {
 
     GetCommentDAOBean getCommentDAOBean;
+    CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean;
     CheckPostIdPostDAOBean checkPostIdPostDAOBean;
     CheckUserIdPostDAOBean checkUserIdPostDAOBean;
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
@@ -21,8 +24,9 @@ public class DeleteCommentBean {
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteCommentBean(GetCommentDAOBean getCommentDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteCommentBean(GetCommentDAOBean getCommentDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getCommentDAOBean = getCommentDAOBean;
+        this.checkUserAccessTokenDAOBean = checkUserAccessTokenDAOBean;
         this.checkPostIdPostDAOBean = checkPostIdPostDAOBean;
         this.checkUserIdPostDAOBean = checkUserIdPostDAOBean;
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
@@ -33,7 +37,7 @@ public class DeleteCommentBean {
     }
 
     // 댓글 삭제
-    public Long exec(RequestCommentDeleteDTO requestCommentDeleteDTO){
+    public Long exec(RequestCommentDeleteDTO requestCommentDeleteDTO, HttpServletRequest request){
 
         // 댓글 아이디 찾기
         Long commentId = requestCommentDeleteDTO.getCommentId();
@@ -41,6 +45,10 @@ public class DeleteCommentBean {
         // 아이디로 삭제할 댓글 찾기
         CommentDAO commentDAO =  getCommentDAOBean.exec(commentId);
         if (commentDAO == null) return 0L;
+
+        // 유저 댓글 토큰으로 확인
+        if (!checkUserAccessTokenDAOBean.exec(commentDAO, request))
+            return null;
 
         // 댓글 deleteCheck 값 true 변경
         commentDAO.setDeleteCheck(true);
