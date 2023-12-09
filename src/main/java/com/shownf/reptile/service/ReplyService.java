@@ -9,6 +9,7 @@ import com.shownf.reptile.bean.SaveReplyBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -36,8 +37,8 @@ public class ReplyService {
     }
 
     // 대댓글 삭제
-    public Long deleteReply(RequestReplyDeleteDTO requestReplyDeleteDTO){
-        return deleteReplyBean.exec(requestReplyDeleteDTO);
+    public Long deleteReply(RequestReplyDeleteDTO requestReplyDeleteDTO, HttpServletRequest request){
+        return deleteReplyBean.exec(requestReplyDeleteDTO, request);
     }
 
 }

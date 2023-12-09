@@ -96,4 +96,29 @@ public class CheckUserAccessTokenDAOBean {
             return true;
         return false;
     }
+
+    // 대댓글 삭제시 토큰 확인
+    public boolean exec(ReplyDAO replyDAO, HttpServletRequest request){
+
+        UserDAO userDAO = userRepositoryJPA.findById(replyDAO.getUserId()).orElse(null);
+        if (userDAO == null) return false;
+
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String userToken = httpRequest.getHeader("access-token");
+
+        KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
+        GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
+        NaverUserDAO naverUserDAO = naverUserRepositoryJPA.findByAccessToken(userToken);
+
+        String savedUserId;
+
+        if (kakaoUserDAO != null) savedUserId = kakaoUserDAO.getKakaoId();
+        else if (googleUserDAO != null) savedUserId = googleUserDAO.getGoogleId();
+        else if (naverUserDAO != null) savedUserId = naverUserDAO.getNaverId();
+        else savedUserId = null;
+
+        if (userDAO.getOauthId().equals(savedUserId))
+            return true;
+        return false;
+    }
 }

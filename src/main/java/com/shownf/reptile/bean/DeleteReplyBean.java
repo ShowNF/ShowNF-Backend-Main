@@ -9,10 +9,13 @@ import com.shownf.reptile.Model.entity.ReplyDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Component
 public class DeleteReplyBean {
 
     GetReplyDAOBean getReplyDAOBean;
+    CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean;
     CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean;
     CheckUserIdCommentDAOBean checkUserIdCommentDAOBean;
     UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean;
@@ -24,8 +27,9 @@ public class DeleteReplyBean {
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteReplyBean(GetReplyDAOBean getReplyDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteReplyBean(GetReplyDAOBean getReplyDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getReplyDAOBean = getReplyDAOBean;
+        this.checkUserAccessTokenDAOBean = checkUserAccessTokenDAOBean;
         this.checkCommentIdCommentDAOBean = checkCommentIdCommentDAOBean;
         this.checkUserIdCommentDAOBean = checkUserIdCommentDAOBean;
         this.updateCommentReplyCountDAOBean = updateCommentReplyCountDAOBean;
@@ -38,7 +42,7 @@ public class DeleteReplyBean {
     }
 
     // 대댓글 삭제
-    public Long exec(RequestReplyDeleteDTO requestReplyDeleteDTO){
+    public Long exec(RequestReplyDeleteDTO requestReplyDeleteDTO, HttpServletRequest request){
 
         // 대댓글 아이디 찾기
         Long replyId = requestReplyDeleteDTO.getReplyId();
@@ -47,6 +51,10 @@ public class DeleteReplyBean {
         ReplyDAO replyDAO = getReplyDAOBean.exec(replyId);
         if (replyDAO == null)
             return 0L;
+
+        // 유저 댓글 토큰으로 확인
+        if (!checkUserAccessTokenDAOBean.exec(replyDAO, request))
+            return null;
 
         // 대댓글 deleteCheck 값 true 설정
         replyDAO.setDeleteCheck(true);

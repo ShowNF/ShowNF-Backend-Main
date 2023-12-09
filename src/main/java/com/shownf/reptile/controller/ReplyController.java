@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +56,8 @@ public class ReplyController {
     // 대댓글 삭제
     @ApiOperation(value = "대댓글 삭제", notes = "댓글에 댓글 삭제시 삭제")
     @DeleteMapping("reply")
-    public ResponseEntity<Map<String, Object>> deleteComment(@RequestBody RequestReplyDeleteDTO requestReplyDeleteDTO){
-        Long replyId = replyService.deleteReply(requestReplyDeleteDTO);
+    public ResponseEntity<Map<String, Object>> deleteComment(@RequestBody RequestReplyDeleteDTO requestReplyDeleteDTO, HttpServletRequest request){
+        Long replyId = replyService.deleteReply(requestReplyDeleteDTO, request);
 
         // HTTP 상태 반환
         HttpStatus httpStatus = (replyId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
