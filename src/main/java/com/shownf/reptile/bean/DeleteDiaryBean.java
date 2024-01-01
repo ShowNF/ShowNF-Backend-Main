@@ -41,7 +41,7 @@ public class DeleteDiaryBean {
         // 다이어리 deleteCheck 값 true 설정
         diaryDAO.setDeleteCheck(true);
 
-        // 펫 다이어리 수 감소
+        // 펫 다이어리 수, 겸험치 감소
         PetDAO petDAO = updatePetDAOBean.exec(requestDiaryDeleteDTO);
         if (petDAO == null) return 0L;
 

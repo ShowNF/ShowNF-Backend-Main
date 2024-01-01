@@ -55,7 +55,7 @@ public class SaveDiaryBean {
         // 다이어리 저장
         DiaryDAO diaryDAO = saveDiaryDAOBean.exec(diaryId, requestDiarySaveDTO);
 
-        // 다이어리 저장시 다이어리 갯수, 펫 몸무게 업데이트
+        // 다이어리 저장시 다이어리 갯수, 펫 몸무게, 경험치 업데이트
         PetDAO petDAO = updatePetDAOBean.exec(diaryDAO);
         if (petDAO == null) return 0L;
 
@@ -71,7 +71,6 @@ public class SaveDiaryBean {
 
         // 유저 저장
         saveUserDAOBean.exec(userDAO);
-
 
         // 다이어리 diaryId 반환
         return diaryId;
