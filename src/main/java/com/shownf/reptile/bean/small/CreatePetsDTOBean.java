@@ -34,6 +34,8 @@ public class CreatePetsDTOBean {
             responsePetDTO.setGender(petDAO.getGender().name());
             responsePetDTO.setUploadTime(petDAO.getUploadTime());
             responsePetDTO.setDiaryCount(petDAO.getDiaryCount());
+            responsePetDTO.setLevel(petDAO.getLevel());
+            responsePetDTO.setLevelExperience(petDAO.getLevelExperience());
 
             responsePetDTOS.add(responsePetDTO);
         }

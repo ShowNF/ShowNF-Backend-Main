@@ -3,6 +3,7 @@ package com.shownf.reptile.bean.small;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
 import com.shownf.reptile.Model.Enum.Gender;
+import com.shownf.reptile.Model.Enum.Level;
 import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.repository.PetRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,10 +68,19 @@ public class SavePetDAOBean {
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();
 
+        // 다이어리 수
+        Integer diaryCount = 0;
+
+        // 레벨
+        Level level = Level.LEVEL_1;
+
+        // 레벨 경험치
+        Integer levelExperience = 0;
+
         // 소프트 딜리트
         boolean deleteCheck = false;
 
-        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, 0, deleteCheck);
+        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, diaryCount, level, levelExperience, deleteCheck);
 
     }
 }

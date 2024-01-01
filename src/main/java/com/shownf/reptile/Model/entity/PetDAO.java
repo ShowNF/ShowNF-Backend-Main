@@ -1,6 +1,7 @@
 package com.shownf.reptile.Model.entity;
 
 import com.shownf.reptile.Model.Enum.Gender;
+import com.shownf.reptile.Model.Enum.Level;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +29,7 @@ public class PetDAO {
     Gender gender;
     LocalDateTime uploadTime;
     Integer diaryCount;
+    Level level;
+    Integer levelExperience;
     boolean deleteCheck;
 }

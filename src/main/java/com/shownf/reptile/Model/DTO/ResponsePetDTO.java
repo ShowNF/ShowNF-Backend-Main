@@ -1,5 +1,6 @@
 package com.shownf.reptile.Model.DTO;
 
+import com.shownf.reptile.Model.Enum.Level;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,4 +18,6 @@ public class ResponsePetDTO {
     String gender;
     LocalDateTime uploadTime;
     Integer diaryCount;
+    Level level;
+    Integer levelExperience;
 }
