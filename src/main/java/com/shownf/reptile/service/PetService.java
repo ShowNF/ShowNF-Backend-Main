@@ -38,6 +38,11 @@ public class PetService {
         return getPetsBean.exec(userId, pageable);
     }
 
+    // 마이펫 레벨별 조회
+    public Page<ResponsePetDTO> getLevelPets(Long userId, Pageable pageable){
+        return getPetsBean.exec(userId, pageable, 0);
+    }
+
     // 마이펫 저장
     public Long savePet(RequestPetSaveDTO requestPetSaveDTO){
         return savePetBean.exec(requestPetSaveDTO);

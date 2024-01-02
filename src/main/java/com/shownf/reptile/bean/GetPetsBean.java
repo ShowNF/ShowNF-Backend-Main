@@ -30,4 +30,14 @@ public class GetPetsBean {
         // DAO 객체 DTO 반환
         return createPetsDTOBean.exec(pageable, petDAOs);
     }
+
+    // 마이펫 Page 형태로 레벨별 조회
+    public Page<ResponsePetDTO> exec(Long userId, Pageable pageable, Integer level){
+
+        // 유저 아이디로 마이펫 전체 찾기
+        Page<PetDAO> petDAOs = getPetsDAOBean.exec(userId, pageable);
+
+        // DAO 객체 DTO 반환
+        return createPetsDTOBean.exec(pageable, petDAOs);
+    }
 }
