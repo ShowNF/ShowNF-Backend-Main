@@ -2,6 +2,7 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,18 +26,21 @@ public class UserController {
     }
 
     // 토큰으로 유저 아이디 찾기
+    @ApiOperation(value = "토큰으로 유저 아이디 찾기", notes = "토큰을 통해서 접속한 유저 아이디 찾음")
     @GetMapping("user/token/{token}")
     public Long getUserId(@PathVariable String token){
         return userService.getUserId(token);
     }
 
     // handle 아이디로 유저 객체 찾기
+    @ApiOperation(value = "handle 아이디로 유저 객체 찾기", notes = "유저 객체 찾기")
     @GetMapping("user/{userId}")
     public ResponseUserDTO getUser(@PathVariable Long userId){
         return userService.getUser(userId);
     }
 
     // handle 아이디로 유저 이름 반환
+    @ApiOperation(value = "handle 아이디로 유저 이름 찾기", notes = "유저 이름 확인하기")
     @GetMapping("user/{userId}/name")
     public ResponseEntity<String> getUserName(@PathVariable Long userId){
         String userName = userService.getUserName(userId);
@@ -44,6 +48,7 @@ public class UserController {
     }
 
     // handle 아이디로 유저 이미지 반환
+    @ApiOperation(value = "handle 아이디로 유저 이미지 찾기", notes = "유저 이미지 확인하기")
     @GetMapping("user/{userId}/image")
     public String getUserImage(@PathVariable Long userId){
         String userImage = userService.getUserImage(userId);
@@ -51,18 +56,21 @@ public class UserController {
     }
 
     // 내 팔로우 리스트 조회
+    @ApiOperation(value = "팔로우 하고 있는 유저들 조회", notes = "유저의 팔로우 리스트 조회")
     @GetMapping("user/followers/{userId}")
     public List<ResponseFollowerDTO> getFollowersUser(@PathVariable Long userId){
         return userService.getFollowersUser(userId);
     }
 
     // 내 팔로잉 리스트 조회
+    @ApiOperation(value = "나를 팔로우 하고 있는 유저들 조회", notes = "유저의 팔로잉 리스트 조회")
     @GetMapping("user/followings/{userId}")
     public List<ResponseFollowingDTO> getFollowingsUser(@PathVariable Long userId){
         return userService.getFollowingsUser(userId);
     }
 
     // 팔로우 추가 기능
+    @ApiOperation(value = "팔로우 추가", notes = "팔로우 하기")
     @PostMapping("user/follow")
     public ResponseEntity<Map<String, Object>> followUser(@RequestBody RequestFollowDTO requestFollowDTO){
         Long followId = userService.followUser(requestFollowDTO);
@@ -79,6 +87,7 @@ public class UserController {
     }
 
     // 유저 프로필 변경
+    @ApiOperation(value = "유저 프로필 수정", notes = "유저의 프로필 수정")
     @PutMapping("user")
     public ResponseEntity<Map<String, Object>> updateSiteUser(@RequestBody RequestSiteUserUpdateDTO requestSiteUserUpdateDTO, HttpServletRequest request){
         Long userId = userService.updateUserSiteName(requestSiteUserUpdateDTO, request);
@@ -95,6 +104,7 @@ public class UserController {
     }
 
     // 팔로우 취소 기능
+    @ApiOperation(value = "팔로우 취소", notes = "팔로우 취소하기")
     @DeleteMapping("user/follow")
     public ResponseEntity<Map<String, Object>> deleteFollowUser(@RequestBody RequestFollowDTO requestFollowDTO){
         Long followId = userService.deleteFollowUser(requestFollowDTO);

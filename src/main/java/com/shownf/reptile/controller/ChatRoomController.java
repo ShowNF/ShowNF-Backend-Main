@@ -2,7 +2,6 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestChatRoomSaveDTO;
 import com.shownf.reptile.Model.DTO.ResponseChatRoomDTO;
-import com.shownf.reptile.Model.DTO.ResponseChatDTO;
 import com.shownf.reptile.service.ChatRoomService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +39,7 @@ public class ChatRoomController {
     }
 
     // 채팅방 저장
+    @ApiOperation(value = "채팅방 저장", notes = "채팅 서버로 부터 받은 채팅방을 저장한다.")
     @PostMapping("chat-room")
     public ResponseEntity<Map<String, Object>> saveChatRoom(@RequestBody RequestChatRoomSaveDTO requestChatRoomSaveDTO){
         Long uniqueId = chatRoomService.saveChatRoom(requestChatRoomSaveDTO);

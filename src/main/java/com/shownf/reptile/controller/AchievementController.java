@@ -1,6 +1,5 @@
 package com.shownf.reptile.controller;
 
-import com.shownf.reptile.Model.DTO.RequestPostDTO;
 import com.shownf.reptile.Model.DTO.ResponseAchievementDTO;
 import com.shownf.reptile.service.AchievementService;
 import io.swagger.annotations.ApiOperation;
