@@ -25,6 +25,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    // token valid check
+    @ApiOperation(value = "토큰 갱신 확인", notes = "토큰이 유효한지 판단함")
+    @GetMapping("user/{userId}/token")
+    public Boolean checkToken(@PathVariable Long userId, HttpServletRequest request){
+        return userService.checkToken(userId, request);
+    }
+
     // 토큰으로 유저 아이디 찾기
     @ApiOperation(value = "토큰으로 유저 아이디 찾기", notes = "토큰을 통해서 접속한 유저 아이디 찾음")
     @GetMapping("user/token/{token}")
@@ -51,8 +58,7 @@ public class UserController {
     @ApiOperation(value = "handle 아이디로 유저 이미지 찾기", notes = "유저 이미지 확인하기")
     @GetMapping("user/{userId}/image")
     public String getUserImage(@PathVariable Long userId){
-        String userImage = userService.getUserImage(userId);
-        return userImage;
+        return userService.getUserImage(userId);
     }
 
     // 내 팔로우 리스트 조회

@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class UserService {
 
+    CheckValidUserBean checkValidUserBean;
     GetUserIdBean getUserIdBean;
     GetUserBean getUserBean;
     GetUserNameBean getUserNameBean;
@@ -22,7 +23,8 @@ public class UserService {
     GetFollowingsBean getFollowingsBean;
 
     @Autowired
-    public UserService(GetUserIdBean getUserIdBean, GetUserBean getUserBean, GetUserNameBean getUserNameBean, GetUserImageBean getUserImageBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean) {
+    public UserService(CheckValidUserBean checkValidUserBean, GetUserIdBean getUserIdBean, GetUserBean getUserBean, GetUserNameBean getUserNameBean, GetUserImageBean getUserImageBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean) {
+        this.checkValidUserBean = checkValidUserBean;
         this.getUserIdBean = getUserIdBean;
         this.getUserBean = getUserBean;
         this.getUserNameBean = getUserNameBean;
@@ -32,6 +34,11 @@ public class UserService {
         this.deleteFollowBean = deleteFollowBean;
         this.getFollowersBean = getFollowersBean;
         this.getFollowingsBean = getFollowingsBean;
+    }
+
+    // user token valid check
+    public boolean checkToken(Long userId, HttpServletRequest request){
+        return checkValidUserBean.exec(userId, request);
     }
 
     // 토큰으로 유저 아이디 찾기
