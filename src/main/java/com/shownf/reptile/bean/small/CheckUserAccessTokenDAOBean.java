@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Component
 public class CheckUserAccessTokenDAOBean {
@@ -26,10 +27,29 @@ public class CheckUserAccessTokenDAOBean {
         this.naverUserRepositoryJPA = naverUserRepositoryJPA;
     }
 
+    // 토큰 일치 확인
+    public boolean exec(String oauthId, HttpServletRequest request){
+
+        String userToken = ((HttpServletRequest) request).getHeader("access-token");
+
+        KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByKakaoId(oauthId);
+        GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByGoogleId(oauthId);
+        NaverUserDAO naverUserDAO = naverUserRepositoryJPA.findByNaverId(oauthId);
+
+        String savedToken;
+
+        if (kakaoUserDAO != null) savedToken = kakaoUserDAO.getAccessToken();
+        else if (googleUserDAO != null) savedToken = googleUserDAO.getAccessToken();
+        else if (naverUserDAO != null) savedToken = naverUserDAO.getAccessToken();
+        else savedToken = null;
+
+        return userToken.equals(savedToken);
+    }
+
+    // 아이디 일치 확인
     public boolean exec(UserDAO userDAO, HttpServletRequest request){
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String userToken = httpRequest.getHeader("access-token");
+        String userToken = ((HttpServletRequest) request).getHeader("access-token");
 
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
         GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
@@ -42,9 +62,7 @@ public class CheckUserAccessTokenDAOBean {
         else if (naverUserDAO != null) savedUserId = naverUserDAO.getNaverId();
         else savedUserId = null;
 
-        if (userDAO.getOauthId().equals(savedUserId))
-            return true;
-        return false;
+        return userDAO.getOauthId().equals(savedUserId);
     }
 
     // 게시물 삭제시 토큰 확인
@@ -53,8 +71,7 @@ public class CheckUserAccessTokenDAOBean {
         UserDAO userDAO = userRepositoryJPA.findById(postDAO.getUserId()).orElse(null);
         if (userDAO == null) return false;
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String userToken = httpRequest.getHeader("access-token");
+        String userToken = ((HttpServletRequest) request).getHeader("access-token");
 
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
         GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
@@ -67,9 +84,7 @@ public class CheckUserAccessTokenDAOBean {
         else if (naverUserDAO != null) savedUserId = naverUserDAO.getNaverId();
         else savedUserId = null;
 
-        if (userDAO.getOauthId().equals(savedUserId))
-            return true;
-        return false;
+        return userDAO.getOauthId().equals(savedUserId);
     }
 
     // 댓글 삭제시 토큰 확인
@@ -78,8 +93,7 @@ public class CheckUserAccessTokenDAOBean {
         UserDAO userDAO = userRepositoryJPA.findById(commentDAO.getUserId()).orElse(null);
         if (userDAO == null) return false;
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String userToken = httpRequest.getHeader("access-token");
+        String userToken = ((HttpServletRequest) request).getHeader("access-token");
 
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
         GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
@@ -92,9 +106,7 @@ public class CheckUserAccessTokenDAOBean {
         else if (naverUserDAO != null) savedUserId = naverUserDAO.getNaverId();
         else savedUserId = null;
 
-        if (userDAO.getOauthId().equals(savedUserId))
-            return true;
-        return false;
+        return userDAO.getOauthId().equals(savedUserId);
     }
 
     // 대댓글 삭제시 토큰 확인
@@ -103,8 +115,7 @@ public class CheckUserAccessTokenDAOBean {
         UserDAO userDAO = userRepositoryJPA.findById(replyDAO.getUserId()).orElse(null);
         if (userDAO == null) return false;
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String userToken = httpRequest.getHeader("access-token");
+        String userToken = ((HttpServletRequest) request).getHeader("access-token");
 
         KakaoUserDAO kakaoUserDAO = kakaoUserRepositoryJPA.findByAccessToken(userToken);
         GoogleUserDAO googleUserDAO = googleUserRepositoryJPA.findByAccessToken(userToken);
@@ -117,8 +128,6 @@ public class CheckUserAccessTokenDAOBean {
         else if (naverUserDAO != null) savedUserId = naverUserDAO.getNaverId();
         else savedUserId = null;
 
-        if (userDAO.getOauthId().equals(savedUserId))
-            return true;
-        return false;
+        return userDAO.getOauthId().equals(savedUserId);
     }
 }
