@@ -31,24 +31,6 @@ public class SaveDiaryBean {
     // 다이어리 저장
     public Long exec(RequestDiarySaveDTO requestDiarySaveDTO){
 
-        // 다이어리 수정시 저장
-        if (requestDiarySaveDTO.getDiaryId() != null){
-
-            // 다이어리 수정
-            DiaryDAO diaryDAO = saveDiaryDAOBean.exec(requestDiarySaveDTO);
-
-            // 다이어리 저장시 펫 몸무게 업데이트
-            PetDAO petDAO = updatePetDAOBean.exec(null, diaryDAO);
-
-            // 다이어리 저장
-            saveDiaryDAOBean.exec(diaryDAO);
-
-            // 펫 저장
-            savePetDAOBean.exec(petDAO);
-
-            return requestDiarySaveDTO.getDiaryId();
-        }
-
         // diaryId 생성
         Long diaryId = createUniqueIdBean.exec();
 
