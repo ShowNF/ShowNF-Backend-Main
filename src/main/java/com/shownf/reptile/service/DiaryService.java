@@ -1,9 +1,6 @@
 package com.shownf.reptile.service;
 
-import com.shownf.reptile.Model.DTO.RequestDiaryDTO;
-import com.shownf.reptile.Model.DTO.RequestDiaryDeleteDTO;
-import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
-import com.shownf.reptile.Model.DTO.ResponseDiarysDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +14,16 @@ public class DiaryService {
     GetDiaryRecentBean getDiaryRecentBean;
     GetDiarysBean getDiarysBean;
     SaveDiaryBean saveDiaryBean;
+    UpdateDiaryBean updateDiaryBean;
     DeleteDiaryBean deleteDiaryBean;
 
     @Autowired
-    public DiaryService(GetDiaryBean getDiaryBean, GetDiaryRecentBean getDiaryRecentBean, GetDiarysBean getDiarysBean, SaveDiaryBean saveDiaryBean, DeleteDiaryBean deleteDiaryBean) {
+    public DiaryService(GetDiaryBean getDiaryBean, GetDiaryRecentBean getDiaryRecentBean, GetDiarysBean getDiarysBean, SaveDiaryBean saveDiaryBean, UpdateDiaryBean updateDiaryBean, DeleteDiaryBean deleteDiaryBean) {
         this.getDiaryBean = getDiaryBean;
         this.getDiaryRecentBean = getDiaryRecentBean;
         this.getDiarysBean = getDiarysBean;
         this.saveDiaryBean = saveDiaryBean;
+        this.updateDiaryBean = updateDiaryBean;
         this.deleteDiaryBean = deleteDiaryBean;
     }
 
@@ -47,6 +46,11 @@ public class DiaryService {
     // 다이어리 저장
     public Long saveDiary(RequestDiarySaveDTO requestDiarySaveDTO){
         return saveDiaryBean.exec(requestDiarySaveDTO);
+    }
+
+    // 다이어리 수정
+    public Long updateDiary(RequestDiaryUpdateDTO requestDiaryUpdateDTO){
+        return updateDiaryBean.exec(requestDiaryUpdateDTO);
     }
 
     // 다이어리 삭제

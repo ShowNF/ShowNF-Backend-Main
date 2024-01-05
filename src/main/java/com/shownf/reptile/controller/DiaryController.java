@@ -1,9 +1,6 @@
 package com.shownf.reptile.controller;
 
-import com.shownf.reptile.Model.DTO.RequestDiaryDTO;
-import com.shownf.reptile.Model.DTO.RequestDiaryDeleteDTO;
-import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
-import com.shownf.reptile.Model.DTO.ResponseDiarysDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.service.DiaryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +58,23 @@ public class DiaryController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (diaryId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("diaryId", diaryId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 다이어리 수정
+    @ApiOperation(value = "다이어리 수정", notes = "다이어리 수정시 저장")
+    @PutMapping("diary")
+    public ResponseEntity<Map<String, Object>> updateDiary(@RequestBody RequestDiaryUpdateDTO requestDiaryUpdateDTO){
+        Long diaryId = diaryService.updateDiary(requestDiaryUpdateDTO);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (diaryId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (diaryId != null) ? "Update Success" : "Update Fail");
         requestMap.put("diaryId", diaryId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
