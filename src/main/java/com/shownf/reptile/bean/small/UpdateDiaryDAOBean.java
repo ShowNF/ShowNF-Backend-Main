@@ -1,2 +1,60 @@
-package com.shownf.reptile.bean.small;public class UpdateDiaryDAOBean {
+package com.shownf.reptile.bean.small;
+
+import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
+import com.shownf.reptile.Model.DTO.RequestDiaryUpdateDTO;
+import com.shownf.reptile.Model.entity.DiaryDAO;
+import com.shownf.reptile.repository.DiaryRepositoryJPA;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+
+@Component
+public class UpdateDiaryDAOBean {
+
+    DiaryRepositoryJPA diaryRepositoryJPA;
+
+    @Autowired
+    public UpdateDiaryDAOBean(DiaryRepositoryJPA diaryRepositoryJPA) {
+        this.diaryRepositoryJPA = diaryRepositoryJPA;
+    }
+
+    // 다이어리 수정시 저장
+    public DiaryDAO exec(DiaryDAO diaryDAO, RequestDiaryUpdateDTO requestDiaryUpdateDTO){
+
+        // 마이펫 이미지
+        diaryDAO.setImageUrl(requestDiaryUpdateDTO.getImageUrl());
+
+        // 먹이
+        diaryDAO.setFood(requestDiaryUpdateDTO.getFood());
+
+        // 먹이 수
+        diaryDAO.setFoodCounter(requestDiaryUpdateDTO.getFoodCounter());
+
+        // 먹이 크기
+        diaryDAO.setSize(requestDiaryUpdateDTO.getSize());
+
+        // 몸무게
+        diaryDAO.setWeight(requestDiaryUpdateDTO.getWeight());
+
+        // 메모
+        diaryDAO.setMemo(requestDiaryUpdateDTO.getMemo());
+
+        // 업로드 시간
+        diaryDAO.setUploadTime(LocalDateTime.now());
+
+        // 탈피 여부
+        diaryDAO.setEcdysis(requestDiaryUpdateDTO.isEcdysis());
+
+        // 청소 여부
+        diaryDAO.setCleaning(requestDiaryUpdateDTO.isCleaning());
+
+        // 샤워 여부
+        diaryDAO.setShower(requestDiaryUpdateDTO.isShower());
+
+        // 배변 여부
+        diaryDAO.setBowelMovement(requestDiaryUpdateDTO.isBowelMovement());
+
+        return diaryDAO;
+    }
 }
