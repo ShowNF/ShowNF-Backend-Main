@@ -1,6 +1,7 @@
 package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestPetDeleteDTO;
+import com.shownf.reptile.Model.DTO.RequestPetUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponsePetDTO;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
 import com.shownf.reptile.service.PetService;
@@ -64,6 +65,23 @@ public class PetController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (petId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("petId", petId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 마이펫 수정
+    @ApiOperation(value = "마이펫 수정", notes = "마이펫 수정시 저장")
+    @PutMapping("pet")
+    public ResponseEntity<Map<String, Object>> updatePet(@RequestBody RequestPetUpdateDTO requestPetUpdateDTO){
+        Long petId = petService.updatePet(requestPetUpdateDTO);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (petId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (petId != null) ? "Update Success" : "Update Fail");
         requestMap.put("petId", petId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);

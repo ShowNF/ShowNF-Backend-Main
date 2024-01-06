@@ -1,12 +1,10 @@
 package com.shownf.reptile.service;
 
 import com.shownf.reptile.Model.DTO.RequestPetDeleteDTO;
+import com.shownf.reptile.Model.DTO.RequestPetUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponsePetDTO;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
-import com.shownf.reptile.bean.DeletePetBean;
-import com.shownf.reptile.bean.GetPetBean;
-import com.shownf.reptile.bean.GetPetsBean;
-import com.shownf.reptile.bean.SavePetBean;
+import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,13 +16,15 @@ public class PetService {
     GetPetBean getPetBean;
     GetPetsBean getPetsBean;
     SavePetBean savePetBean;
+    UpdatePetBean updatePetBean;
     DeletePetBean deletePetBean;
 
     @Autowired
-    public PetService(GetPetBean getPetBean, GetPetsBean getPetsBean, SavePetBean savePetBean, DeletePetBean deletePetBean) {
+    public PetService(GetPetBean getPetBean, GetPetsBean getPetsBean, SavePetBean savePetBean, UpdatePetBean updatePetBean, DeletePetBean deletePetBean) {
         this.getPetBean = getPetBean;
         this.getPetsBean = getPetsBean;
         this.savePetBean = savePetBean;
+        this.updatePetBean = updatePetBean;
         this.deletePetBean = deletePetBean;
     }
 
@@ -46,6 +46,11 @@ public class PetService {
     // 마이펫 저장
     public Long savePet(RequestPetSaveDTO requestPetSaveDTO){
         return savePetBean.exec(requestPetSaveDTO);
+    }
+
+    // 마이펫 수정
+    public Long updatePet(RequestPetUpdateDTO requestPetUpdateDTO){
+        return updatePetBean.exec(requestPetUpdateDTO);
     }
 
     // 마이펫 삭제
