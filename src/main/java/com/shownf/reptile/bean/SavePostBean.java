@@ -24,9 +24,11 @@ public class SavePostBean {
         this.saveUserDAOBean = saveUserDAOBean;
     }
 
+    // Save the post
     public Long exec(RequestPostSaveDTO requestPostSaveDTO){
+
         // postId 생성
-        long postId = createUniqueIdBean.exec();
+        Long postId = createUniqueIdBean.exec();
 
         // postContents 저장
         savePostContentsDAOBean.exec(postId, requestPostSaveDTO);

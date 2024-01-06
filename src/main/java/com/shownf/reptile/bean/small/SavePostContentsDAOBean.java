@@ -38,16 +38,16 @@ public class SavePostContentsDAOBean {
         List<Map<String, String>> list = requestPostSaveDTO.getContent();
         int count = list.size();
 
-        for (int i = 0; i < count; i++){
+        for (Map<String, String> contentMap : list) {
 
             // postContentId 생성
             Long postContentId = createUniqueIdBean.exec();
 
             // 이미지 Url
-            String imageUrl = list.get(i).get("imageUrl");
+            String imageUrl = contentMap.get("imageUrl");
 
             // 내용
-            String content = list.get(i).get("content");
+            String content = contentMap.get("content");
 
             postContentDAOs.add(new PostContentDAO(postContentId, postId, imageUrl, content));
         }

@@ -33,6 +33,7 @@ public class CreatePostsDTOBean {
             requestPostDTO.setContent(postDAO.getContent());
             requestPostDTO.setCategory(postDAO.getCategory().name());
             requestPostDTO.setUploadTime(postDAO.getUploadTime());
+            requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
             requestPostDTO.setHeartCount(postDAO.getHeartCount());
             requestPostDTO.setCommentCount(postDAO.getCommentCount());
             requestPostDTO.setViewCount(postDAO.getViewCount());
@@ -59,6 +60,7 @@ public class CreatePostsDTOBean {
             requestPostDTO.setContent(postDAO.getContent());
             requestPostDTO.setCategory(postDAO.getCategory().name());
             requestPostDTO.setUploadTime(postDAO.getUploadTime());
+            requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
             requestPostDTO.setHeartCount(postDAO.getHeartCount());
             requestPostDTO.setCommentCount(postDAO.getCommentCount());
             requestPostDTO.setViewCount(postDAO.getViewCount());
@@ -85,6 +87,7 @@ public class CreatePostsDTOBean {
             requestPostDTO.setContent(postDAO.getContent());
             requestPostDTO.setCategory(postDAO.getCategory().name());
             requestPostDTO.setUploadTime(postDAO.getUploadTime());
+            requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
             requestPostDTO.setHeartCount(postDAO.getHeartCount());
             requestPostDTO.setCommentCount(postDAO.getCommentCount());
             requestPostDTO.setViewCount(postDAO.getViewCount());
@@ -111,6 +114,7 @@ public class CreatePostsDTOBean {
             responsePostsDTO.setContent(postDAO.getContent());
             responsePostsDTO.setCategory(postDAO.getCategory().name());
             responsePostsDTO.setUploadTime(postDAO.getUploadTime());
+            responsePostsDTO.setUpdateTime(postDAO.getUpdateTime());
             responsePostsDTO.setHeartCount(postDAO.getHeartCount());
             responsePostsDTO.setCommentCount(postDAO.getCommentCount());
             responsePostsDTO.setViewCount(postDAO.getViewCount());

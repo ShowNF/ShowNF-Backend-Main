@@ -47,8 +47,11 @@ public class SavePostDAOBean {
         // 카테고리
         Category category = Category.valueOf(requestPostSaveDTO.getCategory());
 
-        // 시간
-        LocalDateTime localDateTime = LocalDateTime.now();
+        // 업로드 시간
+        LocalDateTime uploadTime = LocalDateTime.now();
+
+        // 수정 시간
+        LocalDateTime updateTime = LocalDateTime.now();
 
         // 게시물 좋아요 갯수
         Integer heartCount = 0;
@@ -62,6 +65,6 @@ public class SavePostDAOBean {
         // 삭제 여부
         boolean deleteCheck = false;
 
-        exec(new PostDAO(postId, userId, title, content, category, localDateTime, heartCount, commentCount, viewCount, deleteCheck));
+        exec(new PostDAO(postId, userId, title, content, category, uploadTime, updateTime, heartCount, commentCount, viewCount, deleteCheck));
     }
 }

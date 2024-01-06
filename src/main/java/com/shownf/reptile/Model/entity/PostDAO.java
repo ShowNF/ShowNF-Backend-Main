@@ -17,12 +17,13 @@ import java.time.LocalDateTime;
 @Setter
 public class PostDAO {
     @Id
-    long postId;
+    Long postId;
     Long userId;
     String title;
     String content;
     Category category;
     LocalDateTime uploadTime;
+    LocalDateTime updateTime;
     Integer heartCount;
     Integer commentCount;
     Integer viewCount;

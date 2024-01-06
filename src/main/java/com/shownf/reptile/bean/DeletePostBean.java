@@ -26,6 +26,8 @@ public class DeletePostBean {
         this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
     }
+
+    // Delete the post
     public Long exec(RequestPostDeleteDTO requestPostDeleteDTO, HttpServletRequest request){
 
         // 게시물 아이디 찾기
