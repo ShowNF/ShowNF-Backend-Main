@@ -2,6 +2,7 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestCommentDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestCommentSaveDTO;
+import com.shownf.reptile.Model.DTO.RequestCommentUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseCommentsDTO;
 import com.shownf.reptile.service.CommentService;
 import io.swagger.annotations.ApiOperation;
@@ -52,6 +53,22 @@ public class CommentController {
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
 
+    // 댓글 수정
+    @ApiOperation(value = "댓글 수정", notes = "댓글 수정시 저장한다.")
+    @PutMapping("comment")
+    public ResponseEntity<Map<String, Object>> updateComment(@RequestBody RequestCommentUpdateDTO requestCommentUpdateDTO, HttpServletRequest request){
+        Long commentId = commentService.updateComment(requestCommentUpdateDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (commentId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (commentId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("commentId", commentId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
 
     // 댓글 삭제
     @ApiOperation(value = "댓글 삭제", notes = "댓글 삭제시 삭제한다.")

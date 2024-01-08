@@ -2,10 +2,12 @@ package com.shownf.reptile.service;
 
 import com.shownf.reptile.Model.DTO.RequestCommentDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestCommentSaveDTO;
+import com.shownf.reptile.Model.DTO.RequestCommentUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseCommentsDTO;
 import com.shownf.reptile.bean.DeleteCommentBean;
 import com.shownf.reptile.bean.GetCommentsBean;
 import com.shownf.reptile.bean.SaveCommentBean;
+import com.shownf.reptile.bean.UpdateCommentBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +19,15 @@ public class CommentService {
 
     GetCommentsBean getCommentsBean;
     SaveCommentBean saveCommentBean;
+    UpdateCommentBean updateCommentBean;
     DeleteCommentBean deleteCommentBean;
 
 
     @Autowired
-    public CommentService(GetCommentsBean getCommentsBean, SaveCommentBean saveCommentBean, DeleteCommentBean deleteCommentBean) {
+    public CommentService(GetCommentsBean getCommentsBean, SaveCommentBean saveCommentBean, UpdateCommentBean updateCommentBean, DeleteCommentBean deleteCommentBean) {
         this.getCommentsBean = getCommentsBean;
         this.saveCommentBean = saveCommentBean;
+        this.updateCommentBean = updateCommentBean;
         this.deleteCommentBean = deleteCommentBean;
     }
 
@@ -38,6 +42,9 @@ public class CommentService {
     }
 
     // 댓글 수정
+    public Long updateComment(RequestCommentUpdateDTO requestCommentUpdateDTO, HttpServletRequest request){
+        return updateCommentBean.exec(requestCommentUpdateDTO, request);
+    }
 
     // 댓글 삭제
     public Long deleteComment(RequestCommentDeleteDTO requestCommentDeleteDTO, HttpServletRequest request){
