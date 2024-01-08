@@ -3,6 +3,7 @@ package com.shownf.reptile.bean.small;
 import com.shownf.reptile.Model.DTO.RequestPostDTO;
 import com.shownf.reptile.Model.DTO.ResponsePostsDTO;
 import com.shownf.reptile.Model.entity.PostDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,13 @@ import java.util.List;
 
 @Component
 public class CreatePostsDTOBean {
+
+    GetPostContentDAOsBean getPostContentDAOsBean;
+
+    @Autowired
+    public CreatePostsDTOBean(GetPostContentDAOsBean getPostContentDAOsBean) {
+        this.getPostContentDAOsBean = getPostContentDAOsBean;
+    }
 
     // 게시물 조회시 DTO 생성
     public Page<RequestPostDTO> exec(Pageable pageable, Page<PostDAO> postDAOs){
@@ -30,7 +38,9 @@ public class CreatePostsDTOBean {
             requestPostDTO.setPostId(postDAO.getPostId());
             requestPostDTO.setUserId(postDAO.getUserId());
             requestPostDTO.setTitle(postDAO.getTitle());
-            requestPostDTO.setContent(postDAO.getContent());
+
+            String content = getPostContentDAOsBean.exec(postDAO.getPostId(), postDAO.getContent());
+            requestPostDTO.setContent(content);
             requestPostDTO.setCategory(postDAO.getCategory().name());
             requestPostDTO.setUploadTime(postDAO.getUploadTime());
             requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
@@ -57,7 +67,9 @@ public class CreatePostsDTOBean {
             requestPostDTO.setPostId(postDAO.getPostId());
             requestPostDTO.setUserId(postDAO.getUserId());
             requestPostDTO.setTitle(postDAO.getTitle());
-            requestPostDTO.setContent(postDAO.getContent());
+
+            String content = getPostContentDAOsBean.exec(postDAO.getPostId(), postDAO.getContent());
+            requestPostDTO.setContent(content);
             requestPostDTO.setCategory(postDAO.getCategory().name());
             requestPostDTO.setUploadTime(postDAO.getUploadTime());
             requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
@@ -84,7 +96,9 @@ public class CreatePostsDTOBean {
             requestPostDTO.setPostId(postDAO.getPostId());
             requestPostDTO.setUserId(postDAO.getUserId());
             requestPostDTO.setTitle(postDAO.getTitle());
-            requestPostDTO.setContent(postDAO.getContent());
+
+            String content = getPostContentDAOsBean.exec(postDAO.getPostId(), postDAO.getContent());
+            requestPostDTO.setContent(content);
             requestPostDTO.setCategory(postDAO.getCategory().name());
             requestPostDTO.setUploadTime(postDAO.getUploadTime());
             requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
@@ -111,7 +125,9 @@ public class CreatePostsDTOBean {
             responsePostsDTO.setPostId(postDAO.getPostId());
             responsePostsDTO.setUserId(postDAO.getUserId());
             responsePostsDTO.setTitle(postDAO.getTitle());
-            responsePostsDTO.setContent(postDAO.getContent());
+
+            String content = getPostContentDAOsBean.exec(postDAO.getPostId(), postDAO.getContent());
+            responsePostsDTO.setContent(content);
             responsePostsDTO.setCategory(postDAO.getCategory().name());
             responsePostsDTO.setUploadTime(postDAO.getUploadTime());
             responsePostsDTO.setUpdateTime(postDAO.getUpdateTime());
