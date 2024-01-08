@@ -26,6 +26,7 @@ public class CreateReplysDTOBean {
             responseReplysDTO.setUserId(replyDAO.getUserId());
             responseReplysDTO.setContent(replyDAO.getContent());
             responseReplysDTO.setUploadTime(replyDAO.getUploadTime());
+            responseReplysDTO.setUpdateTime(replyDAO.getUpdateTime());
             responseReplysDTO.setHeartCount(replyDAO.getHeartCount());
 
             responseReplysDTOS.add(responseReplysDTO);

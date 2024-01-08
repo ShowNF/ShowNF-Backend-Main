@@ -21,6 +21,7 @@ public class ReplyDAO {
     Long userId;
     String content;
     LocalDateTime uploadTime;
+    LocalDateTime updateTime;
     Integer heartCount;
     boolean deleteCheck;
 }

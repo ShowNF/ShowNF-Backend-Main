@@ -21,8 +21,11 @@ public class CreateReplyDAOBean {
         // 내용
         String content = requestReplySaveDTO.getContent();
 
-        // 시간
+        // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();
+
+        // 업로드 시간
+        LocalDateTime updateTime = LocalDateTime.now();
 
         // 대댓글 좋아요 갯수
         Integer heartCount = 0;
@@ -31,6 +34,6 @@ public class CreateReplyDAOBean {
         boolean deleteCheck = false;
 
         // DAO 반환
-        return new ReplyDAO(replyId, commentId, userId, content, uploadTime, heartCount, deleteCheck);
+        return new ReplyDAO(replyId, commentId, userId, content, uploadTime, updateTime, heartCount, deleteCheck);
     }
 }

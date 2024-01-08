@@ -11,5 +11,6 @@ public class ResponseReplysDTO {
     Long userId;
     String content;
     LocalDateTime uploadTime;
+    LocalDateTime updateTime;
     Integer heartCount;
 }
