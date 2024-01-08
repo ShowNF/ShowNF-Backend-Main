@@ -27,14 +27,14 @@ public class DiaryController {
     // 다이어리 조회
     @ApiOperation(value = "다이어리 조회", notes = "다이어리 아이디로 다이어리 한 개를 조회한다.")
     @GetMapping("diary/{diaryId}")
-    public RequestDiaryDTO getDiary(@PathVariable Long diaryId){
+    public ResponseDiaryDTO getDiary(@PathVariable Long diaryId){
         return diaryService.getDiary(diaryId);
     }
 
     // 가장 최근 다이어리 조회
     @ApiOperation(value = "가장 최근 다이어리 조회", notes = "펫 아이디로 가장 최근 다이어리 한 개를 조회한다.")
     @GetMapping("diary/pet/{petId}")
-    public RequestDiaryDTO getDiaryRecent(@PathVariable Long petId){
+    public ResponseDiaryDTO getDiaryRecent(@PathVariable Long petId){
         return diaryService.getDiaryRecent(petId);
     }
 

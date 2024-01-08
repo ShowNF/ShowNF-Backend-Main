@@ -25,6 +25,7 @@ public class DiaryDAO {
     Double weight;
     String memo;
     LocalDateTime uploadTime;
+    LocalDateTime updateTime;
     String date;
     String month;
     boolean ecdysis;

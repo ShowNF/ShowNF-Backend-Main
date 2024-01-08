@@ -51,6 +51,9 @@ public class SaveDiaryDAOBean {
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();
 
+        // 수정 시간
+        LocalDateTime updateTime = LocalDateTime.now();
+
         // 날짜
         String date = requestDiarySaveDTO.getDate();
 
@@ -75,6 +78,6 @@ public class SaveDiaryDAOBean {
         // 소프트 딜리트
         boolean deleteCheck = false;
 
-        return new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, date, month, ecdysis, cleaning, shower, bowelMovement, deleteCheck);
+        return new DiaryDAO(diaryId, petId, imageUrl, food, foodCounter, size, weight, memo, uploadTime, updateTime, date, month, ecdysis, cleaning, shower, bowelMovement, deleteCheck);
     }
 }

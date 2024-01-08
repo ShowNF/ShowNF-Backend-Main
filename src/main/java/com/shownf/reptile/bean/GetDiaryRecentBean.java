@@ -1,6 +1,6 @@
 package com.shownf.reptile.bean;
 
-import com.shownf.reptile.Model.DTO.RequestDiaryDTO;
+import com.shownf.reptile.Model.DTO.ResponseDiaryDTO;
 import com.shownf.reptile.Model.entity.DiaryDAO;
 import com.shownf.reptile.bean.small.CreateDiaryDTOBean;
 import com.shownf.reptile.bean.small.GetDiaryRecentDAOBean;
@@ -20,7 +20,7 @@ public class GetDiaryRecentBean {
     }
 
     // 가장 최근 다이어리 조회
-    public RequestDiaryDTO exec(Long petId){
+    public ResponseDiaryDTO exec(Long petId){
 
         // 펫 아이디로 가장 최근 다이어리 가져오기
         DiaryDAO diaryDAO = getDiaryRecentDAOBean.exec(petId);

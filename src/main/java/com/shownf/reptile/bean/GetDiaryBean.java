@@ -1,6 +1,6 @@
 package com.shownf.reptile.bean;
 
-import com.shownf.reptile.Model.DTO.RequestDiaryDTO;
+import com.shownf.reptile.Model.DTO.ResponseDiaryDTO;
 import com.shownf.reptile.Model.entity.DiaryDAO;
 import com.shownf.reptile.bean.small.CreateDiaryDTOBean;
 import com.shownf.reptile.bean.small.GetDiaryDAOBean;
@@ -20,7 +20,7 @@ public class GetDiaryBean {
     }
 
     // 다이어리 조회
-    public RequestDiaryDTO exec(Long diaryId){
+    public ResponseDiaryDTO exec(Long diaryId){
 
         // diaryId로 다이어리 찾기
         DiaryDAO diaryDAO = getDiaryDAOBean.exec(diaryId);

@@ -28,12 +28,12 @@ public class DiaryService {
     }
 
     // 다이어리 조회
-    public RequestDiaryDTO getDiary(Long diaryId){
+    public ResponseDiaryDTO getDiary(Long diaryId){
         return getDiaryBean.exec(diaryId);
     }
 
     // 최근 다이어리 조회
-    public RequestDiaryDTO getDiaryRecent(Long petId){
+    public ResponseDiaryDTO getDiaryRecent(Long petId){
         return getDiaryRecentBean.exec(petId);
     }
 

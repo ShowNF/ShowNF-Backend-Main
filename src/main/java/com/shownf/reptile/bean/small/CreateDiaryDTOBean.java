@@ -1,6 +1,6 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.RequestDiaryDTO;
+import com.shownf.reptile.Model.DTO.ResponseDiaryDTO;
 import com.shownf.reptile.Model.entity.DiaryDAO;
 import org.springframework.stereotype.Component;
 
@@ -8,25 +8,27 @@ import org.springframework.stereotype.Component;
 public class CreateDiaryDTOBean {
 
     // 다이어리 조회시 DTO 생성
-    public RequestDiaryDTO exec(DiaryDAO diaryDAO){
-        RequestDiaryDTO requestDiaryDTO = new RequestDiaryDTO();
+    public ResponseDiaryDTO exec(DiaryDAO diaryDAO){
+        ResponseDiaryDTO responseDiaryDTO = new ResponseDiaryDTO();
 
         // DTO 객체에 다이어리 정보 넘기기
-        requestDiaryDTO.setDiaryId(diaryDAO.getDiaryId());
-        requestDiaryDTO.setPetId(diaryDAO.getPetId());
-        requestDiaryDTO.setImageUrl(diaryDAO.getImageUrl());
-        requestDiaryDTO.setFood(diaryDAO.getFood());
-        requestDiaryDTO.setFoodCounter(diaryDAO.getFoodCounter());
-        requestDiaryDTO.setSize(diaryDAO.getSize());
-        requestDiaryDTO.setWeight(diaryDAO.getWeight());
-        requestDiaryDTO.setMemo(diaryDAO.getMemo());
-        requestDiaryDTO.setDate(diaryDAO.getDate());
-        requestDiaryDTO.setMonth(diaryDAO.getMonth());
-        requestDiaryDTO.setEcdysis(diaryDAO.isEcdysis());
-        requestDiaryDTO.setCleaning(diaryDAO.isCleaning());
-        requestDiaryDTO.setShower(diaryDAO.isShower());
-        requestDiaryDTO.setBowelMovement(diaryDAO.isBowelMovement());
+        responseDiaryDTO.setDiaryId(diaryDAO.getDiaryId());
+        responseDiaryDTO.setPetId(diaryDAO.getPetId());
+        responseDiaryDTO.setImageUrl(diaryDAO.getImageUrl());
+        responseDiaryDTO.setFood(diaryDAO.getFood());
+        responseDiaryDTO.setFoodCounter(diaryDAO.getFoodCounter());
+        responseDiaryDTO.setSize(diaryDAO.getSize());
+        responseDiaryDTO.setWeight(diaryDAO.getWeight());
+        responseDiaryDTO.setMemo(diaryDAO.getMemo());
+        responseDiaryDTO.setUploadTime(diaryDAO.getUploadTime());
+        responseDiaryDTO.setUpdateTime(diaryDAO.getUpdateTime());
+        responseDiaryDTO.setDate(diaryDAO.getDate());
+        responseDiaryDTO.setMonth(diaryDAO.getMonth());
+        responseDiaryDTO.setEcdysis(diaryDAO.isEcdysis());
+        responseDiaryDTO.setCleaning(diaryDAO.isCleaning());
+        responseDiaryDTO.setShower(diaryDAO.isShower());
+        responseDiaryDTO.setBowelMovement(diaryDAO.isBowelMovement());
 
-        return requestDiaryDTO;
+        return responseDiaryDTO;
     }
 }

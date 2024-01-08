@@ -40,8 +40,8 @@ public class UpdateDiaryDAOBean {
         // 메모
         diaryDAO.setMemo(requestDiaryUpdateDTO.getMemo());
 
-        // 업로드 시간
-        diaryDAO.setUploadTime(LocalDateTime.now());
+        // 수정 시간
+        diaryDAO.setUpdateTime(LocalDateTime.now());
 
         // 탈피 여부
         diaryDAO.setEcdysis(requestDiaryUpdateDTO.isEcdysis());
