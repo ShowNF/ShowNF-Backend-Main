@@ -23,20 +23,18 @@ public class SavePostContentsDAOBean {
     }
 
     // 게시물 내용 저장
-    public void exec(List<PostContentDAO> postContentDAOs){
-        for (PostContentDAO postContentDAO : postContentDAOs)
-            postContentRepositoryJPA.save(postContentDAO);
+    public void exec(PostContentDAO postContentDAO){
+        postContentRepositoryJPA.save(postContentDAO);
     }
 
     // 게시물 저장시 postContent 저장
-    public void exec(Long postId, RequestPostSaveDTO requestPostSaveDTO){
+    public List<Long> exec(Long postId, RequestPostSaveDTO requestPostSaveDTO){
 
         // 반환하려는 PostContent List
-        List<PostContentDAO> postContentDAOs = new ArrayList<>();
+        List<Long> postContentIds = new ArrayList<>();
 
-        // 입력받은 postContent 갯수
+        // 입력받은 postContent
         List<Map<String, String>> list = requestPostSaveDTO.getContent();
-        int count = list.size();
 
         for (Map<String, String> contentMap : list) {
 
@@ -49,9 +47,13 @@ public class SavePostContentsDAOBean {
             // 내용
             String content = contentMap.get("content");
 
-            postContentDAOs.add(new PostContentDAO(postContentId, postId, imageUrl, content));
+            // postContent 저장
+            exec(new PostContentDAO(postContentId, postId, imageUrl, content));
+
+            // postContentId 반환을 위한 추가
+            postContentIds.add(postContentId);
         }
 
-        exec(postContentDAOs);
+        return postContentIds;
     }
 }

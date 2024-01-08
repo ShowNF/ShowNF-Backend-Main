@@ -6,6 +6,8 @@ import com.shownf.reptile.bean.small.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class SavePostBean {
 
@@ -31,14 +33,14 @@ public class SavePostBean {
         Long postId = createUniqueIdBean.exec();
 
         // postContents 저장
-        savePostContentsDAOBean.exec(postId, requestPostSaveDTO);
+        List<Long> postContentIds = savePostContentsDAOBean.exec(postId, requestPostSaveDTO);
 
         // 게시물 저장 시 유저 게시물 수 증가
         UserDAO userDAO = updateUserPostCountDAOBean.exec(requestPostSaveDTO);
         if (userDAO == null) return 0L;
 
         // 게시물 저장
-        savePostDAOBean.exec(postId, requestPostSaveDTO);
+        savePostDAOBean.exec(postId, requestPostSaveDTO, postContentIds);
 
         // 유저 저장
         saveUserDAOBean.exec(userDAO);
