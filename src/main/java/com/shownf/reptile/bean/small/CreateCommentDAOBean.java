@@ -21,8 +21,11 @@ public class CreateCommentDAOBean {
         // 내용
         String content = requestCommentSaveDTO.getContent();
 
-        // 시간
-        LocalDateTime localDateTime = LocalDateTime.now();
+        // 업로드 시간
+        LocalDateTime uploadTime = LocalDateTime.now();
+
+        // 수정 시간
+        LocalDateTime updateTime = LocalDateTime.now();
 
         // 좋아요 갯수
         Integer heartCount = 0;
@@ -33,6 +36,6 @@ public class CreateCommentDAOBean {
         // 삭제 여부
         boolean deleteCheck = false;
 
-        return  new CommentDAO(commentId, postId, userId, content, localDateTime, heartCount, replyCount, deleteCheck);
+        return  new CommentDAO(commentId, postId, userId, content, uploadTime, updateTime, heartCount, replyCount, deleteCheck);
     }
 }

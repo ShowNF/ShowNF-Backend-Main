@@ -11,6 +11,7 @@ public class ResponseCommentsDTO {
     Long userId;
     String content;
     LocalDateTime uploadTime;
+    LocalDateTime updateTime;
     Integer heartCount;
     Integer replyCount;
 }

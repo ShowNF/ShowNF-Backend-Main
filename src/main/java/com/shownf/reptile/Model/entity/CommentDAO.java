@@ -21,6 +21,7 @@ public class CommentDAO {
     Long userId;
     String content;
     LocalDateTime uploadTime;
+    LocalDateTime updateTime;
     Integer heartCount;
     Integer replyCount;
     boolean deleteCheck;
