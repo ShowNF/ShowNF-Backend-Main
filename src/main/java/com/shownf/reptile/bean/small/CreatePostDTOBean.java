@@ -2,10 +2,18 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.RequestPostDTO;
 import com.shownf.reptile.Model.entity.PostDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreatePostDTOBean {
+
+    GetPostContentDAOsBean getPostContentDAOsBean;
+
+    @Autowired
+    public CreatePostDTOBean(GetPostContentDAOsBean getPostContentDAOsBean) {
+        this.getPostContentDAOsBean = getPostContentDAOsBean;
+    }
 
     // 게시물 조회시 DTO 생성
     public RequestPostDTO exec(PostDAO postDAO){
@@ -15,7 +23,10 @@ public class CreatePostDTOBean {
         requestPostDTO.setPostId(postDAO.getPostId());
         requestPostDTO.setUserId(postDAO.getUserId());
         requestPostDTO.setTitle(postDAO.getTitle());
-        requestPostDTO.setContent(postDAO.getContent());
+
+        String content = getPostContentDAOsBean.exec(postDAO.getContent());
+
+        requestPostDTO.setContent(content);
         requestPostDTO.setCategory(postDAO.getCategory().name());
         requestPostDTO.setUploadTime(postDAO.getUploadTime());
         requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
