@@ -23,12 +23,12 @@ public class GetPostContentDAOsBean {
     }
 
     // Get the post content
-    public PostContentDAO exec(Long postContentId){
-        return postContentRepositoryJPA.findById(postContentId).orElse(null);
+    public List<PostContentDAO> exec(Long postId){
+        return postContentRepositoryJPA.findByPostId(postId);
     }
 
     // Get the post contents
-    public String exec(String content){
+    public String exec(Long postId, String content){
 
         // 문자열에서 숫자 추출
         String[] numbersArray = content.replaceAll("[^0-9,]", "").split(",");
@@ -40,13 +40,22 @@ public class GetPostContentDAOsBean {
         }
 
         // postContent 가져오기
+        List<PostContentDAO> postContentDAOs = exec(postId);
+
+        // content 일치 여부
+        for (PostContentDAO postContentDAO: postContentDAOs)
+            numbersList.remove(postContentDAO.getPostContentId());
+        if (!numbersList.isEmpty())
+            return null;
+
+        // 반환할 content
         List<Map<String, String>> contents = new ArrayList<>();
 
-        for (Long postContentId : numbersList){
-            PostContentDAO postContentDAO = exec(postContentId);
+        for (PostContentDAO postContentDAO : postContentDAOs){
 
             Map<String, String> postContent = new HashMap<>();
-            postContent.put("postContentId", postContentId.toString());
+
+            postContent.put("postContentId", postContentDAO.getPostContentId().toString());
             postContent.put("imageUrl", postContentDAO.getImageUrl());
             postContent.put("content", postContentDAO.getContent());
 
@@ -55,13 +64,13 @@ public class GetPostContentDAOsBean {
 
         // postContent 반환
         ObjectMapper objectMapper = new ObjectMapper();
-        String postContent = "";
+        String newContent = "";
         try {
-            postContent = objectMapper.writeValueAsString(contents);
+            newContent = objectMapper.writeValueAsString(contents);
         }catch (IOException e){
             e.printStackTrace();
         }
 
-        return postContent;
+        return newContent;
     }
 }

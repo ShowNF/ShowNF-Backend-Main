@@ -24,7 +24,7 @@ public class CreatePostDTOBean {
         requestPostDTO.setUserId(postDAO.getUserId());
         requestPostDTO.setTitle(postDAO.getTitle());
 
-        String content = getPostContentDAOsBean.exec(postDAO.getContent());
+        String content = getPostContentDAOsBean.exec(postDAO.getPostId(), postDAO.getContent());
 
         requestPostDTO.setContent(content);
         requestPostDTO.setCategory(postDAO.getCategory().name());
