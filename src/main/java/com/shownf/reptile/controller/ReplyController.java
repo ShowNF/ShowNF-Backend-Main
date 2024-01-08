@@ -2,6 +2,7 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestReplyDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestReplySaveDTO;
+import com.shownf.reptile.Model.DTO.RequestReplyUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseReplysDTO;
 import com.shownf.reptile.service.ReplyService;
 import io.swagger.annotations.ApiOperation;
@@ -47,6 +48,23 @@ public class ReplyController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (replyId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("replyId", replyId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 대댓글 수정
+    @ApiOperation(value = "대댓글 수정", notes = "댓글에 댓글 수정시 저장")
+    @PutMapping("reply")
+    public ResponseEntity<Map<String, Object>> updateReply(@RequestBody RequestReplyUpdateDTO requestReplyUpdateDTO, HttpServletRequest request){
+        Long replyId = replyService.updateReply(requestReplyUpdateDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (replyId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (replyId != null) ? "Update Success" : "Update Fail");
         requestMap.put("replyId", replyId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);

@@ -2,10 +2,12 @@ package com.shownf.reptile.service;
 
 import com.shownf.reptile.Model.DTO.RequestReplyDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestReplySaveDTO;
+import com.shownf.reptile.Model.DTO.RequestReplyUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseReplysDTO;
 import com.shownf.reptile.bean.DeleteReplyBean;
 import com.shownf.reptile.bean.GetReplysBean;
 import com.shownf.reptile.bean.SaveReplyBean;
+import com.shownf.reptile.bean.UpdateReplyBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +19,14 @@ public class ReplyService {
 
     GetReplysBean getReplysBean;
     SaveReplyBean saveReplyBean;
+    UpdateReplyBean updateReplyBean;
     DeleteReplyBean deleteReplyBean;
 
     @Autowired
-    public ReplyService(GetReplysBean getReplysBean, SaveReplyBean saveReplyBean, DeleteReplyBean deleteReplyBean) {
+    public ReplyService(GetReplysBean getReplysBean, SaveReplyBean saveReplyBean, UpdateReplyBean updateReplyBean, DeleteReplyBean deleteReplyBean) {
         this.getReplysBean = getReplysBean;
         this.saveReplyBean = saveReplyBean;
+        this.updateReplyBean = updateReplyBean;
         this.deleteReplyBean = deleteReplyBean;
     }
 
@@ -34,6 +38,11 @@ public class ReplyService {
     // 대댓글 저장
     public Long saveReply(RequestReplySaveDTO requestReplySaveDTO){
         return saveReplyBean.exec(requestReplySaveDTO);
+    }
+
+    // 대댓글 수정
+    public Long updateReply(RequestReplyUpdateDTO requestReplyUpdateDTO, HttpServletRequest request){
+        return updateReplyBean.exec(requestReplyUpdateDTO, request);
     }
 
     // 대댓글 삭제
