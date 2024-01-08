@@ -36,6 +36,8 @@ public class GetPostContentDAOsBean {
         // String 배열을 Integer 리스트로 변환
         List<Long> numbersList = new ArrayList<>();
         for (String number : numbersArray) {
+            if (number.isEmpty())
+                return "[]";
             numbersList.add(Long.parseLong(number));
         }
 
