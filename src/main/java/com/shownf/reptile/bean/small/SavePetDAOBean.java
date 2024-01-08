@@ -68,6 +68,9 @@ public class SavePetDAOBean {
         // 업로드 시간
         LocalDateTime uploadTime = LocalDateTime.now();
 
+        // 수정 시간
+        LocalDateTime updateTime = LocalDateTime.now();
+
         // 다이어리 수
         Integer diaryCount = 0;
 
@@ -80,7 +83,7 @@ public class SavePetDAOBean {
         // 소프트 딜리트
         boolean deleteCheck = false;
 
-        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, diaryCount, level, levelExperience, deleteCheck);
+        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, updateTime, diaryCount, level, levelExperience, deleteCheck);
 
     }
 }

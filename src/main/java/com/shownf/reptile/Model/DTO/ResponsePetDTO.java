@@ -17,6 +17,7 @@ public class ResponsePetDTO {
     Double weight;
     String gender;
     LocalDateTime uploadTime;
+    LocalDateTime updateTime;
     Integer diaryCount;
     Level level;
     Integer levelExperience;

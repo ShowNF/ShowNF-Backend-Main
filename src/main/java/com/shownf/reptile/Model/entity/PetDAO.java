@@ -28,6 +28,7 @@ public class PetDAO {
     Double weight;
     Gender gender;
     LocalDateTime uploadTime;
+    LocalDateTime updateTime;
     Integer diaryCount;
     Level level;
     Integer levelExperience;

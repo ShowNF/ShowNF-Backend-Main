@@ -60,7 +60,7 @@ public class UpdatePetDAOBean {
         petDAO.setGender(Gender.valueOf(requestPetUpdateDTO.getGender()));
 
         // 수정 시간
-        petDAO.setUploadTime(LocalDateTime.now());
+        petDAO.setUpdateTime(LocalDateTime.now());
 
         return petDAO;
     }
