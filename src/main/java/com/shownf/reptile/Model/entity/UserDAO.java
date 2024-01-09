@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -34,4 +33,5 @@ public class UserDAO {
     Integer sendCommentCount;
     Integer sendHeartCount;
     Integer receiveHeartCount;
+    Integer exp;
 }
