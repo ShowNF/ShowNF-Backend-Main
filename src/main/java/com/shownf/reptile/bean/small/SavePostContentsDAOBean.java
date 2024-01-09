@@ -47,8 +47,11 @@ public class SavePostContentsDAOBean {
             // 내용
             String content = contentMap.get("content");
 
+            // 소프트 딜리트
+            boolean deleteCheck = false;
+
             // postContent 저장
-            exec(new PostContentDAO(postContentId, postId, imageUrl, content));
+            exec(new PostContentDAO(postContentId, postId, imageUrl, content, deleteCheck));
 
             // postContentId 반환을 위한 추가
             postContentIds.add(postContentId);
