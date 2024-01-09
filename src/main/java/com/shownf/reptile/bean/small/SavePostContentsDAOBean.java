@@ -22,9 +22,15 @@ public class SavePostContentsDAOBean {
         this.createUniqueIdBean = createUniqueIdBean;
     }
 
-    // 게시물 내용 저장
+    // 게시물 postContent 저장
     public void exec(PostContentDAO postContentDAO){
         postContentRepositoryJPA.save(postContentDAO);
+    }
+
+    // 게시물 postContent 전부 저장
+    public void exec(List<PostContentDAO> postContentDAOs){
+        for (PostContentDAO postContentDAO : postContentDAOs)
+            exec(postContentDAO);
     }
 
     // 게시물 저장시 postContent 저장
