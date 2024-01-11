@@ -22,6 +22,7 @@ public class UserDAO {
     String image;
     String siteImage;
     String siteName;
+    String email;
     LocalDateTime uploadTime;
     Integer followerCount;
     Integer followingCount;
