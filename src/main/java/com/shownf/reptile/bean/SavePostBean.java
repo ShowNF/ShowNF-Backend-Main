@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class SavePostBean {
@@ -33,14 +34,14 @@ public class SavePostBean {
         Long postId = createUniqueIdBean.exec();
 
         // postContents 저장
-        List<Long> postContentIds = savePostContentsDAOBean.exec(postId, requestPostSaveDTO);
+        List<Map<Integer, Long>> postContentIndex = savePostContentsDAOBean.exec(postId, requestPostSaveDTO);
 
         // 게시물 저장 시 유저 게시물 수 증가
         UserDAO userDAO = updateUserPostCountDAOBean.exec(requestPostSaveDTO);
         if (userDAO == null) return 0L;
 
         // 게시물 저장
-        savePostDAOBean.exec(postId, requestPostSaveDTO, postContentIds);
+        savePostDAOBean.exec(postId, requestPostSaveDTO, postContentIndex);
 
         // 유저 저장
         saveUserDAOBean.exec(userDAO);

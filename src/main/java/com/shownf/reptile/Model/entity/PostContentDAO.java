@@ -19,5 +19,6 @@ public class PostContentDAO {
     Long postId;
     String imageUrl;
     String content;
+    Integer postContentIndex;
     boolean deleteCheck;
 }

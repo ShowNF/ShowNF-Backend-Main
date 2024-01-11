@@ -6,9 +6,7 @@ import com.shownf.reptile.repository.PostContentRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class SavePostContentsDAOBean {
@@ -34,18 +32,19 @@ public class SavePostContentsDAOBean {
     }
 
     // 게시물 저장시 postContent 저장
-    public List<Long> exec(Long postId, RequestPostSaveDTO requestPostSaveDTO){
+    public List<Map<Integer, Long>> exec(Long postId, RequestPostSaveDTO requestPostSaveDTO){
 
         // 반환하려는 PostContent List
-        List<Long> postContentIds = new ArrayList<>();
+        List<Map<Integer, Long>> postContents = new ArrayList<>();
 
-        // 입력받은 postContent
-        List<Map<String, String>> list = requestPostSaveDTO.getContent();
 
-        for (Map<String, String> contentMap : list) {
+        for (Map<String, String> contentMap : requestPostSaveDTO.getContent()) {
 
             // postContentId 생성
             Long postContentId = createUniqueIdBean.exec();
+
+            // postContent index
+            Integer index = Integer.parseInt(contentMap.get("index"));
 
             // 이미지 Url
             String imageUrl = contentMap.get("imageUrl");
@@ -57,12 +56,13 @@ public class SavePostContentsDAOBean {
             boolean deleteCheck = false;
 
             // postContent 저장
-            exec(new PostContentDAO(postContentId, postId, imageUrl, content, deleteCheck));
+            exec(new PostContentDAO(postContentId, postId, imageUrl, content, index, deleteCheck));
 
-            // postContentId 반환을 위한 추가
-            postContentIds.add(postContentId);
+            Map<Integer, Long> postContentIndex = Collections.singletonMap(index, postContentId);
+
+            postContents.add(postContentIndex);
         }
 
-        return postContentIds;
+        return postContents;
     }
 }

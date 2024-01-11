@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class SavePostDAOBean {
@@ -28,7 +29,7 @@ public class SavePostDAOBean {
     }
 
     // 게시물 저장시 DAO 생성
-    public void exec(long postId, RequestPostSaveDTO requestPostSaveDTO, List<Long> postContentIds){
+    public void exec(long postId, RequestPostSaveDTO requestPostSaveDTO, List<Map<Integer, Long>> postContentIndex){
 
         // 유저 아이디
         Long userId = requestPostSaveDTO.getUserId();
@@ -40,7 +41,7 @@ public class SavePostDAOBean {
         ObjectMapper objectMapper = new ObjectMapper();
         String content = "";
         try {
-            content = objectMapper.writeValueAsString(postContentIds);
+            content = objectMapper.writeValueAsString(postContentIndex);
         }catch (IOException e){
             e.printStackTrace();
         }
