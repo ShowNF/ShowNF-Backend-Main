@@ -39,6 +39,9 @@ public class SaveKakaoUserBean {
         // 프로필 사진
         String picture = kakaoProfile.kakao_account.profile.getProfile_image_url();
 
+        // 이메일
+        String email = kakaoProfile.kakao_account.getEmail();
+
         // 토큰 반환시간
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.plusHours(12);

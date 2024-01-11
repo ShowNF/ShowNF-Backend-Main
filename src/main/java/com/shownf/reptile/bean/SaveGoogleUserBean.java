@@ -39,6 +39,9 @@ public class SaveGoogleUserBean {
         // 프로필 사진
         String picture = userResourceNode.get("picture").asText();
 
+        // 이메일
+        String email = userResourceNode.get("email").asText();
+
         // 토큰 만료시간
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.plusHours(12);

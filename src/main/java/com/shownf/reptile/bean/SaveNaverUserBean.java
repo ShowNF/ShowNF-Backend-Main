@@ -39,6 +39,9 @@ public class SaveNaverUserBean {
         // 프로필 사진
         String picture = userResourceNode.get("response").get("profile_image").asText();
 
+        // 이메일
+        String email = userResourceNode.get("response").get("email").asText();
+
         // 토큰 만료시간
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime.plusHours(1);
