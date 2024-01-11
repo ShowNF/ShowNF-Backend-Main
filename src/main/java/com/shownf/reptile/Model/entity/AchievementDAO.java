@@ -19,6 +19,7 @@ public class AchievementDAO {
     Achievement achievement;
     String achievementName;
     String icon;
+    String style;
     String achievementExplain;
     Integer bronze;
     Integer silver;
