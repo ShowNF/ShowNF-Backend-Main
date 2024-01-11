@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shownf.reptile.Model.entity.PostContentDAO;
 import com.shownf.reptile.repository.PostContentRepositoryJPA;
@@ -29,6 +30,51 @@ public class GetPostContentDAOsBean {
 
     // Get the post contents
     public String exec(Long postId, String content){
+
+        // 문자열에서 숫자 추출
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        List<Map<Integer, Long>> postContentIndex = new ArrayList<>();
+        try {
+            postContentIndex = objectMapper.readValue(content, new TypeReference<List<Map<Integer, Long>>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (postContentIndex.isEmpty())
+            return "[]";
+
+        // postContent 가져오기
+        List<PostContentDAO> postContentDAOs = exec(postId);
+
+        // 반환할 content
+        List<Map<String, String>> contents = new ArrayList<>();
+
+        for (PostContentDAO postContentDAO : postContentDAOs){
+
+            Map<String, String> postContent = new HashMap<>();
+
+            postContent.put("index", postContentDAO.getPostContentIndex().toString());
+            postContent.put("postContentId", postContentDAO.getPostContentId().toString());
+            postContent.put("imageUrl", postContentDAO.getImageUrl());
+            postContent.put("content", postContentDAO.getContent());
+
+            contents.add(postContent);
+        }
+
+        // postContent 반환
+        String newContent = "";
+        try {
+            newContent = objectMapper.writeValueAsString(contents);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return newContent;
+    }
+
+    /*// Update the post contents
+    public String exec(String content, List<Map<String, String>> updateContent){
 
         // 문자열에서 숫자 추출
         String[] numbersArray = content.replaceAll("[^0-9,]", "").split(",");
@@ -74,5 +120,5 @@ public class GetPostContentDAOsBean {
         }
 
         return newContent;
-    }
+    }*/
 }
