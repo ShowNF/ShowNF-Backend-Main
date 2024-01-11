@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class GetPetsDAOBean {
 
@@ -15,6 +17,11 @@ public class GetPetsDAOBean {
     @Autowired
     public GetPetsDAOBean(PetRepositoryJPA petRepositoryJPA) {
         this.petRepositoryJPA = petRepositoryJPA;
+    }
+
+    // 유저 아이디로 마이펫 전체 찾기
+    public List<PetDAO> exec(Long userId){
+        return petRepositoryJPA.findByUserId(userId);
     }
 
     // 유저 아이디로 마이펫 전체 찾기

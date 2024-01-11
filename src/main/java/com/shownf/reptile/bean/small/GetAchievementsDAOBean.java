@@ -4,6 +4,7 @@ import com.shownf.reptile.Model.DTO.ResponseAchievementDTO;
 import com.shownf.reptile.Model.Enum.Achievement;
 import com.shownf.reptile.Model.Enum.Grade;
 import com.shownf.reptile.Model.entity.AchievementDAO;
+import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.repository.AchievementRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,17 @@ import java.util.List;
 public class GetAchievementsDAOBean {
 
     AchievementRepositoryJPA achievementRepositoryJPA;
+    GetPetsDAOBean getPetsDAOBean;
 
     @Autowired
-    public GetAchievementsDAOBean(AchievementRepositoryJPA achievementRepositoryJPA) {
+    public GetAchievementsDAOBean(AchievementRepositoryJPA achievementRepositoryJPA, GetPetsDAOBean getPetsDAOBean) {
         this.achievementRepositoryJPA = achievementRepositoryJPA;
+        this.getPetsDAOBean = getPetsDAOBean;
     }
 
     // 업적 전부 가져오기
     public List<AchievementDAO> exec(){
-        List<AchievementDAO> all = achievementRepositoryJPA.findAll();
-        System.out.println("all = " + all);
-        return all;
+        return achievementRepositoryJPA.findAll();
     }
 
     // 시작 안 한 업적 가져오기
@@ -62,6 +63,24 @@ public class GetAchievementsDAOBean {
                 case 성실왕:
                     if (userDAO.getDiaryCount() == 0) achievementDAOList.add(achievementDAO);
                     break;
+                case 인플루언서:
+                    if (userDAO.getFollowerCount() == 0) achievementDAOList.add(achievementDAO);
+                    break;
+                case 전문브리더:
+                    List<PetDAO> petDAOs = getPetsDAOBean.exec(userDAO.getUserId());
+
+                    int count = 0;
+
+                    for (PetDAO petDAO : petDAOs){
+                        if (petDAO.getLevel().ordinal() >= 6)
+                            count++;
+                    }
+                    if (count == 0) achievementDAOList.add(achievementDAO);
+                    break;
+
+                case 펫전문가:
+                    if (userDAO.getExp() == 0) achievementDAOList.add(achievementDAO);
+                    break;
             }
         }
 
@@ -72,6 +91,7 @@ public class GetAchievementsDAOBean {
             responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
             responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
             responseAchievementDTO.setIcon(achievementDAO.getIcon());
+            responseAchievementDTO.setStyle(achievementDAO.getStyle());
             responseAchievementDTO.setScore(0);
 
             responseAchievementDTOs.add(responseAchievementDTO);
@@ -115,6 +135,7 @@ public class GetAchievementsDAOBean {
                     responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
                     responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
                     responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
                     responseAchievementDTO.setScore(sendHeartCount);
                     responseAchievementDTO.setGrade(grade);
 
@@ -139,6 +160,7 @@ public class GetAchievementsDAOBean {
                     responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
                     responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
                     responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
                     responseAchievementDTO.setScore(receiveHeartCount);
                     responseAchievementDTO.setGrade(grade);
 
@@ -163,6 +185,7 @@ public class GetAchievementsDAOBean {
                     responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
                     responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
                     responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
                     responseAchievementDTO.setScore(postCount);
                     responseAchievementDTO.setGrade(grade);
 
@@ -189,6 +212,7 @@ public class GetAchievementsDAOBean {
                     responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
                     responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
                     responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
                     responseAchievementDTO.setScore(petCount);
                     responseAchievementDTO.setGrade(grade);
 
@@ -213,7 +237,91 @@ public class GetAchievementsDAOBean {
                     responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
                     responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
                     responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
                     responseAchievementDTO.setScore(diaryCount);
+                    responseAchievementDTO.setGrade(grade);
+
+                    responseAchievementDTOs.add(responseAchievementDTO);
+                    break;
+                case 인플루언서:
+                    Integer followerCount = userDAO.getFollowerCount();
+                    if (followerCount<=0) break;
+                    if (followerCount >= 500)
+                        grade = Grade.DIAMOND.name();
+                    else if (followerCount >= 300)
+                        grade = Grade.PLATINUM.name();
+                    else if (followerCount >= 100)
+                        grade = Grade.GOLD.name();
+                    else if (followerCount >= 50)
+                        grade = Grade.SILVER.name();
+                    else if (followerCount >= 10)
+                        grade = Grade.BRONZE.name();
+                    else
+                        grade = Grade.UNRANKED.name();
+                    responseAchievementDTO.setAchievement(achievementDAO.getAchievement());
+                    responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
+                    responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
+                    responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
+                    responseAchievementDTO.setScore(followerCount);
+                    responseAchievementDTO.setGrade(grade);
+
+                    responseAchievementDTOs.add(responseAchievementDTO);
+                    break;
+                case 전문브리더:
+                    List<PetDAO> petDAOs = getPetsDAOBean.exec(userDAO.getUserId());
+
+                    int count = 0;
+
+                    for (PetDAO petDAO : petDAOs){
+                        if (petDAO.getLevel().ordinal() >= 6)
+                            count++;
+                    }
+
+                    if (count<=0) break;
+                    if (count >= 10)
+                        grade = Grade.DIAMOND.name();
+                    else if (count >= 8)
+                        grade = Grade.PLATINUM.name();
+                    else if (count >= 6)
+                        grade = Grade.GOLD.name();
+                    else if (count >= 4)
+                        grade = Grade.SILVER.name();
+                    else if (count >= 2)
+                        grade = Grade.BRONZE.name();
+                    else
+                        grade = Grade.UNRANKED.name();
+                    responseAchievementDTO.setAchievement(achievementDAO.getAchievement());
+                    responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
+                    responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
+                    responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
+                    responseAchievementDTO.setScore(count);
+                    responseAchievementDTO.setGrade(grade);
+
+                    responseAchievementDTOs.add(responseAchievementDTO);
+                    break;
+                case 펫전문가:
+                    Integer exp = userDAO.getExp();
+                    if (exp<=0) break;
+                    if (exp >= 500)
+                        grade = Grade.DIAMOND.name();
+                    else if (exp >= 300)
+                        grade = Grade.PLATINUM.name();
+                    else if (exp >= 100)
+                        grade = Grade.GOLD.name();
+                    else if (exp >= 50)
+                        grade = Grade.SILVER.name();
+                    else if (exp >= 10)
+                        grade = Grade.BRONZE.name();
+                    else
+                        grade = Grade.UNRANKED.name();
+                    responseAchievementDTO.setAchievement(achievementDAO.getAchievement());
+                    responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
+                    responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
+                    responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
+                    responseAchievementDTO.setScore(exp);
                     responseAchievementDTO.setGrade(grade);
 
                     responseAchievementDTOs.add(responseAchievementDTO);

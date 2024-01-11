@@ -9,6 +9,7 @@ public class ResponseAchievementDTO {
     Achievement achievement;
     String achievementName;
     String icon;
+    String style;
     String achievementExplain;
     Integer score;
     String grade;
