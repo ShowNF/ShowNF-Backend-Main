@@ -93,8 +93,8 @@ public class GetPostContentDAOsBean {
         // content 일치 여부
         for (PostContentDAO postContentDAO: postContentDAOs)
             numbersList.remove(postContentDAO.getPostContentId());
-        if (!numbersList.isEmpty())
-            return null;
+//        if (!numbersList.isEmpty())
+//            return null;
 
         // 반환할 content
         List<Map<String, String>> contents = new ArrayList<>();
