@@ -44,7 +44,7 @@ public class SavePostContentsDAOBean {
             Long postContentId = createUniqueIdBean.exec();
 
             // postContent index
-            Integer index = Integer.parseInt(contentMap.get("index"));
+            Integer postContentIndex = Integer.parseInt(contentMap.get("postContentIndex"));
 
             // 이미지 Url
             String imageUrl = contentMap.get("imageUrl");
@@ -56,11 +56,11 @@ public class SavePostContentsDAOBean {
             boolean deleteCheck = false;
 
             // postContent 저장
-            exec(new PostContentDAO(postContentId, postId, imageUrl, content, index, deleteCheck));
+            exec(new PostContentDAO(postContentId, postId, imageUrl, content, postContentIndex, deleteCheck));
 
-            Map<Integer, Long> postContentIndex = Collections.singletonMap(index, postContentId);
+            Map<Integer, Long> postContentIndexs = Collections.singletonMap(postContentIndex, postContentId);
 
-            postContents.add(postContentIndex);
+            postContents.add(postContentIndexs);
         }
 
         return postContents;

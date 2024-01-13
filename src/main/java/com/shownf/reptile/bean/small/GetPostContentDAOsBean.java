@@ -54,7 +54,7 @@ public class GetPostContentDAOsBean {
 
             Map<String, String> postContent = new HashMap<>();
 
-            postContent.put("index", postContentDAO.getPostContentIndex().toString());
+            postContent.put("postContentIndex", postContentDAO.getPostContentIndex().toString());
             postContent.put("postContentId", postContentDAO.getPostContentId().toString());
             postContent.put("imageUrl", postContentDAO.getImageUrl());
             postContent.put("content", postContentDAO.getContent());
