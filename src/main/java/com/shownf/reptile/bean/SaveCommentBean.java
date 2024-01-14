@@ -15,16 +15,20 @@ public class SaveCommentBean {
     CreateCommentDAOBean createCommentDAOBean;
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
     UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean;
+    GetUserDAOBean getUserDAOBean;
+    UpdateUserExpDAOBean updateUserExpDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
     SavePostDAOBean savePostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public SaveCommentBean(CreateUniqueIdBean createUniqueIdBean, CreateCommentDAOBean createCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SaveCommentBean(CreateUniqueIdBean createUniqueIdBean, CreateCommentDAOBean createCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createCommentDAOBean = createCommentDAOBean;
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
         this.updateUserCommentCountDAOBean = updateUserCommentCountDAOBean;
+        this.getUserDAOBean = getUserDAOBean;
+        this.updateUserExpDAOBean = updateUserExpDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
@@ -47,6 +51,12 @@ public class SaveCommentBean {
         UserDAO userDAO = updateUserCommentCountDAOBean.exec(requestCommentSaveDTO);
         if (userDAO == null) return 0L;
 
+        // 댓글 작성한 유저
+        UserDAO userDAO1 = getUserDAOBean.exec(requestCommentSaveDTO.getUserId());
+
+        // 경험치 추가
+        userDAO1 = updateUserExpDAOBean.exec(requestCommentSaveDTO, userDAO1);
+
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
 
@@ -55,6 +65,7 @@ public class SaveCommentBean {
 
         // 유저 저장
         saveUserDAOBean.exec(userDAO);
+        saveUserDAOBean.exec(userDAO1);
 
         // 댓글 cId 반환
         return commentId;
