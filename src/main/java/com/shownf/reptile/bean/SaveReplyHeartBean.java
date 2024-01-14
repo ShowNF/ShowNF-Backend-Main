@@ -17,18 +17,20 @@ public class SaveReplyHeartBean {
     UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean;
     UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
     UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
+    UpdateUserExpDAOBean updateUserExpDAOBean;
     SaveReplyHeartDAOBean saveReplyHeartDAOBean;
     SaveReplyDAOBean saveReplyDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public SaveReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateReplyHeartDAOBean createReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, SaveReplyHeartDAOBean saveReplyHeartDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SaveReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateReplyHeartDAOBean createReplyHeartDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveReplyHeartDAOBean saveReplyHeartDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getReplyHeartDAOBean = getReplyHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createReplyHeartDAOBean = createReplyHeartDAOBean;
         this.updateReplyHeartCountDAOBean = updateReplyHeartCountDAOBean;
         this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
         this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
+        this.updateUserExpDAOBean = updateUserExpDAOBean;
         this.saveReplyHeartDAOBean = saveReplyHeartDAOBean;
         this.saveReplyDAOBean = saveReplyDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
@@ -57,9 +59,12 @@ public class SaveReplyHeartBean {
 
         UserDAO userDAO2;
         if (requestReplyHeartSaveDTO.getUserId().equals(userDAO1.getUserId()))
-            userDAO2 = updateUserSendHeartDAOBean.exec(replyHeartDAO);
-        else userDAO2 = updateUserSendHeartDAOBean.exec(replyHeartDAO, userDAO1);
+            userDAO2 = updateUserSendHeartDAOBean.exec(replyHeartDAO, userDAO1);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(replyHeartDAO);
         if (userDAO2 == null) return 0L;
+
+        // 경험치 추가
+        userDAO2 = updateUserExpDAOBean.exec(replyHeartDAO, userDAO2);
 
         // 대댓글 좋아요 저장
         saveReplyHeartDAOBean.exec(replyHeartDAO);
@@ -70,9 +75,6 @@ public class SaveReplyHeartBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO1);
         saveUserDAOBean.exec(userDAO2);
-
-        /*// 유저 좋아요 갯수 추가
-        updateUserHeartCountDAOBean.exec(requestReplyHeartSaveDTO);*/
 
         // replyHeartId 반환
         return replyHeartId;

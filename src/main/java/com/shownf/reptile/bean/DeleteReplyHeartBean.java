@@ -17,18 +17,20 @@ public class DeleteReplyHeartBean {
     UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean;
     UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
     UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
+    UpdateUserExpDAOBean updateUserExpDAOBean;
     DeleteReplyHeartDAOBean deleteReplyHeartDAOBean;
     SaveReplyDAOBean saveReplyDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CheckReplyIdReplyDAOBean checkReplyIdReplyDAOBean, CheckUserIdReplyDAOBean checkUserIdReplyDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, DeleteReplyHeartDAOBean deleteReplyHeartDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteReplyHeartBean(GetReplyHeartDAOBean getReplyHeartDAOBean, CheckReplyIdReplyDAOBean checkReplyIdReplyDAOBean, CheckUserIdReplyDAOBean checkUserIdReplyDAOBean, UpdateReplyHeartCountDAOBean updateReplyHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, DeleteReplyHeartDAOBean deleteReplyHeartDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getReplyHeartDAOBean = getReplyHeartDAOBean;
         this.checkReplyIdReplyDAOBean = checkReplyIdReplyDAOBean;
         this.checkUserIdReplyDAOBean = checkUserIdReplyDAOBean;
         this.updateReplyHeartCountDAOBean = updateReplyHeartCountDAOBean;
         this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
         this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
+        this.updateUserExpDAOBean = updateUserExpDAOBean;
         this.deleteReplyHeartDAOBean = deleteReplyHeartDAOBean;
         this.saveReplyDAOBean = saveReplyDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
@@ -62,9 +64,12 @@ public class DeleteReplyHeartBean {
 
         UserDAO userDAO2;
         if (requestReplyHeartDeleteDTO.getUserId().equals(userDAO1.getUserId()))
-            userDAO2 = updateUserSendHeartDAOBean.exec(null, replyHeartDAO);
-        else userDAO2 = updateUserSendHeartDAOBean.exec(null, replyHeartDAO, userDAO1);
+            userDAO2 = updateUserSendHeartDAOBean.exec(null, replyHeartDAO, userDAO1);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(null, replyHeartDAO);
         if (userDAO2 == null) return 0L;
+
+        // 경험치 추가
+        userDAO2 = updateUserExpDAOBean.exec(null, replyHeartDAO, userDAO2);
 
         // 대댓글 삭제
         deleteReplyHeartDAOBean.exec(replyHeartDAO);
@@ -75,9 +80,6 @@ public class DeleteReplyHeartBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO1);
         saveUserDAOBean.exec(userDAO2);
-
-        /*// 대댓글 좋아요 삭제시 유저 좋아요수 감소
-        updateUserHeartCountDAOBean.exec(requestReplyHeartDeleteDTO);*/
 
         // replyHeartId 반환
         return replyHeartDAO.getReplyHeartId();
