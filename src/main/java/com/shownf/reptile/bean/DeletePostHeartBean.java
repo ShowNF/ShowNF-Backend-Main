@@ -18,12 +18,13 @@ public class DeletePostHeartBean {
     UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
     UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
     UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
+    UpdateUserExpDAOBean updateUserExpDAOBean;
     DeletePostHeartDAOBean deletePostHeartDAOBean;
     SavePostDAOBean savePostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeletePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, DeletePostHeartDAOBean deletePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeletePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, DeletePostHeartDAOBean deletePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getPostHeartDAOBean = getPostHeartDAOBean;
         this.checkPostIdPostDAOBean = checkPostIdPostDAOBean;
         this.checkUserIdPostDAOBean = checkUserIdPostDAOBean;
@@ -31,6 +32,7 @@ public class DeletePostHeartBean {
         this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
         this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
         this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
+        this.updateUserExpDAOBean = updateUserExpDAOBean;
         this.deletePostHeartDAOBean = deletePostHeartDAOBean;
         this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
@@ -67,9 +69,12 @@ public class DeletePostHeartBean {
 
         UserDAO userDAO2;
         if (requestPostHeartDeleteDTO.getUserId().equals(userDAO1.getUserId()))
-            userDAO2 = updateUserSendHeartDAOBean.exec(null, postHeartDAO);
-        else userDAO2 = updateUserSendHeartDAOBean.exec(null, postHeartDAO, userDAO1);
+            userDAO2 = updateUserSendHeartDAOBean.exec(null, postHeartDAO, userDAO1);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(null, postHeartDAO);
         if (userDAO2 == null) return 0L;
+
+        // 경험치 삭제
+        userDAO2 = updateUserExpDAOBean.exec(null, postHeartDAO, userDAO2);
 
         // 좋아요 삭제
         deletePostHeartDAOBean.exec(postHeartDAO);

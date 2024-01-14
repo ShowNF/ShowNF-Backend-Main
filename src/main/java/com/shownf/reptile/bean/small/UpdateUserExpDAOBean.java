@@ -18,9 +18,15 @@ public class UpdateUserExpDAOBean {
         this.userExpConfig = userExpConfig;
     }
 
-    // User exp update based on postHeart
+    // User exp update based on postHeart save
     public UserDAO exec(PostHeartDAO postHeartDAO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() + userExpConfig.getHeart());
+        return userDAO;
+    }
+
+    // User exp update based on postHeart delete
+    public UserDAO exec(String check, PostHeartDAO postHeartDAO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
         return userDAO;
     }
 
