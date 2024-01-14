@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.config.UserExpConfig;
@@ -16,9 +17,21 @@ public class UpdateUserExpDAOBean {
         this.userExpConfig = userExpConfig;
     }
 
-    // Update the user exp
+    // User exp update based on postHeart
     public UserDAO exec(PostHeartDAO postHeartDAO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() + userExpConfig.getHeart());
+        return userDAO;
+    }
+
+    // User exp update based on commentHeart save
+    public UserDAO exec(CommentHeartDAO commentHeartDAO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() + userExpConfig.getHeart());
+        return userDAO;
+    }
+
+    // User exp update based on commentHeart delete
+    public UserDAO exec(String check, CommentHeartDAO commentHeartDAO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
         return userDAO;
     }
 }

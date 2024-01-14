@@ -18,11 +18,12 @@ public class DeleteCommentHeartBean {
     UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
     UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
     DeleteCommentHeartDAOBean deleteCommentHeartDAOBean;
+    UpdateUserExpDAOBean updateUserExpDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, DeleteCommentHeartDAOBean deleteCommentHeartDAOBean, SaveCommentDAOBean saveCommentDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, DeleteCommentHeartDAOBean deleteCommentHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentDAOBean saveCommentDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getCommentHeartDAOBean = getCommentHeartDAOBean;
         this.checkCommentIdCommentDAOBean = checkCommentIdCommentDAOBean;
         this.checkUserIdCommentDAOBean = checkUserIdCommentDAOBean;
@@ -30,6 +31,7 @@ public class DeleteCommentHeartBean {
         this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
         this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
         this.deleteCommentHeartDAOBean = deleteCommentHeartDAOBean;
+        this.updateUserExpDAOBean = updateUserExpDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
     }
@@ -61,9 +63,12 @@ public class DeleteCommentHeartBean {
 
         UserDAO userDAO2;
         if (requestCommentHeartDeleteDTO.getUserId().equals(userDAO1.getUserId()))
-            userDAO2 = updateUserSendHeartDAOBean.exec(null, commentHeartDAO);
-        else userDAO2 = updateUserSendHeartDAOBean.exec(null, commentHeartDAO, userDAO1);
+            userDAO2 = updateUserSendHeartDAOBean.exec(null, commentHeartDAO, userDAO1);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(null, commentHeartDAO);
         if (userDAO2 == null) return 0L;
+
+        // 경험치 삭제
+        userDAO2 = updateUserExpDAOBean.exec(null, commentHeartDAO, userDAO2);
 
         // 좋아요 삭제
         deleteCommentHeartDAOBean.exec(commentHeartDAO);
@@ -74,9 +79,6 @@ public class DeleteCommentHeartBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO1);
         saveUserDAOBean.exec(userDAO2);
-
-        /*// 댓글 좋아요 삭제 시 유저 좋아요수 감소
-        updateUserHeartCountDAOBean.exec(requestCommentHeartDeleteDTO);*/
 
         // commentHeartId 반환
         return commentHeartDAO.getCommentHeartId();

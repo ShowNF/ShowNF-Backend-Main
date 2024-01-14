@@ -17,18 +17,20 @@ public class SaveCommentHeartBean {
     UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean;
     UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
     UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
+    UpdateUserExpDAOBean updateUserExpDAOBean;
     SaveCommentHeartDAOBean saveCommentHeartDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public SaveCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateCommentHeartDAOBean createCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, SaveCommentHeartDAOBean saveCommentHeartDAOBean, SaveCommentDAOBean saveCommentDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SaveCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateCommentHeartDAOBean createCommentHeartDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentHeartDAOBean saveCommentHeartDAOBean, SaveCommentDAOBean saveCommentDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getCommentHeartDAOBean = getCommentHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createCommentHeartDAOBean = createCommentHeartDAOBean;
         this.updateCommentHeartCountDAOBean = updateCommentHeartCountDAOBean;
         this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
         this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
+        this.updateUserExpDAOBean = updateUserExpDAOBean;
         this.saveCommentHeartDAOBean = saveCommentHeartDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
@@ -51,15 +53,19 @@ public class SaveCommentHeartBean {
         CommentDAO commentDAO = updateCommentHeartCountDAOBean.exec(commentHeartDAO);
         if (commentDAO == null) return 0L;
 
-        // 좋아요 sender, receiver 추가
+        // 좋아요 receiver 추가
         UserDAO userDAO1 = updateUserReceiveHeartDAOBean.exec(commentDAO);
         if (userDAO1 == null) return 0L;
 
+        // 좋아요 sender 추가
         UserDAO userDAO2;
         if (requestCommentHeartSaveDTO.getUserId().equals(userDAO1.getUserId()))
-            userDAO2 = updateUserSendHeartDAOBean.exec(commentHeartDAO);
-        else userDAO2 = updateUserSendHeartDAOBean.exec(commentHeartDAO, userDAO1);
+            userDAO2 = updateUserSendHeartDAOBean.exec(commentHeartDAO, userDAO1);
+        else userDAO2 = updateUserSendHeartDAOBean.exec(commentHeartDAO);
         if (userDAO2 == null) return 0L;
+
+        // 유저 경험치 추가
+        userDAO2 = updateUserExpDAOBean.exec(commentHeartDAO, userDAO2);
 
         // 댓글 좋아요 저장
         saveCommentHeartDAOBean.exec(commentHeartDAO);
@@ -70,9 +76,6 @@ public class SaveCommentHeartBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO1);
         saveUserDAOBean.exec(userDAO2);
-
-        /*// 유저 좋아요 갯수 추가
-        updateUserHeartCountDAOBean.exec(requestCommentHeartSaveDTO);*/
 
         // commentHeartId 반환
         return commentHeartId;
