@@ -14,16 +14,18 @@ public class SavePostBean {
 
     CreateUniqueIdBean createUniqueIdBean;
     SavePostContentsDAOBean savePostContentsDAOBean;
-    SavePostDAOBean savePostDAOBean;
     UpdateUserPostCountDAOBean updateUserPostCountDAOBean;
+    UpdateUserExpDAOBean updateUserExpDAOBean;
+    SavePostDAOBean savePostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public SavePostBean(CreateUniqueIdBean createUniqueIdBean, SavePostContentsDAOBean savePostContentsDAOBean, SavePostDAOBean savePostDAOBean, UpdateUserPostCountDAOBean updateUserPostCountDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SavePostBean(CreateUniqueIdBean createUniqueIdBean, SavePostContentsDAOBean savePostContentsDAOBean, UpdateUserPostCountDAOBean updateUserPostCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.savePostContentsDAOBean = savePostContentsDAOBean;
-        this.savePostDAOBean = savePostDAOBean;
         this.updateUserPostCountDAOBean = updateUserPostCountDAOBean;
+        this.updateUserExpDAOBean = updateUserExpDAOBean;
+        this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
     }
 
@@ -39,6 +41,9 @@ public class SavePostBean {
         // 게시물 저장 시 유저 게시물 수 증가
         UserDAO userDAO = updateUserPostCountDAOBean.exec(requestPostSaveDTO);
         if (userDAO == null) return 0L;
+
+        // 경험치 추가
+        userDAO = updateUserExpDAOBean.exec(requestPostSaveDTO, userDAO);
 
         // 게시물 저장
         savePostDAOBean.exec(postId, requestPostSaveDTO, postContentIndex);
