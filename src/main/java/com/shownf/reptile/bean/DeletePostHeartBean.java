@@ -15,7 +15,6 @@ public class DeletePostHeartBean {
     CheckPostIdPostDAOBean checkPostIdPostDAOBean;
     CheckUserIdPostDAOBean checkUserIdPostDAOBean;
     UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean;
-    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
     UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
     UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
     UpdateUserExpDAOBean updateUserExpDAOBean;
@@ -24,12 +23,11 @@ public class DeletePostHeartBean {
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeletePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, DeletePostHeartDAOBean deletePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeletePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, DeletePostHeartDAOBean deletePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getPostHeartDAOBean = getPostHeartDAOBean;
         this.checkPostIdPostDAOBean = checkPostIdPostDAOBean;
         this.checkUserIdPostDAOBean = checkUserIdPostDAOBean;
         this.updatePostHeartCountDAOBean = updatePostHeartCountDAOBean;
-        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
         this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
         this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
         this.updateUserExpDAOBean = updateUserExpDAOBean;
@@ -59,10 +57,6 @@ public class DeletePostHeartBean {
         PostDAO postDAO = updatePostHeartCountDAOBean.exec(null, postHeartDAO);
         if (postDAO == null) return 0L;
 
-        // 게시물 좋아요 삭제시 유저 좋아요 수 감소
-        UserDAO userDAO = updateUserHeartCountDAOBean.exec(null, postDAO);
-        if (userDAO == null) return 0L;
-
         // 좋아요 sender, receiver 추가
         UserDAO userDAO1 = updateUserReceiveHeartDAOBean.exec(null, postDAO);
         if (userDAO1 == null) return 0L;
@@ -83,7 +77,6 @@ public class DeletePostHeartBean {
         savePostDAOBean.exec(postDAO);
 
         // 유저 저장
-        saveUserDAOBean.exec(userDAO);
         saveUserDAOBean.exec(userDAO1);
         saveUserDAOBean.exec(userDAO2);
 

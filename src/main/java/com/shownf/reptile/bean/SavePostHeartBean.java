@@ -15,7 +15,6 @@ public class SavePostHeartBean {
     CreateUniqueIdBean createUniqueIdBean;
     CreatePostHeartDAOBean createPostHeartDAOBean;
     UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean;
-    UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean;
     UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
     UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
     UpdateUserExpDAOBean updateUserExpDAOBean;
@@ -24,12 +23,11 @@ public class SavePostHeartBean {
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public SavePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreatePostHeartDAOBean createPostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserHeartCountDAOBean updateUserHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SavePostHeartDAOBean savePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SavePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreatePostHeartDAOBean createPostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SavePostHeartDAOBean savePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getPostHeartDAOBean = getPostHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createPostHeartDAOBean = createPostHeartDAOBean;
         this.updatePostHeartCountDAOBean = updatePostHeartCountDAOBean;
-        this.updateUserHeartCountDAOBean = updateUserHeartCountDAOBean;
         this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
         this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
         this.updateUserExpDAOBean = updateUserExpDAOBean;

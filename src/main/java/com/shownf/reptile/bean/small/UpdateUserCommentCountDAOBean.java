@@ -62,15 +62,6 @@ public class UpdateUserCommentCountDAOBean {
         // 유저 commentCount 감소
         userDAO.setCommentCount(userDAO.getCommentCount() - 1);
 
-        /*// 댓글 삭제시 대댓글 갯수까지 감소
-        CommentDAO commentDAO = commentRepositoryJPA.findById(requestCommentDeleteDTO.getCommentId()).orElse(null);
-        if (commentDAO == null) return null;
-
-        if (commentDAO.getReplyCount() == 0)
-            userDAO.setCommentCount(userDAO.getCommentCount() - 1);
-        else
-            userDAO.setCommentCount(userDAO.getCommentCount() - 1 - commentDAO.getReplyCount());*/
-
         return userDAO;
     }
 

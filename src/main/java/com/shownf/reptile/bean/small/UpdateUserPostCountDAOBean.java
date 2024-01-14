@@ -40,7 +40,7 @@ public class UpdateUserPostCountDAOBean {
 
         // 유저 postCount 감소
         userDAO.setPostCount(userDAO.getPostCount() - 1);
-        userDAO.setHeartCount(userDAO.getHeartCount() - postDAO.getHeartCount());
+        userDAO.setReceiveHeartCount(userDAO.getReceiveHeartCount() - postDAO.getHeartCount());
         userDAO.setCommentCount(userDAO.getCommentCount() - postDAO.getCommentCount());
 
         return userDAO;
