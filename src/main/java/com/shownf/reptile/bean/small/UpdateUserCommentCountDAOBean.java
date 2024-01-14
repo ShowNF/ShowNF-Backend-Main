@@ -29,7 +29,7 @@ public class UpdateUserCommentCountDAOBean {
         this.userRepositoryJPA = userRepositoryJPA;
     }
 
-    // 댓글 추가시 유저 댓글 수 증가
+    // 댓글 추가시 게시글 작성한 유저 댓글 수 증가
     public UserDAO exec(RequestCommentSaveDTO requestCommentSaveDTO){
 
         // 댓글 추가된 게시물 유저 아이디 찾기
@@ -47,7 +47,7 @@ public class UpdateUserCommentCountDAOBean {
         return userDAO;
     }
 
-    // 댓글 삭제시 유저 댓글 수 김소
+    // 댓글 삭제시 게시물 작성한 유저 댓글 수 김소
     public UserDAO exec(RequestCommentDeleteDTO requestCommentDeleteDTO){
 
         // 댓글 삭제된 게시물 유저 아이디 찾기
