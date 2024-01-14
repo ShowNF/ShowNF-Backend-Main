@@ -22,6 +22,7 @@ public class DeleteReplyBean {
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
     UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean;
     GetUserDAOBean getUserDAOBean;
+    UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean;
     UpdateUserExpDAOBean updateUserExpDAOBean;
     SaveReplyDAOBean saveReplyDAOBean;
     SaveCommentDAOBean saveCommentDAOBean;
@@ -29,7 +30,7 @@ public class DeleteReplyBean {
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteReplyBean(GetReplyDAOBean getReplyDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteReplyBean(GetReplyDAOBean getReplyDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getReplyDAOBean = getReplyDAOBean;
         this.checkUserAccessTokenDAOBean = checkUserAccessTokenDAOBean;
         this.checkCommentIdCommentDAOBean = checkCommentIdCommentDAOBean;
@@ -38,6 +39,7 @@ public class DeleteReplyBean {
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
         this.updateUserCommentCountDAOBean = updateUserCommentCountDAOBean;
         this.getUserDAOBean = getUserDAOBean;
+        this.updateUserSendCommentCountDAOBean = updateUserSendCommentCountDAOBean;
         this.updateUserExpDAOBean = updateUserExpDAOBean;
         this.saveReplyDAOBean = saveReplyDAOBean;
         this.saveCommentDAOBean = saveCommentDAOBean;
@@ -89,7 +91,10 @@ public class DeleteReplyBean {
         // 대댓글 작성한 유저
         UserDAO userDAO1 = getUserDAOBean.exec(requestReplyDeleteDTO.getUserId());
 
-        // 경험치 추가
+        // 대댓글 작성한 유저 send comment count 감소
+        userDAO1 = updateUserSendCommentCountDAOBean.exec(requestReplyDeleteDTO, userDAO1);
+
+        // 경험치 감소
         userDAO1 = updateUserExpDAOBean.exec(requestReplyDeleteDTO, userDAO1);
 
         // 대댓글 저장
