@@ -79,7 +79,9 @@ public class UpdatePetDAOBean {
         petDAO.setDiaryCount(petDAO.getDiaryCount() + 1);
 
         // 펫 이미지 세팅
-        petDAO.setImageUrl(diaryDAO.getImageUrl());
+        if (diaryDAO.getImageUrl().length() == 0) {
+            petDAO.setImageUrl(diaryDAO.getImageUrl());
+        }
 
         // 펫 몸무게 세팅
         petDAO.setWeight(diaryDAO.getWeight());
