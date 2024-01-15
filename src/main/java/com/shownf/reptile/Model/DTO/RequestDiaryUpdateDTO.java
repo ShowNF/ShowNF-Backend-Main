@@ -2,11 +2,14 @@ package com.shownf.reptile.Model.DTO;
 
 import lombok.Data;
 
+import java.util.List;
+import java.util.Map;
+
 @Data
 public class RequestDiaryUpdateDTO {
     Long diaryId;
     Long petId;
-    String imageUrl;
+    private List<Map<String, String>> imageUrl;
     String food;
     Integer foodCounter;
     String size;

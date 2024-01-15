@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
 import com.shownf.reptile.Model.DTO.RequestDiaryUpdateDTO;
 import com.shownf.reptile.Model.entity.DiaryDAO;
@@ -7,6 +8,7 @@ import com.shownf.reptile.repository.DiaryRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Component
@@ -23,7 +25,15 @@ public class UpdateDiaryDAOBean {
     public DiaryDAO exec(DiaryDAO diaryDAO, RequestDiaryUpdateDTO requestDiaryUpdateDTO){
 
         // 마이펫 이미지
-        diaryDAO.setImageUrl(requestDiaryUpdateDTO.getImageUrl());
+        ObjectMapper objectMapper = new ObjectMapper();
+        String imageUrl = "";
+        try {
+            imageUrl = objectMapper.writeValueAsString(requestDiaryUpdateDTO.getImageUrl());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        // 마이펫 이미지
+        diaryDAO.setImageUrl(imageUrl);
 
         // 먹이
         diaryDAO.setFood(requestDiaryUpdateDTO.getFood());

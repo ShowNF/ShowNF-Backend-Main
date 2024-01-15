@@ -79,7 +79,7 @@ public class UpdatePetDAOBean {
         petDAO.setDiaryCount(petDAO.getDiaryCount() + 1);
 
         // 펫 이미지 세팅
-        if (diaryDAO.getImageUrl().length() == 0) {
+        if (!diaryDAO.getImageUrl().equals("[]")) {
             petDAO.setImageUrl(diaryDAO.getImageUrl());
         }
 
@@ -104,7 +104,8 @@ public class UpdatePetDAOBean {
         if (petDAO == null) return null;
 
         // 펫 이미지 세팅
-        petDAO.setImageUrl(diaryDAO.getImageUrl());
+        if (!diaryDAO.getImageUrl().equals("[]"))
+            petDAO.setImageUrl(diaryDAO.getImageUrl());
         
         // 펫 몸무게 세팅
         petDAO.setWeight(diaryDAO.getWeight());

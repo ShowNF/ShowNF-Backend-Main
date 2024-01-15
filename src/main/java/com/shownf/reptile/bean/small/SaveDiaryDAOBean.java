@@ -1,11 +1,13 @@
 package com.shownf.reptile.bean.small;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shownf.reptile.Model.DTO.RequestDiarySaveDTO;
 import com.shownf.reptile.Model.entity.DiaryDAO;
 import com.shownf.reptile.repository.DiaryRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -31,7 +33,13 @@ public class SaveDiaryDAOBean {
         Long petId = requestDiarySaveDTO.getPetId();
 
         // 마이펫 이미지
-        String imageUrl = requestDiarySaveDTO.getImageUrl();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String imageUrl = "";
+        try {
+            imageUrl = objectMapper.writeValueAsString(requestDiarySaveDTO.getImageUrl());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
         // 먹이
         String food = requestDiarySaveDTO.getFood();
