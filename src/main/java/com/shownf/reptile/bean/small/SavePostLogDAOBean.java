@@ -12,11 +12,13 @@ import java.util.List;
 @Component
 public class SavePostLogDAOBean {
 
+    GetPostLogsDAOBean getPostLogsDAOBean;
     PostLogRepositoryJPA postLogRepositoryJPA;
     CreateUniqueIdBean createUniqueIdBean;
 
     @Autowired
-    public SavePostLogDAOBean(PostLogRepositoryJPA postLogRepositoryJPA, CreateUniqueIdBean createUniqueIdBean) {
+    public SavePostLogDAOBean(GetPostLogsDAOBean getPostLogsDAOBean, PostLogRepositoryJPA postLogRepositoryJPA, CreateUniqueIdBean createUniqueIdBean) {
+        this.getPostLogsDAOBean = getPostLogsDAOBean;
         this.postLogRepositoryJPA = postLogRepositoryJPA;
         this.createUniqueIdBean = createUniqueIdBean;
     }
@@ -33,7 +35,7 @@ public class SavePostLogDAOBean {
         }
 
         // userId로 Post Log 전부 가져오기
-        List<PostLogDAO> postLogDAOs = postLogRepositoryJPA.findByUserId(userId);
+        List<PostLogDAO> postLogDAOs = getPostLogsDAOBean.exec(userId);
 
         // 가져온 post log 에 이번에 조회한 post 가 있는 경우는 갱신
         for (PostLogDAO postLogDAO : postLogDAOs){
