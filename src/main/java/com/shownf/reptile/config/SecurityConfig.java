@@ -27,7 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login/oauth2/**", "/", "/test/**","/chat-event", "/connect/**").permitAll() // 로그인, health 체크
                 .antMatchers("/user/**/name", "/user/**/image", "/user/**/token").permitAll()// 유저 이름, 이미지 정보
-                .antMatchers(HttpMethod.GET, "user/{userId}").permitAll()
+                .antMatchers(HttpMethod.GET, "/user/{userId}").permitAll()
+                .antMatchers(HttpMethod.GET, "/postMeta/**").permitAll()
                 .antMatchers("/swagger-ui.html","swagger/**","/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll() // 스웨거
                 .antMatchers(HttpMethod.GET, "/image", "/comment/**", "/post/**", "/reply/**", "/sale/**").permitAll() // 스와이프
                 .antMatchers("/**").hasRole("USER")
