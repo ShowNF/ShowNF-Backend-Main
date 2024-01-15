@@ -1,9 +1,6 @@
 package com.shownf.reptile.controller;
 
-import com.shownf.reptile.Model.DTO.RequestPostDTO;
-import com.shownf.reptile.Model.DTO.RequestPostDeleteDTO;
-import com.shownf.reptile.Model.DTO.RequestPostSaveDTO;
-import com.shownf.reptile.Model.DTO.ResponsePostsDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.service.PostService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +81,23 @@ public class PostController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (postId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("postId", postId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 게시물 전체 수정
+    @ApiOperation(value = "게시물 전체 수정", notes = "게시물 수정시 저장")
+    @PutMapping("post")
+    public ResponseEntity<Map<String, Object>> updatePost(@RequestBody RequestPostUpdateDTO requestPostUpdateDTO, HttpServletRequest request){
+        Long postId = postService.updatePostDAO(requestPostUpdateDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (postId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (postId != null) ? "Update Success" : "Update Fail");
         requestMap.put("postId", postId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);

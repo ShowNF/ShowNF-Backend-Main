@@ -1,9 +1,6 @@
 package com.shownf.reptile.service;
 
-import com.shownf.reptile.Model.DTO.RequestPostDTO;
-import com.shownf.reptile.Model.DTO.RequestPostDeleteDTO;
-import com.shownf.reptile.Model.DTO.RequestPostSaveDTO;
-import com.shownf.reptile.Model.DTO.ResponsePostsDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,15 +18,17 @@ public class PostService {
     GetCategoryPostsBean categoryPostsBean;
     GetUserPostHeartsBean getUserPostHeartsBean;
     SavePostBean savePostBean;
+    UpdatePostBean updatePostBean;
     DeletePostBean deletePostBean;
 
     @Autowired
-    public PostService(GetPostBean getPostBean, GetPostsBean getPostsBean, GetCategoryPostsBean categoryPostsBean, GetUserPostHeartsBean getUserPostHeartsBean, SavePostBean savePostBean, DeletePostBean deletePostBean) {
+    public PostService(GetPostBean getPostBean, GetPostsBean getPostsBean, GetCategoryPostsBean categoryPostsBean, GetUserPostHeartsBean getUserPostHeartsBean, SavePostBean savePostBean, UpdatePostBean updatePostBean, DeletePostBean deletePostBean) {
         this.getPostBean = getPostBean;
         this.getPostsBean = getPostsBean;
         this.categoryPostsBean = categoryPostsBean;
         this.getUserPostHeartsBean = getUserPostHeartsBean;
         this.savePostBean = savePostBean;
+        this.updatePostBean = updatePostBean;
         this.deletePostBean = deletePostBean;
     }
 
@@ -60,10 +59,13 @@ public class PostService {
 
     // 게시물 저장
     public Long savePostDAO(RequestPostSaveDTO requestPostSaveDTO){
-        return  savePostBean.exec(requestPostSaveDTO);
+        return savePostBean.exec(requestPostSaveDTO);
     }
 
     // 게시물 수정
+    public Long updatePostDAO(RequestPostUpdateDTO requestPostUpdateDTO, HttpServletRequest request){
+        return updatePostBean.exec(requestPostUpdateDTO, request);
+    }
 
     // 게시물 삭제
     public Long deletePostDAO(RequestPostDeleteDTO requestPostDeleteDTO, HttpServletRequest request){ return deletePostBean.exec(requestPostDeleteDTO, request); }
