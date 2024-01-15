@@ -2,6 +2,7 @@ package com.shownf.reptile.bean.small;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shownf.reptile.Model.DTO.RequestPostContentUpdateDTO;
 import com.shownf.reptile.Model.DTO.RequestPostUpdateDTO;
 import com.shownf.reptile.Model.entity.PostContentDAO;
 import com.shownf.reptile.Model.entity.PostDAO;
@@ -24,6 +25,18 @@ public class UpdatePostContentDAOBean {
         this.savePostContentsDAOBean = savePostContentsDAOBean;
     }
 
+    // update one post content
+    public PostContentDAO exec(RequestPostContentUpdateDTO requestPostContentUpdateDTO, PostContentDAO postContentDAO){
+
+        // 내용
+        postContentDAO.setContent(requestPostContentUpdateDTO.getContent());
+
+        // 이미지 url
+        postContentDAO.setImageUrl(requestPostContentUpdateDTO.getImageUrl());
+
+        return postContentDAO;
+    }
+
     // Update the post content
     public String exec(RequestPostUpdateDTO requestPostUpdateDTO, PostDAO postDAO){
 
@@ -38,26 +51,18 @@ public class UpdatePostContentDAOBean {
             e.printStackTrace();
         }
 
-        System.out.println("postContentIndexs = " + postContentIndexs.toString());
-
-        if (postContentIndexs.isEmpty())
-            return "[]";
-
         // key 값 리스트
         List<Integer> postContentDAOkeys = postContentIndexs.stream()
                 .flatMap(map -> map.keySet().stream())
                 .collect(Collectors.toList());
-        System.out.println("postContentDAOkeys = " + postContentDAOkeys.toString());
 
         // 수정된 postContent list 가져오기
         List<Map<String, String>> contents = requestPostUpdateDTO.getContent();
-        System.out.println("contents.toString() = " + contents.toString());
 
         // contents에서 postContentDAOkeys에 포함되지 않는 key 값을 남겨두기
         List<Map<String, String>> updateContents = contents.stream()
                 .filter(map -> !postContentDAOkeys.contains(Integer.parseInt(map.get("postContentIndex"))))
                 .collect(Collectors.toList());
-        System.out.println("updateContents.toString() = " + updateContents.toString());
 
         if (updateContents.isEmpty()) return postDAO.getContent();
         else {
