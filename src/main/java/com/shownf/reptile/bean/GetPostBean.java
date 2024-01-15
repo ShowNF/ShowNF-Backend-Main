@@ -12,16 +12,18 @@ public class GetPostBean {
     UpdatePostViewCountDAOBean updatePostViewCountDAOBean;
     CreatePostDTOBean createPostDTOBean;
     SavePostDAOBean savePostDAOBean;
+    SavePostLogDAOBean savePostLogDAOBean;
 
     @Autowired
-    public GetPostBean(GetPostDAOBean getPostDAOBean, UpdatePostViewCountDAOBean updatePostViewCountDAOBean, CreatePostDTOBean createPostDTOBean, SavePostDAOBean savePostDAOBean) {
+    public GetPostBean(GetPostDAOBean getPostDAOBean, UpdatePostViewCountDAOBean updatePostViewCountDAOBean, CreatePostDTOBean createPostDTOBean, SavePostDAOBean savePostDAOBean, SavePostLogDAOBean savePostLogDAOBean) {
         this.getPostDAOBean = getPostDAOBean;
         this.updatePostViewCountDAOBean = updatePostViewCountDAOBean;
         this.createPostDTOBean = createPostDTOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.savePostLogDAOBean = savePostLogDAOBean;
     }
 
-    public RequestPostDTO exec(long postId){
+    public RequestPostDTO exec(Long postId, Long userId){
 
         // postId 로 게시물 찾기
         PostDAO postDAO = getPostDAOBean.exec(postId);
@@ -36,6 +38,9 @@ public class GetPostBean {
 
         // 게시물 저장
         savePostDAOBean.exec(findPostDAO);
+
+        // 최근 조회 게시물 추가
+        savePostLogDAOBean.exec(postId, userId);
 
         // DTO 반환
         return requestPostDTO;

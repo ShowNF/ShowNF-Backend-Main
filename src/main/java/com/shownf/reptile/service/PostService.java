@@ -33,8 +33,8 @@ public class PostService {
     }
 
     // 게시물 조회
-    public RequestPostDTO getPostDAO(Long postId){
-        return getPostBean.exec(postId);
+    public RequestPostDTO getPostDAO(Long postId, Long userId){
+        return getPostBean.exec(postId, userId);
     }
 
     // 마이페이지 유저 게시물 전체 조회

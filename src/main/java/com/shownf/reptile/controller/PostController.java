@@ -32,8 +32,8 @@ public class PostController {
     // 게시물 조회
     @ApiOperation(value = "게시물 조회", notes = "게시물 아이디로 게시물 조회")
     @GetMapping("post/{postId}")
-    public RequestPostDTO getPost(@PathVariable Long postId){
-        return postService.getPostDAO(postId);
+    public RequestPostDTO getPost(@PathVariable Long postId, @RequestParam(required = false) Long userId){
+        return postService.getPostDAO(postId, userId);
     }
 
 
