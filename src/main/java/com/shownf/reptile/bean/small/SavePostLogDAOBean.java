@@ -29,8 +29,6 @@ public class SavePostLogDAOBean {
     public void exec(Long postId, Long userId){
 
         if (userId == null){
-            long postLogId = createUniqueIdBean.exec();
-            exec(new PostLogDAO(postLogId, postId, userId, LocalDateTime.now()));
             return;
         }
 
