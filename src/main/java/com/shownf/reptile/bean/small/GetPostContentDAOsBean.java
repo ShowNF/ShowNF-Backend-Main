@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class GetPostContentDAOsBean {
@@ -61,6 +58,10 @@ public class GetPostContentDAOsBean {
 
             contents.add(postContent);
         }
+
+        // postContentIndex를 기준으로 정렬
+        contents.sort(Comparator.comparingInt(c -> Integer.parseInt(c.get("postContentIndex"))));
+
 
         // postContent 반환
         String newContent = "";
