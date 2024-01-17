@@ -31,9 +31,9 @@ public class CreatePostsDTOBean {
         for (PostDAO postDAO: postDAOs) {
             RequestPostDTO requestPostDTO = new RequestPostDTO();
 
-            // 좋아요 순으로 조회함에 따라 좋아요가 없으면 조회X
-            if (postDAO.getHeartCount() <= 0)
-                continue;
+            // 좋아요 순으로 조회함에 따라 좋아요가 없으면 조회X -> 좋아요 없어도 조회 가능으로 수정
+            /*if (postDAO.getHeartCount() <= 0)
+                continue;*/
 
             requestPostDTO.setPostId(postDAO.getPostId());
             requestPostDTO.setUserId(postDAO.getUserId());
