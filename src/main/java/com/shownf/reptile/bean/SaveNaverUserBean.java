@@ -56,7 +56,7 @@ public class SaveNaverUserBean {
         if(naverUserDAO == null){
             naverUserRepositoryJPA.save(new NaverUserDAO(id, accessToken, localDateTime));
             userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture,
-                    "https://reptile-image.s3.ap-northeast-2.amazonaws.com/images/bab06268-da39-4b7d-a138-fa12b0ded4e0-basic-image.png",
+                    "https://reptile-image.s3.ap-northeast-2.amazonaws.com/images/e60a2776-8d48-458e-a23b-6e0d6ff9e570-IWI_rept2_logo.png",
                     createUniqueNicknameBean.exec(), email, uploadTime, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         } else {
             naverUserDAO.setAccessToken(accessToken);
