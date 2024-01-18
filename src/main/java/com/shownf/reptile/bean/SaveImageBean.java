@@ -24,6 +24,10 @@ public class SaveImageBean {
     // 이미지 저장
     public String exec(MultipartFile file) throws IOException {
 
+        if (file == null || file.isEmpty()) {
+            return "";
+        }
+
         // 이미지 저장
         // List<String> imageUrls = saveImagesS3Bean.exec(files.get(0));
         String imageUrls = saveImageS3Bean.exec(file);
