@@ -28,7 +28,8 @@ public class UpdateDiaryDAOBean {
         ObjectMapper objectMapper = new ObjectMapper();
         String imageUrl = "";
         try {
-            imageUrl = objectMapper.writeValueAsString(requestDiaryUpdateDTO.getImageUrl());
+            if (!requestDiaryUpdateDTO.getImageUrl().toString().equals(""))
+                imageUrl = objectMapper.writeValueAsString(requestDiaryUpdateDTO.getImageUrl());
         }catch (IOException e){
             e.printStackTrace();
         }

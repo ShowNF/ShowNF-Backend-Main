@@ -36,7 +36,8 @@ public class SaveDiaryDAOBean {
         ObjectMapper objectMapper = new ObjectMapper();
         String imageUrl = "";
         try {
-            imageUrl = objectMapper.writeValueAsString(requestDiarySaveDTO.getImageUrl());
+            if (!requestDiarySaveDTO.getImageUrl().toString().equals(""))
+                imageUrl = objectMapper.writeValueAsString(requestDiarySaveDTO.getImageUrl());
         }catch (IOException e){
             e.printStackTrace();
         }
