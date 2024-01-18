@@ -29,6 +29,10 @@ public class SaveFollowBean {
         if (followDAO != null)
             return followDAO.getFollowId();
 
+        // 자신 팔로우 예외처리
+        if (requestFollowDTO.getUserId().equals(requestFollowDTO.getFollowUserId()))
+            return 0L;
+
         // followId 생성
         Long followId = createUniqueIdBean.exec();
 
