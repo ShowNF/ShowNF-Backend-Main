@@ -3,3 +3,598 @@ exp :
   comment : 3
   reply : 3
   post : 6
+
+species:
+  species:
+  - name: 게코
+    subcategories:
+      - name: 크레스티드 게코
+        items:
+          - item: 노멀
+          - item: 릴리화이트
+          - item: 카푸치노
+          - item: 슈퍼카푸치노
+          - item: 프라푸치노
+          - item: 설악
+          - item: 세이블
+          - item: 슈퍼세이블
+          - item: 릴리세이블
+          - item: 아잔틱
+          - item: 햇아잔틱
+          - item: 릴리아잔틱
+          - item: 초초
+          - item: 햇초초
+          - item: 바이
+          - item: 트라이
+          - item: 패턴리스
+          - item: 팬텀
+          - item: 달마시안
+          - item: 슈퍼달마시안
+          - item: 드리피
+          - item: 벅스킨
+          - item: 브린들
+          - item: 솔리드백
+          - item: 엠티백
+          - item: 할리퀸
+          - item: 플레임
+          - item: 쿼드
+          - item: 풀핀
+          - item: 핀스트라이프
+          - item: 다크
+          - item: 레드
+          - item: 블랙
+          - item: 옐로우
+          - item: 챠콜
+          - item: 크림
+          - item: 크림시클
+          - item: 타이거
+          - item: 텐저린
+          - item: 할로윈
+          - item: 화이트
+          - item: 도마뱀
+          - item: 비어디드래곤 모니터/테구
+          - item: 스킨크
+
+      - name: 가고일 게코
+        items:
+          - item: 노멀
+          - item: 레드
+          - item: 오렌지
+          - item: 화이트
+          - item: 옐로우
+          - item: 블로치드
+          - item: 스트라이프
+          - item: 스켈레톤
+          - item: 모자이크
+          - item: 팬텀아이
+
+      - name: 리키에너스 게코
+        items:
+          - item: 노멀
+          - item: 누아나
+          - item: 누아미
+          - item: 카나와
+          - item: 모로
+          - item: 두아나
+          - item: 파인아일랜드
+          - item: 브로스
+          - item: 바요네즈
+          - item: Type A
+          - item: 코기스트로거
+          - item: 코기스프리델
+          - item: 야테
+          - item: 포인디미에
+          - item: 고로
+          - item: 험볼트
+          - item: 다스몰
+          - item: 트루컬러
+          - item: 하이레드
+          - item: 하이화이트
+          - item: 멜라니스틱
+          - item: 헷멜라니스틱
+          - item: 알비노
+          - item: 헷알비노
+          - item: NLS(믹스)
+
+      - name: 차화 게코
+        items:
+          - item: 노멀
+          - item: 메인랜드
+          - item: 파인아일랜드
+          - item: 화이트카라
+          - item: 하이컬러
+          - item: 하이화이트
+
+      - name: 레오파드 게코
+        items:
+          - item: 노멀
+          - item: 알비노레인워터
+          - item: 알비노벨
+          - item: 알비노트렘퍼
+          - item: 블러드
+          - item: 볼드스트라이프
+          - item: 시나몬
+          - item: 이니그마
+          - item: 정글
+          - item: 만다린
+          - item: 머피패턴리스
+          - item: 스노우젬
+          - item: 스노우맥
+          - item: 스노우터그
+          - item: WY
+          - item: 텐저린
+          - item: 밴딧
+          - item: 블랙나이트
+          - item: 블리자드
+          - item: 에머린
+          - item: 차콜
+          - item: 사이퍼
+          - item: 이클립스
+          - item: 자이언트
+          - item: GT
+          - item: 인페르노
+          - item: 라벤더
+          - item: 마블아이
+          - item: NDBE(느와르)
+          - item: 레드스트라이프
+          - item: 스키틀즈
+          - item: 토네이도
+          - item: 카본
+          - item: 갤럭시
+          - item: 고스트
+          - item: 슈퍼하이포
+          - item: 아토믹
+          - item: 썬글로우
+          - item: 레드데빌
+
+      - name: 납테일 게코
+        items:
+          - item: 알비노
+          - item: 헷알비노 패턴리스
+          - item: 헷패턴리스
+          - item: levis levis levis pilbarensis
+          - item: amyae
+          - item: asper
+          - item: wheeleri wheeleri
+          - item: wheeleri sinctus
+          - item: 기타 납테일
+
+      - name: 펫티일 게코
+        items:
+          - item: 노멀
+          - item: 아멜라니스틱
+          - item: 헷아멜라니스틱
+          - item: 카라멜
+          - item: 헷카라멜
+          - item: 고스트
+          - item: 헷고스트
+          - item: 패턴리스
+          - item: 헷패턴리스
+          - item: 스트라이프
+          - item: 밴디드
+          - item: WO
+          - item: 제로
+          - item: 줄루
+          - item: 헷줄루
+          - item: 오레오
+          - item: 헷오레오
+          - item: 스팅어
+          - item: 락비노
+
+      - name: 토케이 게코
+        items:
+          - item: 노멀
+          - item: 우성패턴리스
+          - item: 열성패턴리스
+          - item: 햇열성패턴리스
+          - item: 루시스틱
+          - item: 갈리코
+          - item: 슈퍼레드
+          - item: 알비노
+          - item: 헷알비노
+          - item: 캔디버튼
+          - item: 헷캔디버튼
+          - item: 고스트
+          - item: 그라나이트
+          - item: 옐로우스팟
+          - item: 플래티넘
+          - item: KRCB
+
+  - name: 도마뱀
+    subcategories:
+      - name: 비어디 드래곤
+        items:
+          - item: 이스턴비어디
+          - item: 랜킨스드래곤
+          - item: 노멀
+          - item: 하이포
+          - item: 헷하이포
+          - item: 레더백
+          - item: 실키백
+          - item: 트랜슬
+          - item: 헷트랜슬
+          - item: 윗블릿
+          - item: 헷윗블릿
+          - item: 제로
+          - item: 헷제로
+          - item: 시트러스
+          - item: 오렌지
+          - item: 레드
+          - item: 화이트
+          - item: 타이거
+          - item: 더너
+
+      - name: 모니터/테구
+        items:
+          - item: 워터모니터
+          - item: 알비노
+          - item: 헷알비노
+          - item: 블랙드래곤
+          - item: 헷블랙 드래곤
+          - item: 설퍼
+          - item: 헷설퍼
+          - item: 옐로우액키
+          - item: 레드액키
+          - item: 기타모니터
+          - item: 레드테구
+          - item: 블루테구
+          - item: 블랙&화이트테구
+          - item: 카이만리자드
+
+      - name: 스킨크
+        items:
+          - item: 노던블루텅
+          - item: 이스턴블루
+          - item: 타님바블루텅
+          - item: 할마헤라블루텅
+          - item: 기타블루텅
+          - item: 알비노
+          - item: 멜라니스틱
+          - item: 아잔틱
+          - item: 몽키테일드
+          - item: Egernia
+          - item: 기타스킨크
+
+      - name: 이구아나
+        items:
+          - item: 그린이구아나
+          - item: 알비노
+          - item: 스노우
+          - item: 하이포
+          - item: 블루(아잔틱)
+          - item: 레드
+          - item: 기타이구아나
+
+      - name: 기타 도마뱀
+        items:
+
+  - name: 뱀
+    subcategories:
+      - name: 볼파이톤
+        items:
+          - item: Normal
+          - item: Acid
+          - item: Albino
+          - item: Het Albino
+          - item: Arroyo
+          - item: Asphalt
+          - item: Axanthic (MJ)
+          - item: Het Axanthic (MJ)
+          - item: Axanthic (TSK)
+          - item: Het Axanthic (TSK)
+          - item: Axanthic (VPI)
+          - item: Het Axanthic (VPI)
+          - item: Bamboo
+          - item: Banana
+          - item: Black Axanthic
+          - item: Het Black Axanthic
+          - item: Black Head
+          - item: Black Pastel
+          - item: Blade
+          - item: Bongo
+          - item: Butter
+          - item: Calico Candy
+          - item: Het Candy
+          - item: Champagne
+          - item: Chocolate
+          - item: Cinnamon
+          - item: Clown
+          - item: Het Clown
+          - item: Confusion
+          - item: Coral glow
+          - item: Cryptic
+          - item: Het Cryptic
+          - item: Cypress
+          - item: Desert Ghost
+          - item: Het Desert Ghost
+          - item: Dinker
+          - item: Disco
+          - item: Enchi
+          - item: Enhancer
+          - item: Het Enhancer
+          - item: Eramosa
+          - item: Fire
+          - item: Genetic Stripe
+          - item: Het Genetic Stripe
+          - item: GeneX
+          - item: GHI
+          - item: Gravel
+          - item: Grim
+          - item: Harlequin
+          - item: Het Red Axanthic
+          - item: Hidden Gene Woma
+          - item: Huffman
+          - item: Hurricane
+          - item: Hybrid
+          - item: Hypo
+          - item: Het Hypo
+          - item: Jaguar
+          - item: Lace
+          - item: Lavender Albino
+          - item: Het Lavender Albino
+          - item: Leopard
+          - item: Lesser
+          - item: Mahogany
+          - item: Mario
+          - item: Marvel
+          - item: Mocha
+          - item: Mojave
+          - item: Monarch
+          - item: Het Monarch
+          - item: Monsoon
+          - item: Het Monsoon
+          - item: Mosaic
+          - item: Mystic
+          - item: Nanny
+          - item: Nr Mandarin
+          - item: Orange Crush
+          - item: Het Orange Crush
+          - item: Orange Dream
+          - item: Orange Ghost
+          - item: Paint
+          - item: Het Paint
+          - item: Pastel
+          - item: Peach
+          - item: Phantom
+          - item: Piebald
+          - item: Het Piebald
+          - item: Pinstripe
+          - item: Pixel
+          - item: Puzzle
+          - item: Het Puzzle
+          - item: Raven
+          - item: Red Gene
+          - item: Red Stripe
+          - item: Redhead
+          - item: Ringer
+          - item: Russo
+          - item: Sable
+          - item: Scaleless Head
+          - item: Shatter Spark
+          - item: Special
+          - item: Specter
+          - item: Spider
+          - item: Spotnose
+          - item: Static
+          - item: Stranger
+          - item: Sugar Toffee
+          - item: Het Toffee
+          - item: Sunset
+          - item: Het Sunset
+          - item: Tri-stripe
+          - item: Het Tri-stripe
+          - item: Trick Trojan
+          - item: Ultramel
+          - item: Het Ultramel
+          - item: Vanilla
+          - item: Vudoo
+          - item: Woma
+          - item: Wookie
+          - item: Yellow Belly
+          - item: Zebra
+          - item: Het Zebra
+
+      - name: 파이톤/보아
+        items:
+          - item: 레딕파이톤
+          - item: 버미즈파이톤 락파이톤
+          - item: GTP
+          - item: 카펫
+          - item: 기타파이톤
+          - item: 레드테일드보아
+          - item: 에메랄드트리보아
+          - item: 아마존트리보아
+          - item: 레인보우보아
+          - item: 샌드보아
+          - item: 기타보아
+          - item: 하이브리드
+
+      - name: 킹/밀크스네이크
+        items:
+          - item: 캘리포니아킹
+          - item: 플로리다/브룩스킹
+          - item: 블랙킹
+          - item: 혼듀란밀크
+          - item: 기타밀크
+          - item: 기타킹
+          - item: 알비노
+          - item: 라벤더
+          - item: 하이퍼멜
+          - item: 고스트
+          - item: 화이트사이드
+          - item: 티플러스알비노
+          - item: 하이브리드
+
+      - name: 호그노즈
+        items:
+          - item: 트라이컬러
+          - item: 노멀
+          - item: 알비노
+          - item: 헷알비노
+          - item: 아나콘다
+          - item: 슈퍼콘다
+          - item: 악틱/아크틱
+          - item: 슈퍼악틱/아크틱 아잔틱
+          - item: 헷아잔틱
+          - item: 카라멜
+          - item: 헷카라멜
+          - item: 더치하이포
+          - item: 헷더치하이포
+          - item: 에반스하이포
+          - item: 헷에반스하이포
+          - item: 익스트림레드
+          - item: 그린하이포
+          - item: 슈퍼그린하이포
+          - item: 라벤더
+          - item: 헷라벤더
+          - item: 루시스틱
+          - item: 헷루시스틱
+          - item: 핑크파스텔
+          - item: 헷핑크파스텔
+          - item: 세이블
+          - item: 헷세이블
+          - item: 토피
+          - item: 헷토피
+
+      - name: 콘스네이크
+        items:
+          - item: 노멀
+          - item: 아멜
+          - item: 헷아멜
+          - item: 애너리
+          - item: 헷애너리
+          - item: 차콜
+          - item: 헷차콜
+          - item: 신더
+          - item: 헷신더
+          - item: 디퓨즈드
+          - item: 헷디퓨즈드
+          - item: 팔메토
+          - item: 헷팔메토
+          - item: 하이포
+          - item: 헷하이포
+          - item: 라바
+          - item: 헷라바
+          - item: 라벤더
+          - item: 헷라벤더
+          - item: 모틀리
+          - item: 헷모틀리 파이드사이디드
+          - item: 스케일리스
+          - item: 헷스케일리스
+          - item: 스트로베리
+          - item: 헷스트로베리
+          - item: 스트라이프
+          - item: 헷스트라이프
+          - item: 썬키스트
+          - item: 헷썬키스트
+          - item: 테라조 헷테라조
+          - item: 테세라
+          - item: 울트라
+          - item: 헷울트라
+          - item: 오키티
+          - item: 마이애미
+          - item: 하이브리드
+
+      - name: 기타
+        items:
+          - item: 불
+          - item: 파인
+          - item: 고퍼
+          - item: 렛스네이크
+          - item: 기타모프
+
+  - name: 거북
+    subcategories:
+      - name: 수생/반수생 거북
+        items:
+          - item: 머드
+          - item: 머스크
+          - item: 쿠터
+          - item: 뱀목 자라
+          - item: 스팟티드터틀
+          - item: 돌거북
+          - item: 기타 수생/반수생거북
+
+      - name: 습지거북
+        items:
+          - item: 이스턴박스
+          - item: 세발가락박스
+          - item: 플로리다박스
+          - item: 유카탄박스
+          - item: 멕시칸박스
+          - item: 오네이트박스
+          - item: 걸프코스트박스
+          - item: 옐로우마진드
+          - item: 기타습지거북
+
+      - name: 육지거북
+        items:
+          - item: 알다브라
+          - item: 엘롱가타
+          - item: 그리스
+          - item: 헤르만
+          - item: 레오파드
+          - item: 마지나타
+          - item: 방사
+          - item: 레드/옐로우풋
+          - item: 호스필드
+          - item: 설카타
+          - item: 별
+          - item: 알비노
+          - item: 아이보리
+          - item: 기타육지거북
+
+      - name: 테라핀
+        items:
+          - item: 노던
+          - item: 캐롤라이나
+          - item: 콘센트릭
+          - item: 미시시피
+          - item: 텍사스
+          - item: 오네이트
+          - item: 맹그로브
+          - item: 판다
+          - item: 뉴블러드
+          - item: 알비노
+
+  - name: 양서류
+    subcategories:
+      - name: 뉴트
+        items:
+
+      - name: 살라만다
+        items:
+
+      - name: 토드
+        items:
+
+      - name: 프록
+        items:
+
+      - name: 기타
+        items:
+
+  - name: 절지류
+    subcategories:
+      - name: 등각류
+        items:
+
+      - name: 타란튤라
+        items:
+
+      - name: 센티페드
+        items:
+
+      - name: 전갈
+        items:
+
+      - name: 밀리페드
+        items:
+
+      - name: 기타
+        items:
+
+  - name: 기타
+    subcategories:
+      - name: 기타
+        items:
