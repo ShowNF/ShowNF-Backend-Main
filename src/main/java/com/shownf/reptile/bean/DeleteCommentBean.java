@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestCommentDeleteDTO;
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.*;
 import com.shownf.reptile.Model.entity.CommentDAO;
@@ -25,9 +26,10 @@ public class DeleteCommentBean {
     SaveCommentDAOBean saveCommentDAOBean;
     SavePostDAOBean savePostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
+    SavePostMetaDAOBean savePostMetaDAOBean;
 
     @Autowired
-    public DeleteCommentBean(GetCommentDAOBean getCommentDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteCommentBean(GetCommentDAOBean getCommentDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, CheckPostIdPostDAOBean checkPostIdPostDAOBean, CheckUserIdPostDAOBean checkUserIdPostDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean, SavePostMetaDAOBean savePostMetaDAOBean) {
         this.getCommentDAOBean = getCommentDAOBean;
         this.checkUserAccessTokenDAOBean = checkUserAccessTokenDAOBean;
         this.checkPostIdPostDAOBean = checkPostIdPostDAOBean;
@@ -40,6 +42,7 @@ public class DeleteCommentBean {
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
+        this.savePostMetaDAOBean = savePostMetaDAOBean;
     }
 
     // 댓글 삭제
@@ -84,6 +87,9 @@ public class DeleteCommentBean {
         // 경험치 삭제
         userDAO1 = updateUserExpDAOBean.exec(requestCommentDeleteDTO, userDAO1);
 
+        // 게시물 메타데이터 변동
+        PostMeta postMeta = updatePostCommentCountDAOBean.exec(postDAO);
+
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
 
@@ -93,6 +99,9 @@ public class DeleteCommentBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO);
         saveUserDAOBean.exec(userDAO1);
+
+        // 게시물 메타데이터 저장
+        savePostMetaDAOBean.exec(postMeta);
 
         // commentId 반환
         return  commentId;

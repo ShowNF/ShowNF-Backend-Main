@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestCommentSaveDTO;
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.*;
 import com.shownf.reptile.Model.entity.CommentDAO;
@@ -21,9 +22,10 @@ public class SaveCommentBean {
     SaveCommentDAOBean saveCommentDAOBean;
     SavePostDAOBean savePostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
+    SavePostMetaDAOBean savePostMetaDAOBean;
 
     @Autowired
-    public SaveCommentBean(CreateUniqueIdBean createUniqueIdBean, CreateCommentDAOBean createCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SaveCommentBean(CreateUniqueIdBean createUniqueIdBean, CreateCommentDAOBean createCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean, SavePostMetaDAOBean savePostMetaDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createCommentDAOBean = createCommentDAOBean;
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
@@ -34,6 +36,7 @@ public class SaveCommentBean {
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
+        this.savePostMetaDAOBean = savePostMetaDAOBean;
     }
 
     // 댓글 저장
@@ -62,6 +65,9 @@ public class SaveCommentBean {
         // 경험치 추가
         userDAO1 = updateUserExpDAOBean.exec(requestCommentSaveDTO, userDAO1);
 
+        // 게시물 메타데이터 변동
+        PostMeta postMeta = updatePostCommentCountDAOBean.exec(postDAO);
+
         // 댓글 저장
         saveCommentDAOBean.exec(commentDAO);
 
@@ -71,6 +77,9 @@ public class SaveCommentBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO);
         saveUserDAOBean.exec(userDAO1);
+
+        // 게시물 메타데이터 저장
+        savePostMetaDAOBean.exec(postMeta);
 
         // 댓글 cId 반환
         return commentId;
