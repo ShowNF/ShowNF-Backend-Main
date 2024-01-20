@@ -17,15 +17,17 @@ public class SavePostBean {
     UpdateUserPostCountDAOBean updateUserPostCountDAOBean;
     UpdateUserExpDAOBean updateUserExpDAOBean;
     SavePostDAOBean savePostDAOBean;
+    SavePostMetaDAOBean savePostMetaDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public SavePostBean(CreateUniqueIdBean createUniqueIdBean, SavePostContentsDAOBean savePostContentsDAOBean, UpdateUserPostCountDAOBean updateUserPostCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SavePostBean(CreateUniqueIdBean createUniqueIdBean, SavePostContentsDAOBean savePostContentsDAOBean, UpdateUserPostCountDAOBean updateUserPostCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SavePostDAOBean savePostDAOBean, SavePostMetaDAOBean savePostMetaDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.savePostContentsDAOBean = savePostContentsDAOBean;
         this.updateUserPostCountDAOBean = updateUserPostCountDAOBean;
         this.updateUserExpDAOBean = updateUserExpDAOBean;
         this.savePostDAOBean = savePostDAOBean;
+        this.savePostMetaDAOBean = savePostMetaDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
     }
 
@@ -47,6 +49,9 @@ public class SavePostBean {
 
         // 게시물 저장
         savePostDAOBean.exec(postId, requestPostSaveDTO, postContentIndex);
+
+        // 게시물 메타 데이터 저장
+        savePostMetaDAOBean.exec(postId, requestPostSaveDTO, postContentIndex);
 
         // 유저 저장
         saveUserDAOBean.exec(userDAO);

@@ -29,7 +29,7 @@ public class SavePostDAOBean {
     }
 
     // 게시물 저장시 DAO 생성
-    public void exec(long postId, RequestPostSaveDTO requestPostSaveDTO, List<Map<Integer, Long>> postContentIndex){
+    public void exec(Long postId, RequestPostSaveDTO requestPostSaveDTO, List<Map<Integer, Long>> postContentIndex){
 
         // 유저 아이디
         Long userId = requestPostSaveDTO.getUserId();
