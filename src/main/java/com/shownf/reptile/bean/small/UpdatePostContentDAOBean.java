@@ -38,7 +38,7 @@ public class UpdatePostContentDAOBean {
     }
 
     // Update the post content
-    public String exec(RequestPostUpdateDTO requestPostUpdateDTO, PostDAO postDAO){
+    public List<Map<Integer, Long>> exec(RequestPostUpdateDTO requestPostUpdateDTO, PostDAO postDAO){
 
         // 문자열에서 숫자 추출
         ObjectMapper objectMapper = new ObjectMapper();
@@ -64,7 +64,7 @@ public class UpdatePostContentDAOBean {
                 .filter(map -> !postContentDAOkeys.contains(Integer.parseInt(map.get("postContentIndex"))))
                 .collect(Collectors.toList());
 
-        if (updateContents.isEmpty()) return postDAO.getContent();
+        if (updateContents.isEmpty()) return postContentIndexs;
         else {
             for (Map<String, String> updateContent : updateContents){
 
@@ -92,14 +92,6 @@ public class UpdatePostContentDAOBean {
             }
         }
 
-        // postContent 반환
-        String updateContent = "";
-        try {
-            updateContent = objectMapper.writeValueAsString(postContentIndexs);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-        return updateContent;
+        return postContentIndexs;
     }
 }
