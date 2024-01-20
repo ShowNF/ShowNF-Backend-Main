@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestPostHeartSaveDTO;
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.*;
 import com.shownf.reptile.Model.entity.PostDAO;
@@ -21,9 +22,10 @@ public class SavePostHeartBean {
     SavePostHeartDAOBean savePostHeartDAOBean;
     SavePostDAOBean savePostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
+    SavePostMetaDAOBean savePostMetaDAOBean;
 
     @Autowired
-    public SavePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreatePostHeartDAOBean createPostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SavePostHeartDAOBean savePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SavePostHeartBean(GetPostHeartDAOBean getPostHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreatePostHeartDAOBean createPostHeartDAOBean, UpdatePostHeartCountDAOBean updatePostHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SavePostHeartDAOBean savePostHeartDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean, SavePostMetaDAOBean savePostMetaDAOBean) {
         this.getPostHeartDAOBean = getPostHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createPostHeartDAOBean = createPostHeartDAOBean;
@@ -34,6 +36,7 @@ public class SavePostHeartBean {
         this.savePostHeartDAOBean = savePostHeartDAOBean;
         this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
+        this.savePostMetaDAOBean = savePostMetaDAOBean;
     }
 
     // 게시물 좋아요 저장
@@ -46,7 +49,7 @@ public class SavePostHeartBean {
         // postHeartId 생성
         Long postHeartId = createUniqueIdBean.exec();
 
-        // 게시물 좋아요 생성
+        // 게시물 좋아요 객체 생성
         PostHeartDAO postHeartDAO = createPostHeartDAOBean.exec(postHeartId, requestPostHeartSaveDTO);
 
         // 게시물의 좋아요 갯수 추가
@@ -67,6 +70,9 @@ public class SavePostHeartBean {
         // 유저 경험치 추가
         userDAO2 = updateUserExpDAOBean.exec(postHeartDAO, userDAO2);
 
+        // 게시물 메타데이터 수정
+        PostMeta postMeta = updatePostHeartCountDAOBean.exec(postDAO);
+
         // 좋아요 저장
         savePostHeartDAOBean.exec(postHeartDAO);
 
@@ -76,6 +82,9 @@ public class SavePostHeartBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO1);
         saveUserDAOBean.exec(userDAO2);
+
+        // 게시물 메타데이터 저장
+        savePostMetaDAOBean.exec(postMeta);
 
         // postHeartId 반환
         return postHeartId;

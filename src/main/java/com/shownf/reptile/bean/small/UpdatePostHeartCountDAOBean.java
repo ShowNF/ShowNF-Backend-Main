@@ -1,7 +1,9 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
+import com.shownf.reptile.repository.PostMetaRepositoryJPA;
 import com.shownf.reptile.repository.PostRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,12 +12,12 @@ import org.springframework.stereotype.Component;
 public class UpdatePostHeartCountDAOBean {
 
     PostRepositoryJPA postRepositoryJPA;
-    SavePostDAOBean savePostDAOBean;
+    PostMetaRepositoryJPA postMetaRepositoryJPA;
 
     @Autowired
-    public UpdatePostHeartCountDAOBean(PostRepositoryJPA postRepositoryJPA, SavePostDAOBean savePostDAOBean) {
+    public UpdatePostHeartCountDAOBean(PostRepositoryJPA postRepositoryJPA, PostMetaRepositoryJPA postMetaRepositoryJPA) {
         this.postRepositoryJPA = postRepositoryJPA;
-        this.savePostDAOBean = savePostDAOBean;
+        this.postMetaRepositoryJPA = postMetaRepositoryJPA;
     }
 
     // 게시물 좋아요 갯수 추가
@@ -50,5 +52,22 @@ public class UpdatePostHeartCountDAOBean {
 
         // 게시물 반환
         return postDAO;
+    }
+
+    // 게시물메타데이터 게시물 좋아요 갯수 변동
+    public PostMeta exec(PostDAO postDAO){
+
+        // postId 가져오기
+        Long postId = postDAO.getPostId();
+
+        // postId 로 게시물 찾기
+        PostMeta postMeta = postMetaRepositoryJPA.findById(postId).orElse(null);
+        if (postMeta == null) return null;
+
+        // 게시물 좋아요 수 변동
+        postMeta.setHeartCount(postDAO.getHeartCount());
+
+        // 게시물 반환
+        return postMeta;
     }
 }
