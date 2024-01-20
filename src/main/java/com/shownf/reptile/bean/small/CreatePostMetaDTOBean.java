@@ -4,6 +4,9 @@ import com.shownf.reptile.Model.DTO.ResponsePostMetaDTO;
 import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class CreatePostMetaDTOBean {
 
@@ -25,5 +28,19 @@ public class CreatePostMetaDTOBean {
         responsePostMetaDTO.setViewCount(postMeta.getViewCount());
 
         return responsePostMetaDTO;
+    }
+
+    // Create post meta DTOs
+    public List<ResponsePostMetaDTO> exec(List<PostMeta> postMetas){
+
+        List<ResponsePostMetaDTO> responsePostMetaDTOList = new ArrayList<>();
+
+        for (PostMeta postMeta : postMetas){
+            ResponsePostMetaDTO responsePostMetaDTO = exec(postMeta);
+
+            responsePostMetaDTOList.add(responsePostMetaDTO);
+        }
+
+        return responsePostMetaDTOList;
     }
 }

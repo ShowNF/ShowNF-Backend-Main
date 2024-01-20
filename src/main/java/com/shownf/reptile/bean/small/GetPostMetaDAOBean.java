@@ -5,6 +5,8 @@ import com.shownf.reptile.repository.PostMetaRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class GetPostMetaDAOBean {
 
@@ -18,5 +20,10 @@ public class GetPostMetaDAOBean {
     // Get the post meta
     public PostMeta exec(Long postId){
         return postMetaRepositoryJPA.findById(postId).orElse(null);
+    }
+
+    // Get post metas
+    public List<PostMeta> exec(List<Long> postIds){
+        return postMetaRepositoryJPA.findAllById(postIds);
     }
 }
