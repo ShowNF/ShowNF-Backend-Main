@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.RequestReplySaveDTO;
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.bean.small.*;
 import com.shownf.reptile.Model.entity.CommentDAO;
@@ -24,9 +25,10 @@ public class SaveReplyBean {
     SaveCommentDAOBean saveCommentDAOBean;
     SavePostDAOBean savePostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
+    SavePostMetaDAOBean savePostMetaDAOBean;
 
     @Autowired
-    public SaveReplyBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyDAOBean createReplyDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SaveReplyBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyDAOBean createReplyDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean, SavePostMetaDAOBean savePostMetaDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createReplyDAOBean = createReplyDAOBean;
         this.updateCommentReplyCountDAOBean = updateCommentReplyCountDAOBean;
@@ -39,8 +41,8 @@ public class SaveReplyBean {
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
+        this.savePostMetaDAOBean = savePostMetaDAOBean;
     }
-
 
     // 대댓글 저장
     public Long exec(RequestReplySaveDTO requestReplySaveDTO){
@@ -75,6 +77,9 @@ public class SaveReplyBean {
         // 경험치 추가
         userDAO1 = updateUserExpDAOBean.exec(requestReplySaveDTO, userDAO1);
 
+        // 게시물 메타데이터 변동
+        PostMeta postMeta = updatePostCommentCountDAOBean.exec(postDAO);
+
         // 대댓글 저장
         saveReplyDAOBean.exec(replyDAO);
 
@@ -87,6 +92,9 @@ public class SaveReplyBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO);
         saveUserDAOBean.exec(userDAO1);
+
+        // 게시물 메타데이터 저장
+        savePostMetaDAOBean.exec(postMeta);
 
         // 대댓글 replyId 반환
         return replyId;
