@@ -1,7 +1,6 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.entity.PostDAO;
-import com.shownf.reptile.Model.entity.ReplyDAO;
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
@@ -13,15 +12,15 @@ import java.util.List;
 public class DeleteCheckPostDAOBean {
 
     // 대댓글 삭제 여부 확인
-    public Page<PostDAO> exec(Page<PostDAO> postDAOs){
-        List<PostDAO> newPostDAOs = new ArrayList<>();
+    public Page<PostMeta> exec(Page<PostMeta> postMetas){
+        List<PostMeta> newPostMetas = new ArrayList<>();
 
-        for (PostDAO postDAO : postDAOs.getContent()) {
-            if (!postDAO.isDeleteCheck()) {
-                newPostDAOs.add(postDAO);
+        for (PostMeta postMeta : postMetas) {
+            if (!postMeta.isDeleteCheck()) {
+                newPostMetas.add(postMeta);
             }
         }
 
-        return new PageImpl<>(newPostDAOs, postDAOs.getPageable(), newPostDAOs.size());
+        return new PageImpl<>(newPostMetas, postMetas.getPageable(), newPostMetas.size());
     }
 }

@@ -1,20 +1,21 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostDAO;
+import com.shownf.reptile.repository.PostMetaRepositoryJPA;
 import com.shownf.reptile.repository.PostRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class GetPostsDAOBean {
 
     PostRepositoryJPA postRepositoryJPA;
+    PostMetaRepositoryJPA postMetaRepositoryJPA;
 
     @Autowired
     public GetPostsDAOBean(PostRepositoryJPA postRepositoryJPA) {
@@ -32,7 +33,7 @@ public class GetPostsDAOBean {
     }
 
     // 유저 아이디로 게시물 전체 찾기
-    public Page<PostDAO> exec(Long userId, Pageable pageable){
-        return postRepositoryJPA.findByUserId(userId, pageable);
+    public Page<PostMeta> exec(Long userId, Pageable pageable){
+        return postMetaRepositoryJPA.findByUserId(userId, pageable);
     }
 }

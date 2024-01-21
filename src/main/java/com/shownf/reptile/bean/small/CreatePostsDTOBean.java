@@ -2,6 +2,7 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.RequestPostDTO;
 import com.shownf.reptile.Model.DTO.ResponsePostsDTO;
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -85,32 +86,17 @@ public class CreatePostsDTOBean {
     }
 
     // 마이페이지 유저 게시물 조회시 DTO 생성
-    public Page<RequestPostDTO> exec(Long userId, Pageable pageable, Page<PostDAO> postDAOs){
+    public Page<Long> exec(Long userId, Pageable pageable, Page<PostMeta> postMetas){
 
-        List<RequestPostDTO> requestPostDTOs = new ArrayList<>();
+        List<Long> postIds = new ArrayList<>();
 
         // DTO 객체에 게시물 정보 넘기기
-        for (PostDAO postDAO: postDAOs) {
-            RequestPostDTO requestPostDTO = new RequestPostDTO();
-
-            requestPostDTO.setPostId(postDAO.getPostId());
-            requestPostDTO.setUserId(postDAO.getUserId());
-            requestPostDTO.setTitle(postDAO.getTitle());
-
-            String content = getPostContentDAOsBean.exec(postDAO.getPostId(), postDAO.getContent());
-            requestPostDTO.setContent(content);
-            requestPostDTO.setCategory(postDAO.getCategory().name());
-            requestPostDTO.setUploadTime(postDAO.getUploadTime());
-            requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
-            requestPostDTO.setHeartCount(postDAO.getHeartCount());
-            requestPostDTO.setCommentCount(postDAO.getCommentCount());
-            requestPostDTO.setViewCount(postDAO.getViewCount());
-
-            requestPostDTOs.add(requestPostDTO);
+        for (PostMeta postMeta: postMetas) {
+            postIds.add(postMeta.getPostId());
         }
 
         // List 구조를 Page 구조로 변경 후 반환
-        return new PageImpl<>(requestPostDTOs, pageable, postDAOs.getTotalElements());
+        return new PageImpl<>(postIds, pageable, postMetas.getTotalElements());
     }
 
     // 게시물 아이디로 게시물 조회시 DTO 생성
