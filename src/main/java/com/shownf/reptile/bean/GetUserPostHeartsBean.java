@@ -2,10 +2,7 @@ package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
-import com.shownf.reptile.bean.small.CreatePostsDTOBean;
-import com.shownf.reptile.bean.small.GetPostHeartsDAOBean;
-import com.shownf.reptile.bean.small.GetPostHeartsPostIdBean;
-import com.shownf.reptile.bean.small.GetPostsDAOBean;
+import com.shownf.reptile.bean.small.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,13 +16,15 @@ public class GetUserPostHeartsBean {
     GetPostHeartsDAOBean getPostHeartsDAOBean;
     GetPostHeartsPostIdBean getPostHeartsPostIdBean;
     GetPostsDAOBean getPostsDAOBean;
+    DeleteCheckPostDAOBean deleteCheckPostDAOBean;
     CreatePostsDTOBean createPostsDTOBean;
 
     @Autowired
-    public GetUserPostHeartsBean(GetPostHeartsDAOBean getPostHeartsDAOBean, GetPostHeartsPostIdBean getPostHeartsPostIdBean, GetPostsDAOBean getPostsDAOBean, CreatePostsDTOBean createPostsDTOBean) {
+    public GetUserPostHeartsBean(GetPostHeartsDAOBean getPostHeartsDAOBean, GetPostHeartsPostIdBean getPostHeartsPostIdBean, GetPostsDAOBean getPostsDAOBean, DeleteCheckPostDAOBean deleteCheckPostDAOBean, CreatePostsDTOBean createPostsDTOBean) {
         this.getPostHeartsDAOBean = getPostHeartsDAOBean;
         this.getPostHeartsPostIdBean = getPostHeartsPostIdBean;
         this.getPostsDAOBean = getPostsDAOBean;
+        this.deleteCheckPostDAOBean = deleteCheckPostDAOBean;
         this.createPostsDTOBean = createPostsDTOBean;
     }
 
@@ -41,7 +40,10 @@ public class GetUserPostHeartsBean {
         // 게시물 아이디로 게시물 찾기
         Page<PostMeta> postMetas = getPostsDAOBean.exec(postIds, pageable);
 
+        // 게시물 삭제 여부 확인
+        Page<PostMeta> newPostMetas = deleteCheckPostDAOBean.exec(postMetas);
+
         // DAO 객체 DTO 로 반환
-        return createPostsDTOBean.exec(pageable, postMetas);
+        return createPostsDTOBean.exec(pageable, newPostMetas);
     }
 }

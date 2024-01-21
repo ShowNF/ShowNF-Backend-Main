@@ -31,8 +31,11 @@ public class GetPostsBean {
         // 게시물 전체 찾기
         Page<PostMeta> postMetas = getPostsDAOBean.exec(pageable);
 
+        // 게시물 삭제 여부 확인
+        Page<PostMeta> newPostMetas = deleteCheckPostDAOBean.exec(postMetas);
+
         // DAO 객체 DTO 반환
-        return createPostsDTOBean.exec(pageable, postMetas);
+        return createPostsDTOBean.exec(pageable, newPostMetas);
     }
 
     // 마이페이지 유저 게시물 Page 형태로 전체 조회
