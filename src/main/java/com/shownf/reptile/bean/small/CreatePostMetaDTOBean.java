@@ -36,9 +36,6 @@ public class CreatePostMetaDTOBean {
         // 게시물 내용
         PostContentDAO postContentDAO = getPostContentDAOBean.exec(Long.parseLong(postMeta.getContent()));
 
-        System.out.println("postContentDAO = " + postContentDAO.getContent());
-        System.out.println("postContentDAO.getImageUrl() = " + postContentDAO.getImageUrl());
-        
         List<Map<String, String>> resultList = new ArrayList<>();
         Map<String, String> postContentMap = new HashMap<>();
 
