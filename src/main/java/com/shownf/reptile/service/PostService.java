@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Service
 public class PostService {
@@ -38,7 +37,7 @@ public class PostService {
     }
 
     // 마이페이지 유저 게시물 전체 조회
-    public Page<RequestPostDTO> getPosts(Long userId, Pageable pageable){
+    public Page<Long> getPosts(Long userId, Pageable pageable){
         return getPostsBean.exec(userId, pageable);
     }
 
