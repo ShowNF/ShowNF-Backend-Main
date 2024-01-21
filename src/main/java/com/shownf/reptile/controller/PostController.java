@@ -64,7 +64,7 @@ public class PostController {
     // 유저가 좋아요한 게시물 조회
     @ApiOperation(value = "유저가 좋아요한 게시물 조회", notes = "유저 아이드를 입력받아 해당하는 게시물 15개씩 페이징 조회")
     @GetMapping("post/user/{userId}")
-    public Page<ResponsePostsDTO> getUserPostHearts(@PathVariable Long userId, @PageableDefault(size=5, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
+    public Page<Long> getUserPostHearts(@PathVariable Long userId, @PageableDefault(size=5, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
         return postService.getUserPostHearts(userId, pageable);
     }
 

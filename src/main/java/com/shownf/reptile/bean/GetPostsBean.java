@@ -45,7 +45,7 @@ public class GetPostsBean {
         Page<PostMeta> newPostMetas = deleteCheckPostDAOBean.exec(postMetas);
 
         // DAO 객체 DTO 반환
-        return createPostsDTOBean.exec(userId, pageable, newPostMetas);
+        return createPostsDTOBean.exec(pageable, newPostMetas);
     }
 
 }

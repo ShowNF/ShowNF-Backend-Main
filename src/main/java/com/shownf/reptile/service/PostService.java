@@ -52,7 +52,7 @@ public class PostService {
     }
 
     // 유저가 좋아요한 게시물 조회
-    public Page<ResponsePostsDTO> getUserPostHearts(Long userId, Pageable pageable){
+    public Page<Long> getUserPostHearts(Long userId, Pageable pageable){
         return getUserPostHeartsBean.exec(userId, pageable);
     }
 

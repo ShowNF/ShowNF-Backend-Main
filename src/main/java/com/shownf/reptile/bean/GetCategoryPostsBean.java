@@ -28,6 +28,6 @@ public class GetCategoryPostsBean {
         Page<PostMeta> postMetas = getPostsDAOBean.exec(category, pageable);
 
         // DAO 객체 DTO 반환
-        return createPostsDTOBean.exec(category, pageable, postMetas);
+        return createPostsDTOBean.exec(pageable, postMetas);
     }
 }

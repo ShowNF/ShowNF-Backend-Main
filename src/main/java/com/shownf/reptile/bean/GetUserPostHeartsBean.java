@@ -1,7 +1,6 @@
 package com.shownf.reptile.bean;
 
-import com.shownf.reptile.Model.DTO.ResponsePostsDTO;
-import com.shownf.reptile.Model.entity.PostDAO;
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.bean.small.CreatePostsDTOBean;
 import com.shownf.reptile.bean.small.GetPostHeartsDAOBean;
@@ -31,7 +30,7 @@ public class GetUserPostHeartsBean {
     }
 
     // 유저가 좋아요한 게시물 조회
-    public Page<ResponsePostsDTO> exec(Long userId, Pageable pageable){
+    public Page<Long> exec(Long userId, Pageable pageable){
 
         // 유저 아이디를 통해 게시물 좋아요 객체 찾기
         List<PostHeartDAO> postHeartDAOs = getPostHeartsDAOBean.exec(userId);
@@ -40,9 +39,9 @@ public class GetUserPostHeartsBean {
         List<Long> postIds = getPostHeartsPostIdBean.exec(postHeartDAOs);
 
         // 게시물 아이디로 게시물 찾기
-        Page<PostDAO> postDAOs = getPostsDAOBean.exec(postIds, pageable);
+        Page<PostMeta> postMetas = getPostsDAOBean.exec(postIds, pageable);
 
         // DAO 객체 DTO 로 반환
-        return createPostsDTOBean.exec(postDAOs, pageable);
+        return createPostsDTOBean.exec(pageable, postMetas);
     }
 }

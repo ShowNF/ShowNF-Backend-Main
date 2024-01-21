@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PostMetaRepositoryJPA extends JpaRepository<PostMeta, Long> {
 
@@ -15,4 +17,6 @@ public interface PostMetaRepositoryJPA extends JpaRepository<PostMeta, Long> {
     Page<PostMeta> findByUserId(Long userId, Pageable pageable);
 
     Page<PostMeta> findByCategory(Category category, Pageable pageable);
+
+    Page<PostMeta> findAllByPostIdIn(List<Long> postId, Pageable pageable);
 }
