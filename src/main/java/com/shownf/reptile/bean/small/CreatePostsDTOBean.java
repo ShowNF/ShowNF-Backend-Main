@@ -23,37 +23,18 @@ public class CreatePostsDTOBean {
         this.getPostContentDAOsBean = getPostContentDAOsBean;
     }
 
-    // 게시물 조회시 DTO 생성
-    public Page<RequestPostDTO> exec(Pageable pageable, Page<PostDAO> postDAOs){
+    // 게시물 조회시 postId 리스트 생성
+    public Page<Long> exec(Pageable pageable, Page<PostMeta> postMetas){
 
-        List<RequestPostDTO> requestPostDTOs = new ArrayList<>();
+        List<Long> postIds = new ArrayList<>();
 
         // DTO 객체에 게시물 정보 넘기기
-        for (PostDAO postDAO: postDAOs) {
-            RequestPostDTO requestPostDTO = new RequestPostDTO();
-
-            // 좋아요 순으로 조회함에 따라 좋아요가 없으면 조회X -> 좋아요 없어도 조회 가능으로 수정
-            /*if (postDAO.getHeartCount() <= 0)
-                continue;*/
-
-            requestPostDTO.setPostId(postDAO.getPostId());
-            requestPostDTO.setUserId(postDAO.getUserId());
-            requestPostDTO.setTitle(postDAO.getTitle());
-
-            String content = getPostContentDAOsBean.exec(postDAO.getPostId(), postDAO.getContent());
-            requestPostDTO.setContent(content);
-            requestPostDTO.setCategory(postDAO.getCategory().name());
-            requestPostDTO.setUploadTime(postDAO.getUploadTime());
-            requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
-            requestPostDTO.setHeartCount(postDAO.getHeartCount());
-            requestPostDTO.setCommentCount(postDAO.getCommentCount());
-            requestPostDTO.setViewCount(postDAO.getViewCount());
-
-            requestPostDTOs.add(requestPostDTO);
+        for (PostMeta postMeta: postMetas) {
+            postIds.add(postMeta.getPostId());
         }
 
         // List 구조를 Page 구조로 변경 후 반환
-        return new PageImpl<>(requestPostDTOs, pageable, postDAOs.getTotalElements());
+        return new PageImpl<>(postIds, pageable, postMetas.getTotalElements());
     }
 
     // 카테고리별 게시물 조회시 DTO 생성

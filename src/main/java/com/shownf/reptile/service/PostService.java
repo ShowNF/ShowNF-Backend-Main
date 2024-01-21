@@ -42,7 +42,7 @@ public class PostService {
     }
 
     // 핫 게시물 조회
-    public Page<RequestPostDTO> getHotPosts(Pageable pageable){
+    public Page<Long> getHotPosts(Pageable pageable){
         return getPostsBean.exec(pageable);
     }
 

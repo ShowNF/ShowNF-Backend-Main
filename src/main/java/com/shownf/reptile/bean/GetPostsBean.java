@@ -26,13 +26,13 @@ public class GetPostsBean {
     }
 
     // 핫 게시물 Page 형태로 전체 조회
-    public Page<RequestPostDTO> exec(Pageable pageable){
+    public Page<Long> exec(Pageable pageable){
 
         // 게시물 전체 찾기
-        Page<PostDAO> postDAOs = getPostsDAOBean.exec(pageable);
+        Page<PostMeta> postMetas = getPostsDAOBean.exec(pageable);
 
         // DAO 객체 DTO 반환
-        return createPostsDTOBean.exec(pageable, postDAOs);
+        return createPostsDTOBean.exec(pageable, postMetas);
     }
 
     // 마이페이지 유저 게시물 Page 형태로 전체 조회

@@ -18,13 +18,14 @@ public class GetPostsDAOBean {
     PostMetaRepositoryJPA postMetaRepositoryJPA;
 
     @Autowired
-    public GetPostsDAOBean(PostRepositoryJPA postRepositoryJPA) {
+    public GetPostsDAOBean(PostRepositoryJPA postRepositoryJPA, PostMetaRepositoryJPA postMetaRepositoryJPA) {
         this.postRepositoryJPA = postRepositoryJPA;
+        this.postMetaRepositoryJPA = postMetaRepositoryJPA;
     }
 
     // 게시물 찾기
-    public Page<PostDAO> exec(Pageable pageable){
-        return postRepositoryJPA.findAll(pageable);
+    public Page<PostMeta> exec(Pageable pageable){
+        return postMetaRepositoryJPA.findAll(pageable);
     }
 
     // 게시물 아이디로 게시물 찾기

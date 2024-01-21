@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PostMetaRepositoryJPA extends JpaRepository<PostMeta, Long> {
+
+    Page<PostMeta> findAll(Pageable pageable);
     Page<PostMeta> findByUserId(Long userId, Pageable pageable);
 }
