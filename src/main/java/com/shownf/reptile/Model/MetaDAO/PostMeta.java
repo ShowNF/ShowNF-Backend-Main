@@ -27,4 +27,5 @@ public class PostMeta {
     Integer heartCount;
     Integer commentCount;
     Integer viewCount;
+    boolean deleteCheck;
 }
