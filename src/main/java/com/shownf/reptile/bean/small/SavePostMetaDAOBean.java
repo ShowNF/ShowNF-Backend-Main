@@ -62,6 +62,9 @@ public class SavePostMetaDAOBean {
         // 조회수
         Integer viewCount = 0;
 
-        exec(new PostMeta(postId, userId, title, postContentId, category, uploadTime, updateTime, heartCount, commentCount, viewCount));
+        // soft delete
+        boolean deleteCheck = false;
+
+        exec(new PostMeta(postId, userId, title, postContentId, category, uploadTime, updateTime, heartCount, commentCount, viewCount, deleteCheck));
     }
 }
