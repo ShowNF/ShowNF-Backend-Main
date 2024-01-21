@@ -56,7 +56,7 @@ public class PostController {
     // 카테고리별 게시물 조회
     @ApiOperation(value = "카테고리별 조회", notes = "카테고리를 입력받아 해당하는 게시물 5개씩 페이징 조회")
     @GetMapping("post/category/{category}")
-    public Page<RequestPostDTO> getCategoryPosts(@PathVariable String category, @PageableDefault(size=5, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
+    public Page<Long> getCategoryPosts(@PathVariable String category, @PageableDefault(size=5, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
         return postService.getCategoryPosts(category, pageable);
     }
 

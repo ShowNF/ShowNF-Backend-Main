@@ -47,7 +47,7 @@ public class PostService {
     }
 
     // 카테고리별 게시물 조회
-    public Page<RequestPostDTO> getCategoryPosts(String category, Pageable pageable){
+    public Page<Long> getCategoryPosts(String category, Pageable pageable){
         return categoryPostsBean.exec(category, pageable);
     }
 

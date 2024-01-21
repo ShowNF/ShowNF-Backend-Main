@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.Enum.Category;
 import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostDAO;
 import com.shownf.reptile.repository.PostMetaRepositoryJPA;
@@ -36,5 +37,10 @@ public class GetPostsDAOBean {
     // 유저 아이디로 게시물 전체 찾기
     public Page<PostMeta> exec(Long userId, Pageable pageable){
         return postMetaRepositoryJPA.findByUserId(userId, pageable);
+    }
+
+    // 카테고리별 게시물 찾기
+    public Page<PostMeta> exec(String category, Pageable pageable){
+        return postMetaRepositoryJPA.findByCategory(Category.valueOf(category), pageable);
     }
 }

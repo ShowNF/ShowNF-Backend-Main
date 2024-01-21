@@ -1,6 +1,5 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.RequestPostDTO;
 import com.shownf.reptile.Model.DTO.ResponsePostsDTO;
 import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostDAO;
@@ -37,33 +36,18 @@ public class CreatePostsDTOBean {
         return new PageImpl<>(postIds, pageable, postMetas.getTotalElements());
     }
 
-    // 카테고리별 게시물 조회시 DTO 생성
-    public Page<RequestPostDTO> exec(String category, Pageable pageable, Page<PostDAO> postDAOs){
+    // 카테고리별 게시물 조회시 postId 리스트 생성
+    public Page<Long> exec(String category, Pageable pageable, Page<PostMeta> postMetas){
 
-        List<RequestPostDTO> requestPostDTOs = new ArrayList<>();
+        List<Long> postIds = new ArrayList<>();
 
         // DTO 객체에 게시물 정보 넘기기
-        for (PostDAO postDAO: postDAOs) {
-            RequestPostDTO requestPostDTO = new RequestPostDTO();
-
-            requestPostDTO.setPostId(postDAO.getPostId());
-            requestPostDTO.setUserId(postDAO.getUserId());
-            requestPostDTO.setTitle(postDAO.getTitle());
-
-            String content = getPostContentDAOsBean.exec(postDAO.getPostId(), postDAO.getContent());
-            requestPostDTO.setContent(content);
-            requestPostDTO.setCategory(postDAO.getCategory().name());
-            requestPostDTO.setUploadTime(postDAO.getUploadTime());
-            requestPostDTO.setUpdateTime(postDAO.getUpdateTime());
-            requestPostDTO.setHeartCount(postDAO.getHeartCount());
-            requestPostDTO.setCommentCount(postDAO.getCommentCount());
-            requestPostDTO.setViewCount(postDAO.getViewCount());
-
-            requestPostDTOs.add(requestPostDTO);
+        for (PostMeta postMeta: postMetas) {
+            postIds.add(postMeta.getPostId());
         }
 
         // List 구조를 Page 구조로 변경 후 반환
-        return new PageImpl<>(requestPostDTOs, pageable, postDAOs.getTotalElements());
+        return new PageImpl<>(postIds, pageable, postMetas.getTotalElements());
     }
 
     // 마이페이지 유저 게시물 조회시 DTO 생성
