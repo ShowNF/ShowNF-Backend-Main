@@ -1,7 +1,6 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.MetaDAO.PostMeta;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -12,13 +11,6 @@ import java.util.List;
 
 @Component
 public class CreatePostsDTOBean {
-
-    GetPostContentDAOsBean getPostContentDAOsBean;
-
-    @Autowired
-    public CreatePostsDTOBean(GetPostContentDAOsBean getPostContentDAOsBean) {
-        this.getPostContentDAOsBean = getPostContentDAOsBean;
-    }
 
     // 게시물 조회시 postId 리스트 생성
     public Page<Long> exec(Pageable pageable, Page<PostMeta> postMetas){
