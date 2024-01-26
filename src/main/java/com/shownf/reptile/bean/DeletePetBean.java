@@ -1,6 +1,5 @@
 package com.shownf.reptile.bean;
 
-import com.shownf.reptile.Model.DTO.RequestDiaryDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestPetDeleteDTO;
 import com.shownf.reptile.Model.entity.DiaryDAO;
 import com.shownf.reptile.Model.entity.PetDAO;
@@ -18,16 +17,16 @@ public class DeletePetBean {
     GetDiarysDAOBean getDiarysDAOBean;
     UpdateUserPetCountDAOBean updateUserPetCountDAOBean;
     SavePetDAOBean savePetDAOBean;
-    SaveDiarysDAOBean saveDiarysDAOBean;
+    SaveDiaryDAOBean saveDiaryDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeletePetBean(GetPetDAOBean getPetDAOBean, GetDiarysDAOBean getDiarysDAOBean, UpdateUserPetCountDAOBean updateUserPetCountDAOBean, SavePetDAOBean savePetDAOBean, SaveDiarysDAOBean saveDiarysDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeletePetBean(GetPetDAOBean getPetDAOBean, GetDiarysDAOBean getDiarysDAOBean, UpdateUserPetCountDAOBean updateUserPetCountDAOBean, SavePetDAOBean savePetDAOBean, SaveDiaryDAOBean saveDiaryDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getPetDAOBean = getPetDAOBean;
         this.getDiarysDAOBean = getDiarysDAOBean;
         this.updateUserPetCountDAOBean = updateUserPetCountDAOBean;
         this.savePetDAOBean = savePetDAOBean;
-        this.saveDiarysDAOBean = saveDiarysDAOBean;
+        this.saveDiaryDAOBean = saveDiaryDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
     }
 
@@ -56,7 +55,7 @@ public class DeletePetBean {
         savePetDAOBean.exec(petDAO);
 
         // 다이어리 저장
-        saveDiarysDAOBean.exec(diaryDAOS);
+        saveDiaryDAOBean.exec(diaryDAOS);
 
         // 유저 저장
         saveUserDAOBean.exec(userDAO);

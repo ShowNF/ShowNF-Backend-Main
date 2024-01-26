@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -24,6 +25,12 @@ public class SaveDiaryDAOBean {
     // 다이어리 저장
     public void exec(DiaryDAO diaryDAO){
         diaryRepositoryJPA.save(diaryDAO);
+    }
+
+    // 다이어리들 저장
+    public void exec(List<DiaryDAO> diaryDAOS){
+        for (DiaryDAO diaryDAO : diaryDAOS)
+            diaryRepositoryJPA.save(diaryDAO);
     }
 
     // 다이어리 저장시 DAO 생성
