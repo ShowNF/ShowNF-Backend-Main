@@ -2,6 +2,7 @@ package com.shownf.reptile.bean.small;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shownf.reptile.Model.DTO.RequestPetSaveDTO;
+import com.shownf.reptile.Model.Enum.Disclosure;
 import com.shownf.reptile.Model.Enum.Gender;
 import com.shownf.reptile.Model.Enum.Level;
 import com.shownf.reptile.Model.entity.PetDAO;
@@ -80,10 +81,12 @@ public class SavePetDAOBean {
         // 레벨 경험치
         Integer levelExperience = 0;
 
+        Disclosure disclosure = Disclosure.전체공개;
+
         // 소프트 딜리트
         boolean deleteCheck = false;
 
-        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, updateTime, diaryCount, level, levelExperience, deleteCheck);
+        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, updateTime, diaryCount, level, levelExperience, disclosure, deleteCheck);
 
     }
 }

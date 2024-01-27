@@ -1,5 +1,6 @@
 package com.shownf.reptile.Model.entity;
 
+import com.shownf.reptile.Model.Enum.Disclosure;
 import com.shownf.reptile.Model.Enum.Gender;
 import com.shownf.reptile.Model.Enum.Level;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,6 @@ public class PetDAO {
     Integer diaryCount;
     Level level;
     Integer levelExperience;
+    Disclosure disclosure;
     boolean deleteCheck;
 }
