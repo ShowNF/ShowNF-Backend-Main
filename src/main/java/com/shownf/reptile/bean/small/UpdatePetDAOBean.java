@@ -2,7 +2,9 @@ package com.shownf.reptile.bean.small;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shownf.reptile.Model.DTO.RequestDiaryDeleteDTO;
+import com.shownf.reptile.Model.DTO.RequestPetDisclosureDTO;
 import com.shownf.reptile.Model.DTO.RequestPetUpdateDTO;
+import com.shownf.reptile.Model.Enum.Disclosure;
 import com.shownf.reptile.Model.Enum.Gender;
 import com.shownf.reptile.Model.entity.DiaryDAO;
 import com.shownf.reptile.Model.entity.PetDAO;
@@ -61,6 +63,15 @@ public class UpdatePetDAOBean {
 
         // 수정 시간
         petDAO.setUpdateTime(LocalDateTime.now());
+
+        return petDAO;
+    }
+
+    // pet disclosure update
+    public PetDAO exec(PetDAO petDAO, RequestPetDisclosureDTO requestPetDisclosureDTO){
+
+        // 공개여부
+        petDAO.setDisclosure(Disclosure.valueOf(requestPetDisclosureDTO.getDisclosure()));
 
         return petDAO;
     }
