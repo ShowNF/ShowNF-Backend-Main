@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,15 +42,15 @@ public class PetController {
     // 마이펫 전체 조회
     @ApiOperation(value = "마이펫 전체 조회", notes = "유저 아이디로 찾은 마이펫 12개씩 페이징 조회")
     @GetMapping("pet/user/{userId}")
-    public Page<ResponsePetDTO> getPets(@PathVariable Long userId, @PageableDefault(size=12, sort="uploadTime", direction = Sort.Direction.ASC) Pageable pageable){
-        return petService.getPets(userId, pageable);
+    public Page<ResponsePetDTO> getPets(@PathVariable Long userId, @PageableDefault(size=12, sort="uploadTime", direction = Sort.Direction.ASC) Pageable pageable, HttpServletRequest request){
+        return petService.getPets(userId, pageable, request);
     }
 
     // 마이펫 레벨별 조회
     @ApiOperation(value = "마이펫 레벨별 조회", notes = "유저 아이디로 찾은 마이펫 레벨별 12개씩 페이징 조회")
     @GetMapping("pet/level/user/{userId}")
-    public Page<ResponsePetDTO> getLevelPets(@PathVariable Long userId, @PageableDefault(size=12, sort="level", direction = Sort.Direction.DESC) Pageable pageable){
-        return petService.getLevelPets(userId, pageable);
+    public Page<ResponsePetDTO> getLevelPets(@PathVariable Long userId, @PageableDefault(size=12, sort="level", direction = Sort.Direction.DESC) Pageable pageable, HttpServletRequest request){
+        return petService.getLevelPets(userId, pageable, request);
     }
 
 

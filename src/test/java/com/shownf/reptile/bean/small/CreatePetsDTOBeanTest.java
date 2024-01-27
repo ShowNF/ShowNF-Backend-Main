@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ class CreatePetsDTOBeanTest {
         petDAOs.add(petDAO2);
 
         // 테스트 실행
-        Page<ResponsePetDTO> resultPage = createPetsDTOBean.exec(PageRequest.of(0, 10), new PageImpl<>(petDAOs));
+        Page<ResponsePetDTO> resultPage = createPetsDTOBean.exec(true, PageRequest.of(0, 10), new PageImpl<>(petDAOs));
 
         // 결과 검증
         assertThat(resultPage.getContent()).hasSize(2);

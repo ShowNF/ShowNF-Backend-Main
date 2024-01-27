@@ -14,13 +14,15 @@ import java.util.List;
 public class CreatePetsDTOBean {
 
     // 유저 아이디로 마이펫 조회시 DTO 생성
-    public Page<ResponsePetDTO> exec(Pageable pageable, Page<PetDAO> petDAOs){
+    public Page<ResponsePetDTO> exec(boolean check, Pageable pageable, Page<PetDAO> petDAOs){
 
         List<ResponsePetDTO> responsePetDTOS = new ArrayList<>();
 
         // DTO 객체에 게시물 정보 넘기기
         for (PetDAO petDAO: petDAOs) {
             if (petDAO.isDeleteCheck()) continue;
+            // check 가 true이면 자기꺼니까 걍 다 보이고 false 이면 내꺼가 아니니까
+            if (!check && petDAO.getDisclosure().toString().equals("나만보기")) continue;
             ResponsePetDTO responsePetDTO = new ResponsePetDTO();
 
             responsePetDTO.setPetId(petDAO.getPetId());

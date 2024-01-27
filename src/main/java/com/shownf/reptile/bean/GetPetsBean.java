@@ -2,42 +2,63 @@ package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.ResponsePetDTO;
 import com.shownf.reptile.Model.entity.PetDAO;
+import com.shownf.reptile.Model.entity.UserDAO;
+import com.shownf.reptile.bean.small.CheckUserAccessTokenDAOBean;
 import com.shownf.reptile.bean.small.CreatePetsDTOBean;
 import com.shownf.reptile.bean.small.GetPetsDAOBean;
+import com.shownf.reptile.bean.small.GetUserDAOBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Component
 public class GetPetsBean {
 
     GetPetsDAOBean getPetsDAOBean;
+    GetUserDAOBean getUserDAOBean;
+    CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean;
     CreatePetsDTOBean createPetsDTOBean;
 
     @Autowired
-    public GetPetsBean(GetPetsDAOBean getPetsDAOBean, CreatePetsDTOBean createPetsDTOBean) {
+    public GetPetsBean(GetPetsDAOBean getPetsDAOBean, GetUserDAOBean getUserDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, CreatePetsDTOBean createPetsDTOBean) {
         this.getPetsDAOBean = getPetsDAOBean;
+        this.getUserDAOBean = getUserDAOBean;
+        this.checkUserAccessTokenDAOBean = checkUserAccessTokenDAOBean;
         this.createPetsDTOBean = createPetsDTOBean;
     }
 
     // 마이펫 Page 형태로 전체 조회
-    public Page<ResponsePetDTO> exec(Long userId, Pageable pageable){
+    public Page<ResponsePetDTO> exec(Long userId, Pageable pageable, HttpServletRequest request){
 
         // 유저 아이디로 마이펫 전체 찾기
         Page<PetDAO> petDAOs = getPetsDAOBean.exec(userId, pageable);
 
+        // 마이페이지인지 남의 마이펫인지 구분하기 위해 token 확인
+        UserDAO userDAO = getUserDAOBean.exec(userId);
+        if (userDAO == null) return null;
+
+        boolean check = checkUserAccessTokenDAOBean.exec(userDAO, request);
+
         // DAO 객체 DTO 반환
-        return createPetsDTOBean.exec(pageable, petDAOs);
+        return createPetsDTOBean.exec(check, pageable, petDAOs);
     }
 
     // 마이펫 Page 형태로 레벨별 조회
-    public Page<ResponsePetDTO> exec(Long userId, Pageable pageable, Integer level){
+    public Page<ResponsePetDTO> exec(Long userId, Pageable pageable, Integer level, HttpServletRequest request){
 
         // 유저 아이디로 마이펫 전체 찾기
         Page<PetDAO> petDAOs = getPetsDAOBean.exec(userId, pageable);
 
+        // 마이페이지인지 남의 마이펫인지 구분하기 위해 token 확인
+        UserDAO userDAO = getUserDAOBean.exec(userId);
+        if (userDAO == null) return null;
+
+        boolean check = checkUserAccessTokenDAOBean.exec(userDAO, request);
+
         // DAO 객체 DTO 반환
-        return createPetsDTOBean.exec(pageable, petDAOs);
+        return createPetsDTOBean.exec(check, pageable, petDAOs);
     }
 }

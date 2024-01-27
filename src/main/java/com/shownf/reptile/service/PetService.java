@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public class PetService {
 
@@ -34,13 +36,13 @@ public class PetService {
     }
 
     // 마이펫 전체 조회
-    public Page<ResponsePetDTO> getPets(Long userId, Pageable pageable){
-        return getPetsBean.exec(userId, pageable);
+    public Page<ResponsePetDTO> getPets(Long userId, Pageable pageable, HttpServletRequest request){
+        return getPetsBean.exec(userId, pageable, request);
     }
 
     // 마이펫 레벨별 조회
-    public Page<ResponsePetDTO> getLevelPets(Long userId, Pageable pageable){
-        return getPetsBean.exec(userId, pageable, 0);
+    public Page<ResponsePetDTO> getLevelPets(Long userId, Pageable pageable, HttpServletRequest request){
+        return getPetsBean.exec(userId, pageable, 0, request);
     }
 
     // 마이펫 저장
