@@ -37,12 +37,18 @@ class SavePetDAOBeanTest {
         PetDAO petToSave = new PetDAO();
         petToSave.setPetId(1L);
 
+        ArgumentCaptor<PetDAO> petDAOArgumentCaptor = ArgumentCaptor.forClass(PetDAO.class);
+
         // When
         savePetDAOBean.exec(petToSave);
 
         // Then
-        // Verify that the save method of petRepositoryJPA is called with the correct argument
-        verify(petRepositoryJPA, times(1)).save(petToSave);
+        // petRepositoryJPA의 save 메소드가 올바른 인자로 호출되었는지 확인
+        verify(petRepositoryJPA, times(1)).save(petDAOArgumentCaptor.capture());
+
+        // 캡처한 인자로 추가적인 어서션 수행
+        PetDAO capturedPetDAO = petDAOArgumentCaptor.getValue();
+        assertThat(capturedPetDAO.getPetId()).isEqualTo(petToSave.getPetId());
     }
 
     @Test
