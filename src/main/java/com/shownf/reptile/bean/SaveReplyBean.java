@@ -15,7 +15,7 @@ public class SaveReplyBean {
 
     CreateUniqueIdBean createUniqueIdBean;
     CreateReplyDAOBean createReplyDAOBean;
-    UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean;
+    UpdateCommentDAOBean updateCommentDAOBean;
     UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean;
     UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean;
     GetUserDAOBean getUserDAOBean;
@@ -28,10 +28,10 @@ public class SaveReplyBean {
     SavePostMetaDAOBean savePostMetaDAOBean;
 
     @Autowired
-    public SaveReplyBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyDAOBean createReplyDAOBean, UpdateCommentReplyCountDAOBean updateCommentReplyCountDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean, SavePostMetaDAOBean savePostMetaDAOBean) {
+    public SaveReplyBean(CreateUniqueIdBean createUniqueIdBean, CreateReplyDAOBean createReplyDAOBean, UpdateCommentDAOBean updateCommentDAOBean, UpdatePostCommentCountDAOBean updatePostCommentCountDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, GetUserDAOBean getUserDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveReplyDAOBean saveReplyDAOBean, SaveCommentDAOBean saveCommentDAOBean, SavePostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean, SavePostMetaDAOBean savePostMetaDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createReplyDAOBean = createReplyDAOBean;
-        this.updateCommentReplyCountDAOBean = updateCommentReplyCountDAOBean;
+        this.updateCommentDAOBean = updateCommentDAOBean;
         this.updatePostCommentCountDAOBean = updatePostCommentCountDAOBean;
         this.updateUserCommentCountDAOBean = updateUserCommentCountDAOBean;
         this.getUserDAOBean = getUserDAOBean;
@@ -54,7 +54,7 @@ public class SaveReplyBean {
         ReplyDAO replyDAO = createReplyDAOBean.exec(replyId, requestReplySaveDTO);
 
         // 대댓글 저장에 따른 댓글 대댓글 갯수 추가
-        CommentDAO commentDAO = updateCommentReplyCountDAOBean.exec(replyDAO);
+        CommentDAO commentDAO = updateCommentDAOBean.exec(replyDAO);
         if (commentDAO == null)
             return 0L;
 

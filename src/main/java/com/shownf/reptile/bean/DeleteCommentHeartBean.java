@@ -14,7 +14,7 @@ public class DeleteCommentHeartBean {
     GetCommentHeartDAOBean getCommentHeartDAOBean;
     CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean;
     CheckUserIdCommentDAOBean checkUserIdCommentDAOBean;
-    UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean;
+    UpdateCommentDAOBean updateCommentDAOBean;
     UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean;
     UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean;
     DeleteCommentHeartDAOBean deleteCommentHeartDAOBean;
@@ -23,11 +23,11 @@ public class DeleteCommentHeartBean {
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentHeartCountDAOBean updateCommentHeartCountDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, DeleteCommentHeartDAOBean deleteCommentHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentDAOBean saveCommentDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteCommentHeartBean(GetCommentHeartDAOBean getCommentHeartDAOBean, CheckCommentIdCommentDAOBean checkCommentIdCommentDAOBean, CheckUserIdCommentDAOBean checkUserIdCommentDAOBean, UpdateCommentDAOBean updateCommentDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, DeleteCommentHeartDAOBean deleteCommentHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveCommentDAOBean saveCommentDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getCommentHeartDAOBean = getCommentHeartDAOBean;
         this.checkCommentIdCommentDAOBean = checkCommentIdCommentDAOBean;
         this.checkUserIdCommentDAOBean = checkUserIdCommentDAOBean;
-        this.updateCommentHeartCountDAOBean = updateCommentHeartCountDAOBean;
+        this.updateCommentDAOBean = updateCommentDAOBean;
         this.updateUserReceiveHeartDAOBean = updateUserReceiveHeartDAOBean;
         this.updateUserSendHeartDAOBean = updateUserSendHeartDAOBean;
         this.deleteCommentHeartDAOBean = deleteCommentHeartDAOBean;
@@ -54,7 +54,7 @@ public class DeleteCommentHeartBean {
             return null;
 
         // 댓글 좋아요 갯수 감소
-        CommentDAO commentDAO = updateCommentHeartCountDAOBean.exec(commentHeartDAO.getCommentHeartId(), commentHeartDAO);
+        CommentDAO commentDAO = updateCommentDAOBean.exec(commentHeartDAO.getCommentHeartId(), commentHeartDAO);
         if (commentDAO == null) return null;
 
         // 좋아요 sender, receiver 감소
