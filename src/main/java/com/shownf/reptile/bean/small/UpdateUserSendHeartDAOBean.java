@@ -4,18 +4,17 @@ import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
-import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateUserSendHeartDAOBean {
 
-    UserRepositoryJPA userRepositoryJPA;
+    GetUserDAOBean getUserDAOBean;
 
     @Autowired
-    public UpdateUserSendHeartDAOBean(UserRepositoryJPA userRepositoryJPA) {
-        this.userRepositoryJPA = userRepositoryJPA;
+    public UpdateUserSendHeartDAOBean(GetUserDAOBean getUserDAOBean) {
+        this.getUserDAOBean = getUserDAOBean;
     }
 
     // 게시물 좋아요시 좋아요 보낸 유저 수정
@@ -25,7 +24,7 @@ public class UpdateUserSendHeartDAOBean {
         Long userId = postHeartDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 sendHeart 추가
@@ -50,7 +49,7 @@ public class UpdateUserSendHeartDAOBean {
         Long userId = postHeartDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 sendHeart 감소
@@ -75,7 +74,7 @@ public class UpdateUserSendHeartDAOBean {
         Long userId = commentHeartDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 sendHeart 추가
@@ -100,7 +99,7 @@ public class UpdateUserSendHeartDAOBean {
         Long userId = commentHeartDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 sendHeart 감소
@@ -125,7 +124,7 @@ public class UpdateUserSendHeartDAOBean {
         Long userId = replyHeartDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 sendHeart 추가
@@ -150,7 +149,7 @@ public class UpdateUserSendHeartDAOBean {
         Long userId = replyHeartDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 sendHeart 감소

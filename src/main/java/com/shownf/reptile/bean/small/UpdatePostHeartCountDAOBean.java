@@ -3,21 +3,19 @@ package com.shownf.reptile.bean.small;
 import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
-import com.shownf.reptile.repository.PostMetaRepositoryJPA;
-import com.shownf.reptile.repository.PostRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdatePostHeartCountDAOBean {
 
-    PostRepositoryJPA postRepositoryJPA;
-    PostMetaRepositoryJPA postMetaRepositoryJPA;
+    GetPostDAOBean getPostDAOBean;
+    GetPostMetaDAOBean getPostMetaDAOBean;
 
     @Autowired
-    public UpdatePostHeartCountDAOBean(PostRepositoryJPA postRepositoryJPA, PostMetaRepositoryJPA postMetaRepositoryJPA) {
-        this.postRepositoryJPA = postRepositoryJPA;
-        this.postMetaRepositoryJPA = postMetaRepositoryJPA;
+    public UpdatePostHeartCountDAOBean(GetPostDAOBean getPostDAOBean, GetPostMetaDAOBean getPostMetaDAOBean) {
+        this.getPostDAOBean = getPostDAOBean;
+        this.getPostMetaDAOBean = getPostMetaDAOBean;
     }
 
     // 게시물 좋아요 갯수 추가
@@ -27,7 +25,7 @@ public class UpdatePostHeartCountDAOBean {
         Long postId = postHeartDAO.getPostId();
 
         // postId 로 게시물 찾기
-        PostDAO postDAO = postRepositoryJPA.findById(postId).orElse(null);
+        PostDAO postDAO = getPostDAOBean.exec(postId);
         if (postDAO == null) return null;
 
         // 게시물 좋아요 수 1 증가
@@ -44,7 +42,7 @@ public class UpdatePostHeartCountDAOBean {
         Long postId = postHeartDAO.getPostId();
 
         // postId 로 게시물 찾기
-        PostDAO postDAO = postRepositoryJPA.findById(postId).orElse(null);
+        PostDAO postDAO = getPostDAOBean.exec(postId);
         if (postDAO == null) return null;
 
         // 게시물 좋아요 수 1 감소
@@ -61,7 +59,7 @@ public class UpdatePostHeartCountDAOBean {
         Long postId = postDAO.getPostId();
 
         // postId 로 게시물 찾기
-        PostMeta postMeta = postMetaRepositoryJPA.findById(postId).orElse(null);
+        PostMeta postMeta = getPostMetaDAOBean.exec(postId);
         if (postMeta == null) return null;
 
         // 게시물 좋아요 수 변동

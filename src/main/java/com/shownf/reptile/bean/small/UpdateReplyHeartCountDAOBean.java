@@ -2,18 +2,17 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.entity.ReplyDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
-import com.shownf.reptile.repository.ReplyRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateReplyHeartCountDAOBean {
 
-    ReplyRepositoryJPA replyRepositoryJPA;
+    GetReplyDAOBean getReplyDAOBean;
 
     @Autowired
-    public UpdateReplyHeartCountDAOBean(ReplyRepositoryJPA replyRepositoryJPA) {
-        this.replyRepositoryJPA = replyRepositoryJPA;
+    public UpdateReplyHeartCountDAOBean(GetReplyDAOBean getReplyDAOBean) {
+        this.getReplyDAOBean = getReplyDAOBean;
     }
 
     // 대댓글 좋아요 갯수 추가
@@ -23,7 +22,7 @@ public class UpdateReplyHeartCountDAOBean {
         Long replyId = replyHeartDAO.getReplyId();
 
         // replyId 로 댓글 찾기
-        ReplyDAO replyDAO = replyRepositoryJPA.findById(replyId).orElse(null);
+        ReplyDAO replyDAO = getReplyDAOBean.exec(replyId);
         if (replyDAO == null) return null;
 
         // 대댓글 좋아요 수 1 증가
@@ -40,7 +39,7 @@ public class UpdateReplyHeartCountDAOBean {
         Long replyId = replyHeartDAO.getReplyId();
 
         // replyId 로 댓글 찾기
-        ReplyDAO replyDAO = replyRepositoryJPA.findById(replyId).orElse(null);
+        ReplyDAO replyDAO = getReplyDAOBean.exec(replyId);
         if (replyDAO == null) return null;
 
         // 대댓글 좋아요 수 1 감소

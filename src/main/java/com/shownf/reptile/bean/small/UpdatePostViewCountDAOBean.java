@@ -2,21 +2,19 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.PostDAO;
-import com.shownf.reptile.repository.PostMetaRepositoryJPA;
-import com.shownf.reptile.repository.PostRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdatePostViewCountDAOBean {
 
-    PostRepositoryJPA postRepositoryJPA;
-    PostMetaRepositoryJPA postMetaRepositoryJPA;
+    GetPostDAOBean getPostDAOBean;
+    GetPostMetaDAOBean getPostMetaDAOBean;
 
     @Autowired
-    public UpdatePostViewCountDAOBean(PostRepositoryJPA postRepositoryJPA, PostMetaRepositoryJPA postMetaRepositoryJPA) {
-        this.postRepositoryJPA = postRepositoryJPA;
-        this.postMetaRepositoryJPA = postMetaRepositoryJPA;
+    public UpdatePostViewCountDAOBean(GetPostDAOBean getPostDAOBean, GetPostMetaDAOBean getPostMetaDAOBean) {
+        this.getPostDAOBean = getPostDAOBean;
+        this.getPostMetaDAOBean = getPostMetaDAOBean;
     }
 
     // 게시물 찾기에 대한 조회수 1 증가
@@ -26,7 +24,7 @@ public class UpdatePostViewCountDAOBean {
         Long postId = postDAO.getPostId();
 
         // postId 로 게시물 찾기
-        PostDAO postDAO1 = postRepositoryJPA.findById(postId).orElse(null);
+        PostDAO postDAO1 = getPostDAOBean.exec(postId);
         if (postDAO1 == null) return null;
 
         // 게시물 조회수 1 증가
@@ -43,7 +41,7 @@ public class UpdatePostViewCountDAOBean {
         Long postId = postMeta.getPostId();
 
         // postId 로 게시물 찾기
-        PostMeta updatePostMeta = postMetaRepositoryJPA.findById(postId).orElse(null);
+        PostMeta updatePostMeta = getPostMetaDAOBean.exec(postId);
         if (updatePostMeta == null) return null;
 
         // 게시물 조회수 1 증가

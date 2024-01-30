@@ -2,20 +2,17 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.entity.CommentDAO;
 import com.shownf.reptile.Model.entity.ReplyDAO;
-import com.shownf.reptile.repository.CommentRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class UpdateCommentReplyCountDAOBean {
 
-    CommentRepositoryJPA commentRepositoryJPA;
+    GetCommentDAOBean getCommentDAOBean;
 
     @Autowired
-    public UpdateCommentReplyCountDAOBean(CommentRepositoryJPA commentRepositoryJPA) {
-        this.commentRepositoryJPA = commentRepositoryJPA;
+    public UpdateCommentReplyCountDAOBean(GetCommentDAOBean getCommentDAOBean) {
+        this.getCommentDAOBean = getCommentDAOBean;
     }
 
     // 댓글 대댓글 갯수 추가
@@ -25,8 +22,7 @@ public class UpdateCommentReplyCountDAOBean {
         Long commentId = replyDAO.getCommentId();
 
         // commentId 로 댓글 찾기
-        Optional<CommentDAO> commentDAOOptional = commentRepositoryJPA.findById(commentId);
-        CommentDAO commentDAO = commentDAOOptional.orElse(null);
+        CommentDAO commentDAO = getCommentDAOBean.exec(commentId);
         if (commentDAO == null)
             return null;
 
@@ -44,8 +40,7 @@ public class UpdateCommentReplyCountDAOBean {
         Long commentId = replyDAO.getCommentId();
 
         // commentId 로 댓글 찾기
-        Optional<CommentDAO> commentDAOOptional = commentRepositoryJPA.findById(commentId);
-        CommentDAO commentDAO = commentDAOOptional.orElse(null);
+        CommentDAO commentDAO = getCommentDAOBean.exec(commentId);
         if (commentDAO == null)
             return null;
 

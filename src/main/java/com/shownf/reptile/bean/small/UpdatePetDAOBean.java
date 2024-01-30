@@ -89,10 +89,6 @@ public class UpdatePetDAOBean {
         // 펫 다이어리 갯수 추가
         petDAO.setDiaryCount(petDAO.getDiaryCount() + 1);
 
-        /*// 펫 이미지 세팅
-        if (!diaryDAO.getImageUrl().equals("[]")) {
-            petDAO.setImageUrl(diaryDAO.getImageUrl());
-        }*/
         // 펫 이미지 세팅
         if (!diaryDAO.getImageUrl().equals("")) {
             petDAO.setImageUrl(diaryDAO.getImageUrl());
@@ -118,10 +114,6 @@ public class UpdatePetDAOBean {
         PetDAO petDAO = getPetDAOBean.exec(petId);
         if (petDAO == null) return null;
 
-        /*// 펫 이미지 세팅
-        if (!diaryDAO.getImageUrl().equals("[]")) {
-            petDAO.setImageUrl(diaryDAO.getImageUrl());
-        }*/
         // 펫 이미지 세팅
         if (!diaryDAO.getImageUrl().equals("")) {
             petDAO.setImageUrl(diaryDAO.getImageUrl());

@@ -3,13 +3,10 @@ package com.shownf.reptile.bean.small;
 import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.entity.CommentDAO;
 import com.shownf.reptile.Model.entity.PostDAO;
-import com.shownf.reptile.repository.CommentRepositoryJPA;
 import com.shownf.reptile.repository.PostMetaRepositoryJPA;
 import com.shownf.reptile.repository.PostRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class UpdatePostCommentCountDAOBean {
@@ -59,7 +56,7 @@ public class UpdatePostCommentCountDAOBean {
         return postDAO;
     }
 
-    // 게시물메타데이터 게시물 댓글 갯수 추가
+    // 게시물메타데이터 게시물 댓글 갯수
     public PostMeta exec(PostDAO postDAO){
 
         // postId 가져오기

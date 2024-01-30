@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateUserDiaryCountDAOBean {
 
-    UserRepositoryJPA userRepositoryJPA;
+    GetUserDAOBean getUserDAOBean;
 
     @Autowired
-    public UpdateUserDiaryCountDAOBean(UserRepositoryJPA userRepositoryJPA) {
-        this.userRepositoryJPA = userRepositoryJPA;
+    public UpdateUserDiaryCountDAOBean(GetUserDAOBean getUserDAOBean) {
+        this.getUserDAOBean = getUserDAOBean;
     }
 
     // 다이어리 추가시 유저 다이어리 갯수 증가
@@ -23,7 +23,7 @@ public class UpdateUserDiaryCountDAOBean {
         Long userId = petDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 receiveHeart 추가
@@ -39,7 +39,7 @@ public class UpdateUserDiaryCountDAOBean {
         Long userId = petDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 다이어리 갯수 감소

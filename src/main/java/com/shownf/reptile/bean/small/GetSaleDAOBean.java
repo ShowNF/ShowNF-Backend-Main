@@ -17,6 +17,6 @@ public class GetSaleDAOBean {
 
     // 분양글 찾기
     public SaleDAO exec(Long saleId){
-        return saleRepositoryJPA.findById(saleId).get();
+        return saleRepositoryJPA.findById(saleId).orElse(null);
     }
 }

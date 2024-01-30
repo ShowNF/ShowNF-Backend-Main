@@ -2,18 +2,17 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.entity.SaleDAO;
 import com.shownf.reptile.Model.entity.SaleHeartDAO;
-import com.shownf.reptile.repository.SaleRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateSaleHeartCountDAOBean {
 
-    SaleRepositoryJPA saleRepositoryJPA;
+    GetSaleDAOBean getSaleDAOBean;
 
     @Autowired
-    public UpdateSaleHeartCountDAOBean(SaleRepositoryJPA saleRepositoryJPA) {
-        this.saleRepositoryJPA = saleRepositoryJPA;
+    public UpdateSaleHeartCountDAOBean(GetSaleDAOBean getSaleDAOBean) {
+        this.getSaleDAOBean = getSaleDAOBean;
     }
 
     // 분양글 좋아요 갯수 추가
@@ -23,7 +22,8 @@ public class UpdateSaleHeartCountDAOBean {
         Long saleId = saleHeartDAO.getSaleId();
 
         // saleId 로 분양글 찾기
-        SaleDAO saleDAO = saleRepositoryJPA.findById(saleId).get();
+        SaleDAO saleDAO = getSaleDAOBean.exec(saleId);
+        if (saleDAO == null) return null;
 
         // 분양글 좋아요 수 1 증가
         saleDAO.setHeartCount(saleDAO.getHeartCount() + 1);
@@ -39,7 +39,8 @@ public class UpdateSaleHeartCountDAOBean {
         Long saleId = saleHeartDAO.getSaleId();
 
         // saleId 로 분양글 찾기
-        SaleDAO saleDAO = saleRepositoryJPA.findById(saleId).get();
+        SaleDAO saleDAO = getSaleDAOBean.exec(saleId);
+        if (saleDAO == null) return null;
 
         // 분양글 좋아요 수 1 감소
         saleDAO.setHeartCount(saleDAO.getHeartCount() - 1);

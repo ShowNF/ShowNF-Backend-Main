@@ -4,25 +4,24 @@ import com.shownf.reptile.Model.DTO.RequestPostDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestPostSaveDTO;
 import com.shownf.reptile.Model.entity.PostDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
-import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateUserPostCountDAOBean {
 
-    UserRepositoryJPA userRepositoryJPA;
+    GetUserDAOBean getUserDAOBean;
 
     @Autowired
-    public UpdateUserPostCountDAOBean(UserRepositoryJPA userRepositoryJPA) {
-        this.userRepositoryJPA = userRepositoryJPA;
+    public UpdateUserPostCountDAOBean(GetUserDAOBean getUserDAOBean ) {
+        this.getUserDAOBean = getUserDAOBean;
     }
 
     // 게시물 추가시 유저 postCount 증가
     public UserDAO exec(RequestPostSaveDTO requestPostSaveDTO){
 
         // 유저 아이디로 유저 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(requestPostSaveDTO.getUserId()).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(requestPostSaveDTO.getUserId());
         if (userDAO == null) return null;
 
         // 유저 postCount 증가
@@ -35,7 +34,7 @@ public class UpdateUserPostCountDAOBean {
     public UserDAO exec(RequestPostDeleteDTO requestPostDeleteDTO, PostDAO postDAO){
 
         // 유저 아이디로 유저 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(requestPostDeleteDTO.getUserId()).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(requestPostDeleteDTO.getUserId());
         if (userDAO == null) return null;
 
         // 유저 postCount 감소

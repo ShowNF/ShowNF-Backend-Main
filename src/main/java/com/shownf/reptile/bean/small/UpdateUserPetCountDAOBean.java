@@ -2,18 +2,17 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
-import com.shownf.reptile.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UpdateUserPetCountDAOBean {
 
-    UserRepositoryJPA userRepositoryJPA;
+    GetUserDAOBean getUserDAOBean;
 
     @Autowired
-    public UpdateUserPetCountDAOBean(UserRepositoryJPA userRepositoryJPA) {
-        this.userRepositoryJPA = userRepositoryJPA;
+    public UpdateUserPetCountDAOBean(GetUserDAOBean getUserDAOBean) {
+        this.getUserDAOBean = getUserDAOBean;
     }
 
     // 펫 추가시 유저 펫수 증가
@@ -23,7 +22,7 @@ public class UpdateUserPetCountDAOBean {
         Long userId = petDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 펫 수 추가
@@ -39,7 +38,7 @@ public class UpdateUserPetCountDAOBean {
         Long userId = petDAO.getUserId();
 
         // 유저 객체 찾기
-        UserDAO userDAO = userRepositoryJPA.findById(userId).orElse(null);
+        UserDAO userDAO = getUserDAOBean.exec(userId);
         if (userDAO == null) return null;
 
         // 유저 펫 수 추가
