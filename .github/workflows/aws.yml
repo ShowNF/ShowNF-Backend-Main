@@ -36,7 +36,7 @@ jobs:
 
       # Gradle Build
       - name: Build with Gradle Build
-        run: ./gradlew build -x test
+        run: ./gradlew build
 
       - name: Run Tests
         run: ./gradlew test
