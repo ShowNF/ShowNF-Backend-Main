@@ -29,17 +29,17 @@ jobs:
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
-      
+
       # Gradle Build
       - name: Build with Gradle Clean
         run: ./gradlew clean
 
       # Gradle Build
       - name: Build with Gradle Build
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
       - name: Run Tests
-        run: ./gradlew test
+        run: ./gradlew test -i
 
       # DockerHub 로그인
       - name: DockerHub Login
@@ -58,7 +58,7 @@ jobs:
       - name: DockerHub Push
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
 
-      
+
 
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -78,7 +78,7 @@ jobs:
             sudo docker rm -f ${{ secrets.PROJECT_NAME }}
             sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
-            
+
       # EC2 : 도커 이미지 실행
       - name: Application Run
         uses: appleboy/ssh-action@v0.1.8
