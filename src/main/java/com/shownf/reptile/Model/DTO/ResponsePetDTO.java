@@ -21,4 +21,5 @@ public class ResponsePetDTO {
     Integer diaryCount;
     Level level;
     Integer levelExperience;
+    String disclosure;
 }

@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.ResponsePetDTO;
+import com.shownf.reptile.Model.Enum.Disclosure;
 import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.Model.Enum.Gender;
 import com.shownf.reptile.Model.Enum.Level;
@@ -44,6 +45,7 @@ class CreatePetsDTOBeanTest {
         petDAO1.setLevel(Level.LEVEL_5);
         petDAO1.setLevelExperience(600);
         petDAO1.setDeleteCheck(false);
+        petDAO1.setDisclosure(Disclosure.전체공개);
 
         PetDAO petDAO2 = new PetDAO();
         petDAO2.setPetId(2L);
@@ -61,6 +63,7 @@ class CreatePetsDTOBeanTest {
         petDAO2.setLevel(Level.LEVEL_4);
         petDAO2.setLevelExperience(500);
         petDAO2.setDeleteCheck(false);
+        petDAO2.setDisclosure(Disclosure.나만보기);
 
         petDAOs.add(petDAO1);
         petDAOs.add(petDAO2);
@@ -86,6 +89,8 @@ class CreatePetsDTOBeanTest {
         assertThat(resultDTO1.getDiaryCount()).isEqualTo(10);
         assertThat(resultDTO1.getLevel()).isEqualTo(Level.LEVEL_5);
         assertThat(resultDTO1.getLevelExperience()).isEqualTo(600);
+        assertThat(resultDTO1.getDisclosure()).isEqualTo(Disclosure.전체공개.name());
+
 
         ResponsePetDTO resultDTO2 = resultPage.getContent().get(1);
         assertThat(resultDTO2.getPetId()).isEqualTo(2L);
@@ -102,5 +107,6 @@ class CreatePetsDTOBeanTest {
         assertThat(resultDTO2.getDiaryCount()).isEqualTo(8);
         assertThat(resultDTO2.getLevel()).isEqualTo(Level.LEVEL_4);
         assertThat(resultDTO2.getLevelExperience()).isEqualTo(500);
+        assertThat(resultDTO2.getDisclosure()).isEqualTo(Disclosure.나만보기.name());
     }
 }

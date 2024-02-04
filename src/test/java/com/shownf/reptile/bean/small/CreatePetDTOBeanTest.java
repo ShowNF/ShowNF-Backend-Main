@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.ResponsePetDTO;
+import com.shownf.reptile.Model.Enum.Disclosure;
 import com.shownf.reptile.Model.entity.PetDAO;
 import com.shownf.reptile.Model.Enum.Gender;
 import com.shownf.reptile.Model.Enum.Level;
@@ -36,6 +37,7 @@ class CreatePetDTOBeanTest {
         petDAO.setDiaryCount(10);
         petDAO.setLevel(Level.LEVEL_5);
         petDAO.setLevelExperience(600);
+        petDAO.setDisclosure(Disclosure.전체공개);
 
         // 테스트 실행
         ResponsePetDTO resultResponsePetDTO = createPetDTOBean.exec(petDAO);
@@ -55,5 +57,6 @@ class CreatePetDTOBeanTest {
         assertThat(resultResponsePetDTO.getDiaryCount()).isEqualTo(10);
         assertThat(resultResponsePetDTO.getLevel()).isEqualTo(Level.LEVEL_5);
         assertThat(resultResponsePetDTO.getLevelExperience()).isEqualTo(600);
+        assertThat(resultResponsePetDTO.getDisclosure()).isEqualTo(Disclosure.전체공개.name());
     }
 }

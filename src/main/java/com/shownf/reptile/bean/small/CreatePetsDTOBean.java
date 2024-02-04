@@ -39,6 +39,7 @@ public class CreatePetsDTOBean {
             responsePetDTO.setDiaryCount(petDAO.getDiaryCount());
             responsePetDTO.setLevel(petDAO.getLevel());
             responsePetDTO.setLevelExperience(petDAO.getLevelExperience());
+            responsePetDTO.setDisclosure(petDAO.getDisclosure().name());
 
             responsePetDTOS.add(responsePetDTO);
         }
