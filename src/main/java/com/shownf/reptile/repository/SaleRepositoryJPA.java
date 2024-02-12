@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SaleRepositoryJPA extends JpaRepository<SaleDAO, Long> {
     Page<SaleDAO> findAll(Pageable pageable);
+
+    Page<SaleDAO> findByUserId(Long userId, Pageable pageable);
 }

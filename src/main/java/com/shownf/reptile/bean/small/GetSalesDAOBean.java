@@ -35,4 +35,9 @@ public class GetSalesDAOBean {
     public Page<SaleDAO> exec(Pageable pageable){
         return saleRepositoryJPA.findAll(pageable);
     }
+
+    // 마이페이지 분양글 Page 형태로 전체 조회
+    public Page<SaleDAO> exec(Long userId, Pageable pageable){
+        return saleRepositoryJPA.findByUserId(userId, pageable);
+    }
 }
