@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SaveSaleHeartBean {
 
+    GetSaleHeartDAOBean getSaleHeartDAOBean;
     CreateUniqueIdBean createUniqueIdBean;
     CreateSaleHeartDAOBean createSaleHeartDAOBean;
     SaveSaleHeartDAOBean saveSaleHeartDAOBean;
@@ -17,7 +18,8 @@ public class SaveSaleHeartBean {
     SaveSaleDAOBean saveSaleDAOBean;
 
     @Autowired
-    public SaveSaleHeartBean(CreateUniqueIdBean createUniqueIdBean, CreateSaleHeartDAOBean createSaleHeartDAOBean, SaveSaleHeartDAOBean saveSaleHeartDAOBean, UpdateSaleHeartCountDAOBean updateSaleHeartCountDAOBean, SaveSaleDAOBean saveSaleDAOBean) {
+    public SaveSaleHeartBean(GetSaleHeartDAOBean getSaleHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateSaleHeartDAOBean createSaleHeartDAOBean, SaveSaleHeartDAOBean saveSaleHeartDAOBean, UpdateSaleHeartCountDAOBean updateSaleHeartCountDAOBean, SaveSaleDAOBean saveSaleDAOBean) {
+        this.getSaleHeartDAOBean = getSaleHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createSaleHeartDAOBean = createSaleHeartDAOBean;
         this.saveSaleHeartDAOBean = saveSaleHeartDAOBean;
@@ -27,6 +29,9 @@ public class SaveSaleHeartBean {
 
     // 분양글 좋아요 저장
     public Long exec(RequestSaleHeartSaveDTO requestSaleHeartSaveDTO){
+
+        // 분양글 좋아요 중복 배제
+        if (getSaleHeartDAOBean.exec(requestSaleHeartSaveDTO.getUserId(), requestSaleHeartSaveDTO.getSaleId()) != null) return 0L;
 
         // saleHeartId 생성
         Long saleHeartId = createUniqueIdBean.exec();

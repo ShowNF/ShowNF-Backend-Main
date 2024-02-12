@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface SaleHeartRepositoryJPA extends JpaRepository<SaleHeartDAO, Long> {
     List<SaleHeartDAO> findByUserId(Long userId);
+
+    SaleHeartDAO findByUserIdAndSaleId(Long userId, Long saleId);
+
 }

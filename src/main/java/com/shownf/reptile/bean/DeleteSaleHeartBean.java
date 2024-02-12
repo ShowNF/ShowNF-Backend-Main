@@ -30,6 +30,9 @@ public class DeleteSaleHeartBean {
     // 분양글 좋아요 삭제
     public Long exec(RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO){
 
+        // 분양글 좋아요 중복 배제
+        if (getSaleHeartDAOBean.exec(requestSaleHeartDeleteDTO.getUserId(), requestSaleHeartDeleteDTO.getSaleId()) == null) return 0L;
+
         // 분양글 좋아요 아이디 찾기
         Long saleHeartId = requestSaleHeartDeleteDTO.getSaleHeartId();
 

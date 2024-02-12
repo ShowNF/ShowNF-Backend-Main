@@ -17,6 +17,11 @@ public class GetSaleHeartDAOBean {
 
     // 분양글 좋아요 아이디로 객체 찾기
     public SaleHeartDAO exec(Long saleHeartId){
-        return saleHeartRepositoryJPA.findById(saleHeartId).get();
+        return saleHeartRepositoryJPA.findById(saleHeartId).orElse(null);
+    }
+
+    // 댓글 좋아요 중복 배제를 위한 댓글 찾기
+    public SaleHeartDAO exec(Long userId, Long saleId){
+        return saleHeartRepositoryJPA.findByUserIdAndSaleId(userId, saleId);
     }
 }
