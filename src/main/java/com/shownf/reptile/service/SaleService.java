@@ -35,6 +35,11 @@ public class SaleService {
         return getSaleBean.exec(saleId);
     }
 
+    // 마이페이지 유저 분양글 전체 조회
+    public Page<ResponseSaleDTO> getSales(Long userId, Pageable pageable){
+        return getSalesBean.exec(userId, pageable);
+    }
+
     // 분양글 Page 로 전체 조회
     public Page<ResponseSaleDTO> getSales(Pageable pageable){
         return getSalesBean.exec(pageable);

@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,13 @@ public class SaleController {
     @GetMapping("sale/{saleId}")
     public ResponseSaleDTO getSale(@PathVariable Long saleId){
         return saleService.getSale(saleId);
+    }
+
+    // 마이페이지 분양글 전체 조회
+    @ApiOperation(value = "마이페이지 분양글 전체 조회", notes = "유저 아이디로 분양글 전체 조회")
+    @GetMapping("sale/mypage/user/{userId}")
+    public Page<ResponseSaleDTO> getSales(@PathVariable Long userId, @PageableDefault(size=15, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
+        return saleService.getSales(userId, pageable);
     }
 
 

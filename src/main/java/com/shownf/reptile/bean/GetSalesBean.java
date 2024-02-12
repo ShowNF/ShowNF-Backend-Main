@@ -30,4 +30,14 @@ public class GetSalesBean {
         // DAO 객체 DTO 반환
         return createSalesDTOBean.exec(pageable, saleDAOs);
     }
+
+    // 마이페이지 유저 분양글 Page 형태로 전체 조회
+    public Page<ResponseSaleDTO> exec(Long userId, Pageable pageable){
+
+        // 유저 아이디로 분양글 전체 찾기
+        Page<SaleDAO> saleDAOs = getSalesDAOBean.exec(userId, pageable);
+
+        // DAO 객체 DTO 반환
+        return createSalesDTOBean.exec(pageable, saleDAOs);
+    }
 }
