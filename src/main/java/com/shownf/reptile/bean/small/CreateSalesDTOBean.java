@@ -42,6 +42,8 @@ public class CreateSalesDTOBean {
             responseSaleDTO.setArea(saleDAO.getArea().name());
             responseSaleDTO.setRegion(saleDAO.getRegion());
             responseSaleDTO.setGender(saleDAO.getGender().name());
+            responseSaleDTO.setUploadTime(saleDAO.getUploadTime());
+            responseSaleDTO.setUpdateTime(saleDAO.getUpdateTime());
 
 
             responseSalesDTOs.add(responseSaleDTO);
@@ -80,6 +82,8 @@ public class CreateSalesDTOBean {
             responseSaleDTO.setArea(saleDAO.getArea().name());
             responseSaleDTO.setRegion(saleDAO.getRegion());
             responseSaleDTO.setGender(saleDAO.getGender().name());
+            responseSaleDTO.setUploadTime(saleDAO.getUploadTime());
+            responseSaleDTO.setUpdateTime(saleDAO.getUpdateTime());
 
             responseSaleDTOs.add(responseSaleDTO);
         }

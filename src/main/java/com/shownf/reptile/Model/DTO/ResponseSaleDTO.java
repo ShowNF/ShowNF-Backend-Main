@@ -2,6 +2,8 @@ package com.shownf.reptile.Model.DTO;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ResponseSaleDTO {
     Long saleId;
@@ -23,4 +25,6 @@ public class ResponseSaleDTO {
     String area;
     String region;
     String gender;
+    LocalDateTime uploadTime;
+    LocalDateTime updateTime;
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -37,4 +38,6 @@ public class SaleDAO {
     Area area;
     String region;
     Gender gender;
+    LocalDateTime uploadTime;
+    LocalDateTime updateTime;
 }

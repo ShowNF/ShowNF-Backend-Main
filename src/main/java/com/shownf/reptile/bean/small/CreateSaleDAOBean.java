@@ -9,6 +9,7 @@ import com.shownf.reptile.Model.entity.SaleDAO;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Component
 public class CreateSaleDAOBean {
@@ -75,7 +76,13 @@ public class CreateSaleDAOBean {
         // 성별
         Gender gender = Gender.valueOf(requestSaleSaveDTO.getGender());
 
+        // 업로드 시간
+        LocalDateTime uploadTime = LocalDateTime.now();
+
+        // 수정 시간
+        LocalDateTime updateTime = LocalDateTime.now();
+
         // DTO 반환
-        return new SaleDAO(saleId, petId, userId, imageUrl, individual, firstSpecies, secondSpecies, birthday, weight, memo, price, heartCount, salePlatform, link, refundPolicy, cites, area, region, gender);
+        return new SaleDAO(saleId, petId, userId, imageUrl, individual, firstSpecies, secondSpecies, birthday, weight, memo, price, heartCount, salePlatform, link, refundPolicy, cites, area, region, gender, uploadTime, updateTime);
     }
 }
