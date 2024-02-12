@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,6 +22,13 @@ public class SaleHeartController {
     @Autowired
     public SaleHeartController(SaleHeartService saleHeartService) {
         this.saleHeartService = saleHeartService;
+    }
+
+    // 좋아요 누른 분양글 아이디 전체 조회
+    @ApiOperation(value = "분양글 아이디 전체 조회", notes = "좋아요 누른 분양글 아이디 전체 조회")
+    @GetMapping("saleHeart/user/{userId}")
+    public List<Long> getSaleIds(@PathVariable Long userId){
+        return saleHeartService.getSaleIds(userId);
     }
 
 
