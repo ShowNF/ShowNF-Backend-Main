@@ -25,7 +25,7 @@ public class SaveImageS3Bean {
     private final AmazonS3Client amazonS3Client;
 
 
-    @Value("${cloud.aws.s3.bucket}")
+    @Value("${BUCKET_NAME}")
     private String bucket;
 
     // Aws S3에 이미지 저장
