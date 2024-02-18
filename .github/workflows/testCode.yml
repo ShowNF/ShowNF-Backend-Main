@@ -1,0 +1,33 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Build with Maven
+        run: |
+          ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+      - name: Run Tests
+        run: |
+          ./mvnw test
+
+      - name: Deploy (if tests pass)
+        if: success()
+        run: |
+          # 여기에 푸시 및 배포 관련 명령어를 추가
