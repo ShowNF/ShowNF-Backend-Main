@@ -40,7 +40,7 @@ jobs:
           
       # Gradle Test
       - name: Test with Gradle
-        run: ./gradlew test -i
+        run: ./gradlew --info test
 
       # DockerHub 로그인
       - name: DockerHub Login
