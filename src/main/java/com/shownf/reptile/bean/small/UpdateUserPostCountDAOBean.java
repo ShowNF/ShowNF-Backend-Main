@@ -2,6 +2,7 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.RequestPostDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestPostSaveDTO;
+import com.shownf.reptile.Model.DTO.qna.RequestQnAPostSaveDTO;
 import com.shownf.reptile.Model.entity.PostDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,19 @@ public class UpdateUserPostCountDAOBean {
 
         // 유저 아이디로 유저 찾기
         UserDAO userDAO = getUserDAOBean.exec(requestPostSaveDTO.getUserId());
+        if (userDAO == null) return null;
+
+        // 유저 postCount 증가
+        userDAO.setPostCount(userDAO.getPostCount() + 1);
+
+        return userDAO;
+    }
+
+    // QnA 게시물 추가시 유저 postCount 증가
+    public UserDAO exec(RequestQnAPostSaveDTO requestQnAPostSaveDTO){
+
+        // 유저 아이디로 유저 찾기
+        UserDAO userDAO = getUserDAOBean.exec(requestQnAPostSaveDTO.getUserId());
         if (userDAO == null) return null;
 
         // 유저 postCount 증가
