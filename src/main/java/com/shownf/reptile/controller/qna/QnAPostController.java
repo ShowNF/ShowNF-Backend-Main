@@ -1,15 +1,13 @@
 package com.shownf.reptile.controller.qna;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostSaveDTO;
+import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostGetDTO;
 import com.shownf.reptile.service.qna.QnAPostService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +21,13 @@ public class QnAPostController {
     @Autowired
     public QnAPostController(QnAPostService qnAPostService) {
         this.qnAPostService = qnAPostService;
+    }
+
+    // QnA 게시물 조회
+    @ApiOperation(value = "QnA 게시물 조회", notes = "QnA 게시물 아이디로 게시물 조회")
+    @GetMapping("qna/post/{qnaPostId}")
+    public ResponseQnAPostGetDTO getQnAPost(@PathVariable Long qnaPostId){
+        return qnAPostService.getQnAPostDAO(qnaPostId);
     }
 
     // QnA 게시물 저장
