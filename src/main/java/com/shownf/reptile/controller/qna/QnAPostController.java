@@ -1,6 +1,7 @@
 package com.shownf.reptile.controller.qna;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostSaveDTO;
+import com.shownf.reptile.Model.DTO.qna.RequestQnAPostUpdateDTO;
 import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostGetDTO;
 import com.shownf.reptile.service.qna.QnAPostService;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,6 +62,23 @@ public class QnAPostController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (qnaPostId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("qnaPostId", qnaPostId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // QnA 게시물 수정
+    @ApiOperation(value = "QnA 게시물 수정", notes = "QnA 게시물 수정")
+    @PutMapping("qna/post")
+    public ResponseEntity<Map<String, Object>> updateQnAPost(@RequestBody RequestQnAPostUpdateDTO requestQnAPostSaveDTO, HttpServletRequest request){
+        Long qnaPostId = qnAPostService.updateQnAPostDAO(requestQnAPostSaveDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (qnaPostId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (qnaPostId != null) ? "Update Success" : "Update Fail");
         requestMap.put("qnaPostId", qnaPostId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
