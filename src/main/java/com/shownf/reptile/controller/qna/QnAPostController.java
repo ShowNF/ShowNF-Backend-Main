@@ -5,6 +5,10 @@ import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostGetDTO;
 import com.shownf.reptile.service.qna.QnAPostService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +32,13 @@ public class QnAPostController {
     @GetMapping("qna/post/{qnaPostId}")
     public ResponseQnAPostGetDTO getQnAPost(@PathVariable Long qnaPostId){
         return qnAPostService.getQnAPostDAO(qnaPostId);
+    }
+
+    // 마이페이지 게시물 전체 조회
+    @ApiOperation(value = "마이페이지 QnA 게시물 전체 조회", notes = "유저 아이디로 QnA 게시물 전체 조회")
+    @GetMapping("qna/post/mypage/user/{userId}")
+    public Page<ResponseQnAPostGetDTO> getQnAPosts(@PathVariable Long userId, @PageableDefault(size=15, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
+        return qnAPostService.getQnAPostsDAO(userId, pageable);
     }
 
     // QnA 게시물 저장
