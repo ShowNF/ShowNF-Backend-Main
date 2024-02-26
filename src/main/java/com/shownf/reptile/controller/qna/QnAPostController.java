@@ -34,7 +34,14 @@ public class QnAPostController {
         return qnAPostService.getQnAPostDAO(qnaPostId);
     }
 
-    // 마이페이지 게시물 전체 조회
+    // 핫 QnA 게시물 전체 조회
+    @ApiOperation(value = "핫 QnA 게시물 전체 조회", notes = "핫 QnA 게시물 전체 조회")
+    @GetMapping("qna/post/hot")
+    public Page<ResponseQnAPostGetDTO> getHotQnAPosts(@PageableDefault(size=15, sort="heartCount", direction = Sort.Direction.DESC) Pageable pageable){
+        return qnAPostService.getQnAPostsDAO(pageable);
+    }
+
+    // 마이페이지 QnA 게시물 전체 조회
     @ApiOperation(value = "마이페이지 QnA 게시물 전체 조회", notes = "유저 아이디로 QnA 게시물 전체 조회")
     @GetMapping("qna/post/mypage/user/{userId}")
     public Page<ResponseQnAPostGetDTO> getQnAPosts(@PathVariable Long userId, @PageableDefault(size=15, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){

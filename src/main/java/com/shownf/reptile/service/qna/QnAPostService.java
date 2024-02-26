@@ -30,6 +30,11 @@ public class QnAPostService {
         return getQnAPostBean.exec(qnaPostId);
     }
 
+    // 핫 QnA 게시물 Page 형태로 전체 조회
+    public Page<ResponseQnAPostGetDTO> getQnAPostsDAO(Pageable pageable){
+        return getQnAPostsBean.exec(pageable);
+    }
+
     // 마이페이지 유저 QnA 게시물 Page 형태로 전체 조회
     public Page<ResponseQnAPostGetDTO> getQnAPostsDAO(Long userId, Pageable pageable){
         return getQnAPostsBean.exec(userId, pageable);

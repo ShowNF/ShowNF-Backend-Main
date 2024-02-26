@@ -24,6 +24,19 @@ public class GetQnAPostsBean {
         this.createPostsDTOBean = createPostsDTOBean;
     }
 
+    // 핫 QnA 게시물 Page 형태로 전체 조회
+    public Page<ResponseQnAPostGetDTO> exec(Pageable pageable){
+
+        // 게시물 전체 찾기
+        Page<QnAPostDAO> qnAPostDAOs = getQnAPostsDAOBean.exec(pageable);
+
+        // 게시물 삭제 여부 확인
+        Page<QnAPostDAO> filteredQnAPostDAOS = checkDeleteQnAPostDAOBean.exec(qnAPostDAOs);
+
+        // DAO 객체 DTO 반환
+        return createPostsDTOBean.exec(filteredQnAPostDAOS);
+    }
+
     // 마이페이지 유저 QnA 게시물 Page 형태로 전체 조회
     public Page<ResponseQnAPostGetDTO> exec(Long userId, Pageable pageable){
 
