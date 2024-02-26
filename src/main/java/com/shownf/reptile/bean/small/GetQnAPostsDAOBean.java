@@ -17,6 +17,11 @@ public class GetQnAPostsDAOBean {
         this.qnAPostRepositoryJPA = qnAPostRepositoryJPA;
     }
 
+    // QnA 게시물 전체 조회
+    public Page<QnAPostDAO> exec(Pageable pageable){
+        return qnAPostRepositoryJPA.findAll(pageable);
+    }
+
     // 유저 QnA 게시물 전체 조회
     public Page<QnAPostDAO> exec(Long userid, Pageable pageable){
         return qnAPostRepositoryJPA.findByUserId(userid, pageable);

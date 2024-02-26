@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QnAPostRepositoryJPA extends JpaRepository<QnAPostDAO, Long> {
 
+    Page<QnAPostDAO> findAll(Pageable pageable);
+
     Page<QnAPostDAO> findByUserId(Long userId, Pageable pageable);
 }
