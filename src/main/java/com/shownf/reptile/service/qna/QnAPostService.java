@@ -1,12 +1,10 @@
 package com.shownf.reptile.service.qna;
 
+import com.shownf.reptile.Model.DTO.qna.RequestQnAPostDeleteDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostSaveDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostUpdateDTO;
 import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostGetDTO;
-import com.shownf.reptile.bean.GetQnAPostBean;
-import com.shownf.reptile.bean.GetQnAPostsBean;
-import com.shownf.reptile.bean.SaveQnAPostBean;
-import com.shownf.reptile.bean.UpdateQnAPostBean;
+import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,14 +19,16 @@ public class QnAPostService {
     GetQnAPostsBean getQnAPostsBean;
     SaveQnAPostBean saveQnAPostBean;
     UpdateQnAPostBean updateQnAPostBean;
+    DeleteQnAPostBean deleteQnAPostBean;
 
 
     @Autowired
-    public QnAPostService(GetQnAPostBean getQnAPostBean, GetQnAPostsBean getQnAPostsBean, SaveQnAPostBean saveQnAPostBean, UpdateQnAPostBean updateQnAPostBean) {
+    public QnAPostService(GetQnAPostBean getQnAPostBean, GetQnAPostsBean getQnAPostsBean, SaveQnAPostBean saveQnAPostBean, UpdateQnAPostBean updateQnAPostBean, DeleteQnAPostBean deleteQnAPostBean) {
         this.getQnAPostBean = getQnAPostBean;
         this.getQnAPostsBean = getQnAPostsBean;
         this.saveQnAPostBean = saveQnAPostBean;
         this.updateQnAPostBean = updateQnAPostBean;
+        this.deleteQnAPostBean = deleteQnAPostBean;
     }
 
     // QnA 게시물 조회
@@ -54,6 +54,11 @@ public class QnAPostService {
     // QnA 게시물 수정
     public Long updateQnAPostDAO(RequestQnAPostUpdateDTO requestQnAPostUpdateDTO, HttpServletRequest request){
         return updateQnAPostBean.exec(requestQnAPostUpdateDTO, request);
+    }
+
+    // QnA 게시물 삭제
+    public Long deleteQnAPostDAO(RequestQnAPostDeleteDTO requestQnAPostDeleteDTO, HttpServletRequest request){
+        return deleteQnAPostBean.exec(requestQnAPostDeleteDTO, request);
     }
 
 }

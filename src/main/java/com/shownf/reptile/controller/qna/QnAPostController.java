@@ -1,5 +1,6 @@
 package com.shownf.reptile.controller.qna;
 
+import com.shownf.reptile.Model.DTO.qna.RequestQnAPostDeleteDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostSaveDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostUpdateDTO;
 import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostGetDTO;
@@ -79,6 +80,23 @@ public class QnAPostController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (qnaPostId != null) ? "Update Success" : "Update Fail");
+        requestMap.put("qnaPostId", qnaPostId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // QnA 게시물 삭제
+    @ApiOperation(value = "QnA 게시물 삭제", notes = "QnA 게시물 삭제")
+    @DeleteMapping("qna/post")
+    public ResponseEntity<Map<String, Object>> deleteQnAPost(@RequestBody RequestQnAPostDeleteDTO requestQnAPostDeleteDTO, HttpServletRequest request){
+        Long qnaPostId = qnAPostService.deleteQnAPostDAO(requestQnAPostDeleteDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (qnaPostId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (qnaPostId != null) ? "Delete Success" : "Delete Fail");
         requestMap.put("qnaPostId", qnaPostId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
