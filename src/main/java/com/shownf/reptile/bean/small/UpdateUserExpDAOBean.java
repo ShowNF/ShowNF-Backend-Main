@@ -1,11 +1,13 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.*;
+import com.shownf.reptile.Model.DTO.qna.RequestQnAPostDeleteDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostSaveDTO;
 import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
+import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
 import com.shownf.reptile.config.UserExpConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,6 +36,12 @@ public class UpdateUserExpDAOBean {
 
     // User exp update based on post delete
     public UserDAO exec(RequestPostDeleteDTO requestPostDeleteDTO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getPost());
+        return userDAO;
+    }
+
+    // User exp update based on qna post save
+    public UserDAO exec(RequestQnAPostDeleteDTO requestQnAPostSaveDTO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() - userExpConfig.getPost());
         return userDAO;
     }
