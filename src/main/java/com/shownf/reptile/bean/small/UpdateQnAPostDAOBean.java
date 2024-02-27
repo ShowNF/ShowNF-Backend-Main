@@ -27,4 +27,10 @@ public class UpdateQnAPostDAOBean {
         // 게시물 좋아요 개수 추가
         qnaPostDAO.setHeartCount(qnaPostDAO.getHeartCount() + 1);
     }
+
+    // QnA 게시물 좋아요 개수 감소
+    public void exec(Long check, QnAPostHeartDAO qnaPostHeartDAO, QnAPostDAO qnaPostDAO){
+        // 게시물 좋아요 개수 감소
+        qnaPostDAO.setHeartCount(qnaPostDAO.getHeartCount() - 1);
+    }
 }

@@ -89,6 +89,12 @@ public class UpdateUserExpDAOBean {
         return userDAO;
     }
 
+    // User exp update based on qna postHeart delete
+    public UserDAO exec(String check, QnAPostHeartDAO qnAPostHeartDAO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
+        return userDAO;
+    }
+
     // User exp update based on commentHeart save
     public UserDAO exec(CommentHeartDAO commentHeartDAO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() + userExpConfig.getHeart());

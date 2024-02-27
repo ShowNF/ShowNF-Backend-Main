@@ -93,6 +93,31 @@ public class UpdateUserSendHeartDAOBean {
         return userDAO;
     }
 
+    // QnA 게시물 좋아요 삭제시 좋아요 보낸 유저 수정
+    public UserDAO exec(Long check, QnAPostHeartDAO qnAPostHeartDAO){
+
+        // 좋아요 보낸 유저 아이디
+        Long userId = qnAPostHeartDAO.getUserId();
+
+        // 유저 객체 찾기
+        UserDAO userDAO = getUserDAOBean.exec(userId);
+        if (userDAO == null) return null;
+
+        // 유저 sendHeart 감소
+        userDAO.setSendHeartCount(userDAO.getSendHeartCount() - 1);
+
+        return userDAO;
+    }
+
+    // QnA 자신의 게시물 좋아요 삭제시 좋아요 보낸 유저 수정
+    public UserDAO exec(Long check, QnAPostHeartDAO qnAPostHeartDAO, UserDAO userDAO){
+
+        // 유저 sendHeart 감소
+        userDAO.setSendHeartCount(userDAO.getSendHeartCount() - 1);
+
+        return userDAO;
+    }
+
     // 댓글 좋아요시 좋아요 보낸 유저 수정
     public UserDAO exec(CommentHeartDAO commentHeartDAO){
 
