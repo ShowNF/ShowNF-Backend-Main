@@ -2,6 +2,7 @@ package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostUpdateDTO;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
+import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,5 +20,11 @@ public class UpdateQnAPostDAOBean {
     public void exec(QnAPostDAO qnAPostDAO){
         // 게시물 조회수 1 증가
         qnAPostDAO.setViewCount(qnAPostDAO.getViewCount() + 1);
+    }
+
+    // QnA 게시물 좋아요 개수 추가
+    public void exec(QnAPostHeartDAO qnaPostHeartDAO, QnAPostDAO qnaPostDAO){
+        // 게시물 좋아요 개수 추가
+        qnaPostDAO.setHeartCount(qnaPostDAO.getHeartCount() + 1);
     }
 }

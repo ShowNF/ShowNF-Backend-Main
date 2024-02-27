@@ -8,6 +8,7 @@ import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
+import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
 import com.shownf.reptile.config.UserExpConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class UpdateUserExpDAOBean {
         return userDAO;
     }
 
-    // User exp update based on qna post save
+    // User exp update based on qna post delete
     public UserDAO exec(RequestQnAPostDeleteDTO requestQnAPostSaveDTO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() - userExpConfig.getPost());
         return userDAO;
@@ -79,6 +80,12 @@ public class UpdateUserExpDAOBean {
     // User exp update based on postHeart delete
     public UserDAO exec(String check, PostHeartDAO postHeartDAO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
+        return userDAO;
+    }
+
+    // User exp update based on qna postHeart save
+    public UserDAO exec(QnAPostHeartDAO qnaPostHeartDAO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() + userExpConfig.getHeart());
         return userDAO;
     }
 

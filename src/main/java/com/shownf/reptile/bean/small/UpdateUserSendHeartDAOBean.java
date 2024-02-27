@@ -4,6 +4,7 @@ import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
+import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -63,6 +64,31 @@ public class UpdateUserSendHeartDAOBean {
 
         // 유저 sendHeart 감소
         userDAO.setSendHeartCount(userDAO.getSendHeartCount() - 1);
+
+        return userDAO;
+    }
+
+    // QnA 게시물 좋아요시 좋아요 보낸 유저 수정
+    public UserDAO exec(QnAPostHeartDAO qnaPostHeartDAO){
+
+        // 좋아요 보낸 유저 아이디
+        Long userId = qnaPostHeartDAO.getUserId();
+
+        // 유저 객체 찾기
+        UserDAO userDAO = getUserDAOBean.exec(userId);
+        if (userDAO == null) return null;
+
+        // 유저 sendHeart 추가
+        userDAO.setSendHeartCount(userDAO.getSendHeartCount() + 1);
+
+        return userDAO;
+    }
+
+    // 자신의 게시물 좋아요시 좋아요 보낸 유저 수정
+    public UserDAO exec(QnAPostHeartDAO qnaPostHeartDAO, UserDAO userDAO){
+
+        // 유저 sendHeart 추가
+        userDAO.setSendHeartCount(userDAO.getSendHeartCount() + 1);
 
         return userDAO;
     }

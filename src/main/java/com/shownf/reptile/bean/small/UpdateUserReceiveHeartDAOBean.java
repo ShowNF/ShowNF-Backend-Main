@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.entity.*;
+import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +43,22 @@ public class UpdateUserReceiveHeartDAOBean {
 
         // 유저 receiveHeart 감소
         userDAO.setReceiveHeartCount(userDAO.getReceiveHeartCount() - 1);
+
+        return userDAO;
+    }
+
+    // QnA 게시물 좋아요시 좋아요 받은 유저 수정
+    public UserDAO exec(QnAPostDAO qnaPostDAO){
+
+        // 좋아요 받은 유저 아이디
+        Long userId = qnaPostDAO.getUserId();
+
+        // 유저 객체 찾기
+        UserDAO userDAO = getUserDAOBean.exec(userId);
+        if (userDAO == null) return null;
+
+        // 유저 receiveHeart 추가
+        userDAO.setReceiveHeartCount(userDAO.getReceiveHeartCount() + 1);
 
         return userDAO;
     }
