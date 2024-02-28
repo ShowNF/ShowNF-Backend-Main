@@ -1,6 +1,7 @@
 package com.shownf.reptile.controller.qna;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnACommentSaveDTO;
+import com.shownf.reptile.Model.DTO.qna.RequestQnACommentUpdateDTO;
 import com.shownf.reptile.Model.DTO.qna.ResponseQnACommentGetDTO;
 import com.shownf.reptile.service.qna.QnACommentService;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +45,23 @@ public class QnACommentController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (qnaCommentId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("qnaCommentId", qnaCommentId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // QnA Comment 수정
+    @ApiOperation(value = "QnA 댓글 수정", notes = "QnA댓글 수정시 저장한다.")
+    @PutMapping("qna/comment")
+    public ResponseEntity<Map<String, Object>> updateQnAComment(@RequestBody RequestQnACommentUpdateDTO requestQnACommentUpdateDTO, HttpServletRequest request){
+        Long qnaCommentId = qnaCommentService.updateQnAComment(requestQnACommentUpdateDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (qnaCommentId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (qnaCommentId != null) ? "Update Success" : "Update Fail");
         requestMap.put("qnaCommentId", qnaCommentId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
