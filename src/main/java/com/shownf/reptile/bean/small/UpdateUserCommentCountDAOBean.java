@@ -44,6 +44,12 @@ public class UpdateUserCommentCountDAOBean {
         return userDAO;
     }
 
+    // 댓글 추가시 게시글 작성한 유저 댓글 수 증가
+    public void exec(UserDAO userDAO){
+        // 유저 commentCount 증가
+        userDAO.setCommentCount(userDAO.getCommentCount() + 1);
+    }
+
     // 댓글 삭제시 게시물 작성한 유저 댓글 수 김소
     public UserDAO exec(RequestCommentDeleteDTO requestCommentDeleteDTO){
 

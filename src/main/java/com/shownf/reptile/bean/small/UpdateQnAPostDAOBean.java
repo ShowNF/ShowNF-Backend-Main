@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostUpdateDTO;
+import com.shownf.reptile.Model.entity.qna.QnACommentDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
 import org.springframework.stereotype.Component;
@@ -32,5 +33,12 @@ public class UpdateQnAPostDAOBean {
     public void exec(Long check, QnAPostHeartDAO qnaPostHeartDAO, QnAPostDAO qnaPostDAO){
         // 게시물 좋아요 개수 감소
         qnaPostDAO.setHeartCount(qnaPostDAO.getHeartCount() - 1);
+    }
+
+    // QnA 게시물 댓글 갯수 추가
+    public void exec(QnACommentDAO qnACommentDAO, QnAPostDAO qnaPostDAO){
+
+        // 게시물 댓글 수 1 증가
+        qnaPostDAO.setCommentCount(qnaPostDAO.getCommentCount() + 1);
     }
 }
