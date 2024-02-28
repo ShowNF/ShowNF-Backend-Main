@@ -1,18 +1,16 @@
 package com.shownf.reptile.controller.qna;
 
-import com.shownf.reptile.Model.DTO.RequestCommentSaveDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnACommentSaveDTO;
+import com.shownf.reptile.Model.DTO.qna.ResponseQnACommentGetDTO;
 import com.shownf.reptile.service.qna.QnACommentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +22,13 @@ public class QnACommentController {
     @Autowired
     public QnACommentController(QnACommentService qnaCommentService) {
         this.qnaCommentService = qnaCommentService;
+    }
+
+    // QnA Comment 전체 조회
+    @ApiOperation(value = "QnA 댓글 전체 조회", notes = "QnA게시판 아이디에 해당하는 댓글을 찾는다.")
+    @GetMapping("qna/comment/{qnaPostId}")
+    public List<ResponseQnACommentGetDTO> getQnAComments(@PathVariable Long qnaPostId){
+        return qnaCommentService.getQnAComments(qnaPostId);
     }
 
     // QnA Comment 저장
