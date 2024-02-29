@@ -4,6 +4,7 @@ import com.shownf.reptile.Model.DTO.RequestCommentDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestCommentSaveDTO;
 import com.shownf.reptile.Model.DTO.RequestReplyDeleteDTO;
 import com.shownf.reptile.Model.DTO.RequestReplySaveDTO;
+import com.shownf.reptile.Model.DTO.qna.RequestQnACommentDeleteDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnACommentSaveDTO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import org.springframework.stereotype.Component;
@@ -39,5 +40,10 @@ public class UpdateUserSendCommentCountDAOBean {
     public UserDAO exec(RequestQnACommentSaveDTO requestQnACommentSaveDTO, UserDAO userDAO){
         userDAO.setSendCommentCount(userDAO.getSendCommentCount() + 1);
         return userDAO;
+    }
+
+    // Decrease the user's 'send QnA comment count' when delete a comment.
+    public void exec(RequestQnACommentDeleteDTO requestQnACommentDeleteDTO, UserDAO userDAO){
+        userDAO.setSendCommentCount(userDAO.getSendCommentCount() - 1);
     }
 }

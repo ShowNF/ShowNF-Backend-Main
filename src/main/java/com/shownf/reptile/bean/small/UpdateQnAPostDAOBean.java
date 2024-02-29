@@ -41,4 +41,11 @@ public class UpdateQnAPostDAOBean {
         // 게시물 댓글 수 1 증가
         qnaPostDAO.setCommentCount(qnaPostDAO.getCommentCount() + 1);
     }
+
+    // QnA 게시물 댓글 갯수 감소
+    public void exec(Long check, QnACommentDAO qnACommentDAO, QnAPostDAO qnaPostDAO){
+
+        // 게시물 댓글 수 1 증가
+        qnaPostDAO.setCommentCount(qnaPostDAO.getCommentCount() - 1);
+    }
 }
