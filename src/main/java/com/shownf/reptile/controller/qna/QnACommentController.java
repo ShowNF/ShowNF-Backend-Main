@@ -1,5 +1,6 @@
 package com.shownf.reptile.controller.qna;
 
+import com.shownf.reptile.Model.DTO.qna.RequestQnACommentDeleteDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnACommentSaveDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnACommentUpdateDTO;
 import com.shownf.reptile.Model.DTO.qna.ResponseQnACommentGetDTO;
@@ -62,6 +63,23 @@ public class QnACommentController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (qnaCommentId != null) ? "Update Success" : "Update Fail");
+        requestMap.put("qnaCommentId", qnaCommentId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // QnA Comment 삭제
+    @ApiOperation(value = "QnA 댓글 삭제", notes = "QnA댓글 삭제시 저장한다.")
+    @DeleteMapping("qna/comment")
+    public ResponseEntity<Map<String, Object>> deleteQnAComment(@RequestBody RequestQnACommentDeleteDTO requestQnACommentDeleteDTO, HttpServletRequest request){
+        Long qnaCommentId = qnaCommentService.deleteQnAComment(requestQnACommentDeleteDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (qnaCommentId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (qnaCommentId != null) ? "Delete Success" : "Delete Fail");
         requestMap.put("qnaCommentId", qnaCommentId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
