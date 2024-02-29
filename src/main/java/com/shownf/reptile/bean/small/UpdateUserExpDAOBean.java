@@ -87,6 +87,10 @@ public class UpdateUserExpDAOBean {
     }
 
     // User exp update based on reply delete
+    public UserDAO exec(RequestQnAReplyDeleteDTO requestQnAReplyDeleteDTO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getReply());
+        return userDAO;
+    }
 
     // User exp update based on postHeart save
     public UserDAO exec(PostHeartDAO postHeartDAO, UserDAO userDAO){
