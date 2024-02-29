@@ -1,10 +1,7 @@
 package com.shownf.reptile.bean.small;
 
 import com.shownf.reptile.Model.DTO.*;
-import com.shownf.reptile.Model.DTO.qna.RequestQnACommentDeleteDTO;
-import com.shownf.reptile.Model.DTO.qna.RequestQnACommentSaveDTO;
-import com.shownf.reptile.Model.DTO.qna.RequestQnAPostDeleteDTO;
-import com.shownf.reptile.Model.DTO.qna.RequestQnAPostSaveDTO;
+import com.shownf.reptile.Model.DTO.qna.*;
 import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
@@ -83,6 +80,13 @@ public class UpdateUserExpDAOBean {
         userDAO.setExp(userDAO.getExp() - userExpConfig.getReply());
         return userDAO;
     }
+
+    // User exp update based on reply save
+    public void exec(RequestQnAReplySaveDTO requestQnAReplySaveDTO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() + userExpConfig.getReply());
+    }
+
+    // User exp update based on reply delete
 
     // User exp update based on postHeart save
     public UserDAO exec(PostHeartDAO postHeartDAO, UserDAO userDAO){
