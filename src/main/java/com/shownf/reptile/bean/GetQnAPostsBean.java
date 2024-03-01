@@ -1,7 +1,6 @@
 package com.shownf.reptile.bean;
 
-import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostGetDTO;
-import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
+import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
 import com.shownf.reptile.bean.small.CheckDeleteQnAPostDAOBean;
 import com.shownf.reptile.bean.small.CreateQnAPostsDTOBean;
 import com.shownf.reptile.bean.small.GetQnAPostsDAOBean;
@@ -25,28 +24,31 @@ public class GetQnAPostsBean {
     }
 
     // 핫 QnA 게시물 Page 형태로 전체 조회
-    public Page<ResponseQnAPostGetDTO> exec(Pageable pageable){
+    public Page<Long> exec(Pageable pageable){
 
         // 게시물 전체 찾기
-        Page<QnAPostDAO> qnAPostDAOs = getQnAPostsDAOBean.exec(pageable);
+        Page<QnAPostMeta> qnAPostMetas = getQnAPostsDAOBean.exec(pageable);
 
         // 게시물 삭제 여부 확인
-        Page<QnAPostDAO> filteredQnAPostDAOS = checkDeleteQnAPostDAOBean.exec(qnAPostDAOs);
+        Page<QnAPostMeta> filteredQnAPostMetas = checkDeleteQnAPostDAOBean.exec(qnAPostMetas);
 
         // DAO 객체 DTO 반환
-        return createPostsDTOBean.exec(filteredQnAPostDAOS);
+        return createPostsDTOBean.exec(filteredQnAPostMetas);
     }
 
     // 마이페이지 유저 QnA 게시물 Page 형태로 전체 조회
-    public Page<ResponseQnAPostGetDTO> exec(Long userId, Pageable pageable){
+    public Page<Long> exec(Long userId, Pageable pageable){
 
         // 유저 아이디로 QnA 게시물 전체 찾기
-        Page<QnAPostDAO> qnAPostDAOs = getQnAPostsDAOBean.exec(userId, pageable);
+        Page<QnAPostMeta> qnAPostMetas = getQnAPostsDAOBean.exec(userId, pageable);
 
         // 게시물 삭제 여부 확인
-        Page<QnAPostDAO> filteredQnAPostDAOS = checkDeleteQnAPostDAOBean.exec(qnAPostDAOs);
+        Page<QnAPostMeta> filteredQnAPostMetaS = checkDeleteQnAPostDAOBean.exec(qnAPostMetas);
 
         // DAO 객체 DTO 반환
-        return createPostsDTOBean.exec(filteredQnAPostDAOS);
+        return createPostsDTOBean.exec(filteredQnAPostMetaS);
     }
+
+    // 유저가 좋아요한 QnA 게시물 조회
+    // 유저 좋아요 만들고 나서 만들어야함
 }

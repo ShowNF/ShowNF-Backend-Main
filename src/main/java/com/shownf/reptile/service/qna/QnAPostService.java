@@ -37,12 +37,12 @@ public class QnAPostService {
     }
 
     // 핫 QnA 게시물 Page 형태로 전체 조회
-    public Page<ResponseQnAPostGetDTO> getQnAPostsDAO(Pageable pageable){
+    public Page<Long> getQnAPostsDAO(Pageable pageable){
         return getQnAPostsBean.exec(pageable);
     }
 
     // 마이페이지 유저 QnA 게시물 Page 형태로 전체 조회
-    public Page<ResponseQnAPostGetDTO> getQnAPostsDAO(Long userId, Pageable pageable){
+    public Page<Long> getQnAPostsDAO(Long userId, Pageable pageable){
         return getQnAPostsBean.exec(userId, pageable);
     }
 

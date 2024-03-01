@@ -1,41 +1,26 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostGetDTO;
-import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
+import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CreateQnAPostsDTOBean {
 
-    private ResponseQnAPostGetDTO exec(QnAPostDAO qnAPostDAO) {
-        ResponseQnAPostGetDTO dto = new ResponseQnAPostGetDTO();
-        dto.setQnaPostId(qnAPostDAO.getQnaPostId());
-        dto.setUserId(qnAPostDAO.getUserId());
-        dto.setTitle(qnAPostDAO.getTitle());
-        dto.setImageUrl(qnAPostDAO.getImageUrl());
-        dto.setContent(qnAPostDAO.getContent());
-        dto.setUploadTime(qnAPostDAO.getUploadTime());
-        dto.setUpdateTime(qnAPostDAO.getUpdateTime());
-        dto.setHeartCount(qnAPostDAO.getHeartCount());
-        dto.setCommentCount(qnAPostDAO.getCommentCount());
-        dto.setViewCount(qnAPostDAO.getViewCount());
-        return dto;
-    }
-
     // QnA 게시물 DAO 객체 DTO 반환
-    public Page<ResponseQnAPostGetDTO> exec(Page<QnAPostDAO> qnAPostDAOs){
+    public Page<Long> exec(Page<QnAPostMeta> qnAPostMetas){
 
-        List<QnAPostDAO> content = qnAPostDAOs.getContent();
-        List<ResponseQnAPostGetDTO> convertedContent = content.stream()
-                .map(this::exec)
-                .collect(Collectors.toList());
+        List<Long> qnaPostIds = new ArrayList<>();
 
-        return new PageImpl<>(convertedContent, qnAPostDAOs.getPageable(), qnAPostDAOs.getTotalElements());
+        for (QnAPostMeta qnAPostMeta: qnAPostMetas) {
+            qnaPostIds.add(qnAPostMeta.getQnaPostId());
+        }
+
+        return new PageImpl<>(qnaPostIds, qnAPostMetas.getPageable(), qnAPostMetas.getTotalElements());
 
     }
 }

@@ -1,7 +1,7 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
-import com.shownf.reptile.repository.qna.QnAPostRepositoryJPA;
+import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
+import com.shownf.reptile.repository.qna.QnAPostMetaRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,20 +10,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class GetQnAPostsDAOBean {
 
-    QnAPostRepositoryJPA qnAPostRepositoryJPA;
+    QnAPostMetaRepositoryJPA qnAPostMetaRepositoryJPA;
 
     @Autowired
-    public GetQnAPostsDAOBean(QnAPostRepositoryJPA qnAPostRepositoryJPA) {
-        this.qnAPostRepositoryJPA = qnAPostRepositoryJPA;
+    public GetQnAPostsDAOBean(QnAPostMetaRepositoryJPA qnAPostMetaRepositoryJPA) {
+        this.qnAPostMetaRepositoryJPA = qnAPostMetaRepositoryJPA;
     }
 
     // QnA 게시물 전체 조회
-    public Page<QnAPostDAO> exec(Pageable pageable){
-        return qnAPostRepositoryJPA.findAll(pageable);
+    public Page<QnAPostMeta> exec(Pageable pageable){
+        return qnAPostMetaRepositoryJPA.findAll(pageable);
     }
 
     // 유저 QnA 게시물 전체 조회
-    public Page<QnAPostDAO> exec(Long userid, Pageable pageable){
-        return qnAPostRepositoryJPA.findByUserId(userid, pageable);
+    public Page<QnAPostMeta> exec(Long userid, Pageable pageable){
+        return qnAPostMetaRepositoryJPA.findByUserId(userid, pageable);
     }
 }
