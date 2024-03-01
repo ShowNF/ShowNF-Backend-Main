@@ -51,6 +51,13 @@ public class QnAPostController {
         return qnAPostService.getQnAPostsDAO(userId, pageable);
     }
 
+    // 유저가 좋아요한 게시물 조회
+    @ApiOperation(value = "유저가 좋아요한 게시물 조회", notes = "유저 아이드를 입력받아 해당하는 게시물 15개씩 페이징 조회")
+    @GetMapping("qna/post/user/{userId}")
+    public Page<Long> getUserQnAPostHearts(@PathVariable Long userId, @PageableDefault(size=5, sort="uploadTime", direction = Sort.Direction.DESC) Pageable pageable){
+        return qnAPostService.getUserQnAPostHearts(userId, pageable);
+    }
+
     // QnA 게시물 저장
     @ApiOperation(value = "QnA 게시물 저장", notes = "QnA 게시물 작성시 저장")
     @PostMapping("qna/post")

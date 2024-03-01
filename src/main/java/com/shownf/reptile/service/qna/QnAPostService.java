@@ -17,15 +17,17 @@ public class QnAPostService {
 
     GetQnAPostBean getQnAPostBean;
     GetQnAPostsBean getQnAPostsBean;
+    GetQnAPostUserHeartBean getQnAPostUserHeartBean;
     SaveQnAPostBean saveQnAPostBean;
     UpdateQnAPostBean updateQnAPostBean;
     DeleteQnAPostBean deleteQnAPostBean;
 
 
     @Autowired
-    public QnAPostService(GetQnAPostBean getQnAPostBean, GetQnAPostsBean getQnAPostsBean, SaveQnAPostBean saveQnAPostBean, UpdateQnAPostBean updateQnAPostBean, DeleteQnAPostBean deleteQnAPostBean) {
+    public QnAPostService(GetQnAPostBean getQnAPostBean, GetQnAPostsBean getQnAPostsBean, GetQnAPostUserHeartBean getQnAPostUserHeartBean, SaveQnAPostBean saveQnAPostBean, UpdateQnAPostBean updateQnAPostBean, DeleteQnAPostBean deleteQnAPostBean) {
         this.getQnAPostBean = getQnAPostBean;
         this.getQnAPostsBean = getQnAPostsBean;
+        this.getQnAPostUserHeartBean = getQnAPostUserHeartBean;
         this.saveQnAPostBean = saveQnAPostBean;
         this.updateQnAPostBean = updateQnAPostBean;
         this.deleteQnAPostBean = deleteQnAPostBean;
@@ -44,6 +46,11 @@ public class QnAPostService {
     // 마이페이지 유저 QnA 게시물 Page 형태로 전체 조회
     public Page<Long> getQnAPostsDAO(Long userId, Pageable pageable){
         return getQnAPostsBean.exec(userId, pageable);
+    }
+
+    // 유저가 좋아요한 QnA 게시물 Page 형태로 전체 조회
+    public Page<Long> getUserQnAPostHearts(Long userId, Pageable pageable){
+        return getQnAPostUserHeartBean.exec(userId, pageable);
     }
 
     // QnA 게시물 저장
