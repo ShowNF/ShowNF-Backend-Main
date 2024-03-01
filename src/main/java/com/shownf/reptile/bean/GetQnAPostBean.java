@@ -1,11 +1,9 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostGetDTO;
+import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
-import com.shownf.reptile.bean.small.CreateQnAPostDTOBean;
-import com.shownf.reptile.bean.small.GetQnAPostDAOBean;
-import com.shownf.reptile.bean.small.SaveQnAPostDAOBean;
-import com.shownf.reptile.bean.small.UpdateQnAPostDAOBean;
+import com.shownf.reptile.bean.small.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,14 +13,20 @@ public class GetQnAPostBean {
     GetQnAPostDAOBean getQnAPostDAOBean;
     UpdateQnAPostDAOBean updateQnAPostDAOBean;
     CreateQnAPostDTOBean createQnAPostDTOBean;
+    GetQnAPostMetaDAOBean getQnAPostMetaDAOBean;
+    UpdateQnAPostMetaDAOBean updatePostViewCountDAOBean;
     SaveQnAPostDAOBean saveQnAPostDAOBean;
+    SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean;
 
     @Autowired
-    public GetQnAPostBean(GetQnAPostDAOBean getQnAPostDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, CreateQnAPostDTOBean createQnAPostDTOBean, SaveQnAPostDAOBean saveQnAPostDAOBean) {
+    public GetQnAPostBean(GetQnAPostDAOBean getQnAPostDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, CreateQnAPostDTOBean createQnAPostDTOBean, GetQnAPostMetaDAOBean getQnAPostMetaDAOBean, UpdateQnAPostMetaDAOBean updatePostViewCountDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean) {
         this.getQnAPostDAOBean = getQnAPostDAOBean;
         this.updateQnAPostDAOBean = updateQnAPostDAOBean;
         this.createQnAPostDTOBean = createQnAPostDTOBean;
+        this.getQnAPostMetaDAOBean = getQnAPostMetaDAOBean;
+        this.updatePostViewCountDAOBean = updatePostViewCountDAOBean;
         this.saveQnAPostDAOBean = saveQnAPostDAOBean;
+        this.saveQnAPostMetaDAOBean = saveQnAPostMetaDAOBean;
     }
 
     // QnA 게시물 조회
@@ -38,8 +42,18 @@ public class GetQnAPostBean {
         // DTO 에 게시물 객체 넘기기
         ResponseQnAPostGetDTO responseQnAPostGetDTO = createQnAPostDTOBean.exec(qnAPostDAO);
 
-        // 게시물 저장
+        // postMeta 게시물 찾기
+        QnAPostMeta qnAPostMeta = getQnAPostMetaDAOBean.exec(qnaPostId);
+        if (qnAPostMeta == null) return null;
+
+        // QnA 게시물 메타데이터 조회수 증가
+        updatePostViewCountDAOBean.exec(qnAPostMeta);
+
+        // QnA 게시물 저장
         saveQnAPostDAOBean.exec(qnAPostDAO);
+
+        // QnA 게시물 메타데이터 저장
+        saveQnAPostMetaDAOBean.exec(qnAPostMeta);
 
         // DTO 반환
         return responseQnAPostGetDTO;

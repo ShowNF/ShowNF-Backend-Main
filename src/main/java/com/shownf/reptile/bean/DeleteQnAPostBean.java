@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostDeleteDTO;
+import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
 import com.shownf.reptile.bean.small.*;
@@ -17,19 +18,24 @@ public class DeleteQnAPostBean {
     CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean;
     UpdateUserDAOBean updateUserDAOBean;
     UpdateUserExpDAOBean updateUserExpDAOBean;
+    GetQnAPostMetaDAOBean getQnAPostMetaDAOBean;
     SaveQnAPostDAOBean saveQnAPostDAOBean;
+    SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean;
     SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteQnAPostBean(GetQnAPostDAOBean getQnAPostDAOBean, GetUserDAOBean getUserDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, UpdateUserDAOBean updateUserDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteQnAPostBean(GetQnAPostDAOBean getQnAPostDAOBean, GetUserDAOBean getUserDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, UpdateUserDAOBean updateUserDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, GetQnAPostMetaDAOBean getQnAPostMetaDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getQnAPostDAOBean = getQnAPostDAOBean;
         this.getUserDAOBean = getUserDAOBean;
         this.checkUserAccessTokenDAOBean = checkUserAccessTokenDAOBean;
         this.updateUserDAOBean = updateUserDAOBean;
         this.updateUserExpDAOBean = updateUserExpDAOBean;
+        this.getQnAPostMetaDAOBean = getQnAPostMetaDAOBean;
         this.saveQnAPostDAOBean = saveQnAPostDAOBean;
+        this.saveQnAPostMetaDAOBean = saveQnAPostMetaDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
     }
+
 
     // Delete the post
     public Long exec(RequestQnAPostDeleteDTO requestQnAPostDeleteDTO, HttpServletRequest request){
@@ -54,8 +60,18 @@ public class DeleteQnAPostBean {
         // 유저 경험치 변경
         updateUserExpDAOBean.exec(requestQnAPostDeleteDTO, userDAO);
 
+        // QnA 게시물 메타데이터 찾기
+        QnAPostMeta qnAPostMeta = getQnAPostMetaDAOBean.exec(requestQnAPostDeleteDTO.getQnaPostId());
+        if (qnAPostMeta == null) return 0L;
+
+        // QnA 게시물 메타데이터 deleteCheck 값 true 변경
+        qnAPostMeta.setDeleteCheck(true);
+
         // 게시물 저장
         saveQnAPostDAOBean.exec(qnAPostDAO);
+
+        // 게시물 메타데이터 저장
+        saveQnAPostMetaDAOBean.exec(qnAPostMeta);
 
         // 유저 저장
         saveUserDAOBean.exec(userDAO);

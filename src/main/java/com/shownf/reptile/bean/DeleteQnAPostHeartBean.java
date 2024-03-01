@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostHeartDeleteDTO;
+import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
@@ -20,9 +21,12 @@ public class DeleteQnAPostHeartBean {
     DeleteQnAPostHeartDAOBean deleteQnAPostHeartDAOBean;
     SaveQnAPostDAOBean saveQnAPostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
+    GetQnAPostMetaDAOBean getQnAPostMetaDAOBean;
+    UpdateQnAPostMetaDAOBean updateQnAPostMetaDAOBean;
+    SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean;
 
     @Autowired
-    public DeleteQnAPostHeartBean(GetQnAPostHeartDAOBean getPostHeartDAOBean, GetQnAPostDAOBean getQnAPostDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, DeleteQnAPostHeartDAOBean deleteQnAPostHeartDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public DeleteQnAPostHeartBean(GetQnAPostHeartDAOBean getPostHeartDAOBean, GetQnAPostDAOBean getQnAPostDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, DeleteQnAPostHeartDAOBean deleteQnAPostHeartDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveUserDAOBean saveUserDAOBean, GetQnAPostMetaDAOBean getQnAPostMetaDAOBean, UpdateQnAPostMetaDAOBean updateQnAPostMetaDAOBean, SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean) {
         this.getPostHeartDAOBean = getPostHeartDAOBean;
         this.getQnAPostDAOBean = getQnAPostDAOBean;
         this.updateQnAPostDAOBean = updateQnAPostDAOBean;
@@ -32,6 +36,9 @@ public class DeleteQnAPostHeartBean {
         this.deleteQnAPostHeartDAOBean = deleteQnAPostHeartDAOBean;
         this.saveQnAPostDAOBean = saveQnAPostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
+        this.getQnAPostMetaDAOBean = getQnAPostMetaDAOBean;
+        this.updateQnAPostMetaDAOBean = updateQnAPostMetaDAOBean;
+        this.saveQnAPostMetaDAOBean = saveQnAPostMetaDAOBean;
     }
 
     // QnA 게시물 좋아요 삭제
@@ -43,14 +50,6 @@ public class DeleteQnAPostHeartBean {
         // 취소 중복 배제
         if (qnAPostHeartDAO == null)
             return 0L;
-/*
-        // 좋아요 해당하는 게시물 확인
-        if (!checkPostIdPostDAOBean.exec(qnAPostHeartDAO, requestQnAPostHeartDeleteDTO))
-            return null;
-
-        // 좋아요 해당하는 유저 확인
-        if (!checkUserIdPostDAOBean.exec(qnAPostHeartDAO, requestQnAPostHeartDeleteDTO))
-            return null;*/
 
         // QnA 게시물 객체 찾기
         QnAPostDAO qnaPostDAO = getQnAPostDAOBean.exec(qnAPostHeartDAO.getQnaPostId());
@@ -72,6 +71,10 @@ public class DeleteQnAPostHeartBean {
         // 경험치 삭제
         userDAO2 = updateUserExpDAOBean.exec(null, qnAPostHeartDAO, userDAO2);
 
+        // QnA 게시물 메타데이터 수정
+        QnAPostMeta qnAPostMeta = getQnAPostMetaDAOBean.exec(requestQnAPostHeartDeleteDTO.getQnaPostId());
+        if (qnAPostMeta == null) return 0L;
+        updateQnAPostMetaDAOBean.exec(0L, qnAPostHeartDAO, qnAPostMeta);
 
         // 좋아요 삭제
         deleteQnAPostHeartDAOBean.exec(qnAPostHeartDAO);
@@ -82,6 +85,9 @@ public class DeleteQnAPostHeartBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO1);
         saveUserDAOBean.exec(userDAO2);
+
+        // QnA 메타데이터 게시물 저장
+        saveQnAPostMetaDAOBean.exec(qnAPostMeta);
 
         // postHeartId 반환
         return qnAPostHeartDAO.getQnaPostHeartId();

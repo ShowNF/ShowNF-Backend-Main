@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnAPostHeartSaveDTO;
+import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
@@ -22,9 +23,12 @@ public class SaveQnAPostHeartBean {
     SaveQnAPostHeartDAOBean savePostHeartDAOBean;
     SaveQnAPostDAOBean saveQnAPostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
+    GetQnAPostMetaDAOBean getQnAPostMetaDAOBean;
+    UpdateQnAPostMetaDAOBean updateQnAPostMetaDAOBean;
+    SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean;
 
     @Autowired
-    public SaveQnAPostHeartBean(GetQnAPostHeartDAOBean getQnAPostHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateQnAPostHeartDAOBean createQnAPostHeartDAOBean, GetQnAPostDAOBean getQnAPostDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveQnAPostHeartDAOBean savePostHeartDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SaveQnAPostHeartBean(GetQnAPostHeartDAOBean getQnAPostHeartDAOBean, CreateUniqueIdBean createUniqueIdBean, CreateQnAPostHeartDAOBean createQnAPostHeartDAOBean, GetQnAPostDAOBean getQnAPostDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, UpdateUserReceiveHeartDAOBean updateUserReceiveHeartDAOBean, UpdateUserSendHeartDAOBean updateUserSendHeartDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveQnAPostHeartDAOBean savePostHeartDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveUserDAOBean saveUserDAOBean, GetQnAPostMetaDAOBean getQnAPostMetaDAOBean, UpdateQnAPostMetaDAOBean updateQnAPostMetaDAOBean, SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean) {
         this.getQnAPostHeartDAOBean = getQnAPostHeartDAOBean;
         this.createUniqueIdBean = createUniqueIdBean;
         this.createQnAPostHeartDAOBean = createQnAPostHeartDAOBean;
@@ -36,6 +40,9 @@ public class SaveQnAPostHeartBean {
         this.savePostHeartDAOBean = savePostHeartDAOBean;
         this.saveQnAPostDAOBean = saveQnAPostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
+        this.getQnAPostMetaDAOBean = getQnAPostMetaDAOBean;
+        this.updateQnAPostMetaDAOBean = updateQnAPostMetaDAOBean;
+        this.saveQnAPostMetaDAOBean = saveQnAPostMetaDAOBean;
     }
 
     // QnA 게시물 좋아요 저장
@@ -72,6 +79,11 @@ public class SaveQnAPostHeartBean {
         // 유저 경험치 추가
         userDAO2 = updateUserExpDAOBean.exec(qnAPostHeartDAO, userDAO2);
 
+        // QnA 게시물 메타데이터 수정
+        QnAPostMeta qnAPostMeta = getQnAPostMetaDAOBean.exec(requestQnAPostHeartSaveDTO.getQnaPostId());
+        if (qnAPostMeta == null) return 0L;
+        updateQnAPostMetaDAOBean.exec(qnAPostHeartDAO, qnAPostMeta);
+
         // 좋아요 저장
         savePostHeartDAOBean.exec(qnAPostHeartDAO);
 
@@ -81,6 +93,9 @@ public class SaveQnAPostHeartBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO1);
         saveUserDAOBean.exec(userDAO2);
+
+        // QnA 게시물 메타데이터 저장
+        saveQnAPostMetaDAOBean.exec(qnAPostMeta);
 
         // postHeartId 반환
         return qnaPostHeartId;
