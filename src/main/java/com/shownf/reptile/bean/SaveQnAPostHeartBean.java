@@ -82,7 +82,7 @@ public class SaveQnAPostHeartBean {
         // QnA 게시물 메타데이터 수정
         QnAPostMeta qnAPostMeta = getQnAPostMetaDAOBean.exec(requestQnAPostHeartSaveDTO.getQnaPostId());
         if (qnAPostMeta == null) return 0L;
-        updateQnAPostMetaDAOBean.exec(qnAPostHeartDAO, qnAPostMeta);
+        updateQnAPostMetaDAOBean.exec(qnaPostDAO, qnAPostMeta);
 
         // 좋아요 저장
         savePostHeartDAOBean.exec(qnAPostHeartDAO);

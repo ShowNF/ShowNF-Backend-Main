@@ -1,6 +1,7 @@
 package com.shownf.reptile.bean;
 
 import com.shownf.reptile.Model.DTO.qna.RequestQnACommentSaveDTO;
+import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.Model.entity.qna.QnACommentDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
@@ -22,9 +23,12 @@ public class SaveQnACommentBean {
     SaveQnACommentDAOBean saveCommentDAOBean;
     SaveQnAPostDAOBean savePostDAOBean;
     SaveUserDAOBean saveUserDAOBean;
+    GetQnAPostMetaDAOBean getQnAPostMetaDAOBean;
+    UpdateQnAPostMetaDAOBean updateQnAPostMetaDAOBean;
+    SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean;
 
     @Autowired
-    public SaveQnACommentBean(CreateUniqueIdBean createUniqueIdBean, CreateQnACommentDAOBean createQnACommentDAOBean, GetQnAPostDAOBean getQnAPostDAOBean, GetUserDAOBean getUserDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveQnACommentDAOBean saveCommentDAOBean, SaveQnAPostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean) {
+    public SaveQnACommentBean(CreateUniqueIdBean createUniqueIdBean, CreateQnACommentDAOBean createQnACommentDAOBean, GetQnAPostDAOBean getQnAPostDAOBean, GetUserDAOBean getUserDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, UpdateUserCommentCountDAOBean updateUserCommentCountDAOBean, UpdateUserSendCommentCountDAOBean updateUserSendCommentCountDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveQnACommentDAOBean saveCommentDAOBean, SaveQnAPostDAOBean savePostDAOBean, SaveUserDAOBean saveUserDAOBean, GetQnAPostMetaDAOBean getQnAPostMetaDAOBean, UpdateQnAPostMetaDAOBean updateQnAPostMetaDAOBean, SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean) {
         this.createUniqueIdBean = createUniqueIdBean;
         this.createQnACommentDAOBean = createQnACommentDAOBean;
         this.getQnAPostDAOBean = getQnAPostDAOBean;
@@ -36,8 +40,10 @@ public class SaveQnACommentBean {
         this.saveCommentDAOBean = saveCommentDAOBean;
         this.savePostDAOBean = savePostDAOBean;
         this.saveUserDAOBean = saveUserDAOBean;
+        this.getQnAPostMetaDAOBean = getQnAPostMetaDAOBean;
+        this.updateQnAPostMetaDAOBean = updateQnAPostMetaDAOBean;
+        this.saveQnAPostMetaDAOBean = saveQnAPostMetaDAOBean;
     }
-
 
     // QnA 댓글 저장
     public Long exec(RequestQnACommentSaveDTO requestQnACommentSaveDTO){
@@ -71,6 +77,11 @@ public class SaveQnACommentBean {
         // 경험치 추가
         writeUserDAO = updateUserExpDAOBean.exec(requestQnACommentSaveDTO, writeUserDAO);
 
+        // QnA 게시물 메타데이터 변동
+        QnAPostMeta qnAPostMeta = getQnAPostMetaDAOBean.exec(requestQnACommentSaveDTO.getQnaPostId());
+        if (qnAPostMeta == null) return 0L;
+        updateQnAPostMetaDAOBean.exec(qnaCommentDAO, qnaPostDAO, qnAPostMeta);
+
         // 댓글 저장
         saveCommentDAOBean.exec(qnaCommentDAO);
 
@@ -80,6 +91,9 @@ public class SaveQnACommentBean {
         // 유저 저장
         saveUserDAOBean.exec(userDAO);
         saveUserDAOBean.exec(writeUserDAO);
+
+        // QnA 게시물 메타데이터 저장
+        saveQnAPostMetaDAOBean.exec(qnAPostMeta);
 
         // 댓글 cId 반환
         return qnaCommentId;

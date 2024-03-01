@@ -74,7 +74,7 @@ public class DeleteQnAPostHeartBean {
         // QnA 게시물 메타데이터 수정
         QnAPostMeta qnAPostMeta = getQnAPostMetaDAOBean.exec(requestQnAPostHeartDeleteDTO.getQnaPostId());
         if (qnAPostMeta == null) return 0L;
-        updateQnAPostMetaDAOBean.exec(0L, qnAPostHeartDAO, qnAPostMeta);
+        updateQnAPostMetaDAOBean.exec(qnaPostDAO, qnAPostMeta);
 
         // 좋아요 삭제
         deleteQnAPostHeartDAOBean.exec(qnAPostHeartDAO);
