@@ -7,6 +7,8 @@ import com.shownf.reptile.repository.qna.QnAPostHeartRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class GetQnAPostHeartDAOBean {
 
@@ -15,6 +17,11 @@ public class GetQnAPostHeartDAOBean {
     @Autowired
     public GetQnAPostHeartDAOBean(QnAPostHeartRepositoryJPA qnAPostHeartRepositoryJPA) {
         this.qnAPostHeartRepositoryJPA = qnAPostHeartRepositoryJPA;
+    }
+
+    // 유저 아이디로 QnA 게시물 좋아요 객체 찾기
+    public List<QnAPostHeartDAO> exec(Long userId){
+        return qnAPostHeartRepositoryJPA.findByUserId(userId);
     }
 
     // QnA 게시물 좋아요 중복 배제를 위한 객체 찾기
