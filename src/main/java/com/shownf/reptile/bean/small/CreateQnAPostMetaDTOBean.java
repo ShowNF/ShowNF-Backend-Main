@@ -1,8 +1,13 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.DTO.ResponsePostMetaDTO;
 import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostMetaDTO;
+import com.shownf.reptile.Model.MetaDAO.PostMeta;
 import com.shownf.reptile.Model.MetaDAO.QnAPostMeta;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CreateQnAPostMetaDTOBean {
@@ -25,5 +30,19 @@ public class CreateQnAPostMetaDTOBean {
 
         // DTO 반환
         return responseQnAPostMetaDTO;
+    }
+
+    // QnA 게시물 전체 조회시 DTO 생성
+    public List<ResponseQnAPostMetaDTO> exec(List<QnAPostMeta> qnAPostMetas){
+
+        List<ResponseQnAPostMetaDTO> responseQnAPostMetaDTOS = new ArrayList<>();
+
+        for (QnAPostMeta qnAPostMeta : qnAPostMetas){
+            ResponseQnAPostMetaDTO responseQnAPostMetaDTO = exec(qnAPostMeta);
+
+            responseQnAPostMetaDTOS.add(responseQnAPostMetaDTO);
+        }
+
+        return responseQnAPostMetaDTOS;
     }
 }
