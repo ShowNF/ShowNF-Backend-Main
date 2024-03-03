@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.DTO.qna.RequestQnACommentHeartSaveDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnACommentUpdateDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAReplyDeleteDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAReplySaveDTO;
@@ -36,5 +37,19 @@ public class UpdateQnACommentDAOBean {
 
         // 댓글 대댓글 수 1 감소
         qnaCommentDAO.setReplyCount(qnaCommentDAO.getReplyCount() - 1);
+    }
+
+    // QnA 댓글 좋아요 수 증가
+    public void exec(QnACommentDAO qnaCommentDAO, RequestQnACommentHeartSaveDTO requestQnACommentHeartSaveDTO){
+
+        // 댓글 대댓글 수 1증가
+        qnaCommentDAO.setHeartCount(qnaCommentDAO.getHeartCount() + 1);
+    }
+
+    // QnA 댓글 좋아요 수 감소
+    public void exec(Long check, QnACommentDAO qnaCommentDAO){
+
+        // 댓글 대댓글 수 1 감소
+        qnaCommentDAO.setHeartCount(qnaCommentDAO.getHeartCount() - 1);
     }
 }

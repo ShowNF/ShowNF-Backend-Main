@@ -6,6 +6,7 @@ import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
+import com.shownf.reptile.Model.entity.qna.QnACommentHeartDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
 import com.shownf.reptile.config.UserExpConfig;
@@ -124,6 +125,18 @@ public class UpdateUserExpDAOBean {
 
     // User exp update based on commentHeart delete
     public UserDAO exec(String check, CommentHeartDAO commentHeartDAO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
+        return userDAO;
+    }
+
+    // User exp update based on qna commentHeart save
+    public UserDAO exec(QnACommentHeartDAO qnACommentHeartDAO, UserDAO userDAO){
+        userDAO.setExp(userDAO.getExp() + userExpConfig.getHeart());
+        return userDAO;
+    }
+
+    // User exp update based on qna commentHeart delete
+    public UserDAO exec(String check, QnACommentHeartDAO qnACommentHeartDAO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
         return userDAO;
     }

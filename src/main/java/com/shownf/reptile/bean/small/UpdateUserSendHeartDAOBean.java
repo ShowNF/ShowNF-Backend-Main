@@ -1,9 +1,11 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.DTO.qna.RequestQnACommentHeartSaveDTO;
 import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
+import com.shownf.reptile.Model.entity.qna.QnACommentHeartDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -167,6 +169,23 @@ public class UpdateUserSendHeartDAOBean {
 
         return userDAO;
     }
+
+    // QnA 댓글 좋아요시 좋아요 보낸 유저 수정
+    public void exec(UserDAO userDAO, RequestQnACommentHeartSaveDTO requestQnACommentHeartSaveDTO) {
+
+        // 유저 sendHeart 추가
+        userDAO.setSendHeartCount(userDAO.getSendHeartCount() + 1);
+    }
+
+    // QnA 게시물 좋아요 삭제시 좋아요 보낸 유저 수정
+    public UserDAO exec(Long check,UserDAO userDAO, QnAPostHeartDAO qnAPostHeartDAO){
+
+        // 유저 sendHeart 감소
+        userDAO.setSendHeartCount(userDAO.getSendHeartCount() - 1);
+
+        return userDAO;
+    }
+
 
     // 대댓글 좋아요시 좋아요 보낸 유저 수정
     public UserDAO exec(ReplyHeartDAO replyHeartDAO){
