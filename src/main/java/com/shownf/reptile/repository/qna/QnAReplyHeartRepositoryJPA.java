@@ -1,2 +1,10 @@
-package com.shownf.reptile.repository.qna;public interface QnAReplyHeartRepositoryJPA {
+package com.shownf.reptile.repository.qna;
+
+import com.shownf.reptile.Model.entity.qna.QnAReplyHeartDAO;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface QnAReplyHeartRepositoryJPA extends JpaRepository<QnAReplyHeartDAO, Long> {
+    QnAReplyHeartDAO findByQnaReplyIdAndUserId(Long qnaReplyId, Long userId);
 }

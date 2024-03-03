@@ -172,14 +172,14 @@ public class UpdateUserSendHeartDAOBean {
     }
 
     // QnA 댓글 좋아요시 좋아요 보낸 유저 수정
-    public void exec(UserDAO userDAO, RequestQnACommentHeartSaveDTO requestQnACommentHeartSaveDTO) {
+    public void exec(UserDAO userDAO) {
 
         // 유저 sendHeart 추가
         userDAO.setSendHeartCount(userDAO.getSendHeartCount() + 1);
     }
 
     // QnA 게시물 좋아요 삭제시 좋아요 보낸 유저 수정
-    public UserDAO exec(Long check, UserDAO userDAO, RequestQnACommentHeartDeleteDTO requestQnACommentHeartDeleteDTO) {
+    public UserDAO exec(Long check, UserDAO userDAO) {
 
         // 유저 sendHeart 감소
         userDAO.setSendHeartCount(userDAO.getSendHeartCount() - 1);

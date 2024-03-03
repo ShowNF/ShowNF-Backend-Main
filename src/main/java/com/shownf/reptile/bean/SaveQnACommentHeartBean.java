@@ -67,15 +67,13 @@ public class SaveQnACommentHeartBean {
 
         UserDAO writeUserDAO;
         // 좋아요 sender 추가
-        if (userDAO.getUserId().equals(requestQnACommentHeartSaveDTO.getUserId())) {
+        if (userDAO.getUserId().equals(requestQnACommentHeartSaveDTO.getUserId()))
             writeUserDAO = userDAO;
-            updateUserSendHeartDAOBean.exec(writeUserDAO, requestQnACommentHeartSaveDTO);
-        }
         else {
             writeUserDAO = getUserDAOBean.exec(requestQnACommentHeartSaveDTO.getUserId());
             if (writeUserDAO == null) return 0L;
-            updateUserSendHeartDAOBean.exec(writeUserDAO, requestQnACommentHeartSaveDTO);
         }
+        updateUserSendHeartDAOBean.exec(writeUserDAO);
 
         // 유저 경험치 추가
         updateUserExpDAOBean.exec(qnACommentHeartDAO, writeUserDAO);

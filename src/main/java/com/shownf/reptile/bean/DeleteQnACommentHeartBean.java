@@ -68,7 +68,7 @@ public class DeleteQnACommentHeartBean {
         if (userDAO == null) return 0L;
         updateUserReceiveHeartDAOBean.exec(null, userDAO);
 
-        updateUserSendHeartDAOBean.exec(null, userDAO, requestQnACommentHeartDeleteDTO);
+        updateUserSendHeartDAOBean.exec(0L, userDAO);
 
         // 경험치 삭제
         writeuserDAO = updateUserExpDAOBean.exec(null, qnACommentHeartDAO, userDAO);
