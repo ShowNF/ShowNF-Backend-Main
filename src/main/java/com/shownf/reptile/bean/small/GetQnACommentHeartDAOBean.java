@@ -17,7 +17,7 @@ public class GetQnACommentHeartDAOBean {
     }
 
     // QnA 댓글 좋아요 객체 가져오기
-    public QnACommentHeartDAO exec(RequestQnACommentHeartSaveDTO requestQnACommentHeartSaveDTO){
-        return qnACommentHeartRepositoryJPA.findByQnaCommentIdAndUserId(requestQnACommentHeartSaveDTO.getQnaCommentId(), requestQnACommentHeartSaveDTO.getUserId());
+    public QnACommentHeartDAO exec(Long qnaCommentId, Long userId){
+        return qnACommentHeartRepositoryJPA.findByQnaCommentIdAndUserId(qnaCommentId, userId);
     }
 }

@@ -45,7 +45,7 @@ public class SaveQnACommentHeartBean {
     public Long exec(RequestQnACommentHeartSaveDTO requestQnACommentHeartSaveDTO) {
 
         // QnA 댓글 좋아요 중복 배제
-        if (getCommentHeartDAOBean.exec(requestQnACommentHeartSaveDTO) != null)
+        if (getCommentHeartDAOBean.exec(requestQnACommentHeartSaveDTO.getQnaCommentId(), requestQnACommentHeartSaveDTO.getUserId()) != null)
             return 0L;
 
         // QnA commentHeartId 생성

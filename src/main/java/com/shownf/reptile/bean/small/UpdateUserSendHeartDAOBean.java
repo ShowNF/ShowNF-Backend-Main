@@ -1,5 +1,6 @@
 package com.shownf.reptile.bean.small;
 
+import com.shownf.reptile.Model.DTO.qna.RequestQnACommentHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnACommentHeartSaveDTO;
 import com.shownf.reptile.Model.entity.CommentHeartDAO;
 import com.shownf.reptile.Model.entity.PostHeartDAO;
@@ -178,7 +179,7 @@ public class UpdateUserSendHeartDAOBean {
     }
 
     // QnA 게시물 좋아요 삭제시 좋아요 보낸 유저 수정
-    public UserDAO exec(Long check,UserDAO userDAO, QnAPostHeartDAO qnAPostHeartDAO){
+    public UserDAO exec(Long check, UserDAO userDAO, RequestQnACommentHeartDeleteDTO requestQnACommentHeartDeleteDTO) {
 
         // 유저 sendHeart 감소
         userDAO.setSendHeartCount(userDAO.getSendHeartCount() - 1);
