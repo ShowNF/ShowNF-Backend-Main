@@ -161,8 +161,7 @@ public class UpdateUserExpDAOBean {
     }
 
     // User exp update based on qna replyHeart delete
-    public UserDAO exec(String check, QnAReplyHeartDAO qnAReplyHeartDAO, UserDAO userDAO){
+    public void exec(String check, QnAReplyHeartDAO qnAReplyHeartDAO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
-        return userDAO;
     }
 }

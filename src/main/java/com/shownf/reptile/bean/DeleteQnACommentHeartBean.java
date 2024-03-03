@@ -51,9 +51,9 @@ public class DeleteQnACommentHeartBean {
             return 0L;
 
         // 유저 토큰 확인
-        UserDAO writeuserDAO = getUserDAOBean.exec(requestQnACommentHeartDeleteDTO.getUserId());
-        if (writeuserDAO == null) return 0L;
-        if (!checkUserAccessTokenDAOBean.exec(writeuserDAO, request))
+        UserDAO writeUserDAO = getUserDAOBean.exec(requestQnACommentHeartDeleteDTO.getUserId());
+        if (writeUserDAO == null) return 0L;
+        if (!checkUserAccessTokenDAOBean.exec(writeUserDAO, request))
             return 0L;
 
         // 좋아요 취소된 QnA 댓글 가져오기
@@ -68,10 +68,10 @@ public class DeleteQnACommentHeartBean {
         if (userDAO == null) return 0L;
         updateUserReceiveHeartDAOBean.exec(null, userDAO);
 
-        updateUserSendHeartDAOBean.exec(0L, userDAO);
+        updateUserSendHeartDAOBean.exec(0L, writeUserDAO);
 
         // 경험치 삭제
-        writeuserDAO = updateUserExpDAOBean.exec(null, qnACommentHeartDAO, userDAO);
+        writeUserDAO = updateUserExpDAOBean.exec(null, qnACommentHeartDAO, writeUserDAO);
 
         // 좋아요 삭제
         deleteQnACommentHeartDAOBean.exec(qnACommentHeartDAO);
@@ -81,7 +81,7 @@ public class DeleteQnACommentHeartBean {
 
         // 유저 저장
         saveUserDAOBean.exec(userDAO);
-        saveUserDAOBean.exec(writeuserDAO);
+        saveUserDAOBean.exec(writeUserDAO);
 
         // commentHeartId 반환
         return qnACommentHeartDAO.getQnaCommentHeartId();
