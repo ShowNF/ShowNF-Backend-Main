@@ -1,13 +1,7 @@
 package com.shownf.reptile.service.qna;
 
-import com.shownf.reptile.Model.DTO.qna.RequestQnACommentDeleteDTO;
-import com.shownf.reptile.Model.DTO.qna.RequestQnACommentSaveDTO;
-import com.shownf.reptile.Model.DTO.qna.RequestQnACommentUpdateDTO;
-import com.shownf.reptile.Model.DTO.qna.ResponseQnACommentGetDTO;
-import com.shownf.reptile.bean.DeleteQnACommentBean;
-import com.shownf.reptile.bean.GetQnACommentsBean;
-import com.shownf.reptile.bean.SaveQnACommentBean;
-import com.shownf.reptile.bean.UpdateQnACommentBean;
+import com.shownf.reptile.Model.DTO.qna.*;
+import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +13,15 @@ public class QnACommentService {
 
     GetQnACommentsBean getQnACommentsBean;
     SaveQnACommentBean saveQnACommentBean;
+    SaveQnACommentSelectionBean saveQnACommentSelectionBean;
     UpdateQnACommentBean updateQnACommentBean;
     DeleteQnACommentBean deleteQnACommentBean;
 
     @Autowired
-    public QnACommentService(GetQnACommentsBean getQnACommentsBean, SaveQnACommentBean saveQnACommentBean, UpdateQnACommentBean updateQnACommentBean, DeleteQnACommentBean deleteQnACommentBean) {
+    public QnACommentService(GetQnACommentsBean getQnACommentsBean, SaveQnACommentBean saveQnACommentBean, SaveQnACommentSelectionBean saveQnACommentSelectionBean, UpdateQnACommentBean updateQnACommentBean, DeleteQnACommentBean deleteQnACommentBean) {
         this.getQnACommentsBean = getQnACommentsBean;
         this.saveQnACommentBean = saveQnACommentBean;
+        this.saveQnACommentSelectionBean = saveQnACommentSelectionBean;
         this.updateQnACommentBean = updateQnACommentBean;
         this.deleteQnACommentBean = deleteQnACommentBean;
     }
@@ -38,6 +34,11 @@ public class QnACommentService {
     // QnA Comment 저장
     public Long saveQnAComment(RequestQnACommentSaveDTO requestQnACommentSaveDTO){
         return saveQnACommentBean.exec(requestQnACommentSaveDTO);
+    }
+
+    // QnA Comment 채택
+    public ResponseQnACommentGetDTO saveQnACommentSelection(RequestQnACommentSelectionSaveDTO requestQnACommentSelectionSaveDTO, HttpServletRequest request){
+        return saveQnACommentSelectionBean.exec(requestQnACommentSelectionSaveDTO, request);
     }
 
     // QnA Comment 수정
