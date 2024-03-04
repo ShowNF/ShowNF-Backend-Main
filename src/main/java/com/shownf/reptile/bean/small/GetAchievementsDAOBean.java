@@ -77,7 +77,9 @@ public class GetAchievementsDAOBean {
                     }
                     if (count == 0) achievementDAOList.add(achievementDAO);
                     break;
-
+                case 지식인:
+                    if (userDAO.getSelectionCount() == 0) achievementDAOList.add(achievementDAO);
+                    break;
                 case 펫전문가:
                     if (userDAO.getExp() == 0) achievementDAOList.add(achievementDAO);
                     break;
@@ -297,6 +299,31 @@ public class GetAchievementsDAOBean {
                     responseAchievementDTO.setIcon(achievementDAO.getIcon());
                     responseAchievementDTO.setStyle(achievementDAO.getStyle());
                     responseAchievementDTO.setScore(count);
+                    responseAchievementDTO.setGrade(grade);
+
+                    responseAchievementDTOs.add(responseAchievementDTO);
+                    break;
+                case 지식인:
+                    Integer selectionCount = userDAO.getSelectionCount();
+                    if (selectionCount<=0) break;
+                    if (selectionCount >= 100)
+                        grade = Grade.DIAMOND.name();
+                    else if (selectionCount >= 50)
+                        grade = Grade.PLATINUM.name();
+                    else if (selectionCount >= 20)
+                        grade = Grade.GOLD.name();
+                    else if (selectionCount >= 7)
+                        grade = Grade.SILVER.name();
+                    else if (selectionCount >= 3)
+                        grade = Grade.BRONZE.name();
+                    else
+                        grade = Grade.UNRANKED.name();
+                    responseAchievementDTO.setAchievement(achievementDAO.getAchievement());
+                    responseAchievementDTO.setAchievementExplain(achievementDAO.getAchievementExplain());
+                    responseAchievementDTO.setAchievementName(achievementDAO.getAchievementName());
+                    responseAchievementDTO.setIcon(achievementDAO.getIcon());
+                    responseAchievementDTO.setStyle(achievementDAO.getStyle());
+                    responseAchievementDTO.setScore(selectionCount);
                     responseAchievementDTO.setGrade(grade);
 
                     responseAchievementDTOs.add(responseAchievementDTO);

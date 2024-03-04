@@ -14,4 +14,5 @@ public class UserExpConfig {
     int comment;
     int reply;
     int post;
+    int selection;
 }
