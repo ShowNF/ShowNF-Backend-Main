@@ -23,5 +23,6 @@ public class ResponseUserDTO {
     Integer sendCommentCount;
     Integer sendHeartCount;
     Integer receiveHeartCount;
+    Integer selectionCount;
     Integer exp;
 }

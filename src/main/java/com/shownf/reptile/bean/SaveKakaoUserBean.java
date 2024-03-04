@@ -57,7 +57,7 @@ public class SaveKakaoUserBean {
             kakaoUserRepositoryJPA.save(new KakaoUserDAO(id, accessToken, localDateTime));
             userRepositoryJPA.save(new UserDAO(createUniqueIdBean.exec(), id, name, picture,
                     "https://reptile-image.s3.ap-northeast-2.amazonaws.com/images/e60a2776-8d48-458e-a23b-6e0d6ff9e570-IWI_rept2_logo.png",
-                    createUniqueNicknameBean.exec(), email, uploadTime, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                    createUniqueNicknameBean.exec(), email, uploadTime, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
         } else {
             kakaoUserDAO.setAccessToken(accessToken);
             kakaoUserDAO.setExpirationTime(localDateTime);

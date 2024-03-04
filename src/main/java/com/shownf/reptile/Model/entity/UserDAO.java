@@ -33,5 +33,6 @@ public class UserDAO {
     Integer sendCommentCount;
     Integer sendHeartCount;
     Integer receiveHeartCount;
+    Integer selectionCount;
     Integer exp;
 }

@@ -38,6 +38,8 @@ public class GetUserBean {
         responseUserDTO.setSendCommentCount(userDAO.getSendCommentCount());
         responseUserDTO.setSendHeartCount(userDAO.getSendHeartCount());
         responseUserDTO.setReceiveHeartCount(userDAO.getReceiveHeartCount());
+        responseUserDTO.setSelectionCount(userDAO.getSelectionCount());
+        responseUserDTO.setExp(userDAO.getExp());
 
         return responseUserDTO;
     }
