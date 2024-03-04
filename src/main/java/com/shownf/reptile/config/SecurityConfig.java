@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
@@ -30,6 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/user/{userId}").permitAll()
                 .antMatchers(HttpMethod.GET, "/pet/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/postMeta/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/post/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/postHeart/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/commentHeart/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/replyHeart/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/comment/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/reply/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/postMeta/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/qna/postMeta").permitAll()
                 .antMatchers("/swagger-ui.html","swagger/**","/webjars/**", "/swagger-resources/**", "/v2/api-docs").permitAll() // 스웨거
                 .antMatchers(HttpMethod.GET, "/image", "/comment/**", "/post/**", "/reply/**", "/sale/**").permitAll() // 스와이프
                 .antMatchers("/**").hasRole("USER")
