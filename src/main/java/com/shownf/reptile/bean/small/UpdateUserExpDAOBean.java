@@ -168,4 +168,9 @@ public class UpdateUserExpDAOBean {
     public void exec(UserDAO userDAO, RequestQnACommentSelectionSaveDTO requestQnACommentSelectionSaveDTO){
         userDAO.setExp(userDAO.getExp() + userExpConfig.getSelection());
     }
+
+    // 댓글 채택 삭제된 유저 경험치 감소
+    public void exec(UserDAO userDAO, RequestQnACommentSelectionDeleteDTO requestQnACommentSelectionDeleteDTO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getSelection());
+    }
 }
