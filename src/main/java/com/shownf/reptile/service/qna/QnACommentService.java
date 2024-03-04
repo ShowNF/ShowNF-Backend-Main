@@ -16,14 +16,16 @@ public class QnACommentService {
     SaveQnACommentSelectionBean saveQnACommentSelectionBean;
     UpdateQnACommentBean updateQnACommentBean;
     DeleteQnACommentBean deleteQnACommentBean;
+    DeleteQnACommentSelectionBean deleteQnACommentSelectionBean;
 
     @Autowired
-    public QnACommentService(GetQnACommentsBean getQnACommentsBean, SaveQnACommentBean saveQnACommentBean, SaveQnACommentSelectionBean saveQnACommentSelectionBean, UpdateQnACommentBean updateQnACommentBean, DeleteQnACommentBean deleteQnACommentBean) {
+    public QnACommentService(GetQnACommentsBean getQnACommentsBean, SaveQnACommentBean saveQnACommentBean, SaveQnACommentSelectionBean saveQnACommentSelectionBean, UpdateQnACommentBean updateQnACommentBean, DeleteQnACommentBean deleteQnACommentBean, DeleteQnACommentSelectionBean deleteQnACommentSelectionBean) {
         this.getQnACommentsBean = getQnACommentsBean;
         this.saveQnACommentBean = saveQnACommentBean;
         this.saveQnACommentSelectionBean = saveQnACommentSelectionBean;
         this.updateQnACommentBean = updateQnACommentBean;
         this.deleteQnACommentBean = deleteQnACommentBean;
+        this.deleteQnACommentSelectionBean = deleteQnACommentSelectionBean;
     }
 
     // QnA Comment 전체 조회
@@ -49,5 +51,10 @@ public class QnACommentService {
     // QnA Comment 삭제
     public Long deleteQnAComment(RequestQnACommentDeleteDTO requestQnACommentDeleteDTO, HttpServletRequest request){
         return deleteQnACommentBean.exec(requestQnACommentDeleteDTO, request);
+    }
+
+    // QnA Comment 채택 삭제
+    public ResponseQnACommentGetDTO deleteQnACommentSelection(RequestQnACommentSelectionDeleteDTO requestQnACommentSelectionDeleteDTO, HttpServletRequest request){
+        return deleteQnACommentSelectionBean.exec(requestQnACommentSelectionDeleteDTO, request);
     }
 }

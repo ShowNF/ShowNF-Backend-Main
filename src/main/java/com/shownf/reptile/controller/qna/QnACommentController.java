@@ -99,4 +99,21 @@ public class QnACommentController {
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
+
+    // QnA Comment 채택 삭제
+    @ApiOperation(value = "QnA 댓글 채택 삭제", notes = "QnA댓글 채택 삭제시 저장한다.")
+    @DeleteMapping("qna/comment/selection")
+    public ResponseEntity<Map<String, Object>> deleteQnACommentSelection(@RequestBody RequestQnACommentSelectionDeleteDTO requestQnACommentSelectionDeleteDTO, HttpServletRequest request){
+        ResponseQnACommentGetDTO responseQnACommentGetDTO = qnaCommentService.deleteQnACommentSelection(requestQnACommentSelectionDeleteDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (responseQnACommentGetDTO != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (responseQnACommentGetDTO != null) ? "Selection Delete Success" : "Selection Delete Fail");
+        requestMap.put("qnaCommentId", responseQnACommentGetDTO);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
 }
