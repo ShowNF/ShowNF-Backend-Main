@@ -5,6 +5,8 @@ import com.shownf.reptile.repository.qna.QnAReplyHeartRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class GetQnAReplyHeartDAOBean {
 
@@ -13,6 +15,11 @@ public class GetQnAReplyHeartDAOBean {
     @Autowired
     public GetQnAReplyHeartDAOBean(QnAReplyHeartRepositoryJPA qnAReplyHeartRepositoryJPA) {
         this.qnAReplyHeartRepositoryJPA = qnAReplyHeartRepositoryJPA;
+    }
+
+    // 유저 아이디로 QNA 대댓글 좋아요 객체 전부 가져오기
+    public List<QnAReplyHeartDAO> exec(Long userId) {
+        return qnAReplyHeartRepositoryJPA.findByUserId(userId);
     }
 
     // QnA 대댓글 좋아요 객체 가져오기

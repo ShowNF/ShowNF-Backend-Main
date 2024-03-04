@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,6 +22,13 @@ public class QnAPostHeartController {
     @Autowired
     public QnAPostHeartController(QnAPostHeartService qnAPostHeartService) {
         this.qnAPostHeartService = qnAPostHeartService;
+    }
+
+    // 좋아요 누른 QnA 게시물 아이디 전체 조회
+    @ApiOperation(value = "QnA 게시물 아이디 전체 조회", notes = "좋아요 누른 QnA 게시물 아이디 전체 조회")
+    @GetMapping("qna/postHeart/user/{userId}")
+    public List<Long> getQnAPostIds(@PathVariable Long userId){
+        return qnAPostHeartService.getQnAPostIds(userId);
     }
 
     // QnA 게시물 좋아요 추가

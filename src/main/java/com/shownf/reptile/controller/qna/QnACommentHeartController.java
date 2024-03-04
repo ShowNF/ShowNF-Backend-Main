@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,6 +23,13 @@ public class QnACommentHeartController {
     @Autowired
     public QnACommentHeartController(QnACommentHeartService qnACommentHeartService) {
         this.qnACommentHeartService = qnACommentHeartService;
+    }
+
+    // 좋아요 누른 QnA 댓글 아이디 전체 조회
+    @ApiOperation(value = "QnA 댓글 아이디 전체 조회", notes = "좋아요 누른 QnA 댓글 아이디 전체 조회")
+    @GetMapping("qna/commentHeart/user/{userId}")
+    public List<Long> getQnACommentIds(@PathVariable Long userId){
+        return qnACommentHeartService.getQnACommentIds(userId);
     }
 
     // QnA 댓글 좋아요

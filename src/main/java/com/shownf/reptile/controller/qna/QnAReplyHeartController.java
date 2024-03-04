@@ -1,6 +1,5 @@
 package com.shownf.reptile.controller.qna;
 
-import com.shownf.reptile.Model.DTO.qna.RequestQnACommentHeartSaveDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAReplyHeartDeleteDTO;
 import com.shownf.reptile.Model.DTO.qna.RequestQnAReplyHeartSaveDTO;
 import com.shownf.reptile.service.qna.QnAReplyHeartService;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +23,13 @@ public class QnAReplyHeartController {
     @Autowired
     public QnAReplyHeartController(QnAReplyHeartService qnAReplyHeartService) {
         this.qnAReplyHeartService = qnAReplyHeartService;
+    }
+
+    // 좋아요 누른 QnA 대댓글 아이디 전체 조회
+    @ApiOperation(value = "QnA 대댓글 아이디 전체 조회", notes = "좋아요 누른 QnA 대댓글 아이디 전체 조회")
+    @GetMapping("qna/replyHeart/user/{userId}")
+    public List<Long> getQnAReplyIds(@PathVariable Long userId){
+        return qnAReplyHeartService.getQnAReplyIds(userId);
     }
 
     // QnA 대댓글 좋아요 저장
