@@ -1,9 +1,6 @@
 package com.shownf.reptile.bean.small;
 
-import com.shownf.reptile.Model.DTO.qna.RequestQnACommentHeartSaveDTO;
-import com.shownf.reptile.Model.DTO.qna.RequestQnACommentUpdateDTO;
-import com.shownf.reptile.Model.DTO.qna.RequestQnAReplyDeleteDTO;
-import com.shownf.reptile.Model.DTO.qna.RequestQnAReplySaveDTO;
+import com.shownf.reptile.Model.DTO.qna.*;
 import com.shownf.reptile.Model.entity.qna.QnACommentDAO;
 import org.springframework.stereotype.Component;
 
@@ -51,5 +48,12 @@ public class UpdateQnACommentDAOBean {
 
         // 댓글 대댓글 수 1 감소
         qnaCommentDAO.setHeartCount(qnaCommentDAO.getHeartCount() - 1);
+    }
+
+    // QnA 댓글 채택 여부 변경
+    public void exec(QnACommentDAO qnaCommentDAO, RequestQnACommentSelectionSaveDTO requestQnACommentSelectionSaveDTO){
+
+        // 댓글 채택 여부 변경
+        qnaCommentDAO.setSelection(true);
     }
 }

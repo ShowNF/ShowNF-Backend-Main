@@ -15,5 +15,6 @@ public class ResponseQnACommentGetDTO {
     LocalDateTime updateTime;
     Integer heartCount;
     Integer replyCount;
+    Integer selectionCount;
     boolean selection;
 }

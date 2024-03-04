@@ -7,7 +7,6 @@ import com.shownf.reptile.Model.entity.PostHeartDAO;
 import com.shownf.reptile.Model.entity.ReplyHeartDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
 import com.shownf.reptile.Model.entity.qna.QnACommentHeartDAO;
-import com.shownf.reptile.Model.entity.qna.QnAPostDAO;
 import com.shownf.reptile.Model.entity.qna.QnAPostHeartDAO;
 import com.shownf.reptile.Model.entity.qna.QnAReplyHeartDAO;
 import com.shownf.reptile.config.UserExpConfig;
@@ -163,5 +162,10 @@ public class UpdateUserExpDAOBean {
     // User exp update based on qna replyHeart delete
     public void exec(String check, QnAReplyHeartDAO qnAReplyHeartDAO, UserDAO userDAO){
         userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
+    }
+
+    // 댓글 채택된 유저 경험치 증가
+    public void exec(UserDAO userDAO, RequestQnACommentSelectionSaveDTO requestQnACommentSelectionSaveDTO){
+        userDAO.setExp(userDAO.getExp() + userExpConfig.getSelection());
     }
 }
