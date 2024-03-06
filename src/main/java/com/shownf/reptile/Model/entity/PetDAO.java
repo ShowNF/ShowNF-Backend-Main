@@ -25,6 +25,7 @@ public class PetDAO {
     String name;
     String firstSpecies;
     String secondSpecies;
+    String morph;
     String birthday;
     Double weight;
     Gender gender;

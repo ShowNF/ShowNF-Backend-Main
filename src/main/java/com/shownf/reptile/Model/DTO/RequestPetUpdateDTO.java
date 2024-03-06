@@ -13,6 +13,7 @@ public class RequestPetUpdateDTO {
     String name;
     String firstSpecies;
     String secondSpecies;
+    String morph;
     String birthday;
     Double weight;
     String gender;

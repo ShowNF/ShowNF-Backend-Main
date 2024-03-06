@@ -6,11 +6,11 @@ exp :
   selection : 5
 
 species:
-  species:
+  firstSpecies:
   - name: 게코
-    subcategories:
+    secondSpecies:
       - name: 크레스티드 게코
-        items:
+        morph:
           - item: 노멀
           - item: 릴리화이트
           - item: 카푸치노
@@ -57,7 +57,7 @@ species:
           - item: 스킨크
 
       - name: 가고일 게코
-        items:
+        morph:
           - item: 노멀
           - item: 레드
           - item: 오렌지
@@ -70,7 +70,7 @@ species:
           - item: 팬텀아이
 
       - name: 리키에너스 게코
-        items:
+        morph:
           - item: 노멀
           - item: 누아나
           - item: 누아미
@@ -98,7 +98,7 @@ species:
           - item: NLS(믹스)
 
       - name: 차화 게코
-        items:
+        morph:
           - item: 노멀
           - item: 메인랜드
           - item: 파인아일랜드
@@ -107,7 +107,7 @@ species:
           - item: 하이화이트
 
       - name: 레오파드 게코
-        items:
+        morph:
           - item: 노멀
           - item: 알비노레인워터
           - item: 알비노벨
@@ -149,7 +149,7 @@ species:
           - item: 레드데빌
 
       - name: 납테일 게코
-        items:
+        morph:
           - item: 알비노
           - item: 헷알비노 패턴리스
           - item: 헷패턴리스
@@ -161,7 +161,7 @@ species:
           - item: 기타 납테일
 
       - name: 펫티일 게코
-        items:
+        morph:
           - item: 노멀
           - item: 아멜라니스틱
           - item: 헷아멜라니스틱
@@ -183,7 +183,7 @@ species:
           - item: 락비노
 
       - name: 토케이 게코
-        items:
+        morph:
           - item: 노멀
           - item: 우성패턴리스
           - item: 열성패턴리스
@@ -202,9 +202,9 @@ species:
           - item: KRCB
 
   - name: 도마뱀
-    subcategories:
+    secondSpecies:
       - name: 비어디 드래곤
-        items:
+        morph:
           - item: 이스턴비어디
           - item: 랜킨스드래곤
           - item: 노멀
@@ -226,7 +226,7 @@ species:
           - item: 더너
 
       - name: 모니터/테구
-        items:
+        morph:
           - item: 워터모니터
           - item: 알비노
           - item: 헷알비노
@@ -243,7 +243,7 @@ species:
           - item: 카이만리자드
 
       - name: 스킨크
-        items:
+        morph:
           - item: 노던블루텅
           - item: 이스턴블루
           - item: 타님바블루텅
@@ -257,7 +257,7 @@ species:
           - item: 기타스킨크
 
       - name: 이구아나
-        items:
+        morph:
           - item: 그린이구아나
           - item: 알비노
           - item: 스노우
@@ -267,12 +267,12 @@ species:
           - item: 기타이구아나
 
       - name: 기타 도마뱀
-        items:
+        morph:
 
   - name: 뱀
-    subcategories:
+    secondSpecies:
       - name: 볼파이톤
-        items:
+        morph:
           - item: Normal
           - item: Acid
           - item: Albino
@@ -396,7 +396,7 @@ species:
           - item: Het Zebra
 
       - name: 파이톤/보아
-        items:
+        morph:
           - item: 레딕파이톤
           - item: 버미즈파이톤 락파이톤
           - item: GTP
@@ -411,7 +411,7 @@ species:
           - item: 하이브리드
 
       - name: 킹/밀크스네이크
-        items:
+        morph:
           - item: 캘리포니아킹
           - item: 플로리다/브룩스킹
           - item: 블랙킹
@@ -427,7 +427,7 @@ species:
           - item: 하이브리드
 
       - name: 호그노즈
-        items:
+        morph:
           - item: 트라이컬러
           - item: 노멀
           - item: 알비노
@@ -458,7 +458,7 @@ species:
           - item: 헷토피
 
       - name: 콘스네이크
-        items:
+        morph:
           - item: 노멀
           - item: 아멜
           - item: 헷아멜
@@ -497,7 +497,7 @@ species:
           - item: 하이브리드
 
       - name: 기타
-        items:
+        morph:
           - item: 불
           - item: 파인
           - item: 고퍼
@@ -505,9 +505,9 @@ species:
           - item: 기타모프
 
   - name: 거북
-    subcategories:
+    secondSpecies:
       - name: 수생/반수생 거북
-        items:
+        morph:
           - item: 머드
           - item: 머스크
           - item: 쿠터
@@ -517,7 +517,7 @@ species:
           - item: 기타 수생/반수생거북
 
       - name: 습지거북
-        items:
+        morph:
           - item: 이스턴박스
           - item: 세발가락박스
           - item: 플로리다박스
@@ -529,7 +529,7 @@ species:
           - item: 기타습지거북
 
       - name: 육지거북
-        items:
+        morph:
           - item: 알다브라
           - item: 엘롱가타
           - item: 그리스
@@ -546,7 +546,7 @@ species:
           - item: 기타육지거북
 
       - name: 테라핀
-        items:
+        morph:
           - item: 노던
           - item: 캐롤라이나
           - item: 콘센트릭
@@ -559,43 +559,43 @@ species:
           - item: 알비노
 
   - name: 양서류
-    subcategories:
+    secondSpecies:
       - name: 뉴트
-        items:
+        morph:
 
       - name: 살라만다
-        items:
+        morph:
 
       - name: 토드
-        items:
+        morph:
 
       - name: 프록
-        items:
+        morph:
 
       - name: 기타
-        items:
+        morph:
 
   - name: 절지류
-    subcategories:
+    secondSpecies:
       - name: 등각류
-        items:
+        morph:
 
       - name: 타란튤라
-        items:
+        morph:
 
       - name: 센티페드
-        items:
+        morph:
 
       - name: 전갈
-        items:
+        morph:
 
       - name: 밀리페드
-        items:
+        morph:
 
       - name: 기타
-        items:
+        morph:
 
   - name: 기타
-    subcategories:
+    secondSpecies:
       - name: 기타
-        items:
+        morph:

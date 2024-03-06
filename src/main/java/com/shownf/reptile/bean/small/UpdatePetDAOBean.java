@@ -46,6 +46,9 @@ public class UpdatePetDAOBean {
         // 두번째 종
         petDAO.setSecondSpecies(requestPetUpdateDTO.getSecondSpecies());
 
+        // 모프
+        petDAO.setMorph(requestPetUpdateDTO.getMorph());
+
         // 생일
         String date = requestPetUpdateDTO.getBirthday();
         String birthday;

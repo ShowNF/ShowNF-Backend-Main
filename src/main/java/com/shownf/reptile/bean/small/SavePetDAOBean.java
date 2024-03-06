@@ -52,6 +52,9 @@ public class SavePetDAOBean {
         // 두번째 종
         String secondSpecies = requestPetSaveDTO.getSecondSpecies();
 
+        // 모프
+        String morph = requestPetSaveDTO.getMorph();
+
         // 생일
         String date = requestPetSaveDTO.getBirthday();
         String birthday;
@@ -86,7 +89,7 @@ public class SavePetDAOBean {
         // 소프트 딜리트
         boolean deleteCheck = false;
 
-        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, birthday, weight, gender, uploadTime, updateTime, diaryCount, level, levelExperience, disclosure, deleteCheck);
+        return new PetDAO(petId, userId, imageUrl, name, firstSpecies, secondSpecies, morph, birthday, weight, gender, uploadTime, updateTime, diaryCount, level, levelExperience, disclosure, deleteCheck);
 
     }
 }

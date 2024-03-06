@@ -13,25 +13,38 @@ import java.util.List;
 @Setter
 public class PetSpeciesConfig {
 
-    private List<Species> species;
+    private List<FirstSpecies> firstSpecies;
 
     @Getter
     @Setter
-    public static class Species {
+    public static class FirstSpecies {
         private String name;
-        private List<Subcategory> subcategories;
+        private List<SecondSpecies> secondSpecies;
     }
 
     @Getter
     @Setter
-    public static class Subcategory {
+    public static class SecondSpecies {
         private String name;
-        private List<Item> items;
+        private List<Morph> morph;
     }
 
     @Getter
     @Setter
-    public static class Item {
+    public static class Morph {
         private String item;
+    }
+
+    public void printConfig() {
+        System.out.println("Pet Species Configuration:");
+        for (FirstSpecies firstSpecies : this.firstSpecies) {
+            System.out.println("First Species: " + firstSpecies.getName());
+            for (SecondSpecies secondSpecies : firstSpecies.getSecondSpecies()) {
+                System.out.println("\tSecond Species: " + secondSpecies.getName());
+                for (Morph morph : secondSpecies.getMorph()) {
+                    System.out.println("\t\tMorph: " + morph.getItem());
+                }
+            }
+        }
     }
 }
