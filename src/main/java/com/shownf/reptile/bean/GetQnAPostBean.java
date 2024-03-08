@@ -17,9 +17,10 @@ public class GetQnAPostBean {
     UpdateQnAPostMetaDAOBean updatePostViewCountDAOBean;
     SaveQnAPostDAOBean saveQnAPostDAOBean;
     SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean;
+    SavePostLogDAOBean savePostLogDAOBean;
 
     @Autowired
-    public GetQnAPostBean(GetQnAPostDAOBean getQnAPostDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, CreateQnAPostDTOBean createQnAPostDTOBean, GetQnAPostMetaDAOBean getQnAPostMetaDAOBean, UpdateQnAPostMetaDAOBean updatePostViewCountDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean) {
+    public GetQnAPostBean(GetQnAPostDAOBean getQnAPostDAOBean, UpdateQnAPostDAOBean updateQnAPostDAOBean, CreateQnAPostDTOBean createQnAPostDTOBean, GetQnAPostMetaDAOBean getQnAPostMetaDAOBean, UpdateQnAPostMetaDAOBean updatePostViewCountDAOBean, SaveQnAPostDAOBean saveQnAPostDAOBean, SaveQnAPostMetaDAOBean saveQnAPostMetaDAOBean, SavePostLogDAOBean savePostLogDAOBean) {
         this.getQnAPostDAOBean = getQnAPostDAOBean;
         this.updateQnAPostDAOBean = updateQnAPostDAOBean;
         this.createQnAPostDTOBean = createQnAPostDTOBean;
@@ -27,10 +28,11 @@ public class GetQnAPostBean {
         this.updatePostViewCountDAOBean = updatePostViewCountDAOBean;
         this.saveQnAPostDAOBean = saveQnAPostDAOBean;
         this.saveQnAPostMetaDAOBean = saveQnAPostMetaDAOBean;
+        this.savePostLogDAOBean = savePostLogDAOBean;
     }
 
     // QnA 게시물 조회
-    public ResponseQnAPostGetDTO exec(Long qnaPostId){
+    public ResponseQnAPostGetDTO exec(Long qnaPostId, Long userId){
 
         // qnaPostId 로 QnA 게시물 찾기
         QnAPostDAO qnAPostDAO = getQnAPostDAOBean.exec(qnaPostId);
@@ -54,6 +56,9 @@ public class GetQnAPostBean {
 
         // QnA 게시물 메타데이터 저장
         saveQnAPostMetaDAOBean.exec(qnAPostMeta);
+
+        // 최근 조회 QnA 게시물 추가
+        savePostLogDAOBean.exec(qnaPostId, userId, 1);
 
         // DTO 반환
         return responseQnAPostGetDTO;

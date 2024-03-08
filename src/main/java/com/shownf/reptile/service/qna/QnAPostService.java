@@ -34,8 +34,8 @@ public class QnAPostService {
     }
 
     // QnA 게시물 조회
-    public ResponseQnAPostGetDTO getQnAPostDAO(Long qnaPostId){
-        return getQnAPostBean.exec(qnaPostId);
+    public ResponseQnAPostGetDTO getQnAPostDAO(Long qnaPostId, Long userId){
+        return getQnAPostBean.exec(qnaPostId, userId);
     }
 
     // 핫 QnA 게시물 Page 형태로 전체 조회

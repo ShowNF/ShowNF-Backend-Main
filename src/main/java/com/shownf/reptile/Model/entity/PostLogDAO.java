@@ -20,4 +20,5 @@ public class PostLogDAO {
     Long postId;
     Long userId;
     LocalDateTime viewTime;
+    Integer type; // 0 -> post, // 1 -> QnA post
 }

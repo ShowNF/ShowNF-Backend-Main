@@ -33,8 +33,8 @@ public class QnAPostController {
     // QnA 게시물 조회
     @ApiOperation(value = "QnA 게시물 조회", notes = "QnA 게시물 아이디로 게시물 조회")
     @GetMapping("qna/post/{qnaPostId}")
-    public ResponseQnAPostGetDTO getQnAPost(@PathVariable Long qnaPostId){
-        return qnAPostService.getQnAPostDAO(qnaPostId);
+    public ResponseQnAPostGetDTO getQnAPost(@PathVariable Long qnaPostId, @RequestParam(required = false) Long userId){
+        return qnAPostService.getQnAPostDAO(qnaPostId, userId);
     }
 
     // 핫 QnA 게시물 전체 조회

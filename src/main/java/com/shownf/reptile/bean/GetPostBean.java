@@ -55,7 +55,7 @@ public class GetPostBean {
         savePostMetaDAOBean.exec(updatePostMeta);
 
         // 최근 조회 게시물 추가
-        savePostLogDAOBean.exec(postId, userId);
+        savePostLogDAOBean.exec(postId, userId, 0);
 
         // DTO 반환
         return requestPostDTO;

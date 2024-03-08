@@ -28,7 +28,7 @@ public class SavePostLogDAOBean {
     }
 
     // Save the post log
-    public void exec(Long postId, Long userId){
+    public void exec(Long postId, Long userId, Integer type){
 
         if (userId == null){
             return;
@@ -54,6 +54,6 @@ public class SavePostLogDAOBean {
 
         // post log 저장
         long postLogId = createUniqueIdBean.exec();
-        exec(new PostLogDAO(postLogId, postId, userId, LocalDateTime.now()));
+        exec(new PostLogDAO(postLogId, postId, userId, LocalDateTime.now(), type));
     }
 }
