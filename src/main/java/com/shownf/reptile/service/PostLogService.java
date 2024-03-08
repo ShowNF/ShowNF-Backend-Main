@@ -1,10 +1,12 @@
 package com.shownf.reptile.service;
 
+import com.shownf.reptile.Model.DTO.ResponseMetaGetDTO;
 import com.shownf.reptile.bean.GetPostLogsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PostLogService {
@@ -17,7 +19,7 @@ public class PostLogService {
     }
 
     // Get posts log
-    public List<Long> getPostLogs(Long userId){
+    public List<ResponseMetaGetDTO> getPostLogs(Long userId){
         return getPostLogsBean.exec(userId);
     }
 }
