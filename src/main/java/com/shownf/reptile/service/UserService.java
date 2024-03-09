@@ -21,9 +21,10 @@ public class UserService {
     DeleteFollowBean deleteFollowBean;
     GetFollowersBean getFollowersBean;
     GetFollowingsBean getFollowingsBean;
+    GetRecommendUserBean getRecommendUserBean;
 
     @Autowired
-    public UserService(CheckValidUserBean checkValidUserBean, GetUserIdBean getUserIdBean, GetUserBean getUserBean, GetUserNameBean getUserNameBean, GetUserImageBean getUserImageBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean) {
+    public UserService(CheckValidUserBean checkValidUserBean, GetUserIdBean getUserIdBean, GetUserBean getUserBean, GetUserNameBean getUserNameBean, GetUserImageBean getUserImageBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean, GetRecommendUserBean getRecommendUserBean) {
         this.checkValidUserBean = checkValidUserBean;
         this.getUserIdBean = getUserIdBean;
         this.getUserBean = getUserBean;
@@ -34,6 +35,7 @@ public class UserService {
         this.deleteFollowBean = deleteFollowBean;
         this.getFollowersBean = getFollowersBean;
         this.getFollowingsBean = getFollowingsBean;
+        this.getRecommendUserBean = getRecommendUserBean;
     }
 
     // user token valid check
@@ -64,6 +66,11 @@ public class UserService {
     // 유저 사이트 닉네임 변경
     public Long updateUserSiteName(RequestSiteUserUpdateDTO requestSiteUserUpdateDTO, HttpServletRequest request){
         return updateUserSiteNameBean.exec(requestSiteUserUpdateDTO, request);
+    }
+
+    // 추천 계정 조회
+    public List<ResponseRecommendUserGetDTO> getRecommendUser(){
+        return getRecommendUserBean.exec();
     }
 
     // 팔로우 추가

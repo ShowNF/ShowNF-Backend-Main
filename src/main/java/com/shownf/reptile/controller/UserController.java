@@ -61,6 +61,13 @@ public class UserController {
         return userService.getUserImage(userId);
     }
 
+    // 추천 계정 조회
+    @ApiOperation(value = "추천 계정 조회", notes = "유저에게 추천하는 계정 조회")
+    @GetMapping("user/recommend")
+    public List<ResponseRecommendUserGetDTO> getRecommendUser(){
+        return userService.getRecommendUser();
+    }
+
     // 내 팔로우 리스트 조회
     @ApiOperation(value = "팔로우 하고 있는 유저들 조회", notes = "유저의 팔로우 리스트 조회")
     @GetMapping("user/followers/{userId}")
