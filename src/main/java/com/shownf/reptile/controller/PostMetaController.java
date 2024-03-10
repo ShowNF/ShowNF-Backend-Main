@@ -1,6 +1,7 @@
 package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.ResponsePostMetaDTO;
+import com.shownf.reptile.Model.DTO.ResponseRecommendPostGetDTO;
 import com.shownf.reptile.service.PostMetaService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,13 @@ public class PostMetaController {
     @GetMapping("postMeta")
     public List<ResponsePostMetaDTO> getPostMetas(@RequestParam List<Long> postIds){
         return postMetaService.getPostMetas(postIds);
+    }
+
+    // 추천 게시글 4개 조회 - 좋아요순
+    @ApiOperation(value = "추천 게시글 4개 조회", notes = "좋아요순으로 추천 게시글 4개 조회")
+    @GetMapping("postMeta/recommend")
+    public List<ResponseRecommendPostGetDTO> getRecommendPost(){
+        return postMetaService.getRecommendPost();
     }
 
 }
