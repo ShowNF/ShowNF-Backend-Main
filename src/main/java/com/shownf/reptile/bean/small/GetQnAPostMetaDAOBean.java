@@ -26,4 +26,9 @@ public class GetQnAPostMetaDAOBean {
     public List<QnAPostMeta> exec(List<Long> qnaPostIds) {
         return qnAPostMetaRepositoryJPA.findAllById(qnaPostIds);
     }
+
+    // Get the top 4 recommended QnA Posts
+    public List<QnAPostMeta> exec() {
+        return qnAPostMetaRepositoryJPA.findTop4ByOrderByHeartCountDesc();
+    }
 }

@@ -13,4 +13,6 @@ public interface QnAPostMetaRepositoryJPA extends JpaRepository<QnAPostMeta, Lon
     Page<QnAPostMeta> findByUserId(Long userId, Pageable pageable);
 
     Page<QnAPostMeta> findAllByQnaPostIdIn(List<Long> qnaPostIds, Pageable pageable);
+
+    List<QnAPostMeta> findTop4ByOrderByHeartCountDesc();
 }
