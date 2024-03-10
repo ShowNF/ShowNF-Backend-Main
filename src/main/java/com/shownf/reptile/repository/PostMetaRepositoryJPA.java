@@ -19,4 +19,6 @@ public interface PostMetaRepositoryJPA extends JpaRepository<PostMeta, Long> {
     Page<PostMeta> findByCategory(Category category, Pageable pageable);
 
     Page<PostMeta> findAllByPostIdIn(List<Long> postId, Pageable pageable);
+
+    List<PostMeta> findTop4ByOrderByHeartCountDesc();
 }

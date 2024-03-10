@@ -26,4 +26,9 @@ public class GetPostMetaDAOBean {
     public List<PostMeta> exec(List<Long> postIds){
         return postMetaRepositoryJPA.findAllById(postIds);
     }
+
+    // 좋아요순으로 추천 게시글 4개 가져오기
+    public List<PostMeta> exec(){
+        return postMetaRepositoryJPA.findTop4ByOrderByHeartCountDesc();
+    }
 }
