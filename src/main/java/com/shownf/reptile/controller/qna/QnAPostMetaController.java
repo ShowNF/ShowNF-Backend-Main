@@ -1,6 +1,7 @@
 package com.shownf.reptile.controller.qna;
 
 import com.shownf.reptile.Model.DTO.qna.ResponseQnAPostMetaDTO;
+import com.shownf.reptile.Model.DTO.qna.ResponseRecommendQnAPostGetDTO;
 import com.shownf.reptile.service.qna.QnAPostMetaService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +34,11 @@ public class QnAPostMetaController {
         return qnAPostMetaService.getQnAPostMetas(qnaPostIds);
     }
 
+
+    // 추천 QnA 게시물 4개 조회
+    @ApiOperation(value = "추천 QnA 게시물 4개 조회", notes = "추천 QnA 게시물 4개 조회")
+    @GetMapping("qna/postMeta/recommend")
+    public List<ResponseRecommendQnAPostGetDTO> getRecommendQnAPostMetas(){
+        return qnAPostMetaService.getRecommendQnAPostMetas();
+    }
 }
