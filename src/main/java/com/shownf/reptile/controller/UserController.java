@@ -68,6 +68,13 @@ public class UserController {
         return userService.getRecommendUser();
     }
 
+    // 유저 검색
+    @ApiOperation(value = "유저 검색", notes = "유저 검색")
+    @GetMapping("user/search/{search}")
+    public List<ResponseRecommendUserGetDTO> getUserSearch(@PathVariable String search){
+        return userService.getUserSearch(search);
+    }
+
     // 내 팔로우 리스트 조회
     @ApiOperation(value = "팔로우 하고 있는 유저들 조회", notes = "유저의 팔로우 리스트 조회")
     @GetMapping("user/followers/{userId}")

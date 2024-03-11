@@ -22,9 +22,10 @@ public class UserService {
     GetFollowersBean getFollowersBean;
     GetFollowingsBean getFollowingsBean;
     GetRecommendUserBean getRecommendUserBean;
+    GetUserSearchBean getUserSearchBean;
 
     @Autowired
-    public UserService(CheckValidUserBean checkValidUserBean, GetUserIdBean getUserIdBean, GetUserBean getUserBean, GetUserNameBean getUserNameBean, GetUserImageBean getUserImageBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean, GetRecommendUserBean getRecommendUserBean) {
+    public UserService(CheckValidUserBean checkValidUserBean, GetUserIdBean getUserIdBean, GetUserBean getUserBean, GetUserNameBean getUserNameBean, GetUserImageBean getUserImageBean, UpdateUserSiteNameBean updateUserSiteNameBean, SaveFollowBean saveFollowBean, DeleteFollowBean deleteFollowBean, GetFollowersBean getFollowersBean, GetFollowingsBean getFollowingsBean, GetRecommendUserBean getRecommendUserBean, GetUserSearchBean getUserSearchBean) {
         this.checkValidUserBean = checkValidUserBean;
         this.getUserIdBean = getUserIdBean;
         this.getUserBean = getUserBean;
@@ -36,6 +37,7 @@ public class UserService {
         this.getFollowersBean = getFollowersBean;
         this.getFollowingsBean = getFollowingsBean;
         this.getRecommendUserBean = getRecommendUserBean;
+        this.getUserSearchBean = getUserSearchBean;
     }
 
     // user token valid check
@@ -71,6 +73,11 @@ public class UserService {
     // 추천 계정 조회
     public List<ResponseRecommendUserGetDTO> getRecommendUser(){
         return getRecommendUserBean.exec();
+    }
+
+    // 유저 검색 조회
+    public List<ResponseRecommendUserGetDTO> getUserSearch(String search){
+        return getUserSearchBean.exec(search);
     }
 
     // 팔로우 추가
