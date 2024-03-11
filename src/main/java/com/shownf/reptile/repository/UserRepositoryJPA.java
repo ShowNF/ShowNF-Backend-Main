@@ -9,4 +9,6 @@ public interface UserRepositoryJPA extends JpaRepository<UserDAO, Long> {
     UserDAO findByOauthId(String userId);
 
     List<UserDAO> findTop5ByOrderByFollowingCountDesc();
+
+    List<UserDAO> findAllByOrderByFollowingCountDesc();
 }
