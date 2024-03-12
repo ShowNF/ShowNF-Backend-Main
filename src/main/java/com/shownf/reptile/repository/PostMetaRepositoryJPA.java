@@ -21,4 +21,8 @@ public interface PostMetaRepositoryJPA extends JpaRepository<PostMeta, Long> {
     Page<PostMeta> findAllByPostIdIn(List<Long> postId, Pageable pageable);
 
     List<PostMeta> findTop4ByOrderByHeartCountDesc();
+
+    List<PostMeta> findAllByOrderByHeartCountDesc();
+
+    List<PostMeta> findAllByOrderByUploadTimeDesc();
 }
