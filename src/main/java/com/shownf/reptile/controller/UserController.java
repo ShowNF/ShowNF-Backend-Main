@@ -70,8 +70,8 @@ public class UserController {
 
     // 유저 검색
     @ApiOperation(value = "유저 검색", notes = "유저 검색")
-    @GetMapping("user/search/{search}")
-    public List<ResponseRecommendUserGetDTO> getUserSearch(@PathVariable String search){
+    @GetMapping("user/search")
+    public List<ResponseRecommendUserGetDTO> getUserSearch(@RequestParam String search){
         return userService.getUserSearch(search);
     }
 
