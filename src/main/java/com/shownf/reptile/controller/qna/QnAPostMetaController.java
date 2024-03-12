@@ -41,4 +41,11 @@ public class QnAPostMetaController {
     public List<ResponseRecommendQnAPostGetDTO> getRecommendQnAPostMetas(){
         return qnAPostMetaService.getRecommendQnAPostMetas();
     }
+
+    // QnA 게시물 검색
+    @ApiOperation(value = "QnA 게시물 검색", notes = "QnA 게시물 검색")
+    @GetMapping("qna/postMeta/search/{searchType}")
+    public List<ResponseRecommendQnAPostGetDTO> getQnAPostSearch(@RequestParam(required = false) String search, @PathVariable(required = false) String searchType){
+        return qnAPostMetaService.getQnAPostSearch(search, searchType);
+    }
 }
