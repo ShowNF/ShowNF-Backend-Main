@@ -41,4 +41,11 @@ public class PostMetaController {
         return postMetaService.getRecommendPost();
     }
 
+
+    // 검색어를 기준으로 게시물을 조회
+    @ApiOperation(value = "검색어를 기준으로 게시물을 조회", notes = "검색어를 기준으로 게시물을 조회")
+    @GetMapping("postMeta/search/{searchType}")
+    public List<ResponseRecommendPostGetDTO> getRecommendPost(@RequestParam (required = false) String search, @PathVariable (required = false) String searchType){
+        return postMetaService.getRecommendPost(search, searchType);
+    }
 }
