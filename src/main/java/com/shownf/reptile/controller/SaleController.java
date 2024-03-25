@@ -1,9 +1,6 @@
 package com.shownf.reptile.controller;
 
-import com.shownf.reptile.Model.DTO.RequestSalePetUpdateDTO;
-import com.shownf.reptile.Model.DTO.RequestSaleSaveDTO;
-import com.shownf.reptile.Model.DTO.RequestSaleUpdateDTO;
-import com.shownf.reptile.Model.DTO.ResponseSaleDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.service.SaleService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +106,23 @@ public class SaleController {
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (saleId != null) ? "Update Success" : "Update Fail");
+        requestMap.put("saleId", saleId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 분양글 삭제
+    @ApiOperation(value = "분양글 삭제", notes = "분양글 삭제")
+    @DeleteMapping("sale")
+    public ResponseEntity<Map<String, Object>> deleteSale(@RequestBody RequestSaleDeleteDTO requestSaleDeleteDTO, HttpServletRequest request){
+        Long saleId = saleService.deleteSale(requestSaleDeleteDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (saleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (saleId != null) ? "Delete Success" : "Delete Fail");
         requestMap.put("saleId", saleId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);

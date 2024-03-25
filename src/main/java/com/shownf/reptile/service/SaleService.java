@@ -1,9 +1,6 @@
 package com.shownf.reptile.service;
 
-import com.shownf.reptile.Model.DTO.RequestSalePetUpdateDTO;
-import com.shownf.reptile.Model.DTO.RequestSaleSaveDTO;
-import com.shownf.reptile.Model.DTO.RequestSaleUpdateDTO;
-import com.shownf.reptile.Model.DTO.ResponseSaleDTO;
+import com.shownf.reptile.Model.DTO.*;
 import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,15 +19,17 @@ public class SaleService {
     SaveSaleBean saveSaleBean;
     UpdatePetUserNameBean updatePetUserNameBean;
     UpdateSaleBean updateSaleBean;
+    DeleteSaleBean deleteSaleBean;
 
     @Autowired
-    public SaleService(GetSaleBean getSaleBean, GetSalesBean getSalesBean, GetUserSaleHeartsBean getUserSaleHeartsBean, SaveSaleBean saveSaleBean, UpdatePetUserNameBean updatePetUserNameBean, UpdateSaleBean updateSaleBean) {
+    public SaleService(GetSaleBean getSaleBean, GetSalesBean getSalesBean, GetUserSaleHeartsBean getUserSaleHeartsBean, SaveSaleBean saveSaleBean, UpdatePetUserNameBean updatePetUserNameBean, UpdateSaleBean updateSaleBean, DeleteSaleBean deleteSaleBean) {
         this.getSaleBean = getSaleBean;
         this.getSalesBean = getSalesBean;
         this.getUserSaleHeartsBean = getUserSaleHeartsBean;
         this.saveSaleBean = saveSaleBean;
         this.updatePetUserNameBean = updatePetUserNameBean;
         this.updateSaleBean = updateSaleBean;
+        this.deleteSaleBean = deleteSaleBean;
     }
 
     // 분양글 조회
@@ -66,5 +65,10 @@ public class SaleService {
     // 분양글 수정
     public Long updateSale(RequestSaleUpdateDTO requestSaleUpdateDTO, HttpServletRequest request){
         return updateSaleBean.exec(requestSaleUpdateDTO, request);
+    }
+
+    // 분양글 삭제
+    public Long deleteSale(RequestSaleDeleteDTO requestSaleDeleteDTO, HttpServletRequest request){
+        return deleteSaleBean.exec(requestSaleDeleteDTO, request);
     }
 }

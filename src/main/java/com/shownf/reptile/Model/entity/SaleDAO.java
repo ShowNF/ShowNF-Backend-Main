@@ -40,4 +40,5 @@ public class SaleDAO {
     Gender gender;
     LocalDateTime uploadTime;
     LocalDateTime updateTime;
+    Boolean deleteCheck;
 }
