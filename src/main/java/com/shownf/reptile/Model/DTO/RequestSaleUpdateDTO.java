@@ -1,11 +1,13 @@
 package com.shownf.reptile.Model.DTO;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class ResponseSaleDTO {
+@Builder
+public class RequestSaleUpdateDTO {
     Long saleId;
     Long petId;
     Long userId;
@@ -17,14 +19,10 @@ public class ResponseSaleDTO {
     Double weight;
     String memo;
     Integer price;
-    Integer heartCount;
     String salePlatform;
-    String link;
-    String refundPolicy;
     Boolean cites;
     String area;
     String region;
     String gender;
-    LocalDateTime uploadTime;
     LocalDateTime updateTime;
 }

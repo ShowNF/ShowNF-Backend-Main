@@ -2,6 +2,7 @@ package com.shownf.reptile.controller;
 
 import com.shownf.reptile.Model.DTO.RequestSalePetUpdateDTO;
 import com.shownf.reptile.Model.DTO.RequestSaleSaveDTO;
+import com.shownf.reptile.Model.DTO.RequestSaleUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseSaleDTO;
 import com.shownf.reptile.service.SaleService;
 import io.swagger.annotations.ApiOperation;
@@ -92,6 +93,23 @@ public class SaleController {
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("message", (petId != null) ? "Update Success" : "Update Fail");
         requestMap.put("petId", petId);
+
+        return ResponseEntity.status(httpStatus).body(requestMap);
+    }
+
+    // 분양글 수정
+    @ApiOperation(value = "분양글 수정", notes = "분양글 수정")
+    @PutMapping("sale")
+    public ResponseEntity<Map<String, Object>> updateSale(@RequestBody RequestSaleUpdateDTO requestSaleUpdateDTO, HttpServletRequest request){
+        Long saleId = saleService.updateSale(requestSaleUpdateDTO, request);
+
+        // HTTP 상태 변환
+        HttpStatus httpStatus = (saleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        // 메시지와 id 값 json 데이터로 반환
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("message", (saleId != null) ? "Update Success" : "Update Fail");
+        requestMap.put("saleId", saleId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }

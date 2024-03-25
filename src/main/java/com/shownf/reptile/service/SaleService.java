@@ -2,6 +2,7 @@ package com.shownf.reptile.service;
 
 import com.shownf.reptile.Model.DTO.RequestSalePetUpdateDTO;
 import com.shownf.reptile.Model.DTO.RequestSaleSaveDTO;
+import com.shownf.reptile.Model.DTO.RequestSaleUpdateDTO;
 import com.shownf.reptile.Model.DTO.ResponseSaleDTO;
 import com.shownf.reptile.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,16 @@ public class SaleService {
     GetUserSaleHeartsBean getUserSaleHeartsBean;
     SaveSaleBean saveSaleBean;
     UpdatePetUserNameBean updatePetUserNameBean;
+    UpdateSaleBean updateSaleBean;
 
     @Autowired
-    public SaleService(GetSaleBean getSaleBean, GetSalesBean getSalesBean, GetUserSaleHeartsBean getUserSaleHeartsBean, SaveSaleBean saveSaleBean, UpdatePetUserNameBean updatePetUserNameBean) {
+    public SaleService(GetSaleBean getSaleBean, GetSalesBean getSalesBean, GetUserSaleHeartsBean getUserSaleHeartsBean, SaveSaleBean saveSaleBean, UpdatePetUserNameBean updatePetUserNameBean, UpdateSaleBean updateSaleBean) {
         this.getSaleBean = getSaleBean;
         this.getSalesBean = getSalesBean;
         this.getUserSaleHeartsBean = getUserSaleHeartsBean;
         this.saveSaleBean = saveSaleBean;
         this.updatePetUserNameBean = updatePetUserNameBean;
+        this.updateSaleBean = updateSaleBean;
     }
 
     // 분양글 조회
@@ -58,5 +61,10 @@ public class SaleService {
     // 분양시 펫 userId 변경
     public Long updatePetUserId(RequestSalePetUpdateDTO requestSalePetUpdateDTO, HttpServletRequest request){
         return updatePetUserNameBean.exec(requestSalePetUpdateDTO, request);
+    }
+
+    // 분양글 수정
+    public Long updateSale(RequestSaleUpdateDTO requestSaleUpdateDTO, HttpServletRequest request){
+        return updateSaleBean.exec(requestSaleUpdateDTO, request);
     }
 }

@@ -16,9 +16,9 @@ public class CreateSaleDTOBean {
         responseSaleDTO.setPetId(saleDAO.getPetId());
         responseSaleDTO.setUserId(saleDAO.getUserId());
         responseSaleDTO.setImageUrl(saleDAO.getImageUrl());
-        responseSaleDTO.setIndividual(saleDAO.getIndividual());
         responseSaleDTO.setFirstSpecies(saleDAO.getFirstSpecies());
         responseSaleDTO.setSecondSpecies(saleDAO.getSecondSpecies());
+        responseSaleDTO.setMorph(saleDAO.getMorph());
         responseSaleDTO.setHeartCount(saleDAO.getHeartCount());
         responseSaleDTO.setBirthday(saleDAO.getBirthday());
         responseSaleDTO.setWeight(saleDAO.getWeight());

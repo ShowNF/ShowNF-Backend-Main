@@ -23,9 +23,9 @@ public class SaleDAO {
     Long petId;
     Long userId;
     String imageUrl;
-    String individual;
     String firstSpecies;
     String secondSpecies;
+    String morph;
     String birthday;
     Double weight;
     String memo;
