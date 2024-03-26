@@ -183,4 +183,14 @@ public class UpdateUserExpDAOBean {
     public void exec(UserDAO userDAO, RequestSaleDeleteDTO requestSaleDeleteDTO){
         userDAO.setExp(userDAO.getExp() - userExpConfig.getSale());
     }
+
+    // 분양글 좋아요시 유저 경험치 증가
+    public void exec(UserDAO userDAO, RequestSaleHeartSaveDTO requestSaleHeartSaveDTO){
+        userDAO.setExp(userDAO.getExp() + userExpConfig.getHeart());
+    }
+
+    // 분양글 좋아요 삭제시 유저 경험치 감소
+    public void exec(UserDAO userDAO, RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getHeart());
+    }
 }
