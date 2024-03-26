@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,8 +53,8 @@ public class SaleHeartController {
     // 분양글 좋아요 삭제
     @ApiOperation(value = "분양글 좋아요 삭제", notes = "분양글에 좋아요를 누를시 삭제한다.")
     @DeleteMapping("saleHeart")
-    public ResponseEntity<Map<String, Object>> deleteSaleHeart(@RequestBody RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO){
-        Long saleId = saleHeartService.deleteSaleHeart(requestSaleHeartDeleteDTO);
+    public ResponseEntity<Map<String, Object>> deleteSaleHeart(@RequestBody RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO, HttpServletRequest request){
+        Long saleId = saleHeartService.deleteSaleHeart(requestSaleHeartDeleteDTO, request);
 
         // HTTP 상태 반환
         HttpStatus httpStatus = (saleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;

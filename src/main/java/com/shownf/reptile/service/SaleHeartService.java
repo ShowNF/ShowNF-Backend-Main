@@ -8,6 +8,7 @@ import com.shownf.reptile.bean.SaveSaleHeartBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -35,7 +36,7 @@ public class SaleHeartService {
     }
 
     // 분양글 좋아요 삭제
-    public Long deleteSaleHeart(RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO){
-        return deleteSaleHeartBean.exec(requestSaleHeartDeleteDTO);
+    public Long deleteSaleHeart(RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO, HttpServletRequest request){
+        return deleteSaleHeartBean.exec(requestSaleHeartDeleteDTO, request);
     }
 }
