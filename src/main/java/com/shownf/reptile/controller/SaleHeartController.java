@@ -36,15 +36,15 @@ public class SaleHeartController {
     @ApiOperation(value = "분양글 좋아요 저장", notes = "분양글에 좋아요를 누를시 저장한다.")
     @PostMapping("saleHeart")
     public ResponseEntity<Map<String, Object>> saveSaleHeart(@RequestBody RequestSaleHeartSaveDTO requestSaleHeartSaveDTO){
-        Long saleHeartId = saleHeartService.saveSaleHeart(requestSaleHeartSaveDTO);
+        Long saleId = saleHeartService.saveSaleHeart(requestSaleHeartSaveDTO);
 
         // HTTP 상태 변환
-        HttpStatus httpStatus = (saleHeartId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus httpStatus = (saleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
 
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("message", (saleHeartId != null) ? "Save Success" : "Save Fail");
-        requestMap.put("saleHeartId", saleHeartId);
+        requestMap.put("message", (saleId != null) ? "Save Success" : "Save Fail");
+        requestMap.put("saleId", saleId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }
@@ -53,15 +53,15 @@ public class SaleHeartController {
     @ApiOperation(value = "분양글 좋아요 삭제", notes = "분양글에 좋아요를 누를시 삭제한다.")
     @DeleteMapping("saleHeart")
     public ResponseEntity<Map<String, Object>> deleteSaleHeart(@RequestBody RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO){
-        Long saleHeartId = saleHeartService.deleteSaleHeart(requestSaleHeartDeleteDTO);
+        Long saleId = saleHeartService.deleteSaleHeart(requestSaleHeartDeleteDTO);
 
         // HTTP 상태 반환
-        HttpStatus httpStatus = (saleHeartId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+        HttpStatus httpStatus = (saleId != null) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
 
         // 메시지와 id 값 json 데이터로 반환
         Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("message", (saleHeartId != null) ? "Delete Success" : "Delete Fail");
-        requestMap.put("saleHeartId", saleHeartId);
+        requestMap.put("message", (saleId != null) ? "Delete Success" : "Delete Fail");
+        requestMap.put("saleId", saleId);
 
         return ResponseEntity.status(httpStatus).body(requestMap);
     }

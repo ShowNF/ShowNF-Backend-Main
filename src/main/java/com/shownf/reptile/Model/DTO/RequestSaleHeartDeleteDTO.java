@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class RequestSaleHeartDeleteDTO {
-    Long saleHeartId;
     Long saleId;
     Long userId;
 }

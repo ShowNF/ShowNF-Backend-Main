@@ -31,13 +31,8 @@ public class DeleteSaleHeartBean {
     public Long exec(RequestSaleHeartDeleteDTO requestSaleHeartDeleteDTO){
 
         // 분양글 좋아요 중복 배제
-        if (getSaleHeartDAOBean.exec(requestSaleHeartDeleteDTO.getUserId(), requestSaleHeartDeleteDTO.getSaleId()) == null) return 0L;
-
-        // 분양글 좋아요 아이디 찾기
-        Long saleHeartId = requestSaleHeartDeleteDTO.getSaleHeartId();
-
-        // 아이디로 삭제할 좋아요 찾기
-        SaleHeartDAO saleHeartDAO = getSaleHeartDAOBean.exec(saleHeartId);
+        SaleHeartDAO saleHeartDAO = getSaleHeartDAOBean.exec(requestSaleHeartDeleteDTO.getUserId(), requestSaleHeartDeleteDTO.getSaleId());
+        if (saleHeartDAO == null) return 0L;
 
         // 분양글 좋아요 해당하는 분양글 확인
         if (!checkSaleIdSaleDAOBean.exec(saleHeartDAO, requestSaleHeartDeleteDTO))
@@ -47,16 +42,16 @@ public class DeleteSaleHeartBean {
         if (!checkUserIdSaleDAOBean.exec(saleHeartDAO, requestSaleHeartDeleteDTO))
             return null;
 
+        // 분양글 좋아요 갯수 감소
+        SaleDAO saleDAO = updateSaleHeartCountDAOBean.exec(0L, saleHeartDAO);
+
         // 좋아요 삭제
         deleteSaleHeartDAOBean.exec(saleHeartDAO);
-
-        // 분양글 좋아요 갯수 감소
-        SaleDAO saleDAO = updateSaleHeartCountDAOBean.exec(saleHeartId, saleHeartDAO);
 
         // 분양글 저장
         saveSaleDAOBean.exec(saleDAO);
 
-        // saleHeartId 반환
-        return saleHeartId;
+        // saleId 반환
+        return saleDAO.getSaleId();
     }
 }
