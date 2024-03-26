@@ -173,4 +173,14 @@ public class UpdateUserExpDAOBean {
     public void exec(UserDAO userDAO, RequestQnACommentSelectionDeleteDTO requestQnACommentSelectionDeleteDTO){
         userDAO.setExp(userDAO.getExp() - userExpConfig.getSelection());
     }
+
+    // 분양글 작성시 유저 경험치 증가
+    public void exec(UserDAO userDAO, RequestSaleSaveDTO requestSaleSaveDTO){
+        userDAO.setExp(userDAO.getExp() + userExpConfig.getSale());
+    }
+
+    // 분양글 작성시 유저 경험치 감소
+    public void exec(UserDAO userDAO, RequestSaleDeleteDTO requestSaleDeleteDTO){
+        userDAO.setExp(userDAO.getExp() - userExpConfig.getSale());
+    }
 }

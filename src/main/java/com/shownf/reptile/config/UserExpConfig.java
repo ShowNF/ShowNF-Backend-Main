@@ -15,4 +15,5 @@ public class UserExpConfig {
     int reply;
     int post;
     int selection;
+    int sale;
 }
