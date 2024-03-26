@@ -10,9 +10,9 @@ public class RequestSaleSaveDTO {
     Long petId;
     Long userId;
     List<Map<String, String>> imageUrl;
-    String individual;
     String firstSpecies;
     String secondSpecies;
+    String morph;
     String birthday;
     Double weight;
     String memo;

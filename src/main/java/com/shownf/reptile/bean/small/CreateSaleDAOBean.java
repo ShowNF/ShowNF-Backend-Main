@@ -31,14 +31,15 @@ public class CreateSaleDAOBean {
         }catch (IOException e){
             e.printStackTrace();
         }
-        // 개체
-        String individual = requestSaleSaveDTO.getIndividual();
 
         // 첫번째 종
         String firstSpecies = requestSaleSaveDTO.getFirstSpecies();
 
         // 두번째 종
         String secondSpecies = requestSaleSaveDTO.getSecondSpecies();
+
+        // 모프
+        String morph = requestSaleSaveDTO.getMorph();
 
         // 생일
         String birthday = requestSaleSaveDTO.getBirthday();
@@ -83,6 +84,6 @@ public class CreateSaleDAOBean {
         LocalDateTime updateTime = LocalDateTime.now();
 
         // DTO 반환
-        return new SaleDAO(saleId, petId, userId, imageUrl, individual, firstSpecies, secondSpecies, birthday, weight, memo, price, heartCount, salePlatform, link, refundPolicy, cites, area, region, gender, uploadTime, updateTime);
+        return new SaleDAO(saleId, petId, userId, imageUrl, firstSpecies, secondSpecies, morph, birthday, weight, memo, price, heartCount, salePlatform, link, refundPolicy, cites, area, region, gender, uploadTime, updateTime, false);
     }
 }

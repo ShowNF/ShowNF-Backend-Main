@@ -24,5 +24,6 @@ public class ResponseUserDTO {
     Integer sendHeartCount;
     Integer receiveHeartCount;
     Integer selectionCount;
+    Integer saleCount;
     Integer exp;
 }
