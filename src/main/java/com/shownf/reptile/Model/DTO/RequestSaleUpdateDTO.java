@@ -1,17 +1,17 @@
 package com.shownf.reptile.Model.DTO;
 
-import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+
 
 @Data
-@Builder
 public class RequestSaleUpdateDTO {
     Long saleId;
     Long petId;
     Long userId;
-    String imageUrl;
+    List<Map<String, String>> imageUrl;
     String firstSpecies;
     String secondSpecies;
     String morph;
@@ -24,5 +24,4 @@ public class RequestSaleUpdateDTO {
     String area;
     String region;
     String gender;
-    LocalDateTime updateTime;
 }
