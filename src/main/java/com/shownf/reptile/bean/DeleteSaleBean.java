@@ -3,9 +3,7 @@ package com.shownf.reptile.bean;
 import com.shownf.reptile.Model.DTO.RequestSaleDeleteDTO;
 import com.shownf.reptile.Model.entity.SaleDAO;
 import com.shownf.reptile.Model.entity.UserDAO;
-import com.shownf.reptile.bean.small.CheckUserAccessTokenDAOBean;
-import com.shownf.reptile.bean.small.GetSaleDAOBean;
-import com.shownf.reptile.bean.small.GetUserDAOBean;
+import com.shownf.reptile.bean.small.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +15,18 @@ public class DeleteSaleBean {
     GetSaleDAOBean getSaleDAOBean;
     GetUserDAOBean getUserDAOBean;
     CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean;
+    UpdateUserExpDAOBean updateUserExpDAOBean;
+    SaveSaleDAOBean saveSaleDAOBean;
+    SaveUserDAOBean saveUserDAOBean;
 
     @Autowired
-    public DeleteSaleBean(GetSaleDAOBean getSaleDAOBean, GetUserDAOBean getUserDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean) {
+    public DeleteSaleBean(GetSaleDAOBean getSaleDAOBean, GetUserDAOBean getUserDAOBean, CheckUserAccessTokenDAOBean checkUserAccessTokenDAOBean, UpdateUserExpDAOBean updateUserExpDAOBean, SaveSaleDAOBean saveSaleDAOBean, SaveUserDAOBean saveUserDAOBean) {
         this.getSaleDAOBean = getSaleDAOBean;
         this.getUserDAOBean = getUserDAOBean;
         this.checkUserAccessTokenDAOBean = checkUserAccessTokenDAOBean;
+        this.updateUserExpDAOBean = updateUserExpDAOBean;
+        this.saveSaleDAOBean = saveSaleDAOBean;
+        this.saveUserDAOBean = saveUserDAOBean;
     }
 
 
@@ -44,10 +48,17 @@ public class DeleteSaleBean {
         saleDAO.setDeleteCheck(true);
 
         // 유저 분양글 수 감소
+        userDAO.setSaleCount(userDAO.getSaleCount() - 1);
 
         // 경험치 감소
+        updateUserExpDAOBean.exec(userDAO, requestSaleDeleteDTO);
 
+        // 분양글 저장
+        saveSaleDAOBean.exec(saleDAO);
 
-        return 0L;
+        // 유저 저장
+        saveUserDAOBean.exec(userDAO);
+
+        return saleDAO.getSaleId();
     }
 }
