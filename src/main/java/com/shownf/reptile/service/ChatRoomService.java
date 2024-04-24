@@ -25,12 +25,12 @@ public class ChatRoomService {
     }
 
     // 판매자 채팅방 전체 조회
-    public List<ResponseChatRoomDTO> getSellerChatRooms(String userId){
+    public List<ResponseChatRoomDTO> getSellerChatRooms(Long userId){
         return getSellerChatRoomsBean.exec(userId);
     }
 
     // 구매자 채팅방 전체 조회
-    public List<ResponseChatRoomDTO> getBuyerChatRooms(String userId){
+    public List<ResponseChatRoomDTO> getBuyerChatRooms(Long userId){
         return getBuyerChatRoomsBean.exec(userId);
     }
 

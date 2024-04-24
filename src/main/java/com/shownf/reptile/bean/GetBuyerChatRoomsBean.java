@@ -22,7 +22,7 @@ public class GetBuyerChatRoomsBean {
     }
 
     // 구매자 채팅방 전체 조회
-    public List<ResponseChatRoomDTO> exec(String userId){
+    public List<ResponseChatRoomDTO> exec(Long userId){
 
         // userId와 buyerId 일치하는 채팅방 객체 찾기
         List<ChatRoomDAO> chatRoomDAOs = getBuyerChatRoomsDAOBean.exec(userId);

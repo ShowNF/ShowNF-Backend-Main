@@ -18,7 +18,7 @@ public class CreateChatRoomsDTOBean {
         for (ChatRoomDAO chatRoomDAO : chatRoomDAOs){
             ResponseChatRoomDTO responseChatRoomDTO = new ResponseChatRoomDTO();
 
-            responseChatRoomDTO.setUniqueId(responseChatRoomDTO.getUniqueId());
+            responseChatRoomDTO.setUniqueId(chatRoomDAO.getUniqueId());
             responseChatRoomDTO.setChatRoomId(chatRoomDAO.getChatRoomId());
             responseChatRoomDTO.setSellerId(chatRoomDAO.getSellerId());
             responseChatRoomDTO.setBuyerId(chatRoomDAO.getBuyerId());

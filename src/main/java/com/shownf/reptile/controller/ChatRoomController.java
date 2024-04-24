@@ -27,14 +27,14 @@ public class ChatRoomController {
     // 판매자 채팅방 전체 조회
     @ApiOperation(value = "판매자 채팅방 조회", notes = "판매하는 글의 채팅방을 조회한다.")
     @GetMapping("chat-room/seller/{userId}")
-    public List<ResponseChatRoomDTO> getSellerChatRooms(@PathVariable String userId){
+    public List<ResponseChatRoomDTO> getSellerChatRooms(@PathVariable Long userId){
         return chatRoomService.getSellerChatRooms(userId);
     }
 
     // 구매자 채팅방 전체 조회
     @ApiOperation(value = "구매자 채팅방 조회", notes = "구매하는 글의 채팅방을 조회한다.")
     @GetMapping("chat-room/buyer/{userId}")
-    public List<ResponseChatRoomDTO> getBuyerChatRooms(@PathVariable String userId){
+    public List<ResponseChatRoomDTO> getBuyerChatRooms(@PathVariable Long userId){
         return chatRoomService.getBuyerChatRooms(userId);
     }
 

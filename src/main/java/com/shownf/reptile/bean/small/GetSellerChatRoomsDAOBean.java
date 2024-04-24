@@ -19,7 +19,7 @@ public class GetSellerChatRoomsDAOBean {
     }
 
     // 판매하는 경우의 채팅방 조회
-    public List<ChatRoomDAO> exec(String userId){
+    public List<ChatRoomDAO> exec(Long userId){
         return chatRoomRepositoryJPA.findBySellerId(userId);
     }
 }
