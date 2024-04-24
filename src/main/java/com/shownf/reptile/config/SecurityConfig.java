@@ -26,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login/oauth2/**", "/", "/test/**","/chat-event", "/connect/**").permitAll() // 로그인, health 체크
                 .antMatchers("/user/**/name", "/user/search/**", "/user/{userId}", "/user/**/image", "/user/**/token").permitAll()// 유저 이름, 이미지 정보
+                .antMatchers(HttpMethod.POST, "/chat-room").permitAll()
+                .antMatchers(HttpMethod.GET, "/chat-room/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/pet/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/postMeta/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/qna/post/**").permitAll()
