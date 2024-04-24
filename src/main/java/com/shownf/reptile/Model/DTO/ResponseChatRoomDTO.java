@@ -10,5 +10,8 @@ public class ResponseChatRoomDTO {
     String chatRoomId;
     Long sellerId;
     Long buyerId;
+    String content;
+    Long contentUserId;
+    LocalDateTime contentUploadTime;
     LocalDateTime uploadTime;
 }

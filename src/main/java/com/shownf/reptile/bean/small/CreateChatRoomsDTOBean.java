@@ -22,6 +22,9 @@ public class CreateChatRoomsDTOBean {
             responseChatRoomDTO.setChatRoomId(chatRoomDAO.getChatRoomId());
             responseChatRoomDTO.setSellerId(chatRoomDAO.getSellerId());
             responseChatRoomDTO.setBuyerId(chatRoomDAO.getBuyerId());
+            responseChatRoomDTO.setContent(chatRoomDAO.getContent());
+            responseChatRoomDTO.setContentUserId(chatRoomDAO.getContentUserId());
+            responseChatRoomDTO.setContentUploadTime(chatRoomDAO.getContentUploadTime());
             responseChatRoomDTO.setUploadTime(chatRoomDAO.getUploadTime());
 
             responseChatRoomDTOs.add(responseChatRoomDTO);
