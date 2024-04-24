@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -53,6 +54,11 @@ public class SseEmittersBean {
         // chatRoomId를 이용하여 해당 채팅방에만 데이터 전송
         String chatRoomId = chat.getChatId();
         ChatRoomDAO chatRoomDAO = chatRoomRepositoryJPA.findByChatRoomId(chatRoomId);
+
+        chatRoomDAO.setContent(chat.getContent());
+        chatRoomDAO.setContentUserId(chat.getSenderId());
+        chatRoomDAO.setContentUploadTime(LocalDateTime.now());
+        chatRoomRepositoryJPA.save(chatRoomDAO);
 
         // 채팅방 + 유저아이디 해시
         int key;
