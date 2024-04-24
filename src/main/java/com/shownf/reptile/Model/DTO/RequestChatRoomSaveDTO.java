@@ -7,4 +7,5 @@ public class RequestChatRoomSaveDTO {
     String chatRoomId;
     Long sellerId;
     Long buyerId;
+    String category;
 }

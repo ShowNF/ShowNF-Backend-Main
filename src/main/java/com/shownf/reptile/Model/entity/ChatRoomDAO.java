@@ -1,5 +1,6 @@
 package com.shownf.reptile.Model.entity;
 
+import com.shownf.reptile.Model.Enum.ChatCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,9 @@ public class ChatRoomDAO {
     String chatRoomId;
     Long sellerId;
     Long buyerId;
+    ChatCategory category;
+    String content;
+    Long contentUserId;
+    LocalDateTime contentUploadTime;
     LocalDateTime uploadTime;
 }
